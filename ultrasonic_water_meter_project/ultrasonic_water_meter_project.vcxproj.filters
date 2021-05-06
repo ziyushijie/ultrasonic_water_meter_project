@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{14669c6b-cd11-468d-9267-a541d5ec52e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\APP">
+      <UniqueIdentifier>{eff86b72-03e8-40e5-ba31-17b50ce2af6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Complier">
+      <UniqueIdentifier>{01f85edb-21fe-4c3e-9d16-e5be586609aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Doc">
+      <UniqueIdentifier>{498e9078-e75b-4300-a7c8-6cb5be430c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers">
+      <UniqueIdentifier>{d79ca4f7-1b31-4550-822e-ebab2f72980a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DriversLog">
+      <UniqueIdentifier>{53dfb373-e8a4-4b59-97c4-ae4303e83a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DriversPlus">
+      <UniqueIdentifier>{9165e9f3-4079-4a74-a060-bd503f2922b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HWConfig">
+      <UniqueIdentifier>{98da091c-1084-4a4d-9fd7-bbaf280c66de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{31d0de26-29b2-4198-9bab-8716d4a718a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\AT24Cxx">
+      <UniqueIdentifier>{e707f052-fe09-477f-b99d-6c68f535cc8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\Delay">
+      <UniqueIdentifier>{cc66206d-3cf7-4d05-ae46-9c05db89f27b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\GPIO">
+      <UniqueIdentifier>{9a2e983a-db1e-4d92-9116-ebd2cad23daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\I2C">
+      <UniqueIdentifier>{b4947dc6-c854-44c5-96d9-18affcab9d0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\MS1022">
+      <UniqueIdentifier>{09ef3070-431f-43dd-bfe6-1987d7e072d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\RTC">
+      <UniqueIdentifier>{41616560-87dc-4098-a71f-d7d3842f25e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\SysTick">
+      <UniqueIdentifier>{f05f2ec3-103a-4c68-91a1-bc037d3287e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DriversPlus\Comliers">
+      <UniqueIdentifier>{9e2ac006-5a18-4970-9098-34bb2ad894cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DriversPlus\R7F0C019">
+      <UniqueIdentifier>{335d846f-8770-48ed-9add-13c381639632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\CRC">
+      <UniqueIdentifier>{bcd675fb-779a-41fc-a504-5423fedd86d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\UART">
+      <UniqueIdentifier>{c94458da-2bb0-4422-a926-d9f5043dc0f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\WDT">
+      <UniqueIdentifier>{df0a1e8b-0683-41f1-ba69-2e0744cd0196}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\APP\config.h">
+      <Filter>Application\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\APP\main.h">
+      <Filter>Application\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="Complier\complier_cfg.h">
+      <Filter>Complier</Filter>
+    </ClInclude>
+    <ClInclude Include="Complier\complier_lib.h">
+      <Filter>Complier</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_adc.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_cgc.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_comp.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_dmac.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_intp.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_it.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_lcd.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_macrodriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_pclbuz.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_port.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_rtc.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_sau.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_tau.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_userdefine.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\cg_src\r_cg_wdt.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="DriversLog\log_cfg.h">
+      <Filter>DriversLog</Filter>
+    </ClInclude>
+    <ClInclude Include="DriversPlus\Compliers\rl78_cfg.h">
+      <Filter>DriversPlus\Comliers</Filter>
+    </ClInclude>
+    <ClInclude Include="DriversPlus\R7F0C019\iodefine.h">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </ClInclude>
+    <ClInclude Include="HWConfig\hw_config.h">
+      <Filter>HWConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_cfg.h">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_lib.h">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_task.h">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Delay\delay_cfg.h">
+      <Filter>SDK\Delay</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Delay\delay_lib.h">
+      <Filter>SDK\Delay</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Delay\delay_task.h">
+      <Filter>SDK\Delay</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\GPIO\gpio_cfg.h">
+      <Filter>SDK\GPIO</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\GPIO\gpio_lib.h">
+      <Filter>SDK\GPIO</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\GPIO\gpio_task.h">
+      <Filter>SDK\GPIO</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\I2C\i2c_cfg.h">
+      <Filter>SDK\I2C</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\I2C\i2c_lib.h">
+      <Filter>SDK\I2C</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\I2C\i2c_task.h">
+      <Filter>SDK\I2C</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MS1022\ms1022_cfg.h">
+      <Filter>SDK\MS1022</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MS1022\ms1022_lib.h">
+      <Filter>SDK\MS1022</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MS1022\ms1022_task.h">
+      <Filter>SDK\MS1022</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SysTick\sys_tick_cfg.h">
+      <Filter>SDK\SysTick</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SysTick\sys_tick_lib.h">
+      <Filter>SDK\SysTick</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SysTick\sys_tick_task.h">
+      <Filter>SDK\SysTick</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\RTC\rtc_cfg.h">
+      <Filter>SDK\RTC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\RTC\rtc_lib.h">
+      <Filter>SDK\RTC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\RTC\rtc_task.h">
+      <Filter>SDK\RTC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CRC\crc_cfg.h">
+      <Filter>SDK\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CRC\crc_lib.h">
+      <Filter>SDK\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CRC\crc_task.h">
+      <Filter>SDK\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\UART\uart_cfg.h">
+      <Filter>SDK\UART</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\UART\uart_lib.h">
+      <Filter>SDK\UART</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\UART\uart_task.h">
+      <Filter>SDK\UART</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\WDT\wdt_cfg.h">
+      <Filter>SDK\WDT</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\WDT\wdt_lib.h">
+      <Filter>SDK\WDT</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\WDT\wdt_task.h">
+      <Filter>SDK\WDT</Filter>
+    </ClInclude>
+    <ClInclude Include="DriversPlus\R7F0C019\rl78_it.h">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\APP\main.c">
+      <Filter>Application\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="Complier\complier_cfg.c">
+      <Filter>Complier</Filter>
+    </ClCompile>
+    <ClCompile Include="Complier\complier_lib.c">
+      <Filter>Complier</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_adc.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_adc_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_cgc.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_cgc_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_comp.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_comp_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_dmac.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_dmac_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_intp.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_intp_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_it.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_it_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_lcd.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_lcd_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_main.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_pclbuz.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_pclbuz_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_port.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_port_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_rtc.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_rtc_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_sau.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_sau_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_systeminit.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_tau.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_tau_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_wdt.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\cg_src\r_cg_wdt_user.c">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="DriversLog\log_cfg.c">
+      <Filter>DriversLog</Filter>
+    </ClCompile>
+    <ClCompile Include="DriversPlus\Compliers\rl78_cfg.c">
+      <Filter>DriversPlus\Comliers</Filter>
+    </ClCompile>
+    <ClCompile Include="HWConfig\hw_config.c">
+      <Filter>HWConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_cfg.c">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_lib.c">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_task.c">
+      <Filter>SDK\AT24Cxx</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Delay\delay_cfg.c">
+      <Filter>SDK\Delay</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Delay\delay_lib.c">
+      <Filter>SDK\Delay</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Delay\delay_task.c">
+      <Filter>SDK\Delay</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\GPIO\gpio_cfg.c">
+      <Filter>SDK\GPIO</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\GPIO\gpio_lib.c">
+      <Filter>SDK\GPIO</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\GPIO\gpio_task.c">
+      <Filter>SDK\GPIO</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\I2C\i2c_cfg.c">
+      <Filter>SDK\I2C</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\I2C\i2c_lib.c">
+      <Filter>SDK\I2C</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\I2C\i2c_task.c">
+      <Filter>SDK\I2C</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MS1022\ms1022_cfg.c">
+      <Filter>SDK\MS1022</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MS1022\ms1022_lib.c">
+      <Filter>SDK\MS1022</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MS1022\ms1022_task.c">
+      <Filter>SDK\MS1022</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SysTick\sys_tick_cfg.c">
+      <Filter>SDK\SysTick</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SysTick\sys_tick_lib.c">
+      <Filter>SDK\SysTick</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SysTick\sys_tick_task.c">
+      <Filter>SDK\SysTick</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\RTC\rtc_cfg.c">
+      <Filter>SDK\RTC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\RTC\rtc_lib.c">
+      <Filter>SDK\RTC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\RTC\rtc_task.c">
+      <Filter>SDK\RTC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\CRC\crc_cfg.c">
+      <Filter>SDK\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\CRC\crc_lib.c">
+      <Filter>SDK\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\CRC\crc_task.c">
+      <Filter>SDK\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\UART\uart_cfg.c">
+      <Filter>SDK\UART</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\UART\uart_lib.c">
+      <Filter>SDK\UART</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\UART\uart_task.c">
+      <Filter>SDK\UART</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\WDT\wdt_cfg.c">
+      <Filter>SDK\WDT</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\WDT\wdt_lib.c">
+      <Filter>SDK\WDT</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\WDT\wdt_task.c">
+      <Filter>SDK\WDT</Filter>
+    </ClCompile>
+    <ClCompile Include="DriversPlus\R7F0C019\r78_it.c">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Doc\read me.txt">
+      <Filter>Doc</Filter>
+    </Text>
+    <Text Include="Drivers\cg_src\r_option_cc.txt">
+      <Filter>Drivers</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DriversPlus\R7F0C019\cstart.asm">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </None>
+    <None Include="DriversPlus\R7F0C019\hdwinit.asm">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </None>
+    <None Include="DriversPlus\R7F0C019\stkinit.asm">
+      <Filter>DriversPlus\R7F0C019</Filter>
+    </None>
+  </ItemGroup>
+</Project>

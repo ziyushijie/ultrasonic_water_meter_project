@@ -1,0 +1,32 @@
+#ifndef I2C_LIB_H_
+#define I2C_LIB_H_
+//////////////////////////////////////////////////////////////////////////////////////
+#ifdef __cplusplus
+extern "C" {
+#endif
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	#include "main.h"
+	#include "gpio_lib.h"
+	
+	#define IIC_SCL GPIO(4,5)
+	#define IIC_SDA GPIO(4,4)   
+	
+//	//IIC总线
+//	sbit sda=P3^2;
+//	sbit scl=P3^3;
+// 	sbit EEPROM_WP = P3^4;//写保护0-可读写
+
+	void I2C_start(void);  //开始信号
+	void I2C_stop(void);   //停止
+	void I2C_ASK(void);  //应答
+	void I2C_notASK(void);//非应答
+	void I2C_writebyte(unsigned char data);	  //写一个字节
+	unsigned char I2C_readbyte(void);	  //读一个字节
+								   
+	//////////////////////////////////////////////////////////////////////////////////////
+#ifdef __cplusplus
+}
+#endif
+//////////////////////////////////////////////////////////////////////////////////////
+#endif /* I2C_LIB_H_ */

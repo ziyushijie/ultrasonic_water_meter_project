@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="STM32F407xxProject|Win32">
+      <Configuration>STM32F407xxProject</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\APP\config.h" />
+    <ClInclude Include="Application\APP\main.h" />
+    <ClInclude Include="Complier\complier_cfg.h" />
+    <ClInclude Include="Complier\complier_lib.h" />
+    <ClInclude Include="DriversLog\log_cfg.h" />
+    <ClInclude Include="DriversPlus\Compliers\rl78_cfg.h" />
+    <ClInclude Include="DriversPlus\R7F0C019\iodefine.h" />
+    <ClInclude Include="DriversPlus\R7F0C019\rl78_it.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_adc.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_cgc.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_comp.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_dmac.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_intp.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_it.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_lcd.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_macrodriver.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_pclbuz.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_port.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_rtc.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_sau.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_tau.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_userdefine.h" />
+    <ClInclude Include="Drivers\cg_src\r_cg_wdt.h" />
+    <ClInclude Include="HWConfig\hw_config.h" />
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_cfg.h" />
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_lib.h" />
+    <ClInclude Include="SDK\AT24Cxx\at24cxx_task.h" />
+    <ClInclude Include="SDK\CRC\crc_cfg.h" />
+    <ClInclude Include="SDK\CRC\crc_lib.h" />
+    <ClInclude Include="SDK\CRC\crc_task.h" />
+    <ClInclude Include="SDK\Delay\delay_cfg.h" />
+    <ClInclude Include="SDK\Delay\delay_lib.h" />
+    <ClInclude Include="SDK\Delay\delay_task.h" />
+    <ClInclude Include="SDK\GPIO\gpio_cfg.h" />
+    <ClInclude Include="SDK\GPIO\gpio_lib.h" />
+    <ClInclude Include="SDK\GPIO\gpio_task.h" />
+    <ClInclude Include="SDK\I2C\i2c_cfg.h" />
+    <ClInclude Include="SDK\I2C\i2c_lib.h" />
+    <ClInclude Include="SDK\I2C\i2c_task.h" />
+    <ClInclude Include="SDK\MS1022\ms1022_cfg.h" />
+    <ClInclude Include="SDK\MS1022\ms1022_lib.h" />
+    <ClInclude Include="SDK\MS1022\ms1022_task.h" />
+    <ClInclude Include="SDK\RTC\rtc_cfg.h" />
+    <ClInclude Include="SDK\RTC\rtc_lib.h" />
+    <ClInclude Include="SDK\RTC\rtc_task.h" />
+    <ClInclude Include="SDK\SysTick\sys_tick_cfg.h" />
+    <ClInclude Include="SDK\SysTick\sys_tick_lib.h" />
+    <ClInclude Include="SDK\SysTick\sys_tick_task.h" />
+    <ClInclude Include="SDK\UART\uart_cfg.h" />
+    <ClInclude Include="SDK\UART\uart_lib.h" />
+    <ClInclude Include="SDK\UART\uart_task.h" />
+    <ClInclude Include="SDK\WDT\wdt_cfg.h" />
+    <ClInclude Include="SDK\WDT\wdt_lib.h" />
+    <ClInclude Include="SDK\WDT\wdt_task.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\APP\main.c" />
+    <ClCompile Include="Complier\complier_cfg.c" />
+    <ClCompile Include="Complier\complier_lib.c" />
+    <ClCompile Include="DriversLog\log_cfg.c" />
+    <ClCompile Include="DriversPlus\Compliers\rl78_cfg.c" />
+    <ClCompile Include="DriversPlus\R7F0C019\r78_it.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_adc.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_adc_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_cgc.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_cgc_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_comp.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_comp_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_dmac.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_dmac_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_intp.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_intp_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_it.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_it_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_lcd.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_lcd_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_main.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_pclbuz.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_pclbuz_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_port.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_port_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_rtc.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_rtc_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_sau.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_sau_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_systeminit.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_tau.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_tau_user.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_wdt.c" />
+    <ClCompile Include="Drivers\cg_src\r_cg_wdt_user.c" />
+    <ClCompile Include="HWConfig\hw_config.c" />
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_cfg.c" />
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_lib.c" />
+    <ClCompile Include="SDK\AT24Cxx\at24cxx_task.c" />
+    <ClCompile Include="SDK\CRC\crc_cfg.c" />
+    <ClCompile Include="SDK\CRC\crc_lib.c" />
+    <ClCompile Include="SDK\CRC\crc_task.c" />
+    <ClCompile Include="SDK\Delay\delay_cfg.c" />
+    <ClCompile Include="SDK\Delay\delay_lib.c" />
+    <ClCompile Include="SDK\Delay\delay_task.c" />
+    <ClCompile Include="SDK\GPIO\gpio_cfg.c" />
+    <ClCompile Include="SDK\GPIO\gpio_lib.c" />
+    <ClCompile Include="SDK\GPIO\gpio_task.c" />
+    <ClCompile Include="SDK\I2C\i2c_cfg.c" />
+    <ClCompile Include="SDK\I2C\i2c_lib.c" />
+    <ClCompile Include="SDK\I2C\i2c_task.c" />
+    <ClCompile Include="SDK\MS1022\ms1022_cfg.c" />
+    <ClCompile Include="SDK\MS1022\ms1022_lib.c" />
+    <ClCompile Include="SDK\MS1022\ms1022_task.c" />
+    <ClCompile Include="SDK\RTC\rtc_cfg.c" />
+    <ClCompile Include="SDK\RTC\rtc_lib.c" />
+    <ClCompile Include="SDK\RTC\rtc_task.c" />
+    <ClCompile Include="SDK\SysTick\sys_tick_cfg.c" />
+    <ClCompile Include="SDK\SysTick\sys_tick_lib.c" />
+    <ClCompile Include="SDK\SysTick\sys_tick_task.c" />
+    <ClCompile Include="SDK\UART\uart_cfg.c" />
+    <ClCompile Include="SDK\UART\uart_lib.c" />
+    <ClCompile Include="SDK\UART\uart_task.c" />
+    <ClCompile Include="SDK\WDT\wdt_cfg.c" />
+    <ClCompile Include="SDK\WDT\wdt_lib.c" />
+    <ClCompile Include="SDK\WDT\wdt_task.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Doc\read me.txt" />
+    <Text Include="Drivers\cg_src\r_option_cc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DriversPlus\R7F0C019\cstart.asm" />
+    <None Include="DriversPlus\R7F0C019\hdwinit.asm" />
+    <None Include="DriversPlus\R7F0C019\stkinit.asm" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{061D8C83-F200-4DD9-5B61-472C4764375B}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>STM32F407xxProject</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='STM32F407xxProject|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='STM32F407xxProject|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='STM32F407xxProject|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\STM32F407xxProject\</OutDir>
+    <IntDir>obj\</IntDir>
+    <TargetName>STM32F407xxProject</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <IncludePath>$(VC_IncludePath);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='STM32F407xxProject|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>MCU_USE_RL78_R7F0；;USER_OPT_BYTE=0xFF1FEA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\DriversPlus\Compliers;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\Complier;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\Doc;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\HWConfig;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\DriversPlus\R7F0C019;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\Drivers\cg_src;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\Application\APP;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\CRC;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\GPIO;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\I2C;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\AT24Cxx;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\SysTick;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\SDK\UART;..\..\SDK\SPI;..\..\SDK\LED;..\..\SDK\ADC;..\..\SDK\Key;..\..\SDK\EEPROM;..\..\SDK\FLASH;..\..\SDK\BKP;..\..\SDK\CSS;..\..\SDK\IAP;..\..\SDK\WWDG;..\..\SDK\W25Qxx;..\..\SDK\RTC;..\..\SDK\PVD;..\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy;..\..\SDK\ESP8266;..\..\Application\FIFO;..\..\Application\cJSON;..\..\Application\AES;..\..\SDK\DMA;..\..\DriversPlus\CMSIS\STM32F4;..\..\DriversLog;..\..\SDK\Delay;..\..\Application\osTask;..\..\Application\FreeRTOS;..\..\Middlewares\Third_Party\FreeRTOS\Source;..\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\..\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS_V5\ARM_CM4F;..\..\Middlewares\Third_Party\LwIP\src\include\lwip;..\..\Middlewares\Third_Party\LwIP\src\include\lwip\apps;..\..\Middlewares\Third_Party\LwIP\src\include\lwip\priv;..\..\Middlewares\Third_Party\LwIP\src\include\lwip\prot;..\..\Middlewares\Third_Party\LwIP\src\include\netif;..\..\Middlewares\Third_Party\LwIP\src\include\posix;..\..\Middlewares\Third_Party\LwIP\src\include\posix\sys;..\..\Middlewares\Third_Party\LwIP\system\arch;..\..\Middlewares\Third_Party\LwIP\src\include\netif\ppp;..\..\Middlewares\Third_Party\LwIP\src\include;..\..\Middlewares\Third_Party\LwIP\system;..\..\Application\osTask\osTaskDeviceLink;..\..\Application\osTask\osTaskDownLink;..\..\Application\osTask\osTaskUpLink;..\..\Application\ZXINT\atLink;..\..\Application\ZXINT\downLink;..\..\Application\ZXINT\TBZM;..\..\SDK\ZXINT;..\..\Application\ZXINT\upLink;..\..\Application\osTask\osTaskETHLink;..\..\Application\ZXINT;..\..\Application\ETH;..\..\Application\ZXINT\ethLink;..\..\SDK\DWT;..\..\Application\myMQTT;..\..\Application\ZXINT\TBB;..\..\Application\ZXINT\TBM;..\..\Application\myYmodem;..\..\Application\myQueue;..\..\Application\ZXINT\2gLink;..\..\Application\ZXINT\4gLink;..\..\Application\ZXINT\nbiotLink;..\..\Application\ZXINT\wifiLink;..\..\Application\myMemery;..\..\SDK\Timer;..\..\Application\osTask\osTask2gLink;..\..\Application\osTask\osTask4gLink;..\..\Application\osTask\osTaskNBiotLink;..\..\SDK\SIM_2G;..\..\SDK\SIM_4G;..\..\SDK\SIM_NBIOT;..\..\Application\osTask\osTaskWIFILink;..\..\Application\osTask\osTaskPLCLink;..\..\Application\osTask\osTaskRS485Link;..\..\Application\ZXINT\plcLink;..\..\Application\ZXINT\rs485Link;..\..\Application\ZXINT\switchLink;..\..\Application\osTask\osTaskWiredLink;..\..\Application\osTask\osTaskWirelessLink;..\..\Application\ZXINT\Timing;..\..\Middlewares\Third_Party\LwIP\system\OS;..\..\Middlewares\Third_Party\LwIP\src\core\ipv4;..\..\Middlewares\Third_Party\LwIP\src\core\ipv6;..\..\Middlewares\Third_Party\LwIP\src\core;..\..\Middlewares\Third_Party\LwIP\src\netif\ppp;..\..\Middlewares\Third_Party\LwIP\src\netif;..\..\Middlewares\Third_Party\LwIP\src\api;..\..\SDK\ADS1256;..\..\Application\KalmanFilter;..\..\SDK\DAC;..\..\SDK\AHT10;..\..\SDK\AT24Cxx;..\..\SDK\BMP180;..\..\SDK\DHT10;..\..\SDK\DS18B20;..\..\SDK\DS1302;..\..\SDK\HMC5883;..\..\SDK\INA226;..\..\SDK\MPU6050;..\..\SDK\OLED;..\..\SDK\OneWire;..\..\SDK\PCF8563;..\..\SDK\PID;..\..\SDK\WM8510;..\..\SDK\AD57x4;D:\Keil_v5\ARM\RV31;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

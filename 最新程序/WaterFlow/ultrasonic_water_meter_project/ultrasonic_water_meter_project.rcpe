@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<MicomToolCommonProjectFile Version="1.00">
+  <CreatorType Name="CubeSuite+" Version="V8.05.00  [26 Nov 2020]" />
+  <Placeholders>
+    <PlaceholderPrefix>%</PlaceholderPrefix>
+    <PlaceholderPostfix>%</PlaceholderPostfix>
+  </Placeholders>
+  <Project Name="ultrasonic_water_meter_project" Type="Application">
+    <Files>
+      <Category Name="Application">
+        <Category Name="APP">
+          <Path>Application\APP\config.h</Path>
+          <Path>Application\APP\main.c</Path>
+          <Path>Application\APP\main.h</Path>
+        </Category>
+      </Category>
+      <Category Name="DriversPlus">
+        <Category Name="Complier">
+          <Path>DriversPlus\Compliers\rl78_cfg.c</Path>
+          <Path>DriversPlus\Compliers\rl78_cfg.h</Path>
+        </Category>
+        <Category Name="R7F0C019">
+          <Path>DriversPlus\R7F0C019\cstart.asm</Path>
+          <Path>DriversPlus\R7F0C019\iodefine.h</Path>
+          <Path>DriversPlus\R7F0C019\stkinit.asm</Path>
+        </Category>
+      </Category>
+      <Category Name="SDK">
+        <Category Name="AT24Cxx">
+          <Path>SDK\AT24Cxx\at24cxx_cfg.c</Path>
+          <Path>SDK\AT24Cxx\at24cxx_cfg.h</Path>
+          <Path>SDK\AT24Cxx\at24cxx_lib.c</Path>
+          <Path>SDK\AT24Cxx\at24cxx_lib.h</Path>
+          <Path>SDK\AT24Cxx\at24cxx_task.c</Path>
+          <Path>SDK\AT24Cxx\at24cxx_task.h</Path>
+        </Category>
+        <Category Name="I2C">
+          <Path>SDK\I2C\i2c_cfg.c</Path>
+          <Path>SDK\I2C\i2c_cfg.h</Path>
+          <Path>SDK\I2C\i2c_lib.c</Path>
+          <Path>SDK\I2C\i2c_lib.h</Path>
+          <Path>SDK\I2C\i2c_task.c</Path>
+          <Path>SDK\I2C\i2c_task.h</Path>
+        </Category>
+        <Category Name="RTC">
+          <Path>SDK\RTC\rtc_cfg.c</Path>
+          <Path>SDK\RTC\rtc_cfg.h</Path>
+          <Path>SDK\RTC\rtc_lib.c</Path>
+          <Path>SDK\RTC\rtc_lib.h</Path>
+          <Path>SDK\RTC\rtc_task.c</Path>
+          <Path>SDK\RTC\rtc_task.h</Path>
+        </Category>
+        <Category Name="SysTick">
+          <Path>SDK\SysTick\sys_tick_cfg.c</Path>
+          <Path>SDK\SysTick\sys_tick_cfg.h</Path>
+          <Path>SDK\SysTick\sys_tick_lib.c</Path>
+          <Path>SDK\SysTick\sys_tick_lib.h</Path>
+          <Path>SDK\SysTick\sys_tick_task.c</Path>
+          <Path>SDK\SysTick\sys_tick_task.h</Path>
+        </Category>
+        <Category Name="Delay">
+          <Path>SDK\Delay\delay_cfg.c</Path>
+          <Path>SDK\Delay\delay_cfg.h</Path>
+          <Path>SDK\Delay\delay_lib.c</Path>
+          <Path>SDK\Delay\delay_lib.h</Path>
+          <Path>SDK\Delay\delay_task.c</Path>
+          <Path>SDK\Delay\delay_task.h</Path>
+        </Category>
+        <Category Name="MS1022">
+          <Path>SDK\MS1022\ms1022_cfg.c</Path>
+          <Path>SDK\MS1022\ms1022_cfg.h</Path>
+          <Path>SDK\MS1022\ms1022_lib.c</Path>
+          <Path>SDK\MS1022\ms1022_lib.h</Path>
+          <Path>SDK\MS1022\ms1022_task.c</Path>
+          <Path>SDK\MS1022\ms1022_task.h</Path>
+        </Category>
+        <Category Name="GPIO">
+          <Path>SDK\GPIO\gpio_cfg.c</Path>
+          <Path>SDK\GPIO\gpio_cfg.h</Path>
+          <Path>SDK\GPIO\gpio_lib.c</Path>
+          <Path>SDK\GPIO\gpio_lib.h</Path>
+          <Path>SDK\GPIO\gpio_task.c</Path>
+          <Path>SDK\GPIO\gpio_task.h</Path>
+        </Category>
+        <Category Name="LCD">
+          <Path>SDK\LCD\rqz_LCD.c</Path>
+          <Path>SDK\LCD\rqz_LCD.h</Path>
+        </Category>
+        <Category Name="USART_DBG">
+          <Path>SDK\USART_DBG\dbg.c</Path>
+          <Path>SDK\USART_DBG\dbg.h</Path>
+        </Category>
+        <Category Name="DKEY">
+          <Path>SDK\DKEY\DKEY.c</Path>
+          <Path>SDK\DKEY\DKEY.h</Path>
+        </Category>
+        <Category Name="IRDA">
+          <Path>SDK\IRDA\IrDA.c</Path>
+          <Path>SDK\IRDA\IrDA.h</Path>
+        </Category>
+      </Category>
+      <Category Name="Drivers">
+        <Path>Drivers\cg_src\r_cg_cgc.c</Path>
+        <Path>Drivers\cg_src\r_cg_cgc.h</Path>
+        <Path>Drivers\cg_src\r_cg_cgc_user.c</Path>
+        <Path>Drivers\cg_src\r_cg_macrodriver.h</Path>
+        <Path>Drivers\cg_src\r_cg_port.c</Path>
+        <Path>Drivers\cg_src\r_cg_port.h</Path>
+        <Path>Drivers\cg_src\r_cg_port_user.c</Path>
+        <Path>Drivers\cg_src\r_cg_systeminit.c</Path>
+        <Path>Drivers\cg_src\r_cg_userdefine.h</Path>
+        <Path>Drivers\cg_src\r_cg_wdt.c</Path>
+        <Path>Drivers\cg_src\r_cg_wdt.h</Path>
+        <Path>Drivers\cg_src\r_cg_wdt_user.c</Path>
+        <Path>Drivers\cg_src\r_option_cc.txt</Path>
+        <Path>Drivers\cg_src\r_cg_lcd.c</Path>
+        <Path>Drivers\cg_src\r_cg_lcd.h</Path>
+        <Path>Drivers\cg_src\r_cg_lcd_user.c</Path>
+        <Path>Drivers\cg_src\r_cg_sau.c</Path>
+        <Path>Drivers\cg_src\r_cg_sau.h</Path>
+        <Path>Drivers\cg_src\r_cg_sau_user.c</Path>
+        <Path>Drivers\cg_src\r_cg_intp.c</Path>
+        <Path>Drivers\cg_src\r_cg_intp.h</Path>
+        <Path>Drivers\cg_src\r_cg_intp_user.c</Path>
+        <Path>Drivers\cg_src\r_cg_pclbuz.c</Path>
+        <Path>Drivers\cg_src\r_cg_pclbuz.h</Path>
+        <Path>Drivers\cg_src\r_cg_pclbuz_user.c</Path>
+      </Category>
+      <Category Name="DriversLog">
+        <Path>DriversLog\log_cfg.c</Path>
+        <Path>DriversLog\log_cfg.h</Path>
+      </Category>
+      <Category Name="Complier">
+        <Path>Complier\complier_cfg.c</Path>
+        <Path>Complier\complier_cfg.h</Path>
+        <Path>Complier\complier_lib.c</Path>
+        <Path>Complier\complier_lib.h</Path>
+      </Category>
+    </Files>
+    <DebugOptions>
+      <ConnectSettings>
+        <MainClock>0</MainClock>
+      </ConnectSettings>
+      <DebugToolSettings />
+    </DebugOptions>
+    <Device Series="RL78">R7F0C019L</Device>
+    <BuildOptions Name="CC-RL" Version="V1.10.00">
+      <BuildMode Name="DefaultBuild" Active="True">
+        <LinkOrder>
+          <Path>DefaultBuild\rl78_cfg.obj</Path>
+          <Path>DefaultBuild\main.obj</Path>
+          <Path>DefaultBuild\cstart.obj</Path>
+          <Path>DefaultBuild\stkinit.obj</Path>
+          <Path>DefaultBuild\log_cfg.obj</Path>
+          <Path>DefaultBuild\complier_cfg.obj</Path>
+          <Path>DefaultBuild\complier_lib.obj</Path>
+          <Path>DefaultBuild\at24cxx_cfg.obj</Path>
+          <Path>DefaultBuild\at24cxx_lib.obj</Path>
+          <Path>DefaultBuild\at24cxx_task.obj</Path>
+          <Path>DefaultBuild\i2c_cfg.obj</Path>
+          <Path>DefaultBuild\i2c_lib.obj</Path>
+          <Path>DefaultBuild\i2c_task.obj</Path>
+          <Path>DefaultBuild\rtc_cfg.obj</Path>
+          <Path>DefaultBuild\rtc_lib.obj</Path>
+          <Path>DefaultBuild\rtc_task.obj</Path>
+          <Path>DefaultBuild\sys_tick_cfg.obj</Path>
+          <Path>DefaultBuild\sys_tick_lib.obj</Path>
+          <Path>DefaultBuild\sys_tick_task.obj</Path>
+          <Path>DefaultBuild\delay_cfg.obj</Path>
+          <Path>DefaultBuild\delay_lib.obj</Path>
+          <Path>DefaultBuild\delay_task.obj</Path>
+          <Path>DefaultBuild\ms1022_cfg.obj</Path>
+          <Path>DefaultBuild\ms1022_lib.obj</Path>
+          <Path>DefaultBuild\ms1022_task.obj</Path>
+          <Path>DefaultBuild\gpio_cfg.obj</Path>
+          <Path>DefaultBuild\gpio_lib.obj</Path>
+          <Path>DefaultBuild\gpio_task.obj</Path>
+          <Path>DefaultBuild\r_cg_cgc.obj</Path>
+          <Path>DefaultBuild\r_cg_cgc_user.obj</Path>
+          <Path>DefaultBuild\r_cg_port.obj</Path>
+          <Path>DefaultBuild\r_cg_port_user.obj</Path>
+          <Path>DefaultBuild\r_cg_systeminit.obj</Path>
+          <Path>DefaultBuild\r_cg_wdt.obj</Path>
+          <Path>DefaultBuild\r_cg_wdt_user.obj</Path>
+          <Path>DefaultBuild\r_cg_lcd.obj</Path>
+          <Path>DefaultBuild\r_cg_lcd_user.obj</Path>
+          <Path>DefaultBuild\rqz_LCD.obj</Path>
+          <Path>DefaultBuild\r_cg_sau.obj</Path>
+          <Path>DefaultBuild\r_cg_sau_user.obj</Path>
+          <Path>DefaultBuild\dbg.obj</Path>
+          <Path>DefaultBuild\DKEY.obj</Path>
+          <Path>DefaultBuild\r_cg_intp.obj</Path>
+          <Path>DefaultBuild\r_cg_intp_user.obj</Path>
+          <Path>DefaultBuild\IrDA.obj</Path>
+          <Path>DefaultBuild\r_cg_pclbuz.obj</Path>
+          <Path>DefaultBuild\r_cg_pclbuz_user.obj</Path>
+        </LinkOrder>
+        <CommonOptions>
+          <IncludePathForC>SDK\IRDA</IncludePathForC>
+          <IncludePathForC>SDK\DKEY</IncludePathForC>
+          <IncludePathForC>SDK\USART_DBG</IncludePathForC>
+          <IncludePathForC>SDK\LCD</IncludePathForC>
+          <IncludePathForC>SDK\GPIO</IncludePathForC>
+          <IncludePathForC>SDK\MS1022</IncludePathForC>
+          <IncludePathForC>SDK\Delay</IncludePathForC>
+          <IncludePathForC>SDK\SysTick</IncludePathForC>
+          <IncludePathForC>SDK\RTC</IncludePathForC>
+          <IncludePathForC>SDK\I2C</IncludePathForC>
+          <IncludePathForC>DriversPlus\R7F0C019</IncludePathForC>
+          <IncludePathForC>Application\APP</IncludePathForC>
+          <IncludePathForC>Drivers\cg_src</IncludePathForC>
+          <IncludePathForC>Complier</IncludePathForC>
+          <IncludePathForC>DriversLog</IncludePathForC>
+          <IncludePathForC>DriversPlus\Compliers</IncludePathForC>
+          <IncludePathForC>HWConfig</IncludePathForC>
+          <IncludePathForC>SDK\AT24Cxx</IncludePathForC>
+          <MacroForC>MCU_USE_RF78_R7F0</MacroForC>
+        </CommonOptions>
+        <GeneralOptions>
+          <SimultaneouslyBuild>False</SimultaneouslyBuild>
+        </GeneralOptions>
+        <CompileOptions>
+          <Option>-cpu=S2</Option>
+          <Option>-obj_path=%BuildModeName%</Option>
+          <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+          <Option>-g</Option>
+          <Option>-g_line</Option>
+          <Option>-I SDK\IRDA</Option>
+          <Option>-I SDK\DKEY</Option>
+          <Option>-I SDK\USART_DBG</Option>
+          <Option>-I SDK\LCD</Option>
+          <Option>-I SDK\GPIO</Option>
+          <Option>-I SDK\MS1022</Option>
+          <Option>-I SDK\Delay</Option>
+          <Option>-I SDK\SysTick</Option>
+          <Option>-I SDK\RTC</Option>
+          <Option>-I SDK\I2C</Option>
+          <Option>-I DriversPlus\R7F0C019</Option>
+          <Option>-I Application\APP</Option>
+          <Option>-I Drivers\cg_src</Option>
+          <Option>-I Complier</Option>
+          <Option>-I DriversLog</Option>
+          <Option>-I DriversPlus\Compliers</Option>
+          <Option>-I HWConfig</Option>
+          <Option>-I SDK\AT24Cxx</Option>
+          <Option>-D MCU_USE_RF78_R7F0</Option>
+          <Option>-lang=c99</Option>
+          <Option>-c</Option>
+        </CompileOptions>
+        <AssembleOptions>
+          <Option>-cpu=S2</Option>
+          <Option>-obj_path=%BuildModeName%</Option>
+          <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+          <Option>-g</Option>
+          <Option>-c</Option>
+        </AssembleOptions>
+        <LinkOptions>
+          <Option>-SECURITY_ID=00000000000000000001</Option>
+          <Option>-DEVICE=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+          <Option>-DEBug</Option>
+          <Option>-NOCOmpress</Option>
+          <Option>-NOOPtimize</Option>
+          <Option>-OUtput=%BuildModeName%\%ProjectName%.abs</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78cm4s99.lib</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\malloc_n.lib</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78cm4r.lib</Option>
+          <Option>-OCDBG=85</Option>
+          <Option>-DEBUG_MONITOR=FE00-FFFF</Option>
+          <Option>-USER_OPT_BYTE=EF5DAA</Option>
+          <Option>-LISt=%BuildModeName%\%ProjectName%.map</Option>
+          <Option>-AUTO_SECTION_LAYOUT</Option>
+          <Option>-ROm=.data=.dataR</Option>
+          <Option>-ROm=.sdata=.sdataR</Option>
+          <Option>-NOMessage</Option>
+          <Option>-MEMory=High</Option>
+          <Option>-NOLOgo</Option>
+          <Option>-END</Option>
+          <Option>-Input=%BuildModeName%\%ProjectName%.abs</Option>
+          <Option>-DEVICE=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+          <Option>-OUtput=%BuildModeName%\%ProjectName%.hex</Option>
+          <Option>-FOrm=Hexadecimal</Option>
+          <Option>-NOMessage</Option>
+          <Option>-EXIt</Option>
+        </LinkOptions>
+        <IOHeaderGenerationOptions>
+          <Option>-df=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+          <Option>-o=%ProjectDir%\iodefine.h</Option>
+          <Option>-f</Option>
+          <UpdateIOMode>None</UpdateIOMode>
+        </IOHeaderGenerationOptions>
+        <IndividualOptions Target="Application\APP\main.c">
+          <CompileOptions>
+            <Option>-cpu=S2</Option>
+            <Option>-o %BuildModeName%\main.obj</Option>
+            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+            <Option>-g</Option>
+            <Option>-g_line</Option>
+            <Option>-I SDK\IRDA</Option>
+            <Option>-I SDK\DKEY</Option>
+            <Option>-I SDK\USART_DBG</Option>
+            <Option>-I SDK\LCD</Option>
+            <Option>-I SDK\GPIO</Option>
+            <Option>-I SDK\MS1022</Option>
+            <Option>-I SDK\Delay</Option>
+            <Option>-I SDK\SysTick</Option>
+            <Option>-I SDK\RTC</Option>
+            <Option>-I SDK\I2C</Option>
+            <Option>-I DriversPlus\R7F0C019</Option>
+            <Option>-I Application\APP</Option>
+            <Option>-I Drivers\cg_src</Option>
+            <Option>-I Complier</Option>
+            <Option>-I DriversLog</Option>
+            <Option>-I DriversPlus\Compliers</Option>
+            <Option>-I HWConfig</Option>
+            <Option>-I SDK\AT24Cxx</Option>
+            <Option>-D MCU_USE_RF78_R7F0</Option>
+            <Option>-c</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="DriversLog\log_cfg.c">
+          <CompileOptions>
+            <Option>-cpu=S2</Option>
+            <Option>-o %BuildModeName%\log_cfg.obj</Option>
+            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
+            <Option>-g</Option>
+            <Option>-g_line</Option>
+            <Option>-I SDK\IRDA</Option>
+            <Option>-I SDK\DKEY</Option>
+            <Option>-I SDK\USART_DBG</Option>
+            <Option>-I SDK\LCD</Option>
+            <Option>-I SDK\GPIO</Option>
+            <Option>-I SDK\MS1022</Option>
+            <Option>-I SDK\Delay</Option>
+            <Option>-I SDK\SysTick</Option>
+            <Option>-I SDK\RTC</Option>
+            <Option>-I SDK\I2C</Option>
+            <Option>-I DriversPlus\R7F0C019</Option>
+            <Option>-I Application\APP</Option>
+            <Option>-I Drivers\cg_src</Option>
+            <Option>-I Complier</Option>
+            <Option>-I DriversLog</Option>
+            <Option>-I DriversPlus\Compliers</Option>
+            <Option>-I HWConfig</Option>
+            <Option>-I SDK\AT24Cxx</Option>
+            <Option>-D MCU_USE_STM32F1</Option>
+            <Option>-c</Option>
+          </CompileOptions>
+        </IndividualOptions>
+      </BuildMode>
+    </BuildOptions>
+  </Project>
+</MicomToolCommonProjectFile>
