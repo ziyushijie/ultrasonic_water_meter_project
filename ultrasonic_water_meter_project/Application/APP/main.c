@@ -93,9 +93,9 @@ void app_init(void)
 	//---滴答节拍初始化
 	sys_tick_task_init(SYS_TICK_TASK_ONE);
 	//---GPIO初始化
-	gpio_task_init(app_get_tick());
+	gpio_task_init(app_get_tick);
 	//---串口初始化
-	uart_task_init(UART_TASK_TWO,app_get_tick());
+	uart_task_init(UART_TASK_TWO, app_get_tick);
 	uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
 	//R_UART1_Send("123\r\n",5);
 	////---调试端口定义

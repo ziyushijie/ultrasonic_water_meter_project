@@ -741,12 +741,16 @@ void uart_it_irq_send_handle_three(UART_HandleType* UARTx)
 uint8_t uart_init(UART_HandleType* UARTx, uint32_t(*func_time_tick)(void))
 {
 	//---注册计数函数
-	(func_time_tick != NULL) ?
-		(UARTx->msg_uart_txd.msg_f_time_tick = func_time_tick) :
-		(UARTx->msg_uart_txd.msg_f_time_tick = sys_tick_task_get_tick);
-	(func_time_tick != NULL) ?
-		(UARTx->msg_uart_rxd.msg_f_time_tick = func_time_tick) :
-		(UARTx->msg_uart_rxd.msg_f_time_tick = sys_tick_task_get_tick);
+	if (func_time_tick != NULL)
+	{
+		UARTx->msg_uart_txd.msg_f_time_tick = func_time_tick;
+		UARTx->msg_uart_rxd.msg_f_time_tick = func_time_tick;
+	}
+	else
+	{
+		UARTx->msg_uart_txd.msg_f_time_tick = sys_tick_task_get_tick;
+		UARTx->msg_uart_rxd.msg_f_time_tick = sys_tick_task_get_tick;
+	}
 	//---端口初始化
 #ifdef TYPE_UART1
 	if ((UARTx != NULL) && (UARTx == UART_TASK_ONE))
