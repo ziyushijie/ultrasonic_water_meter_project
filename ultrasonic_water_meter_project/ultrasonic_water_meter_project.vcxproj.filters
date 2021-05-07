@@ -305,16 +305,7 @@
     <ClCompile Include="Drivers\cg_src\r_cg_sau.c">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\cg_src\r_cg_sau_user.c">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\cg_src\r_cg_systeminit.c">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Drivers\cg_src\r_cg_tau.c">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\cg_src\r_cg_tau_user.c">
       <Filter>Drivers</Filter>
     </ClCompile>
     <ClCompile Include="Drivers\cg_src\r_cg_wdt.c">

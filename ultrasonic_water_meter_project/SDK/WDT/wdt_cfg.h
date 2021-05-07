@@ -7,7 +7,6 @@ extern "C" {
 	//////////////////////////////////////////////////////////////////////////////////////
 	
 	#include "complier_lib.h"
-	#include "sys_tick_task.h"
 	#include "hw_config.h"
 
 	//===º¯Êý¶¨Òå

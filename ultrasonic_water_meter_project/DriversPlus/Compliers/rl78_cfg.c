@@ -71,6 +71,24 @@ void rl78_init(uint8_t opt)
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
+//////功		能: RL78系列单片机的端口配置,配置端口默认为IO
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void rl78_port_init(void)
+{
+	PFSEG0 = _30_PFSEG0_DEFAULT;
+	PFSEG1 = _E6_PFSEG1_DEFAULT;
+	PFSEG2 = 0x00;
+	PFSEG3 = _BB_PFSEG3_DEFAULT;
+	PFSEG4 = _03_PFSEG4_DEFAULT;
+	PFSEG5 = 0x00;
+	PFSEG6 = 0x00;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
 //////功		能: 清楚复位标识
 //////输入参	数:
 //////输出参	数:
@@ -227,4 +245,122 @@ void rl78_sau2_clock(uint8_t enable)
 		SAU1EN = 0;
 	}
 	delay_task_nop(5);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 外设时钟使能
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void rl78_perpheral_clock_enable(uint8_t perpheral)
+{
+	switch (perpheral)
+	{
+		case PERIPHERAL_TIMER:
+		{
+			TAU0EN = 1;
+			break;
+		}
+		case PERIPHERAL_UART1	:
+		{
+			SAU0EN = 1;
+			break;
+		}
+		case PERIPHERAL_UART2: 
+		{
+			SAU0EN = 1;
+			break;
+		}
+		case PERIPHERAL_UART3: 
+		{
+			SAU1EN = 1;
+			break;
+		}
+		case PERIPHERAL_I2C1:
+		{
+			IICA0EN = 1;
+			break;
+		}
+		case PERIPHERAL_I2C2:
+		{
+			IICA0EN = 1;
+			break;
+		}
+		case PERIPHERAL_ADC:
+		{
+			ADCEN = 1;
+			break;
+		}
+		case PERIPHERAL_RTC:
+		{
+			RTCWEN = 1;
+			break;
+		}
+		default:
+		{	
+			break;
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 外设时钟不使能
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void rl78_perpheral_clock_disable(uint8_t perpheral)
+{
+	switch (perpheral)
+	{
+		case PERIPHERAL_TIMER:
+		{
+			TAU0EN = 0;
+			break;
+		}
+		case PERIPHERAL_UART1:
+		{
+			SAU0EN = 0;
+			break;
+		}
+		case PERIPHERAL_UART2:
+		{
+			SAU0EN = 0;
+			break;
+		}
+		case PERIPHERAL_UART3:
+		{
+			SAU1EN = 0;
+			break;
+		}
+		case PERIPHERAL_I2C1:
+		{
+			IICA0EN = 0;
+			break;
+		}
+		case PERIPHERAL_I2C2:
+		{
+#ifdef IICA1EN
+			IICA1EN = 0;
+#endif
+			break;
+		}
+		case PERIPHERAL_ADC:
+		{
+			ADCEN = 0;
+			break;
+		}
+		case PERIPHERAL_RTC:
+		{
+			RTCWEN = 0;
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
 }

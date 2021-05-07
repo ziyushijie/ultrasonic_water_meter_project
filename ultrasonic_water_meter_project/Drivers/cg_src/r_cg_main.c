@@ -23,7 +23,7 @@
 * Device(s)    : R7F0C019L
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2021/5/4
+* Creation Date: 2021/5/7
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -63,16 +63,16 @@ static void R_MAIN_UserInit(void);
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-//void main(void)
-//{
-//    R_MAIN_UserInit();
-//    /* Start user code. Do not edit comment generated here */
-//    while (1U)
-//    {
-//        ;
-//    }
-//    /* End user code. Do not edit comment generated here */
-//}
+void main(void)
+{
+    R_MAIN_UserInit();
+    /* Start user code. Do not edit comment generated here */
+    while (1U)
+    {
+        ;
+    }
+    /* End user code. Do not edit comment generated here */
+}
 /***********************************************************************************************************************
 * Function Name: R_MAIN_UserInit
 * Description  : This function adds user code before implementing main function.

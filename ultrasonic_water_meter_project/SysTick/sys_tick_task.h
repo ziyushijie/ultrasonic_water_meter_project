@@ -1,0 +1,22 @@
+#ifndef SYS_TICK_TASK_H_
+#define SYS_TICK_TASK_H_
+//////////////////////////////////////////////////////////////////////////////////////
+#ifdef __cplusplus
+extern "C" {
+#endif
+	//////////////////////////////////////////////////////////////////////////////////////
+	
+	#include "sys_tick_lib.h"
+	
+	//===º¯Êý¶¨Òå
+	//uint8_t sys_tick_task_init(SYS_TICK_HandleType *systickx);
+	//uint8_t sys_tick_task_it_irq_handle(SYS_TICK_HandleType *systickx);
+	//uint32_t sys_tick_task_get_inc_ovf(SYS_TICK_HandleType *systickx);
+	//uint32_t sys_tick_task_get_inc_count(SYS_TICK_HandleType *systickx);
+	uint32_t sys_tick_task_get_tick(void);
+	//////////////////////////////////////////////////////////////////////////////////////
+#ifdef __cplusplus
+}
+#endif
+//////////////////////////////////////////////////////////////////////////////////////
+#endif /* SYS_TICK_TASK_H_ */

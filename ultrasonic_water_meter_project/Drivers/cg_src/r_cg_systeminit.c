@@ -23,7 +23,7 @@
 * Device(s)    : R7F0C019L
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 2021/5/4
+* Creation Date: 2021/5/7
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -40,7 +40,6 @@ Includes
 #include "r_cg_lcd.h"
 #include "r_cg_intp.h"
 #include "r_cg_lvd.h"
-#include "r_cg_wdt.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -67,19 +66,17 @@ void R_Systeminit(void)
 {
     PIOR = 0x0CU;
     R_CGC_Get_ResetSource();
+    R_PORT_Create();
     R_CGC_Create();
-	R_PORT_Create();
-//    R_TAU0_Create();
-//    R_RTC_Create();
-//    R_PCLBUZ0_Create();
-//    R_COMP_Create();
-    //R_SAU0_Create();
-	//R_UART1_Start(); // start uart1
-//    R_SAU1_Create();
-//    R_LCD_Create();
-//    R_INTC_Create();
-//    R_LVD_Create();
-	R_WDT_Create();
+    R_TAU0_Create();
+    R_RTC_Create();
+    R_PCLBUZ0_Create();
+    R_COMP_Create();
+    R_SAU0_Create();
+    R_SAU1_Create();
+    R_LCD_Create();
+    R_INTC_Create();
+    R_LVD_Create();
     IAWCTL = 0x00U;
 }
 
@@ -89,12 +86,11 @@ void R_Systeminit(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-//void hdwinit(void)
-//{
-//    DI();
-//    R_Systeminit();
-//	EI();
-//}
+void hdwinit(void)
+{
+    DI();
+    R_Systeminit();
+}
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

@@ -23,7 +23,7 @@
 * Device(s)    : R7F0C019L
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for Port module.
-* Creation Date: 2021/5/4
+* Creation Date: 2021/5/7
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,27 +55,17 @@ Global variables and functions
 ***********************************************************************************************************************/
 void R_PORT_Create(void)
 {
-	PFSEG0 = _80_PFSEG07_SEG | _40_PFSEG06_SEG | _30_PFSEG0_DEFAULT;
-	PFSEG1 = _10_PFSEG12_SEG | _08_PFSEG11_SEG | _01_PFSEG08_SEG | _E6_PFSEG1_DEFAULT;
-	PFSEG2 = _80_PFSEG23_SEG | _40_PFSEG22_SEG | _20_PFSEG21_SEG | _10_PFSEG20_SEG | _08_PFSEG19_SEG |
-		_04_PFSEG18_SEG | _02_PFSEG17_SEG | _01_PFSEG16_SEG;
-	PFSEG3 = _40_PFSEG29_SEG | _BB_PFSEG3_DEFAULT | _00_PFDEG_PORT;
-	PFSEG4 = _80_PFSEG38_SEG | _40_PFSEG37_SEG | _20_PFSEG36_SEG | _10_PFSEG35_SEG | _08_PFSEG34_SEG |
-		_04_PFSEG33_SEG | _03_PFSEG4_DEFAULT;
-	PFSEG5 = _00_PFSEG46_PORT | _40_PFSEG45_SEG | _20_PFSEG44_SEG | _10_PFSEG43_SEG | _08_PFSEG42_SEG |
-		_04_PFSEG41_SEG | _00_PFSEG40_PORT | _00_PFSEG39_PORT;
-	PFSEG6 = _08_PFSEG50_SEG | _04_PFSEG49_SEG | _02_PFSEG48_SEG | _01_PFSEG47_SEG;
-	ISCLCD = _02_ISCVL3_VALID;
-	P1 = _00_Pn4_OUTPUT_0 | _00_Pn5_OUTPUT_0;
-	P4 = _10_Pn4_OUTPUT_1 | _20_Pn5_OUTPUT_1;
-	P12 = _00_Pn7_OUTPUT_0;
-	PU0 = _08_PUn3_PULLUP_ON;
-	PU4 = _01_PUn0_PULLUP_ON;
-	PM1 = _01_PMn0_NOT_USE | _02_PMn1_NOT_USE | _04_PMn2_NOT_USE | _08_PMn3_NOT_USE | _00_PMn4_MODE_OUTPUT |
-		_00_PMn5_MODE_OUTPUT | _40_PMn6_NOT_USE | _80_PMn7_NOT_USE;
-	PM4 = _01_PMn0_NOT_USE | _04_PMn2_NOT_USE | _08_PMn3_NOT_USE | _00_PMn4_MODE_OUTPUT | _00_PMn5_MODE_OUTPUT |
-		_C2_PM4_DEFAULT;
-	PM12 = _20_PMn5_NOT_USE | _40_PMn6_NOT_USE | _00_PMn7_MODE_OUTPUT | _1F_PM12_DEFAULT;
+    PFSEG0 = _80_PFSEG07_SEG | _40_PFSEG06_SEG | _30_PFSEG0_DEFAULT;
+    PFSEG1 = _10_PFSEG12_SEG | _08_PFSEG11_SEG | _01_PFSEG08_SEG | _E6_PFSEG1_DEFAULT;
+    PFSEG2 = _80_PFSEG23_SEG | _40_PFSEG22_SEG | _20_PFSEG21_SEG | _10_PFSEG20_SEG | _08_PFSEG19_SEG | 
+             _04_PFSEG18_SEG | _02_PFSEG17_SEG | _01_PFSEG16_SEG;
+    PFSEG3 = _40_PFSEG29_SEG | _BB_PFSEG3_DEFAULT | _04_PFDEG_IVREF0;
+    PFSEG4 = _80_PFSEG38_SEG | _40_PFSEG37_SEG | _20_PFSEG36_SEG | _10_PFSEG35_SEG | _08_PFSEG34_SEG | 
+             _04_PFSEG33_SEG | _03_PFSEG4_DEFAULT;
+    PFSEG5 = _80_PFSEG46_SEG | _40_PFSEG45_SEG | _20_PFSEG44_SEG | _10_PFSEG43_SEG | _08_PFSEG42_SEG | 
+             _04_PFSEG41_SEG | _02_PFSEG40_SEG | _01_PFSEG39_SEG;
+    PFSEG6 = _08_PFSEG50_SEG | _04_PFSEG49_SEG | _02_PFSEG48_SEG | _01_PFSEG47_SEG;
+    PU4 = _01_PUn0_PULLUP_ON;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

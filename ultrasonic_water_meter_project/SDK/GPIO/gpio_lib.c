@@ -29,9 +29,9 @@ void gpio_lib_time_tick_init(uint32_t(*func_time_tick)(void))
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_input(GPIO_TypeDef* gpio, uint32_t pin) 
+void gpio_lib_pin_mode_input(GPIO_TypeDef* gpiox, uint32_t pin) 
 {
-	gpio_pin_mode_input(gpio, pin);
+	gpio_pin_mode_input(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -40,9 +40,9 @@ void gpio_lib_pin_mode_input(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_output(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_output(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_output(gpio, pin);
+	gpio_pin_mode_output(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -51,9 +51,9 @@ void gpio_lib_pin_mode_output(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_pull_up_set(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_pull_up_set(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_pull_up_set(gpio, pin);
+	gpio_pin_mode_pull_up_set(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -62,9 +62,9 @@ void gpio_lib_pin_mode_pull_up_set(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_pull_up_reset(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_pull_up_reset(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_pull_up_reset(gpio, pin);
+	gpio_pin_mode_pull_up_reset(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -73,9 +73,9 @@ void gpio_lib_pin_mode_pull_up_reset(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_input_normal(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_input_normal(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_input_normal(gpio, pin);
+	gpio_pin_mode_input_normal(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -84,9 +84,9 @@ void gpio_lib_pin_mode_input_normal(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_input_ttl(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_input_ttl(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_input_ttl(gpio, pin);
+	gpio_pin_mode_input_ttl(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -95,9 +95,9 @@ void gpio_lib_pin_mode_input_ttl(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_output_normal(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_output_normal(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_output_normal(gpio, pin);
+	gpio_pin_mode_output_normal(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -106,9 +106,9 @@ void gpio_lib_pin_mode_output_normal(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_output_od(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_output_od(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_output_od(gpio, pin);
+	gpio_pin_mode_output_od(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -117,9 +117,9 @@ void gpio_lib_pin_mode_output_od(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_digital(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_digital(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_digital(gpio, pin);
+	gpio_pin_mode_digital(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -128,9 +128,9 @@ void gpio_lib_pin_mode_digital(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_analog(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_analog(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_analog(gpio, pin);
+	gpio_pin_mode_analog(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -139,9 +139,9 @@ void gpio_lib_pin_mode_analog(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_ior_set(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_ior_set(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_ior_set(gpio, pin);
+	gpio_pin_mode_ior_set(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -150,9 +150,9 @@ void gpio_lib_pin_mode_ior_set(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_mode_ior_reset(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_mode_ior_reset(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_mode_ior_reset(gpio, pin);
+	gpio_pin_mode_ior_reset(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -161,9 +161,9 @@ void gpio_lib_pin_mode_ior_reset(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_set(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_set(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_set(gpio, pin);
+	gpio_pin_set(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -172,9 +172,9 @@ void gpio_lib_pin_set(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_set(GPIO_HandleType* gpio)
+void gpio_lib_set(GPIO_HandleType* gpiox)
 {
-	gpio_set(gpio);
+	gpio_set(gpiox);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -183,9 +183,9 @@ void gpio_lib_set(GPIO_HandleType* gpio)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_reset(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_reset(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_reset(gpio, pin);
+	gpio_pin_reset(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -194,9 +194,9 @@ void gpio_lib_pin_reset(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_reset(GPIO_HandleType* gpio)
+void gpio_lib_reset(GPIO_HandleType* gpiox)
 {
-	gpio_reset(gpio);
+	gpio_reset(gpiox);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -205,9 +205,9 @@ void gpio_lib_reset(GPIO_HandleType* gpio)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_pin_toggle(GPIO_TypeDef* gpio, uint32_t pin)
+void gpio_lib_pin_toggle(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	gpio_pin_toggle(gpio, pin);
+	gpio_pin_toggle(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -216,9 +216,9 @@ void gpio_lib_pin_toggle(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_toggle(GPIO_HandleType* gpio)
+void gpio_lib_toggle(GPIO_HandleType* gpiox)
 {
-	gpio_toggle(gpio);
+	gpio_toggle(gpiox);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -227,9 +227,9 @@ void gpio_lib_toggle(GPIO_HandleType* gpio)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint32_t gpio_lib_pin_read(GPIO_TypeDef* gpio, uint32_t pin)
+uint32_t gpio_lib_pin_read(GPIO_TypeDef* gpiox, uint32_t pin)
 {
-	return gpio_pin_read(gpio, pin);
+	return gpio_pin_read(gpiox, pin);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -238,9 +238,9 @@ uint32_t gpio_lib_pin_read(GPIO_TypeDef* gpio, uint32_t pin)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint32_t gpio_lib_read(GPIO_HandleType* gpio)
+uint32_t gpio_lib_read(GPIO_HandleType* gpiox)
 {
-	return gpio_read(gpio);
+	return gpio_read(gpiox);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -249,9 +249,9 @@ uint32_t gpio_lib_read(GPIO_HandleType* gpio)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_set_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
+void gpio_lib_set_wait_time(GPIO_HandleType* gpiox, uint32_t waittime)
 {
-	gpio_set_wait_time(gpio,waittime);
+	gpio_set_wait_time(gpiox,waittime);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -260,9 +260,9 @@ void gpio_lib_set_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_reset_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
+void gpio_lib_reset_wait_time(GPIO_HandleType* gpiox, uint32_t waittime)
 {
-	gpio_reset_wait_time(gpio, waittime);
+	gpio_reset_wait_time(gpiox, waittime);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -271,9 +271,9 @@ void gpio_lib_reset_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_lib_toggle_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
+void gpio_lib_toggle_wait_time(GPIO_HandleType* gpiox, uint32_t waittime)
 {
-	gpio_toggle_wait_time(gpio, waittime);
+	gpio_toggle_wait_time(gpiox, waittime);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -282,9 +282,9 @@ void gpio_lib_toggle_wait_time(GPIO_HandleType* gpio, uint32_t waittime)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t gpio_lib_read_level_wait_time(GPIO_HandleType* gpio, uint8_t highlevel, uint32_t waittime)
+uint8_t gpio_lib_read_level_wait_time(GPIO_HandleType* gpiox, uint8_t highlevel, uint32_t waittime)
 {
-	return gpio_read_level_wait_time(gpio, highlevel, waittime);
+	return gpio_read_level_wait_time(gpiox, highlevel, waittime);
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:

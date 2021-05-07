@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 	//////////////////////////////////////////////////////////////////////////////////////
-	
+
 	///////////////软件版本的基本配置---开始/////////////////////////////////////////////////
 	#define UWM_SW_VERSION1					0
 	#define UWM_SW_VERSION2					0
@@ -13,16 +13,21 @@ extern "C" {
 	///////////////软件版本的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
+	#define MODULE_LOG_ENABLE				1
+	#define MODULE_LOG_UART_INDEX			2
+	//===LOG模块
+#if (MODULE_LOG_ENABLE>0)
 	#define MODULE_LOG_GPIO					0
 	#define MODULE_LOG_I2C					0
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
 	#define MODULE_LOG_MS1022				0
+#endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////SysTick信息的基本配置---开始/////////////////////////////////////////////////
 	//===默认的最小系统节拍,单位是ms，系统节拍的最小值是1ms，可以通过这里修改，必须是1的整数倍
-	#define	SYS_TICK_MIN_PULSE_WIDTH		1
+	#define	SYS_TICK_MIN_PULSE_WIDTH		10
 	#define SYS_MIN_PULSE_WIDTH				SYS_TICK_MIN_PULSE_WIDTH
 	///////////////SysTick信息的基本配置---结束/////////////////////////////////////////////////
 
@@ -37,7 +42,7 @@ extern "C" {
 	///////////////UART信息的基本配置---开始/////////////////////////////////////////////////
 	//#define TYPE_UART1
 	#define TYPE_UART2
-	//#define TYPE_UART3
+	#define TYPE_UART3
 
 	#define UART_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
 	#define UART_BASE_SIZE_OFFSET			0

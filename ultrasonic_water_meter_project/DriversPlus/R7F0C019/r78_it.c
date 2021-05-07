@@ -52,9 +52,9 @@ static void __near uart_interrupt_send_one(void)
 ////---发送中断处理
 #pragma interrupt uart_interrupt_send_two(vect=INTST1)
 ////---接受中断处理
-//#pragma interrupt uart_interrupt_receive_two(vect=INTSR1)
+#pragma interrupt uart_interrupt_receive_two(vect=INTSR1)
 ////---错误中断处理
-//#pragma interrupt uart_interrupt_receive_error_two(vect=INTSRE1)
+#pragma interrupt uart_interrupt_receive_error_two(vect=INTSRE1)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ static void __near uart_interrupt_receive_error_three(void)
 //////函		数:
 //////功		能: 串口2发送中断处理
 //////输入参	数:
-//////输出参	数:
+//////输出参	数: 
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
 static void __near uart_interrupt_send_three(void)
@@ -142,3 +142,19 @@ static void __near uart_interrupt_send_three(void)
 }
 
 #endif
+
+#pragma interrupt sys_tick_interrupt(vect=INTTM02)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 滴答定时器中断处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near sys_tick_interrupt(void)
+{
+	sys_tick_task_it_irq_handle(SYS_TICK_TASK_ONE);
+	gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
+	//P4^=(1<<5);
+}

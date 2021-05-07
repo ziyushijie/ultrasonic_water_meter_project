@@ -6,7 +6,7 @@
   <Device>RL78</Device>
   <OperationTab>
     <Endian>RFLG_ENDIAN_LITTLE</Endian>
-    <ProgramFile>D:\兴远仪表\超声表热力表\最新程序\WaterFlow\ultrasonic_water_meter_project\DefaultBuild\ultrasonic_water_meter_project.hex</ProgramFile>
+    <ProgramFile>D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\Debug\bin\DefaultBuild\ultrasonic_water_meter_project.hex</ProgramFile>
   </OperationTab>
   <OperationSettingTab>
     <FillCode>False</FillCode>
@@ -66,7 +66,7 @@
   </DeviceOptionTab>
   <ConnectOptionTab>
     <Tool>COMMTYPE_COMPORT</Tool>
-    <ToolNum>COM5</ToolNum>
+    <ToolNum>COM7</ToolNum>
     <ToolPower>0</ToolPower>
     <ToolConnectMode>RFPSet</ToolConnectMode>
     <ToolConnectPinOut>0</ToolConnectPinOut>

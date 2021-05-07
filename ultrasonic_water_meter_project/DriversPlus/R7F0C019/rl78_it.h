@@ -11,7 +11,7 @@ extern "C" {
 	#include "hw_config.h"
 	#include "sys_tick_task.h"
 	#include "uart_task.h"
-	
+	#include "gpio_task.h"
 
 
 	//////////////////////////////////////////////////////////////////////////////////////

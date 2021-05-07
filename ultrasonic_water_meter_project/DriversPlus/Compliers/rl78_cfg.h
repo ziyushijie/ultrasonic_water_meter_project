@@ -12,6 +12,8 @@ extern "C" {
 	#include "r_cg_userdefine.h"
 	#include "r_cg_cgc.h"
 	#include "r_cg_sau.h"	
+	#include "r_cg_tau.h"	
+	#include "r_cg_port.h"	
 	
 #pragma region GPIO配置
 	
@@ -347,8 +349,16 @@ extern "C" {
 	#define GPIO_PIN_BIT_15										0x8000
 	#define GPIO_PIN_BIT_ALL									0xFF
 	
-#pragma endregion
+#pragma endregionx
 	
+	#define PERIPHERAL_TIMER									0
+	#define PERIPHERAL_UART1									1
+	#define PERIPHERAL_UART2									2
+	#define PERIPHERAL_UART3									3
+	#define PERIPHERAL_I2C1										4
+	#define PERIPHERAL_I2C2										5
+	#define PERIPHERAL_ADC										6
+	#define PERIPHERAL_RTC										7
 	
 	//===获取系统时钟的定义
 	#define	SYS_CLOCK_HZ							( g_system_core_clock )
@@ -374,6 +384,7 @@ extern "C" {
 
 	//===函数定义
 	void rl78_init(uint8_t opt);
+	void rl78_port_init(void);
 	void rl78_clock_init(void);
 	void rl78_adc_clock(uint8_t enable);
 	void rl78_i2c1_clock(uint8_t enable);
@@ -382,6 +393,8 @@ extern "C" {
 #endif
 	void rl78_sau1_clock(uint8_t enable);
 	void rl78_sau2_clock(uint8_t enable);
+	void rl78_perpheral_clock_enable(uint8_t perpheral);
+	void rl78_perpheral_clock_disable(uint8_t perpheral);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

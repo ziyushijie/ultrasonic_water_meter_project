@@ -142,9 +142,10 @@ void uart_config_init_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_init_one(UART_HandleType* UARTx)
+uint8_t uart_init_one(UART_HandleType* UARTx)
 {
 	uart_config_init_one(UARTx);
+	return OK_0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -178,14 +179,30 @@ void uart_fill_mode_send_start_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_config_init_two(UART_HandleType* UARTx)
+void uart_fill_mode_send_buffer_one(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t uart_config_init_two(UART_HandleType* UARTx)
 {
 	//---使能外设时钟
-	rl78_sau1_clock(1);
+	//rl78_sau1_clock(1);
+	rl78_perpheral_clock_enable(PERIPHERAL_UART2);
 	//---外设运行时钟
-	SPS0 = _0002_SAU_CK00_FCLK_2 | _0040_SAU_CK01_FCLK_4;
+	SPS0 =	_0002_SAU_CK00_FCLK_2 | 
+			_0040_SAU_CK01_FCLK_4;
 	//---初始化串口1
-	ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
+	ST0 |=	_0008_SAU_CH3_STOP_TRG_ON | 
+			_0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
+
 	STMK1 = 1U;    /* disable INTST1 interrupt */
 	STIF1 = 0U;    /* clear INTST1 interrupt flag */
 	SRMK1 = 1U;    /* disable INTSR1 interrupt */
@@ -256,11 +273,11 @@ void uart_config_init_two(UART_HandleType* UARTx)
 	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
 	
 	//---端口复用模式
-	PIOR = 0x04;
-	//gpio_task_pin_mode_ior_set(GPIOP1,GPIO_PIN_BIT_2);
-//	/* Set RxD1 pin */
-//	//PMC4 &= 0xF7U;
-//	//PM4 |= 0x08U;
+	//PIOR = 0x04;
+	gpio_task_pin_mode_ior_set(GPIOP0, GPIO_PIN_BIT_2);
+	/* Set RxD1 pin */
+	//PMC4 &= 0xF7U;
+	//PM4 |= 0x08U;
 	//---数字端口输入输出
 	gpio_task_pin_mode_digital(GPIOP4, GPIO_PIN_BIT_3);
 	//---输出模式
@@ -268,6 +285,10 @@ void uart_config_init_two(UART_HandleType* UARTx)
 	////---上拉使能
 	//gpio_task_pin_mode_pull_up_set(GPIOP4, GPIO_PIN_BIT_3);
 	//--->>>设置TX端口
+	/* Set TxD1 pin */
+	//PMC4 &= 0xFBU;
+	//P4 |= 0x04U;
+	//PM4 &= 0xFBU;
 	//---数字端口输入输出
 	gpio_task_pin_mode_digital(GPIOP4, GPIO_PIN_BIT_2);
 	//---输出高电平
@@ -276,10 +297,8 @@ void uart_config_init_two(UART_HandleType* UARTx)
 	gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_2);
 	//---上拉使能
 	gpio_task_pin_mode_pull_up_set(GPIOP4, GPIO_PIN_BIT_2);
-	///* Set TxD1 pin */
-	//PMC4 &= 0xFBU;
-	//P4 |= 0x04U;
-	//PM4 &= 0xFBU;
+
+	return OK_0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -341,7 +360,7 @@ void uart_stop_two(UART_HandleType* UARTx)
 void uart_fill_mode_send_two(UART_HandleType* UARTx,uint8_t *buffer,uint16_t length)
 {
 	//---等待上次发送完成
-	//uart_wait_send_idle(UARTx);
+	uart_wait_send_idle(UARTx);
 	//---将数据填充到发送缓存区
 	UARTx->msg_uart_txd.msg_data_length = length;
 	UARTx->msg_uart_txd.msg_send_index = length;
@@ -352,18 +371,18 @@ void uart_fill_mode_send_two(UART_HandleType* UARTx,uint8_t *buffer,uint16_t len
 	UARTx->msg_uart_txd.msg_timeout_max = 
 		(UARTx->msg_uart_txd.msg_data_length + UART_TX_MAX_TIME_TWO)*UART_BYTE_TIME_ONE / UART_MIN_PULSE_WIDTH;
 	//---获取时间节点
-	//UARTx->msg_uart_txd.msg_time_record=UARTx->msg_uart_txd.msg_f_time_tick();
+	UARTx->msg_uart_txd.msg_time_record=UARTx->msg_uart_txd.msg_f_time_tick();
 	//---设置发送状态为发送模式
 	UARTx->msg_uart_txd.msg_state= UART_STATE_BUSY;
 	//---不使能中断
-	STMK1 = 1U;    /* disable INTST1 interrupt */
+	STMK1 = 1U;  
 	//---清楚中断标识
-	//STIF1 = 0U;    /* clear INTST1 interrupt flag */
+	STIF1 = 0U; 
 	//---发送数据
 	TXD1 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
 	UARTx->msg_uart_txd.msg_read_index++;
 	//---使能中断
-	STMK1 = 0U;    /* enable INTST1 interrupt */
+	STMK1 = 0U;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -376,6 +395,7 @@ void uart_fill_mode_send_two(UART_HandleType* UARTx,uint8_t *buffer,uint16_t len
 void uart_fill_mode_send_start_two(UART_HandleType* UARTx)
 {
 	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
 	//---将数据填充到发送缓存区
 	UARTx->msg_uart_txd.msg_data_length = UARTx->msg_uart_txd.msg_send_index;
 	UARTx->msg_uart_txd.msg_read_index = 0;
@@ -385,16 +405,16 @@ void uart_fill_mode_send_start_two(UART_HandleType* UARTx)
 	//---获取时间节点
 	UARTx->msg_uart_txd.msg_time_record = UARTx->msg_uart_txd.msg_f_time_tick();
 	//---不使能中断
-	STMK1 = 1U;    /* disable INTST1 interrupt */
+	STMK1 = 1U;   
 	//---清楚中断标识
-	STIF1 = 0U;    /* clear INTST1 interrupt flag */
+	STIF1 = 0U;
 	//---发送数据
 	TXD1 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
 	UARTx->msg_uart_txd.msg_read_index++;
 	//---设置发送状态为发送模式
 	UARTx->msg_uart_txd.msg_state = UART_STATE_BUSY;
 	//---使能中断
-	STMK1 = 0U;    /* enable INTST1 interrupt */
+	STMK1 = 0U;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -404,7 +424,38 @@ void uart_fill_mode_send_start_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_init_two(UART_HandleType* UARTx)
+void uart_fill_mode_send_buffer_two(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+{
+	//---将数据填充到发送缓存区
+	UARTx->msg_uart_txd.msg_data_length = length;
+	UARTx->msg_uart_txd.msg_send_index = length;
+	UARTx->msg_uart_txd.msg_read_index = 0;
+	//---设置发送超时时间
+	UARTx->msg_uart_txd.msg_timeout_max =
+		(UARTx->msg_uart_txd.msg_data_length + UART_TX_MAX_TIME_TWO)*UART_BYTE_TIME_ONE / UART_MIN_PULSE_WIDTH;
+	//---获取时间节点
+	UARTx->msg_uart_txd.msg_time_record=UARTx->msg_uart_txd.msg_f_time_tick();
+	//---设置发送状态为发送模式
+	UARTx->msg_uart_txd.msg_state = UART_STATE_BUSY;
+	//---不使能中断
+	STMK1 = 1U; 
+	//---清楚中断标识
+	STIF1 = 0U;
+	//---发送数据
+	TXD1 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+	UARTx->msg_uart_txd.msg_read_index++;
+	//---使能中断
+	STMK1 = 0U; 
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t uart_init_two(UART_HandleType* UARTx)
 {
 	
 #ifdef TYPE_UART2
@@ -433,7 +484,7 @@ void uart_init_two(UART_HandleType* UARTx)
 	UARTx->msg_uart_txd.msg_data_length = 0;
 	uart_start_two(UARTx);
 #endif
-	
+	return OK_0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -455,9 +506,10 @@ void uart_config_init_three(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_init_three(UART_HandleType* UARTx)
+uint8_t uart_init_three(UART_HandleType* UARTx)
 {
 	uart_config_init_three(UARTx);
+	return OK_0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -480,6 +532,18 @@ void uart_fill_mode_send_three(UART_HandleType* UARTx, uint8_t *buffer, uint16_t
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
 void uart_fill_mode_send_start_three(UART_HandleType* UARTx)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_fill_mode_send_buffer_three(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
 {
 
 }
@@ -517,7 +581,32 @@ void uart_it_irq_read_error_handle_one(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_it_irq_send_handle_one(UART_HandleType* UARTx)
 {
-
+#ifdef TYPE_UART1
+	if (UARTx->msg_uart_txd.msg_send_index != 0)
+	{
+		//---校验数据发送状态
+		if (UARTx->msg_uart_txd.msg_read_index != UARTx->msg_uart_txd.msg_send_index)
+		{
+			//--->>>数据未发送完成
+			TXD0 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+			UARTx->msg_uart_txd.msg_read_index++;
+		}
+		else
+		{
+			//---不使能中断
+			STMK0 = 1U;    /* disable INTST1 interrupt */
+			//---数据发送复位
+			uart_send_reset(UARTx);
+		}
+	}
+	else
+	{
+		//---不使能中断
+		STMK0 = 1U;    /* disable INTST1 interrupt */
+		//---数据发送复位
+		uart_send_reset(UARTx);
+	}
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -553,6 +642,7 @@ void uart_it_irq_read_error_handle_two(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_it_irq_send_handle_two(UART_HandleType* UARTx)
 {
+#ifdef TYPE_UART2
 	if (UARTx->msg_uart_txd.msg_send_index!=0)
 	{
 		//---校验数据发送状态
@@ -565,7 +655,7 @@ void uart_it_irq_send_handle_two(UART_HandleType* UARTx)
 		else
 		{
 			//---不使能中断
-			STMK1 = 1U;    /* disable INTST1 interrupt */
+			STMK1 = 1U;    /* disable INTST2 interrupt */
 			//---数据发送复位
 			uart_send_reset(UARTx);
 		}
@@ -573,10 +663,11 @@ void uart_it_irq_send_handle_two(UART_HandleType* UARTx)
 	else
 	{
 		//---不使能中断
-		STMK1 = 1U;    /* disable INTST1 interrupt */
+		STMK1 = 1U;    /* disable INTST2 interrupt */
 		//---数据发送复位
 		uart_send_reset(UARTx);
 	}
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -612,7 +703,73 @@ void uart_it_irq_read_error_handle_three(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_it_irq_send_handle_three(UART_HandleType* UARTx)
 {
+#ifdef TYPE_UART3
+	if (UARTx->msg_uart_txd.msg_send_index != 0)
+	{
+		//---校验数据发送状态
+		if (UARTx->msg_uart_txd.msg_read_index != UARTx->msg_uart_txd.msg_send_index)
+		{
+			//--->>>数据未发送完成
+			TXD2 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+			UARTx->msg_uart_txd.msg_read_index++;
+		}
+		else
+		{
+			//---不使能中断
+			STMK2 = 1U;    /* disable INTST1 interrupt */
+			//---数据发送复位
+			uart_send_reset(UARTx);
+		}
+	}
+	else
+	{
+		//---不使能中断
+		STMK2 = 1U;    /* disable INTST1 interrupt */
+		//---数据发送复位
+		uart_send_reset(UARTx);
+	}
+#endif
+}
 
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 发送处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t uart_init(UART_HandleType* UARTx, uint32_t(*func_time_tick)(void))
+{
+	//---注册计数函数
+	(func_time_tick != NULL) ?
+		(UARTx->msg_uart_txd.msg_f_time_tick = func_time_tick) :
+		(UARTx->msg_uart_txd.msg_f_time_tick = sys_tick_task_get_tick);
+	(func_time_tick != NULL) ?
+		(UARTx->msg_uart_rxd.msg_f_time_tick = func_time_tick) :
+		(UARTx->msg_uart_rxd.msg_f_time_tick = sys_tick_task_get_tick);
+	//---端口初始化
+#ifdef TYPE_UART1
+	if ((UARTx != NULL) && (UARTx == UART_TASK_ONE))
+	{
+		uart_init_one(UARTx);
+		return OK_0;
+	}
+#endif
+#ifdef TYPE_UART2
+	if ((UARTx != NULL) && (UARTx == UART_TASK_TWO))
+	{
+		uart_init_two(UARTx);
+		return OK_0;
+	}
+#endif
+#ifdef TYPE_UART3
+	if ((UARTx != NULL) && (UARTx == UART_TASK_THREE))
+	{
+		uart_init_three(UARTx);
+		return OK_0;
+	}
+#endif
+	return ERROR_1;
 }
 
 
@@ -776,6 +933,129 @@ void uart_fill_mode_send_start(UART_HandleType* UARTx)
 	if ((UARTx != NULL) && (UARTx == UART_TASK_THREE))
 	{
 		uart_fill_mode_send_start_three(UARTx);
+		return;
+	}
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: log模式发送数据
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_printf_log_one(UART_HandleType* UARTx, char* fmt, va_list args)
+{
+#ifdef TYPE_UART1
+	int16_t length = 0;
+	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
+	//---用于向字符串中打印数据、数据格式用户自定义;返回参数是最终生成字符串的长度
+	length = vsnprintf(
+		&(UARTx->msg_uart_txd.msg_p_data_buffer[0]),
+		UART_TX_SIZE_MAX_ONE, fmt, args);
+	//---无数据，返回
+	if ((length == 0) || (length < 0))
+	{
+		return;
+	}
+	if (length > UART_TX_SIZE_MAX_ONE)
+	{
+		length = UART_TX_SIZE_MAX_ONE;
+	}
+	uart_fill_mode_send_buffer_one(UARTx, UARTx->msg_uart_txd.msg_p_data_buffer, length);
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: log模式发送数据
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_printf_log_two(UART_HandleType* UARTx, char* fmt, va_list args)
+{
+#ifdef TYPE_UART2
+	int16_t length = 0;
+	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
+	//---用于向字符串中打印数据、数据格式用户自定义;返回参数是最终生成字符串的长度
+	length = vsnprintf(
+		&(UARTx->msg_uart_txd.msg_p_data_buffer[0]),
+		UART_TX_SIZE_MAX_TWO, fmt, args);
+	//---无数据，返回
+	if ((length == 0) || (length < 0))
+	{
+		return;
+	}
+	if (length>UART_TX_SIZE_MAX_TWO)
+	{
+		length = UART_TX_SIZE_MAX_TWO;
+	}
+	uart_fill_mode_send_buffer_two(UARTx, UARTx->msg_uart_txd.msg_p_data_buffer, length);
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: log模式发送数据
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_printf_log_three(UART_HandleType* UARTx, char* fmt, va_list args)
+{
+#ifdef TYPE_UART3
+	int16_t length = 0;
+	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
+	//---用于向字符串中打印数据、数据格式用户自定义;返回参数是最终生成字符串的长度
+	length = vsnprintf(
+		&(UARTx->msg_uart_txd.msg_p_data_buffer[0]),
+		UART_TX_SIZE_MAX_THREE, fmt, args);
+	//---无数据，返回
+	if ((length == 0) || (length < 0))
+	{
+		return;
+	}
+	if (length > UART_TX_SIZE_MAX_THREE)
+	{
+		length = UART_TX_SIZE_MAX_THREE;
+	}
+	uart_fill_mode_send_buffer_three(UARTx, UARTx->msg_uart_txd.msg_p_data_buffer, length);
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: log模式发送数据
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_printf_log(UART_HandleType* UARTx, char* fmt, va_list args)
+{
+	//---端口初始化
+#ifdef TYPE_UART1
+	if ((UARTx != NULL) && (UARTx == UART_TASK_ONE))
+	{
+		uart_printf_log_one(UARTx, fmt, args);
+		return;
+	}
+#endif
+#ifdef TYPE_UART2
+	if ((UARTx != NULL) && (UARTx == UART_TASK_TWO))
+	{
+		uart_printf_log_two(UARTx,fmt,args);
+		return;
+	}
+#endif
+#ifdef TYPE_UART3
+	if ((UARTx != NULL) && (UARTx == UART_TASK_THREE))
+	{
+		uart_printf_log_three(UARTx, fmt, args);
 		return;
 	}
 #endif
