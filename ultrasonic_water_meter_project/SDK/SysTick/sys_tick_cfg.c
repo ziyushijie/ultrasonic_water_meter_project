@@ -191,3 +191,102 @@ uint32_t sys_tick_get_tick(void)
 {
 	return sys_tick_get_inc_count(SYS_TICK_TASK_ONE);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取延时等待
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t sys_tick_wait_us(uint32_t us)
+{
+	//---计算计数值
+	uint32_t ticks = ((us * SYS_CLOCK_MHZ));
+	//---计数值
+	uint32_t told = SYS_TICK_REG_VAL;
+	uint32_t tnow = 0;
+	uint32_t tcnt = 0;
+	//---装载值
+	uint32_t tload = SYS_TICK_REG_LOAD;
+	//---判断是不是超出界限
+	if (us < 1001)
+	{
+		while (1)
+		{
+			tnow = SYS_TICK_REG_VAL;
+			//---计数器为递减计数器
+			if (tnow < told)
+			{
+				tcnt += (told - tnow);
+			}
+			else
+			{
+				tcnt += (tload - tnow + told);
+			}
+			told = tnow;
+			if (tcnt >= ticks)
+			{
+				break;
+			}
+		}
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取延时等待
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t sys_tick_wait_ms(SYS_TICK_HandleType *systickx,uint32_t ms)
+{
+	//---计算要滴答的时间
+	uint32_t ticks = SYS_TICK_REG_VAL+1;
+	//---计算要延时的us时间
+	uint32_t us_delay = (ticks / SYS_CLOCK_MHZ);
+	//---如果时间在1us的误差内，放弃
+	if (us_delay>1)
+	{
+		sys_tick_wait_us(us_delay);
+		//---ms中断计数减小
+		ms -= 1;
+		//---剩下的延时时间，强制装换，避免为负数
+		ticks = (uint32_t)(1000 - us_delay - 10);
+	}
+	//---要延时的时间
+	systickx->msg_dec_count = ms;
+	//---等待时间到达
+	while (systickx->msg_dec_count != 0)
+	{
+		WDT_RESET();
+	}
+	//---如果时间在1us的误差内，放弃
+	if ((ticks > 1) && (ticks < 1000))
+	{
+		//---完成拆分1ms之后要完成的计数值
+		sys_tick_wait_us(ticks);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取延时等待
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t sys_tick_wait_s(SYS_TICK_HandleType *systickx, uint32_t s)
+{
+	//---要延时的时间
+	systickx->msg_dec_count = s*1000;
+	//---等待时间到达
+	while (systickx->msg_dec_count != 0)
+	{
+		WDT_RESET();
+	}
+	return OK_0;
+}

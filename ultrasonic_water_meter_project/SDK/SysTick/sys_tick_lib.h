@@ -14,6 +14,8 @@ extern "C" {
 	uint32_t sys_tick_lib_get_inc_ovf(SYS_TICK_HandleType *systickx);
 	uint32_t sys_tick_lib_get_inc_count(SYS_TICK_HandleType *systickx);
 	uint32_t sys_tick_lib_get_tick(void);
+	uint8_t sys_tick_lib_wait_ms(SYS_TICK_HandleType *systickx, uint32_t ms);
+	uint8_t sys_tick_lib_wait_s(SYS_TICK_HandleType *systickx, uint32_t s);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

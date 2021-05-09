@@ -154,7 +154,6 @@ static void __near uart_interrupt_send_three(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near sys_tick_interrupt(void)
 {
+	//---滴答定时器中断处理函数
 	sys_tick_task_it_irq_handle(SYS_TICK_TASK_ONE);
-	gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
-	//P4^=(1<<5);
 }

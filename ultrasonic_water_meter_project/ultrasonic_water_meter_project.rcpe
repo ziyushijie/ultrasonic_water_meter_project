@@ -143,14 +143,6 @@
           <Path>SDK\GPIO\gpio_task.c</Path>
           <Path>SDK\GPIO\gpio_task.h</Path>
         </Category>
-        <Category Name="CRC">
-          <Path>SDK\CRC\crc_cfg.c</Path>
-          <Path>SDK\CRC\crc_cfg.h</Path>
-          <Path>SDK\CRC\crc_lib.c</Path>
-          <Path>SDK\CRC\crc_lib.h</Path>
-          <Path>SDK\CRC\crc_task.c</Path>
-          <Path>SDK\CRC\crc_task.h</Path>
-        </Category>
         <Category Name="UART">
           <Path>SDK\UART\uart_cfg.c</Path>
           <Path>SDK\UART\uart_cfg.h</Path>
@@ -167,11 +159,20 @@
           <Path>SDK\WDT\wdt_task.c</Path>
           <Path>SDK\WDT\wdt_task.h</Path>
         </Category>
+        <Category Name="CRC">
+          <Path>SDK\CRC\crc_cfg.c</Path>
+          <Path>SDK\CRC\crc_cfg.h</Path>
+          <Path>SDK\CRC\crc_lib.c</Path>
+          <Path>SDK\CRC\crc_lib.h</Path>
+          <Path>SDK\CRC\crc_task.c</Path>
+          <Path>SDK\CRC\crc_task.h</Path>
+        </Category>
       </Category>
     </Files>
     <DebugOptions>
+      <DebugTool>Simulator</DebugTool>
       <ConnectSettings>
-        <MainClock>0</MainClock>
+        <MainClock>4000000</MainClock>
       </ConnectSettings>
       <DebugToolSettings />
     </DebugOptions>
@@ -272,7 +273,7 @@
         <CompileOptions>
           <Option>-cpu=S2</Option>
           <Option>-obj_path=Debug/obj/%BuildModeName%</Option>
-          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,61016</Option>
+          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549</Option>
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
@@ -300,7 +301,7 @@
         <AssembleOptions>
           <Option>-cpu=S2</Option>
           <Option>-obj_path=Debug/obj/%BuildModeName%</Option>
-          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,61016</Option>
+          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549</Option>
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-asmopt=-define=MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA</Option>

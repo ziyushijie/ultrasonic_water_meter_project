@@ -10,7 +10,9 @@ extern "C" {
 
 	//===º¯Êý¶¨Òå
 	void delay_lib_nop(uint32_t cnt);
-
+	void delay_lib_us(uint32_t us);
+	void delay_lib_ms(uint32_t ms);
+	void delay_lib_s(uint32_t s);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

@@ -531,12 +531,6 @@
       <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
       <Property>4b44b3d2-093d-4039-8b1c-fb5aa0994b11</Property>
     </Instance>
-    <Instance Guid="5c949331-d8cd-487c-b889-57205f52f5ff">
-      <Name>CRC</Name>
-      <Type>Category</Type>
-      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
-      <Property>80edb3e2-0184-4c53-8795-135b86bacb2c</Property>
-    </Instance>
     <Instance Guid="4d762de5-1527-44e4-b67f-88a875720698">
       <Name>UART</Name>
       <Type>Category</Type>
@@ -548,6 +542,12 @@
       <Type>Category</Type>
       <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
       <Property>2aede258-1ea0-407d-a481-7e0cbd78799a</Property>
+    </Instance>
+    <Instance Guid="5c949331-d8cd-487c-b889-57205f52f5ff">
+      <Name>CRC</Name>
+      <Type>Category</Type>
+      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
+      <Property>80edb3e2-0184-4c53-8795-135b86bacb2c</Property>
     </Instance>
     <Instance Guid="af57e11e-facc-4a75-bf44-7f5c64a3ed86">
       <Name>at24cxx_cfg.c</Name>
@@ -843,48 +843,6 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>1b94a5b5-1179-4d49-aa1a-666917039807</ParentItem>
     </Instance>
-    <Instance Guid="9c3070b4-c162-4476-a989-6c0dfcefa1ff">
-      <Name>crc_cfg.c</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_cfg.c</RelativePath>
-      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
-    <Instance Guid="0f077e82-a57f-4569-93b2-4dd5a631f69e">
-      <Name>crc_cfg.h</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_cfg.h</RelativePath>
-      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
-    <Instance Guid="194bc906-ce5f-41be-ba48-1e63beadbd31">
-      <Name>crc_lib.c</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_lib.c</RelativePath>
-      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
-    <Instance Guid="94ffe5c7-a8f3-4b6d-8f4e-712efc792d93">
-      <Name>crc_lib.h</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_lib.h</RelativePath>
-      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
-    <Instance Guid="faaf4528-ca18-489c-93d5-2061dc3809a8">
-      <Name>crc_task.c</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_task.c</RelativePath>
-      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
-    <Instance Guid="fa22bd46-f3bb-4e11-9ea5-0925fc56131a">
-      <Name>crc_task.h</Name>
-      <Type>File</Type>
-      <RelativePath>SDK\CRC\crc_task.h</RelativePath>
-      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
-      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
-    </Instance>
     <Instance Guid="5cf89458-2545-497c-8d9a-0664e421b8a0">
       <Name>uart_cfg.c</Name>
       <Type>File</Type>
@@ -968,6 +926,48 @@
       <RelativePath>SDK\WDT\wdt_task.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>58fc4c9e-06b6-4820-b11e-f52027662202</ParentItem>
+    </Instance>
+    <Instance Guid="9c3070b4-c162-4476-a989-6c0dfcefa1ff">
+      <Name>crc_cfg.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_cfg.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
+    </Instance>
+    <Instance Guid="0f077e82-a57f-4569-93b2-4dd5a631f69e">
+      <Name>crc_cfg.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_cfg.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
+    </Instance>
+    <Instance Guid="194bc906-ce5f-41be-ba48-1e63beadbd31">
+      <Name>crc_lib.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_lib.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
+    </Instance>
+    <Instance Guid="94ffe5c7-a8f3-4b6d-8f4e-712efc792d93">
+      <Name>crc_lib.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_lib.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
+    </Instance>
+    <Instance Guid="faaf4528-ca18-489c-93d5-2061dc3809a8">
+      <Name>crc_task.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_task.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
+    </Instance>
+    <Instance Guid="fa22bd46-f3bb-4e11-9ea5-0925fc56131a">
+      <Name>crc_task.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\CRC\crc_task.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>5c949331-d8cd-487c-b889-57205f52f5ff</ParentItem>
     </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -1261,7 +1261,7 @@
       <LibOptionLibraryRuntime-DefaultValue>False</LibOptionLibraryRuntime-DefaultValue>
       <LinkOptionLibraryRuntime-DefaultValue>True</LinkOptionLibraryRuntime-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585813965154336004</TimeTagModified--0>
+      <TimeTagModified--0>-8585812198139662270</TimeTagModified--0>
       <BuildMode-0>DefaultBuild</BuildMode-0>
       <Memo-0 />
       <OutputMessageFormat-0>%TargetFiles%</OutputMessageFormat-0>
@@ -1272,7 +1272,7 @@
       <GeneralOptionCpu-0>S2</GeneralOptionCpu-0>
       <GeneralOptionErrorFile-0>False</GeneralOptionErrorFile-0>
       <GeneralOptionMirrorArea-0>Maa0</GeneralOptionMirrorArea-0>
-      <GeneralOptionNoWarningNum-0>20042,20144,20167,20161,20301,20177,61016</GeneralOptionNoWarningNum-0>
+      <GeneralOptionNoWarningNum-0>20042,20144,20167,20161,20301,20177,20549</GeneralOptionNoWarningNum-0>
       <GeneralOptionOutput-0>LoadModuleFile</GeneralOptionOutput-0>
       <GeneralOptionSimultaneousBuild-0>False</GeneralOptionSimultaneousBuild-0>
       <CompilerVersion-0>
@@ -4878,11 +4878,6 @@ USER_OPT_BYTE=0xFF1FEA
       <ProjectGeneratr-GeneratedFile4>D:\新建文件夹\water_meter_v1\iodefine.h</ProjectGeneratr-GeneratedFile4>
     </Instance>
   </Class>
-  <Class Guid="606767c3-4bf3-4e65-90c1-19075517355d">
-    <Instance Guid="606767c3-4bf3-4e65-90c1-19075517355d">
-      <CurrentToolKey>09715e82-fb95-4441-aae1-6510b43d965c</CurrentToolKey>
-    </Instance>
-  </Class>
   <Class Guid="8b5af363-dcc2-48e6-919c-6cdb80d50173">
     <Instance Guid="8b5af363-dcc2-48e6-919c-6cdb80d50173">
       <DataFormatVersionPlugin>1.0</DataFormatVersionPlugin>
@@ -5146,12 +5141,7 @@ USER_OPT_BYTE=0xFF1FEA
   </Class>
   <Class Guid="932085a2-9361-4df9-a3f7-12e6de7681a8">
     <Instance Guid="932085a2-9361-4df9-a3f7-12e6de7681a8">
-      <DebugToolManager>3b1bb1d4-663c-43be-8a08-0eece7cfa18b</DebugToolManager>
-    </Instance>
-  </Class>
-  <Class Guid="104fc540-14b6-4fb9-bd7a-0d4844b95028">
-    <Instance Guid="00000000-0000-0000-0000-000000000000">
-      <SubDebugger>09715e82-fb95-4441-aae1-6510b43d965c</SubDebugger>
+      <DebugToolManager>0700c2a3-bc6a-4793-8529-1ce3c7a4da9a</DebugToolManager>
     </Instance>
   </Class>
   <Class Guid="e4df8d71-236e-4af2-aaea-56345a08da25">
@@ -5459,7 +5449,7 @@ USER_OPT_BYTE=0xFF1FEA
       <TriggerMarkColor>Orange</TriggerMarkColor>
       <SamplingInterval>10</SamplingInterval>
       <DataCollectionChannel>None</DataCollectionChannel>
-      <ChannelVariableName1 />
+      <ChannelVariableName1>app_get_tick</ChannelVariableName1>
       <ChannelVariableName2 />
       <ChannelVariableName3 />
       <ChannelVariableName4 />
@@ -5539,6 +5529,11 @@ USER_OPT_BYTE=0xFF1FEA
       <ChannelColor14>c0317f0c</ChannelColor14>
       <ChannelColor15>c060493e</ChannelColor15>
       <ChannelColor16>c072808e</ChannelColor16>
+    </Instance>
+  </Class>
+  <Class Guid="606767c3-4bf3-4e65-90c1-19075517355d">
+    <Instance Guid="606767c3-4bf3-4e65-90c1-19075517355d">
+      <CurrentToolKey>09715e82-fb95-4441-aae1-6510b43d965c</CurrentToolKey>
     </Instance>
   </Class>
   <Class Guid="2a2c2a43-ecdb-4e88-80bd-e75f3e33db90">

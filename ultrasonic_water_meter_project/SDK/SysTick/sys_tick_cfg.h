@@ -21,6 +21,11 @@ extern "C" {
 		vltuint32_t				msg_inc_ovf;																		//---递加计数器溢出
 	};
 
+	//===当前计数器寄存器的值
+	#define SYS_TICK_REG_VAL							(TCR02)
+	//===滴答定时器的加载值
+	#define SYS_TICK_REG_LOAD							(TDR02)
+
 	#define SYS_TICK_TASK_ONE						p_sys_tick_one
 	#define SYS_TICK_TASK_TWO						0
 	#define SYS_TICK_TASK_THREE						0
@@ -37,6 +42,8 @@ extern "C" {
 	uint32_t sys_tick_get_inc_ovf(SYS_TICK_HandleType *systickx);
 	uint32_t sys_tick_get_inc_count(SYS_TICK_HandleType *systickx);
 	uint32_t sys_tick_get_tick(void);
+	uint8_t sys_tick_wait_ms(SYS_TICK_HandleType *systickx, uint32_t ms);
+	uint8_t sys_tick_wait_s(SYS_TICK_HandleType *systickx, uint32_t s);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

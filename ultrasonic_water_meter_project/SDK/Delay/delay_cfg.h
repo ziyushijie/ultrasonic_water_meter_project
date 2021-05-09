@@ -12,7 +12,10 @@ extern "C" {
 
 	//===º¯Êý¶¨Òå
 	void delay_nop(uint32_t cnt);
-
+	void delay_us(uint32_t us);
+	void delay_ms(uint32_t ms);
+	void delay_s(uint32_t s);
+	void delay_clk_nop(uint32_t us);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

@@ -7,7 +7,7 @@
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////	
-void app_log(const char __far *fmt,...)
+void app_log(char *fmt,...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -32,7 +32,7 @@ void app_log(const char __far *fmt,...)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////	
-void app_log_args(const char __far *fmt, va_list args)
+void app_log_args(char *fmt, va_list args)
 {
 #if (MODULE_LOG_ENABLE>0)
 
@@ -94,9 +94,11 @@ void app_init(void)
 	sys_tick_task_init(SYS_TICK_TASK_ONE);
 	//---GPIO初始化
 	gpio_task_init(app_get_tick);
+	//---CRC初始化
+	crc_task_init(app_get_tick);
 	//---串口初始化
 	uart_task_init(UART_TASK_TWO, app_get_tick);
-	uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
+	//uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
 	//R_UART1_Send("123\r\n",5);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
@@ -117,9 +119,11 @@ void app_init(void)
 void main(void)
 {
 	app_init();
-	LOG_VA_ARGS("ultrasonic water meter\r\n");
+	//LOG_VA_ARGS("ultrasonic water meter\r\n");
 	while (1)
 	{
+		gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
+		delay_task_us(100);
 		WDT_RESET();
 	}
 }
