@@ -16,6 +16,18 @@ extern "C" {
 	#include "r_cg_port.h"	
 	
 #pragma region GPIOÅäÖÃ
+
+	/*typedef struct
+	{
+		unsigned char no0 : 1;
+		unsigned char no1 : 1;
+		unsigned char no2 : 1;
+		unsigned char no3 : 1;
+		unsigned char no4 : 1;
+		unsigned char no5 : 1;
+		unsigned char no6 : 1;
+		unsigned char no7 : 1;
+	} GPIO_TypeDef;*/
 	
 	#define GPIO_TypeDef 										uint32_t	
 	//===¶Ë¿Ú¼Ä´æÆ÷

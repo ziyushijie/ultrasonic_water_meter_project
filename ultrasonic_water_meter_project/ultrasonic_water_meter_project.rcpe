@@ -170,9 +170,8 @@
       </Category>
     </Files>
     <DebugOptions>
-      <DebugTool>Simulator</DebugTool>
       <ConnectSettings>
-        <MainClock>4000000</MainClock>
+        <MainClock>0</MainClock>
       </ConnectSettings>
       <DebugToolSettings />
     </DebugOptions>

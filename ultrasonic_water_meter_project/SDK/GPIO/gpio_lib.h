@@ -34,7 +34,9 @@ extern "C" {
 	void gpio_lib_reset_wait_time(GPIO_HandleType* gpiox, uint32_t waittime);
 	void gpio_lib_toggle_wait_time(GPIO_HandleType* gpiox, uint32_t waittime);
 	uint8_t gpio_lib_read_level_wait_time(GPIO_HandleType* gpiox, uint8_t highlevel, uint32_t waittime);
-	
+	uint8_t gpio_lib_read_level_wait(GPIO_HandleType* gpiox, uint8_t highlevel);
+
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

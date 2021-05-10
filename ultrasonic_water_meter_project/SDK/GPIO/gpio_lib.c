@@ -293,3 +293,7 @@ uint8_t gpio_lib_read_level_wait_time(GPIO_HandleType* gpiox, uint8_t highlevel,
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
+uint8_t gpio_lib_read_level_wait(GPIO_HandleType* gpiox, uint8_t highlevel)
+{
+	return gpio_read_level_wait(gpiox, highlevel);
+}

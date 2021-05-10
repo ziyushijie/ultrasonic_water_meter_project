@@ -48,55 +48,7 @@ void gpio_init(uint32_t(*func_time_tick)(void))
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_mode_set(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_BIT_0:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_0;
-			break;
-		}
-		case GPIO_PIN_BIT_1:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_1;
-			break;
-		}
-		case GPIO_PIN_BIT_2:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_2;			
-			break;
-		}
-		case GPIO_PIN_BIT_3:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_3;
-			break;
-		}
-		case GPIO_PIN_BIT_4:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_4;
-			break;
-		}
-		case GPIO_PIN_BIT_5:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_5;
-			break;
-		}
-		case GPIO_PIN_BIT_6:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_6;
-			break;
-		}
-		case GPIO_PIN_BIT_7:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_7;
-			break;
-		}
-		case GPIO_PIN_BIT_ALL:
-		default:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_ALL;
-			break;
-		}
-	}
+	(* gpiox)|=((uint16_t)pin);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -108,55 +60,7 @@ void gpio_pin_mode_set(GPIO_TypeDef * gpiox,uint32_t pin)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_mode_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_BIT_0:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_0);
-			break;
-		}
-		case GPIO_PIN_BIT_1:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_1);
-			break;
-		}
-		case GPIO_PIN_BIT_2:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_2);			
-			break;
-		}
-		case GPIO_PIN_BIT_3:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_3);
-			break;
-		}
-		case GPIO_PIN_BIT_4:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_4);
-			break;
-		}
-		case GPIO_PIN_BIT_5:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_5);
-			break;
-		}
-		case GPIO_PIN_BIT_6:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_6);
-			break;
-		}
-		case GPIO_PIN_BIT_7:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_7);
-			break;
-		}
-		case GPIO_PIN_BIT_ALL:
-		default:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_ALL);
-			break;
-		}
-	}
+	(* gpiox)&=~((uint16_t)pin);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1728,55 +1632,7 @@ void gpio_pin_mode_ior_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_set(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_BIT_0:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_0;
-			break;
-		}
-		case GPIO_PIN_BIT_1:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_1;
-			break;
-		}
-		case GPIO_PIN_BIT_2:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_2;			
-			break;
-		}
-		case GPIO_PIN_BIT_3:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_3;
-			break;
-		}
-		case GPIO_PIN_BIT_4:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_4;
-			break;
-		}
-		case GPIO_PIN_BIT_5:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_5;
-			break;
-		}
-		case GPIO_PIN_BIT_6:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_6;
-			break;
-		}
-		case GPIO_PIN_BIT_7:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_7;
-			break;
-		}
-		case GPIO_PIN_BIT_ALL:
-		default:
-		{
-			(* gpiox)|=GPIO_PIN_BIT_ALL;
-			break;
-		}
-	}
+	(* gpiox)|=((uint16_t)pin);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1800,55 +1656,7 @@ void gpio_set(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_BIT_0:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_0);
-			break;
-		}
-		case GPIO_PIN_BIT_1:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_1);
-			break;
-		}
-		case GPIO_PIN_BIT_2:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_2);			
-			break;
-		}
-		case GPIO_PIN_BIT_3:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_3);
-			break;
-		}
-		case GPIO_PIN_BIT_4:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_4);
-			break;
-		}
-		case GPIO_PIN_BIT_5:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_5);
-			break;
-		}
-		case GPIO_PIN_BIT_6:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_6);
-			break;
-		}
-		case GPIO_PIN_BIT_7:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_7);
-			break;
-		}
-		case GPIO_PIN_BIT_ALL:
-		default:
-		{
-			(* gpiox)&=(~GPIO_PIN_BIT_ALL);
-			break;
-		}
-	}
+	(* gpiox)&=~((uint16_t)pin);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1872,55 +1680,7 @@ void gpio_reset(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_toggle(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_BIT_0:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_0;
-			break;
-		}
-		case GPIO_PIN_BIT_1:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_1;
-			break;
-		}
-		case GPIO_PIN_BIT_2:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_2;			
-			break;
-		}
-		case GPIO_PIN_BIT_3:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_3;
-			break;
-		}
-		case GPIO_PIN_BIT_4:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_4;
-			break;
-		}
-		case GPIO_PIN_BIT_5:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_5;
-			break;
-		}
-		case GPIO_PIN_BIT_6:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_6;
-			break;
-		}
-		case GPIO_PIN_BIT_7:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_7;
-			break;
-		}
-		case GPIO_PIN_BIT_ALL:
-		default:
-		{
-			(* gpiox)^=GPIO_PIN_BIT_ALL;
-			break;
-		}
-	}
+	(*gpiox) ^= (uint16_t)pin;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1944,7 +1704,7 @@ void gpio_toggle(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 uint32_t gpio_pin_read(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	return ((((* gpiox)&pin)!=0)?1:0);
+	return ((((* gpiox)&(uint16_t)pin)!=0)?1:0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2052,4 +1812,16 @@ uint8_t gpio_read_level_wait_time(GPIO_HandleType* gpiox, uint8_t highlevel,uint
 		WDT_RESET();
 	}
 	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t gpio_read_level_wait(GPIO_HandleType* gpiox, uint8_t highlevel)
+{
+	return gpio_read_level_wait_time(gpiox,highlevel,GPIO_MAX_WAIT_TIME);
 }

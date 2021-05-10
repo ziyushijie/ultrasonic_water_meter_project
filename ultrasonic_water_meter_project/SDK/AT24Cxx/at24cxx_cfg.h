@@ -58,6 +58,36 @@ extern "C" {
 		I2C_HandleType	msg_i2cx;																						//---使用的I2C
 	};
 
+	//===定义的任务函数
+	#define AT24CXX_TASK_ONE						p_at24cxx_device_one
+	#define AT24CXX_TASK_TWO						0
+	#define AT24CXX_TASK_THREE						0
+
+	//===外部调用接口
+	extern AT24CXX_HandleType						g_at24cxx_device_one;
+	extern pAT24CXX_HandleType						p_at24cxx_device_one;
+
+	//===函数定义
+	uint8_t at24cxx_i2c_init_one(AT24CXX_HandleType *AT24Cx);
+	uint8_t at24cxx_i2c_init_two(AT24CXX_HandleType *AT24Cx);
+	uint8_t at24cxx_i2c_init_three(AT24CXX_HandleType *AT24Cx);
+	void at24cxx_i2c_time_tick_init(AT24CXX_HandleType* AT24Cx, uint32_t(*func_time_tick)(void));
+	uint8_t at24cxx_i2c_init(AT24CXX_HandleType *AT24Cx,
+		void(*func_delay_us)(uint32_t delay),
+		void(*func_delay_ms)(uint32_t delay),
+		uint32_t(*func_time_tick)(void), uint8_t is_hw_i2c);
+	uint8_t at24cxx_i2c_deinit(AT24CXX_HandleType *AT24Cx);
+	uint8_t at24cxx_sw_i2c_send_single_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t buffer);
+	uint8_t at24cxx_sw_i2c_send_page_byte(AT24CXX_HandleType *AT24Cx, uint16_t page_addr, uint8_t *buffer, uint16_t length);
+	uint8_t at24cxx_sw_i2c_read_single_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer);
+	uint8_t at24cxx_sw_i2c_read_page_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer, uint16_t length);
+
+	uint8_t at24cxx_i2c_send_single_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t buffer);
+	uint8_t at24cxx_i2c_send_page_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer, uint16_t length);
+	uint8_t at24cxx_i2c_send_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer, uint16_t length);
+	uint8_t at24cxx_i2c_read_single_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer);
+	uint8_t at24cxx_i2c_read_page_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer, uint16_t length);
+	uint8_t at24cxx_i2c_read_byte(AT24CXX_HandleType *AT24Cx, uint16_t addr, uint8_t *buffer, uint16_t length);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

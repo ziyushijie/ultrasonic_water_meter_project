@@ -77,6 +77,8 @@ uint32_t app_get_tick(void)
 	return sys_tick_task_get_inc_count(SYS_TICK_TASK_ONE);
 }
 
+uint8_t temp_buffer[4]={0};
+
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 应用初始化函数
@@ -100,13 +102,16 @@ void app_init(void)
 	uart_task_init(UART_TASK_TWO, app_get_tick);
 	//uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
 	//R_UART1_Send("123\r\n",5);
+	//---eeprom存储器初始化
+	at24cxx_task_i2c_init(AT24CXX_TASK_ONE,delay_task_us,delay_task_ms,app_get_tick,AT24CXX_ENABLE_HW_I2C_ONE);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
 	//PM4 &= ~(1<<5);
-	gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
+	//gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
 	//---使能中断
 	SEI();
+	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE,0,temp_buffer,1);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -122,8 +127,10 @@ void main(void)
 	//LOG_VA_ARGS("ultrasonic water meter\r\n");
 	while (1)
 	{
-		gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
-		delay_task_us(100);
+		//gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
+		//P4_bit.no5=0;
+		//delay_task_us(100);
+		//P4_bit.no5^=1;
 		WDT_RESET();
 	}
 }

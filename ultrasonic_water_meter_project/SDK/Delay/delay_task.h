@@ -11,7 +11,7 @@ extern "C" {
 	void delay_task_nop(uint32_t cnt);
 	void delay_task_us(uint32_t us);
 	void delay_task_ms(uint32_t ms);
-	void delay_lib_s(uint32_t s);
+	void delay_task_s(uint32_t s);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

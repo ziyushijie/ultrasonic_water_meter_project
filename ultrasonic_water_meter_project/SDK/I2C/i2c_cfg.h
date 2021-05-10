@@ -33,7 +33,18 @@ extern "C" {
 	uint8_t i2c_msw_deinit(I2C_HandleType *I2Cx);
 	uint8_t i2c_msw_start(I2C_HandleType *I2Cx);
 	uint8_t i2c_msw_stop(I2C_HandleType *I2Cx);
-
+	uint8_t i2c_msw_ack(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_nack(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_read_ack(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_wait_ack(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_send_ack(I2C_HandleType *I2Cx, uint8_t is_nack);
+	uint8_t i2c_msw_send_byte(I2C_HandleType *I2Cx, uint8_t buffer);
+	uint8_t i2c_msw_send_word(I2C_HandleType *I2Cx, uint16_t buffer);
+	uint8_t i2c_msw_read_byte(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_check_device(I2C_HandleType *I2Cx);
+	uint8_t i2c_msw_send_cmd(I2C_HandleType *I2Cx, uint8_t cmd, uint8_t is_start, uint8_t is_stop);
+	uint8_t i2c_master_deinit(I2C_HandleType* I2Cx);
+	void i2c_time_tick_init(I2C_HandleType* I2Cx, uint32_t(*func_time_tick)(void));
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
