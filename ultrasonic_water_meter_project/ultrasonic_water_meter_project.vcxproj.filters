@@ -64,6 +64,10 @@
     <Filter Include="SDK\WDT">
       <UniqueIdentifier>{df0a1e8b-0683-41f1-ba69-2e0744cd0196}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\SPI">
+    </Filter>
+    <Filter Include="SDK\Key">
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\APP\config.h">
@@ -227,6 +231,24 @@
     </ClInclude>
     <ClInclude Include="DriversPlus\R7F0C019\rl78_it.h">
       <Filter>DriversPlus\R7F0C019</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SPI\spi_cfg.h">
+      <Filter>SDK\SPI</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SPI\spi_lib.h">
+      <Filter>SDK\SPI</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SPI\spi_task.h">
+      <Filter>SDK\SPI</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Key\key_cfg.h">
+      <Filter>SDK\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Key\key_lib.h">
+      <Filter>SDK\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Key\key_task.h">
+      <Filter>SDK\Key</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +437,24 @@
     </ClCompile>
     <ClCompile Include="DriversPlus\R7F0C019\r78_it.c">
       <Filter>DriversPlus\R7F0C019</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SPI\spi_cfg.c">
+      <Filter>SDK\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SPI\spi_lib.c">
+      <Filter>SDK\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\SPI\spi_task.c">
+      <Filter>SDK\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Key\key_cfg.c">
+      <Filter>SDK\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Key\key_lib.c">
+      <Filter>SDK\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Key\key_task.c">
+      <Filter>SDK\Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

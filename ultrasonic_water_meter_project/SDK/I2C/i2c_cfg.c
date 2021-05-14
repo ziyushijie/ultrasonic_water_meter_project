@@ -16,7 +16,6 @@ uint8_t i2c_msw_init(I2C_HandleType *I2Cx, void(*func_delay_us)(uint32_t delay),
 	gpio_task_pin_mode_input(I2Cx->msg_gpio_sda.msg_p_port, I2Cx->msg_gpio_sda.msg_bit);
 	gpio_task_pin_set(I2Cx->msg_gpio_sda.msg_p_port, I2Cx->msg_gpio_sda.msg_bit);
 	
-	//---usÑÓÊ±
 	//---usÑÓÊ±º¯Êý
 	(func_delay_us != NULL) ?
 		(I2Cx->msg_f_delay_us = func_delay_us) :

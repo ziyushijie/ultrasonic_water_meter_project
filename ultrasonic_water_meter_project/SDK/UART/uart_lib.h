@@ -8,6 +8,9 @@ extern "C" {
 	#include "uart_cfg.h"
 
 	//===º¯Êý¶¨Òå
+	void uart_lib_send_reset(UART_HandleType* UARTx);
+	void uart_lib_read_reset(UART_HandleType* UARTx);
+	uint8_t uart_lib_read_end(UART_HandleType* UARTx);
 	uint8_t uart_lib_init(UART_HandleType* UARTx, uint32_t(*func_time_tick)(void));
 	
 	void uart_lib_it_irq_read_handle_one(UART_HandleType* UARTx);

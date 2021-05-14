@@ -14,6 +14,7 @@ extern "C" {
 	#include "r_cg_sau.h"	
 	#include "r_cg_tau.h"	
 	#include "r_cg_port.h"	
+	#include "r_cg_pclbuz.h"
 	
 #pragma region GPIO配置
 
@@ -29,7 +30,7 @@ extern "C" {
 		unsigned char no7 : 1;
 	} GPIO_TypeDef;*/
 	
-	#define GPIO_TypeDef 										uint32_t	
+	#define GPIO_TypeDef 										vltuint32_t	
 	//===端口寄存器
 #ifdef P0
 	#define GPIOP0												&P0
@@ -150,48 +151,48 @@ extern "C" {
 	#define GPIOPU9												&PU9
 #endif
 #ifdef PU10
-	#define GPIOPU10												&PU10
+	#define GPIOPU10											&PU10
 #endif
 #ifdef PU11
-	#define GPIOPU11												&PU11
+	#define GPIOPU11											&PU11
 #endif
 #ifdef PU12
-	#define GPIOPU12												&PU12
+	#define GPIOPU12											&PU12
 #endif
 #ifdef PU13
-	#define GPIOPU13												&PU13
+	#define GPIOPU13											&PU13
 #endif
 
 	//===端口输入模式寄存器
 #ifdef PIM0
-	#define GPIOPIM0												&PIM0
+	#define GPIOPIM0											&PIM0
 #endif
 #ifdef PIM1
-	#define GPIOPIM1												&PIM1
+	#define GPIOPIM1											&PIM1
 #endif
 #ifdef PIM2
-	#define GPIOPIM2												&PIM2
+	#define GPIOPIM2											&PIM2
 #endif
 #ifdef PIM3
-	#define GPIOPIM3												&PIM3
+	#define GPIOPIM3											&PIM3
 #endif
 #ifdef PIM4
-	#define GPIOPIM4												&PIM4
+	#define GPIOPIM4											&PIM4
 #endif
 #ifdef PIM5
-	#define GPIOPIM5												&PIM5
+	#define GPIOPIM5											&PIM5
 #endif
 #ifdef PIM6
-	#define GPIOPIM6												&PIM6
+	#define GPIOPIM6											&PIM6
 #endif
 #ifdef PIM7
-	#define GPIOPIM7												&PIM7
+	#define GPIOPIM7											&PIM7
 #endif
 #ifdef PIM8
-	#define GPIOPIM8												&PIM8
+	#define GPIOPIM8											&PIM8
 #endif
 #ifdef PIM9
-	#define GPIOPIM9												&PIM9
+	#define GPIOPIM9											&PIM9
 #endif
 #ifdef PIM10
 	#define GPIOPIM10											&PIM10
@@ -208,34 +209,34 @@ extern "C" {
 	
 	//===端口输出模式寄存器
 #ifdef POM0
-	#define GPIOPOM0												&POM0
+	#define GPIOPOM0											&POM0
 #endif
 #ifdef POM1
-	#define GPIOPOM1												&POM1
+	#define GPIOPOM1											&POM1
 #endif
 #ifdef POM2
-	#define GPIOPOM2												&POM2
+	#define GPIOPOM2											&POM2
 #endif
 #ifdef POM3
-	#define GPIOPOM3												&POM3
+	#define GPIOPOM3											&POM3
 #endif
 #ifdef POM4
-	#define GPIOPOM4												&POM4
+	#define GPIOPOM4											&POM4
 #endif
 #ifdef POM5
-	#define GPIOPOM5												&POM5
+	#define GPIOPOM5											&POM5
 #endif
 #ifdef POM6
-	#define GPIOPOM6												&POM6
+	#define GPIOPOM6											&POM6
 #endif
 #ifdef POM7
-	#define GPIOPOM7												&POM7
+	#define GPIOPOM7											&POM7
 #endif
 #ifdef POM8
-	#define GPIOPOM8												&POM8
+	#define GPIOPOM8											&POM8
 #endif
 #ifdef POM9
-	#define GPIOPOM9												&POM9
+	#define GPIOPOM9											&POM9
 #endif
 #ifdef POM10
 	#define GPIOPOM10											&POM10
@@ -252,34 +253,34 @@ extern "C" {
 	
 	//===端口模式控制寄存器
 #ifdef PMC0
-	#define GPIOPMC0												&PMC0
+	#define GPIOPMC0											&PMC0
 #endif
 #ifdef PMC1
-	#define GPIOPMC1												&PMC1
+	#define GPIOPMC1											&PMC1
 #endif
 #ifdef PMC2
-	#define GPIOPMC2												&PMC2
+	#define GPIOPMC2											&PMC2
 #endif
 #ifdef PMC3
-	#define GPIOPMC3												&PMC3
+	#define GPIOPMC3											&PMC3
 #endif
 #ifdef PMC4
-	#define GPIOPMC4												&PMC4
+	#define GPIOPMC4											&PMC4
 #endif
 #ifdef PMC5
-	#define GPIOPMC5												&PMC5
+	#define GPIOPMC5											&PMC5
 #endif
 #ifdef PMC6
-	#define GPIOPMC6												&PMC6
+	#define GPIOPMC6											&PMC6
 #endif
 #ifdef PMC7
-	#define GPIOPMC7												&PMC7
+	#define GPIOPMC7											&PMC7
 #endif
 #ifdef PMC8
-	#define GPIOPMC8												&PMC8
+	#define GPIOPMC8											&PMC8
 #endif
 #ifdef PMC9
-	#define GPIOPMC9												&PMC9
+	#define GPIOPMC9											&PMC9
 #endif
 #ifdef PMC10
 	#define GPIOPMC10											&PMC10
@@ -398,6 +399,9 @@ extern "C" {
 	void rl78_init(uint8_t opt);
 	void rl78_port_init(void);
 	void rl78_clock_init(void);
+	void rl78_pclbuz_init(void);
+	void rl78_pclbuz_start(uint8_t ch);
+	void rl78_pclbuz_stop(uint8_t ch);
 	void rl78_adc_clock(uint8_t enable);
 	void rl78_i2c1_clock(uint8_t enable);
 #ifdef IICA1EN

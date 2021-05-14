@@ -670,6 +670,7 @@ uint32_t crc_crc32_crc(uint8_t *buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint32_t crc_crc32_mpeg_2(uint8_t* buffer, uint32_t length)
 {
+#if defined(CRC_ENABLE_CRC32)
 	uint32_t i = 0;
 	uint32_t crc = 0xFFFFFFFF;
 	uint32_t nreg = 0;
@@ -691,6 +692,9 @@ uint32_t crc_crc32_mpeg_2(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return crc;
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -827,7 +831,7 @@ uint32_t crc_crc32_type(uint16_t type,uint8_t* buffer, uint32_t length)
 			_return = 0;
 			break;
 		}
-#ifdef CRC32_ENABLE_MPEG_2
+#if defined(CRC_ENABLE_CRC32)&&defined(CRC32_ENABLE_MPEG_2)
 		case CRC32_TYPE_MPEG_2:
 		{
 			_return = crc_crc32_mpeg_2(buffer, length);
@@ -839,7 +843,7 @@ uint32_t crc_crc32_type(uint16_t type,uint8_t* buffer, uint32_t length)
 			break;
 		}
 #endif
-#ifdef CRC32_ENABLE_ISO_HDLC
+#if defined(CRC_ENABLE_CRC32)&&defined(CRC32_ENABLE_ISO_HDLC)
 		case CRC32_TYPE_ISO_HDLC:
 		{
 			_return = crc_crc32_iso_hdlc(buffer, length);
@@ -851,7 +855,7 @@ uint32_t crc_crc32_type(uint16_t type,uint8_t* buffer, uint32_t length)
 			break;
 		}
 #endif
-#ifdef CRC32_ENABLE_STM32
+#if defined(CRC_ENABLE_CRC32)&&defined(CRC32_ENABLE_STM32)
 		case CRC32_TYPE_STM32:
 		{
 			_return = crc_crc32_table_stm32(buffer,length);
@@ -1244,6 +1248,7 @@ uint8_t crc_check_sum_special_pos(uint8_t* buffer, uint16_t pos, uint32_t length
 uint8_t crc_check_sum_type(uint16_t type,uint8_t* buffer, uint32_t length)
 {
 	uint8_t _return = 0;
+#ifdef CRC_ENABLE_CHECK_SUM
 	switch (type)
 	{
 		case CRC_CHECK_SUM_TYPE_NONE:
@@ -1267,6 +1272,7 @@ uint8_t crc_check_sum_type(uint16_t type,uint8_t* buffer, uint32_t length)
 			break;
 		}
 	}
+#endif
 	return _return;
 }
 
@@ -1373,6 +1379,7 @@ uint16_t crc_crc16_table(uint16_t crc_seed, uint16_t crc, uint8_t* buffer, uint3
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_ccitt(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0x0000;
 	uint16_t wCPoly = 0x1021;
 	uint8_t wChar = 0;
@@ -1407,6 +1414,9 @@ uint16_t crc_crc16_ccitt(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return invert_uint16(&wCRCin);
+#else
+	return 0;
+#endif
 }
 ///////////////////////////////////////////////////////////////////////////////
 //////º¯		Êý£º
@@ -1451,6 +1461,7 @@ uint16_t crc_crc16_table_ccitt(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_ccitt_false(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0xFFFF;
 	uint16_t wCPoly = 0x1021;
 	uint8_t wChar = 0;
@@ -1484,6 +1495,9 @@ uint16_t crc_crc16_ccitt_false(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return wCRCin;
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1529,6 +1543,7 @@ uint16_t crc_crc16_table_ccitt_false(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_xmodem(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0x0000;
 	uint16_t wCPoly = 0x1021;
 	uint8_t wChar = 0;
@@ -1562,6 +1577,9 @@ uint16_t crc_crc16_xmodem(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return wCRCin;
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1573,7 +1591,11 @@ uint16_t crc_crc16_xmodem(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_table_xmodem(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	return crc_crc16_table(CRC16_TABLE_1021H, 0x0000, buffer, length);
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1585,6 +1607,7 @@ uint16_t crc_crc16_table_xmodem(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_x25(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0xFFFF;
 	uint16_t wCPoly = 0x1021;
 	uint8_t wChar = 0;
@@ -1620,6 +1643,9 @@ uint16_t crc_crc16_x25(uint8_t* buffer, uint32_t length)
 	}
 	wCRCin= invert_uint16(&wCRCin);
 	return (wCRCin^0xFFFF);
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1666,6 +1692,7 @@ uint16_t crc_crc16_table_x25(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_modbus(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0xFFFF;
 	uint16_t wCPoly = 0x8005;
 	uint8_t wChar = 0;
@@ -1700,6 +1727,9 @@ uint16_t crc_crc16_modbus(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return invert_uint16(&wCRCin);
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1747,6 +1777,7 @@ uint16_t crc_crc16_table_modbus(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_ibm(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0x0000;
 	uint16_t wCPoly = 0x8005;
 	uint8_t wChar = 0;
@@ -1780,7 +1811,10 @@ uint16_t crc_crc16_ibm(uint8_t* buffer, uint32_t length)
 			WDT_RESET();
 		}
 	}
-	return invert_uint16(&wCRCin);
+	return invert_uint16(&wCRCin); 
+#else
+		return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1827,6 +1861,7 @@ uint16_t crc_crc16_table_ibm(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_maxim(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0x0000;
 	uint16_t wCPoly = 0x8005;
 	uint8_t wChar = 0;
@@ -1862,6 +1897,9 @@ uint16_t crc_crc16_maxim(uint8_t* buffer, uint32_t length)
 	}
 	wCRCin = invert_uint16(&wCRCin);
 	return (wCRCin ^ 0xFFFF);
+#else
+		return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1907,6 +1945,7 @@ uint16_t crc_crc16_table_maxim(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_usb(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0xFFFF;
 	uint16_t wCPoly = 0x8005;
 	uint8_t wChar = 0;
@@ -1942,6 +1981,9 @@ uint16_t crc_crc16_usb(uint8_t* buffer, uint32_t length)
 	}
 	wCRCin = invert_uint16(&wCRCin);
 	return (wCRCin ^ 0xFFFF);
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1987,6 +2029,7 @@ uint16_t crc_crc16_table_usb(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_rtu(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0xFFFF;
 	uint16_t wCPoly = 0xA001;
 	uint8_t wChar = 0;
@@ -2020,6 +2063,9 @@ uint16_t crc_crc16_rtu(uint8_t* buffer, uint32_t length)
 		}
 	}
 	return wCRCin;
+#else
+	return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2066,6 +2112,7 @@ uint16_t crc_crc16_table_rtu(uint8_t* buffer, uint32_t length)
 //////////////////////////////////////////////////////////////////////////////
 uint16_t crc_crc16_dnp(uint8_t* buffer, uint32_t length)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t wCRCin = 0x0000;
 	uint16_t wCPoly = 0x3D65;
 	uint8_t wChar = 0;
@@ -2098,7 +2145,10 @@ uint16_t crc_crc16_dnp(uint8_t* buffer, uint32_t length)
 			WDT_RESET();
 		}
 	}
-	return (wCRCin^0xFFFF);
+	return (wCRCin ^ 0xFFFF);
+#else
+		return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2392,6 +2442,7 @@ uint16_t crc_crc16_table_seed_data(uint16_t crc_seed, uint16_t crc_data, uint8_t
 //////////////////////////////////////////////////////////////////////////////
 uint8_t crc_crc16_calc_table(uint16_t crcseed,uint16_t *crctable)
 {
+#ifdef CRC_ENABLE_CRC16
 	uint16_t i = 0,j=0;
 	uint16_t crc = 0;
 	for (i=0;i<256;i++)
@@ -2410,6 +2461,7 @@ uint8_t crc_crc16_calc_table(uint16_t crcseed,uint16_t *crctable)
 		}
 		crctable[i] = crc;
 	}
+#endif
 	return OK_0;
 }
 

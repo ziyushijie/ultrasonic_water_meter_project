@@ -15,7 +15,7 @@ extern "C" {
 	//===定义使用的CRC校验方法
 	//#define CRC_ENABLE_CRC32																							//---CRC32校验方式
 	//#define CRC_ENABLE_CRC16																							//---CRC16校验方式
-	//#define CRC_ENABLE_CRC8																								//---CRC8校验方式
+	//#define CRC_ENABLE_CRC8																							 //---CRC8校验方式
 	#define CRC_ENABLE_CHECK_SUM																						//---校验和校验方式
 #ifdef CRC
 	#define CRC_ENABLE_CRC32_HW	

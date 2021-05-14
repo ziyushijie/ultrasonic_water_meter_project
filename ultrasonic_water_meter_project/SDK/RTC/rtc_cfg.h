@@ -10,6 +10,17 @@ extern "C" {
 	#include "sys_tick_task.h"
 	#include "hw_config.h"
 
+	//===结构体定义
+	typedef struct _RTC_HandleType				RTC_HandleType;
+	//===定义指针结构体
+	typedef struct _RTC_HandleType				* pRTC_HandleType;
+	//===定义软件RTC时钟
+	struct _RTC_HandleType
+	{
+		RTC_TimeType	msg_rtcx;																						//---使用的RTC
+		uint32_t(*msg_f_time_tick)(void);																				//---用于超时计数
+	};
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

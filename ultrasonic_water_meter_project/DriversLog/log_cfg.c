@@ -1,7 +1,7 @@
 #include "log_cfg.h"
 
 #if (MODULE_LOG_ENABLE>0)
-	void app_log_args(const char __far *fmt, va_list args);
+	void app_log_args( char *fmt, va_list args);
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////

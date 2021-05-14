@@ -66,7 +66,7 @@ void hdwinit(void)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//////函		数:
+//////函		数: 
 //////功		能: 应用使用的抵达节拍
 //////输入参	数:
 //////输出参	数:
@@ -92,6 +92,10 @@ void app_init(void)
 	CLI();
 	//---根据配置字选择时钟
 	rl78_init((uint8_t)USER_OPT_BYTE);
+	//---初始化时钟输出/蜂鸣器输出
+	rl78_pclbuz_init();
+	//---启动时钟输出
+	rl78_pclbuz_start(0);
 	//---滴答节拍初始化
 	sys_tick_task_init(SYS_TICK_TASK_ONE);
 	//---GPIO初始化
@@ -104,6 +108,8 @@ void app_init(void)
 	//R_UART1_Send("123\r\n",5);
 	//---eeprom存储器初始化
 	at24cxx_task_i2c_init(AT24CXX_TASK_ONE,delay_task_us,delay_task_ms,app_get_tick,AT24CXX_ENABLE_HW_I2C_ONE);
+	//---TDC芯片初始化
+	ms1022_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
@@ -111,7 +117,13 @@ void app_init(void)
 	//gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
 	//---使能中断
 	SEI();
-	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE,0,temp_buffer,1);
+	//---数据填充
+	temp_buffer[0] = 0x14;
+	temp_buffer[1] = 0x00;
+	temp_buffer[2] = 0x01;
+	temp_buffer[3] = 0x78;
+	at24cxx_task_i2c_send_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
+	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE,0,temp_buffer,4);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -124,13 +136,24 @@ void app_init(void)
 void main(void)
 {
 	app_init();
-	//LOG_VA_ARGS("ultrasonic water meter\r\n");
+	LOG_VA_ARGS("ultrasonic water meter\r\n");
+	//app_log("ultrasonic water meter\r\n");
+	//uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
 	while (1)
 	{
 		//gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);
 		//P4_bit.no5=0;
 		//delay_task_us(100);
 		//P4_bit.no5^=1;
+		//---检查是否收到数据
+		if (uart_task_read_end(UART_TASK_TWO)==OK_0)
+		{
+			uart_task_fill_mode_send_two(UART_TASK_TWO,
+				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
+				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
+			//---复位接收，等待下次数据的到来
+			uart_task_read_reset(UART_TASK_TWO);
+		}
 		WDT_RESET();
 	}
 }

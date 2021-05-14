@@ -4,7 +4,7 @@
 uint32_t(* gpio_time_tick)(void);
 
 #if (MODULE_LOG_GPIO>0)
-	extern void app_log(const char __far *fmt, ...);
+	extern void LOG_VA_ARGS(char*fmt, ...);
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -46,9 +46,59 @@ void gpio_init(uint32_t(*func_time_tick)(void))
 //////输出参数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void gpio_pin_mode_set(GPIO_TypeDef * gpiox,uint32_t pin)
+void gpio_pin_mode_set(GPIO_TypeDef * gpiox, uint32_t pin)
 {
-	(* gpiox)|=((uint16_t)pin);
+	union_uint16_t *p = gpiox;
+	p->bits[0] |= pin;
+	/*switch (pin)
+	{
+		case GPIO_PIN_BIT_0:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_0;
+			break;
+		}
+		case GPIO_PIN_BIT_1:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_1;
+			break;
+		}
+		case GPIO_PIN_BIT_2:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_2;
+			break;
+		}
+		case GPIO_PIN_BIT_3:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_3;
+			break;
+		}
+		case GPIO_PIN_BIT_4:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_4;
+			break;
+		}
+		case GPIO_PIN_BIT_5:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_5;
+			break;
+		}
+		case GPIO_PIN_BIT_6:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_6;
+			break;
+		}
+		case GPIO_PIN_BIT_7:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_7;
+			break;
+		}
+		case GPIO_PIN_BIT_ALL:
+		default:
+		{
+			(*gpiox) |= GPIO_PIN_BIT_ALL;
+			break;
+		}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,7 +110,57 @@ void gpio_pin_mode_set(GPIO_TypeDef * gpiox,uint32_t pin)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_mode_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	(* gpiox)&=~((uint16_t)pin);
+	union_uint16_t *p = gpiox;
+	p->bits[0] &= ~pin;
+	/*switch(pin)
+	{
+		case GPIO_PIN_BIT_0:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_0);
+			break;
+		}
+		case GPIO_PIN_BIT_1:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_1);
+			break;
+		}
+		case GPIO_PIN_BIT_2:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_2);			
+			break;
+		}
+		case GPIO_PIN_BIT_3:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_3);
+			break;
+		}
+		case GPIO_PIN_BIT_4:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_4);
+			break;
+		}
+		case GPIO_PIN_BIT_5:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_5);
+			break;
+		}
+		case GPIO_PIN_BIT_6:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_6);
+			break;
+		}
+		case GPIO_PIN_BIT_7:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_7);
+			break;
+		}
+		case GPIO_PIN_BIT_ALL:
+		default:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_ALL);
+			break;
+		}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -188,7 +288,7 @@ void gpio_pin_mode_input(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输入配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输入配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -318,7 +418,7 @@ void gpio_pin_mode_output(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输出配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输出配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -448,7 +548,7 @@ void gpio_pin_mode_pull_up_set(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口上拉使能配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口上拉使能配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -578,7 +678,7 @@ void gpio_pin_mode_pull_up_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口上拉不使能配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口上拉不使能配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -708,7 +808,7 @@ void gpio_pin_mode_input_normal(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输入正常模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输入正常模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -838,7 +938,7 @@ void gpio_pin_mode_input_ttl(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输入TTL模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输入TTL模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -968,7 +1068,7 @@ void gpio_pin_mode_output_normal(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输出正常模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输出正常模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1098,7 +1198,7 @@ void gpio_pin_mode_output_od(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口输出开漏模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口输出开漏模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1228,7 +1328,7 @@ void gpio_pin_mode_digital(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口数字模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口数字模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1358,7 +1458,7 @@ void gpio_pin_mode_analog(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口模拟模式配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口模拟模式配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1488,7 +1588,7 @@ void gpio_pin_mode_ior_set(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口复用设置配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口复用设置配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1618,7 +1718,7 @@ void gpio_pin_mode_ior_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 #if (MODULE_LOG_GPIO>0)
 	else
 	{
-		app_log("端口复用清零配置:不支持的端口信息\r\n");
+		LOG_VA_ARGS("端口复用清零配置:不支持的端口信息\r\n");
 	}
 #endif
 }
@@ -1632,7 +1732,57 @@ void gpio_pin_mode_ior_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_set(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	(* gpiox)|=((uint16_t)pin);
+	union_uint16_t *p = gpiox;
+	p->bits[0] |= pin;
+	/*switch(pin)
+	{
+		case GPIO_PIN_BIT_0:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_0;
+			break;
+		}
+		case GPIO_PIN_BIT_1:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_1;
+			break;
+		}
+		case GPIO_PIN_BIT_2:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_2;			
+			break;
+		}
+		case GPIO_PIN_BIT_3:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_3;
+			break;
+		}
+		case GPIO_PIN_BIT_4:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_4;
+			break;
+		}
+		case GPIO_PIN_BIT_5:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_5;
+			break;
+		}
+		case GPIO_PIN_BIT_6:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_6;
+			break;
+		}
+		case GPIO_PIN_BIT_7:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_7;
+			break;
+		}
+		case GPIO_PIN_BIT_ALL:
+		default:
+		{
+			(* gpiox)|=GPIO_PIN_BIT_ALL;
+			break;
+		}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1656,7 +1806,57 @@ void gpio_set(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_reset(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	(* gpiox)&=~((uint16_t)pin);
+	union_uint16_t *p = gpiox;
+	p->bits[0] &= ~pin;
+	/*switch(pin)
+	{
+		case GPIO_PIN_BIT_0:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_0);
+			break;
+		}
+		case GPIO_PIN_BIT_1:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_1);
+			break;
+		}
+		case GPIO_PIN_BIT_2:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_2);
+			break;
+		}
+		case GPIO_PIN_BIT_3:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_3);
+			break;
+		}
+		case GPIO_PIN_BIT_4:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_4);
+			break;
+		}
+		case GPIO_PIN_BIT_5:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_5);
+			break;
+		}
+		case GPIO_PIN_BIT_6:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_6);
+			break;
+		}
+		case GPIO_PIN_BIT_7:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_7);
+			break;
+		}
+		case GPIO_PIN_BIT_ALL:
+		default:
+		{
+			(* gpiox)&=(~GPIO_PIN_BIT_ALL);
+			break;
+		}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1680,7 +1880,57 @@ void gpio_reset(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 void gpio_pin_toggle(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	(*gpiox) ^= (uint16_t)pin;
+	union_uint16_t *p = gpiox;
+	p->bits[0] ^= pin;
+	/*switch(pin)
+	{
+		case GPIO_PIN_BIT_0:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_0;
+			break;
+		}
+		case GPIO_PIN_BIT_1:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_1;
+			break;
+		}
+		case GPIO_PIN_BIT_2:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_2;
+			break;
+		}
+		case GPIO_PIN_BIT_3:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_3;
+			break;
+		}
+		case GPIO_PIN_BIT_4:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_4;
+			break;
+		}
+		case GPIO_PIN_BIT_5:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_5;
+			break;
+		}
+		case GPIO_PIN_BIT_6:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_6;
+			break;
+		}
+		case GPIO_PIN_BIT_7:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_7;
+			break;
+		}
+		case GPIO_PIN_BIT_ALL:
+		default:
+		{
+			(* gpiox)^=GPIO_PIN_BIT_ALL;
+			break;
+		}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1704,7 +1954,8 @@ void gpio_toggle(GPIO_HandleType* gpiox)
 //////////////////////////////////////////////////////////////////////////////
 uint32_t gpio_pin_read(GPIO_TypeDef * gpiox,uint32_t pin)
 {
-	return ((((* gpiox)&(uint16_t)pin)!=0)?1:0);
+	union_uint16_t *p = gpiox;
+	return (((p->bits[0]&pin)!=0)?1:0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

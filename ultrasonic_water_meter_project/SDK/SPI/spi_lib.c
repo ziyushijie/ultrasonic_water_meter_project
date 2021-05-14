@@ -1,4 +1,4 @@
-#include "uart_task.h"
+#include "spi_lib.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -7,9 +7,9 @@
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_send_reset(UART_HandleType* UARTx)
+uint8_t spi_lib_time_tick_init(SPI_HandleType* SPIx, uint32_t(*func_time_tick)(void))
 {
-	uart_lib_send_reset(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -19,9 +19,9 @@ void uart_task_send_reset(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_read_reset(UART_HandleType* UARTx)
+uint8_t spi_lib_init(SPI_HandleType* SPIx, void(*func_delay_us)(uint32_t delay), uint32_t(*func_time_tick)(void))
 {
-	uart_lib_read_reset(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,9 +31,9 @@ void uart_task_read_reset(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t uart_task_read_end(UART_HandleType* UARTx)
+uint8_t spi_lib_mhw_gpio_init(SPI_HandleType* SPIx)
 {
-	return uart_lib_read_end(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -43,9 +43,9 @@ uint8_t uart_task_read_end(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t uart_task_init(UART_HandleType* UARTx, uint32_t(*func_time_tick)(void))
+uint8_t spi_lib_msw_gpio_init(SPI_HandleType* SPIx)
 {
-	return uart_lib_init(UARTx, func_time_tick);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -55,9 +55,9 @@ uint8_t uart_task_init(UART_HandleType* UARTx, uint32_t(*func_time_tick)(void))
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_handle(UART_HandleType* UARTx)
+uint8_t spi_lib_gpio_deinit(SPI_HandleType* SPIx, uint8_t is_init_ss)
 {
-	uart_lib_it_irq_read_handle(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,9 +67,10 @@ void uart_task_it_irq_read_handle(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_error_handle(UART_HandleType* UARTx)
+
+uint8_t spi_lib_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t polarity)
 {
-	uart_lib_it_irq_read_error_handle(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,9 +80,9 @@ void uart_task_it_irq_read_error_handle(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_send_handle(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
-	uart_lib_it_irq_send_handle(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -91,9 +92,9 @@ void uart_task_it_irq_send_handle(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_handle_one(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
-	uart_lib_it_irq_read_handle_one(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -103,9 +104,9 @@ void uart_task_it_irq_read_handle_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_error_handle_one(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint16_t length)
 {
-	uart_lib_it_irq_read_error_handle_one(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -115,9 +116,9 @@ void uart_task_it_irq_read_error_handle_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_send_handle_one(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, uint16_t length)
 {
-	uart_lib_it_irq_send_handle_one(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,9 +128,9 @@ void uart_task_it_irq_send_handle_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_handle_two(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
 {
-	uart_lib_it_irq_read_handle_two(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,9 +140,9 @@ void uart_task_it_irq_read_handle_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_error_handle_two(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
-	uart_lib_it_irq_read_error_handle_two(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,9 +152,9 @@ void uart_task_it_irq_read_error_handle_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_send_handle_two(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
 {
-	uart_lib_it_irq_send_handle_two(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -163,9 +164,9 @@ void uart_task_it_irq_send_handle_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_handle_three(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-	uart_lib_it_irq_read_handle_three(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -175,9 +176,9 @@ void uart_task_it_irq_read_handle_three(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_read_error_handle_three(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-	uart_lib_it_irq_read_error_handle_three(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -187,9 +188,9 @@ void uart_task_it_irq_read_error_handle_three(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_it_irq_send_handle_three(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-	uart_lib_it_irq_send_handle_three(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -199,9 +200,9 @@ void uart_task_it_irq_send_handle_three(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_one(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+uint8_t spi_lib_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-	uart_lib_fill_mode_send_one(UARTx, buffer, length);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -211,9 +212,9 @@ void uart_task_fill_mode_send_one(UART_HandleType* UARTx, uint8_t *buffer, uint1
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_two(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+uint8_t spi_lib_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd, uint16_t length)
 {
-	uart_lib_fill_mode_send_two(UARTx, buffer, length);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -223,9 +224,10 @@ void uart_task_fill_mode_send_two(UART_HandleType* UARTx, uint8_t *buffer, uint1
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_three(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+
+uint8_t spi_lib_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t polarity)
 {
-	uart_lib_fill_mode_send_three(UARTx, buffer, length);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -235,9 +237,9 @@ void uart_task_fill_mode_send_three(UART_HandleType* UARTx, uint8_t *buffer, uin
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
+uint8_t spi_lib_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
-	uart_lib_fill_mode_send(UARTx, buffer, length);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -247,9 +249,9 @@ void uart_task_fill_mode_send(UART_HandleType* UARTx, uint8_t *buffer, uint16_t 
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_start_one(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
-	uart_lib_fill_mode_send_start_one(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -259,9 +261,9 @@ void uart_task_fill_mode_send_start_one(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_start_two(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint16_t length)
 {
-	uart_lib_fill_mode_send_start_two(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -271,9 +273,9 @@ void uart_task_fill_mode_send_start_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_start_three(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, uint16_t length)
 {
-	uart_lib_fill_mode_send_start_three(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -283,9 +285,9 @@ void uart_task_fill_mode_send_start_three(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_fill_mode_send_start(UART_HandleType* UARTx)
+uint8_t spi_lib_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
 {
-	uart_lib_fill_mode_send_start(UARTx);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -295,7 +297,87 @@ void uart_task_fill_mode_send_start(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_task_printf_log(UART_HandleType* UARTx, char* fmt, va_list args)
+uint8_t spi_lib_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
-	uart_lib_printf_log(UARTx, fmt, args);
+
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd, uint16_t length)
+{
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////

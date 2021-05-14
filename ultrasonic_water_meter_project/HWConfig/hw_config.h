@@ -17,7 +17,7 @@ extern "C" {
 	#define MODULE_LOG_UART_INDEX			2
 	//===LOGÄ£¿é
 #if (MODULE_LOG_ENABLE>0)
-	#define MODULE_LOG_GPIO					0
+	#define MODULE_LOG_GPIO					1
 	#define MODULE_LOG_I2C					0
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0

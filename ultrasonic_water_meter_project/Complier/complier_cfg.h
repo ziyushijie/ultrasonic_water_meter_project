@@ -699,6 +699,7 @@ extern "C" {
 		uint8_t msg_century;																							//---世纪
 		uint8_t msg_format_24h;																							//---格式,0---12H;1---24H
 		uint8_t	msg_day_zero;																							//---零点变化,0---未变化;1---变化
+		uint16_t msg_years;																								//---具体哪一年 比如21世纪20年，就是2020年
 		uint32_t msg_second_tick;																						//---秒变化的记录
 	};
 	

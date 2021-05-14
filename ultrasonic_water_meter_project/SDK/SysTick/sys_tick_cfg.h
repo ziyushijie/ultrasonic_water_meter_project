@@ -22,9 +22,9 @@ extern "C" {
 	};
 
 	//===当前计数器寄存器的值
-	#define SYS_TICK_REG_VAL							(TCR02)
+	#define SYS_TICK_REG_VAL						(TCR02)
 	//===滴答定时器的加载值
-	#define SYS_TICK_REG_LOAD							(TDR02)
+	#define SYS_TICK_REG_LOAD						(TDR02)
 
 	#define SYS_TICK_TASK_ONE						p_sys_tick_one
 	#define SYS_TICK_TASK_TWO						0

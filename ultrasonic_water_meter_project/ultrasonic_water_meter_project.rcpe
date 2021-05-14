@@ -95,6 +95,30 @@
           <Path>SDK\AT24Cxx\at24cxx_task.c</Path>
           <Path>SDK\AT24Cxx\at24cxx_task.h</Path>
         </Category>
+        <Category Name="CRC">
+          <Path>SDK\CRC\crc_cfg.c</Path>
+          <Path>SDK\CRC\crc_cfg.h</Path>
+          <Path>SDK\CRC\crc_lib.c</Path>
+          <Path>SDK\CRC\crc_lib.h</Path>
+          <Path>SDK\CRC\crc_task.c</Path>
+          <Path>SDK\CRC\crc_task.h</Path>
+        </Category>
+        <Category Name="Delay">
+          <Path>SDK\Delay\delay_cfg.c</Path>
+          <Path>SDK\Delay\delay_cfg.h</Path>
+          <Path>SDK\Delay\delay_lib.c</Path>
+          <Path>SDK\Delay\delay_lib.h</Path>
+          <Path>SDK\Delay\delay_task.c</Path>
+          <Path>SDK\Delay\delay_task.h</Path>
+        </Category>
+        <Category Name="GPIO">
+          <Path>SDK\GPIO\gpio_cfg.c</Path>
+          <Path>SDK\GPIO\gpio_cfg.h</Path>
+          <Path>SDK\GPIO\gpio_lib.c</Path>
+          <Path>SDK\GPIO\gpio_lib.h</Path>
+          <Path>SDK\GPIO\gpio_task.c</Path>
+          <Path>SDK\GPIO\gpio_task.h</Path>
+        </Category>
         <Category Name="I2C">
           <Path>SDK\I2C\i2c_cfg.c</Path>
           <Path>SDK\I2C\i2c_cfg.h</Path>
@@ -102,6 +126,22 @@
           <Path>SDK\I2C\i2c_lib.h</Path>
           <Path>SDK\I2C\i2c_task.c</Path>
           <Path>SDK\I2C\i2c_task.h</Path>
+        </Category>
+        <Category Name="Key">
+          <Path>SDK\Key\key_cfg.c</Path>
+          <Path>SDK\Key\key_cfg.h</Path>
+          <Path>SDK\Key\key_lib.c</Path>
+          <Path>SDK\Key\key_lib.h</Path>
+          <Path>SDK\Key\key_task.c</Path>
+          <Path>SDK\Key\key_task.h</Path>
+        </Category>
+        <Category Name="MS1022">
+          <Path>SDK\MS1022\ms1022_cfg.c</Path>
+          <Path>SDK\MS1022\ms1022_cfg.h</Path>
+          <Path>SDK\MS1022\ms1022_lib.c</Path>
+          <Path>SDK\MS1022\ms1022_lib.h</Path>
+          <Path>SDK\MS1022\ms1022_task.c</Path>
+          <Path>SDK\MS1022\ms1022_task.h</Path>
         </Category>
         <Category Name="RTC">
           <Path>SDK\RTC\rtc_cfg.c</Path>
@@ -119,30 +159,6 @@
           <Path>SDK\SysTick\sys_tick_task.c</Path>
           <Path>SDK\SysTick\sys_tick_task.h</Path>
         </Category>
-        <Category Name="Delay">
-          <Path>SDK\Delay\delay_cfg.c</Path>
-          <Path>SDK\Delay\delay_cfg.h</Path>
-          <Path>SDK\Delay\delay_lib.c</Path>
-          <Path>SDK\Delay\delay_lib.h</Path>
-          <Path>SDK\Delay\delay_task.c</Path>
-          <Path>SDK\Delay\delay_task.h</Path>
-        </Category>
-        <Category Name="MS1022">
-          <Path>SDK\MS1022\ms1022_cfg.c</Path>
-          <Path>SDK\MS1022\ms1022_cfg.h</Path>
-          <Path>SDK\MS1022\ms1022_lib.c</Path>
-          <Path>SDK\MS1022\ms1022_lib.h</Path>
-          <Path>SDK\MS1022\ms1022_task.c</Path>
-          <Path>SDK\MS1022\ms1022_task.h</Path>
-        </Category>
-        <Category Name="GPIO">
-          <Path>SDK\GPIO\gpio_cfg.c</Path>
-          <Path>SDK\GPIO\gpio_cfg.h</Path>
-          <Path>SDK\GPIO\gpio_lib.c</Path>
-          <Path>SDK\GPIO\gpio_lib.h</Path>
-          <Path>SDK\GPIO\gpio_task.c</Path>
-          <Path>SDK\GPIO\gpio_task.h</Path>
-        </Category>
         <Category Name="UART">
           <Path>SDK\UART\uart_cfg.c</Path>
           <Path>SDK\UART\uart_cfg.h</Path>
@@ -151,6 +167,14 @@
           <Path>SDK\UART\uart_task.c</Path>
           <Path>SDK\UART\uart_task.h</Path>
         </Category>
+        <Category Name="SPI">
+          <Path>SDK\SPI\spi_cfg.c</Path>
+          <Path>SDK\SPI\spi_cfg.h</Path>
+          <Path>SDK\SPI\spi_lib.c</Path>
+          <Path>SDK\SPI\spi_lib.h</Path>
+          <Path>SDK\SPI\spi_task.c</Path>
+          <Path>SDK\SPI\spi_task.h</Path>
+        </Category>
         <Category Name="WDT">
           <Path>SDK\WDT\wdt_cfg.c</Path>
           <Path>SDK\WDT\wdt_cfg.h</Path>
@@ -158,14 +182,6 @@
           <Path>SDK\WDT\wdt_lib.h</Path>
           <Path>SDK\WDT\wdt_task.c</Path>
           <Path>SDK\WDT\wdt_task.h</Path>
-        </Category>
-        <Category Name="CRC">
-          <Path>SDK\CRC\crc_cfg.c</Path>
-          <Path>SDK\CRC\crc_cfg.h</Path>
-          <Path>SDK\CRC\crc_lib.c</Path>
-          <Path>SDK\CRC\crc_lib.h</Path>
-          <Path>SDK\CRC\crc_task.c</Path>
-          <Path>SDK\CRC\crc_task.h</Path>
         </Category>
       </Category>
     </Files>
@@ -242,25 +258,34 @@
           <Path>Debug\obj\DefaultBuild\sys_tick_cfg.obj</Path>
           <Path>Debug\obj\DefaultBuild\sys_tick_lib.obj</Path>
           <Path>Debug\obj\DefaultBuild\sys_tick_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\spi_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\spi_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\spi_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\key_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\key_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\key_task.obj</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>SDK\WDT</IncludePathForC>
-          <IncludePathForC>SDK\UART</IncludePathForC>
-          <IncludePathForC>SDK\CRC</IncludePathForC>
+          <IncludePathForC>SDK\SPI</IncludePathForC>
           <IncludePathForC>DriversPlus\R7F0C019</IncludePathForC>
           <IncludePathForC>DriversPlus\Compliers</IncludePathForC>
-          <IncludePathForC>SDK\GPIO</IncludePathForC>
-          <IncludePathForC>SDK\MS1022</IncludePathForC>
-          <IncludePathForC>SDK\Delay</IncludePathForC>
-          <IncludePathForC>SDK\RTC</IncludePathForC>
-          <IncludePathForC>SDK\I2C</IncludePathForC>
           <IncludePathForC>Application\APP</IncludePathForC>
           <IncludePathForC>Drivers\cg_src</IncludePathForC>
           <IncludePathForC>Complier</IncludePathForC>
           <IncludePathForC>DriversLog</IncludePathForC>
           <IncludePathForC>HWConfig</IncludePathForC>
           <IncludePathForC>SDK\AT24Cxx</IncludePathForC>
+          <IncludePathForC>SDK\CRC</IncludePathForC>
+          <IncludePathForC>SDK\Delay</IncludePathForC>
+          <IncludePathForC>SDK\GPIO</IncludePathForC>
+          <IncludePathForC>SDK\I2C</IncludePathForC>
+          <IncludePathForC>SDK\Key</IncludePathForC>
+          <IncludePathForC>SDK\MS1022</IncludePathForC>
+          <IncludePathForC>SDK\RTC</IncludePathForC>
+          <IncludePathForC>SDK\SPI</IncludePathForC>
           <IncludePathForC>SDK\SysTick</IncludePathForC>
+          <IncludePathForC>SDK\UART</IncludePathForC>
+          <IncludePathForC>SDK\WDT</IncludePathForC>
           <MacroForC>MCU_USE_RL78_R7F0</MacroForC>
           <MacroForC>USER_OPT_BYTE=0xEF5DAA</MacroForC>
           <MacroForAsm>MCU_USE_RL78_R7F0</MacroForAsm>
@@ -272,27 +297,30 @@
         <CompileOptions>
           <Option>-cpu=S2</Option>
           <Option>-obj_path=Debug/obj/%BuildModeName%</Option>
-          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549</Option>
+          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513</Option>
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
-          <Option>-I SDK\WDT</Option>
-          <Option>-I SDK\UART</Option>
-          <Option>-I SDK\CRC</Option>
+          <Option>-I SDK\SPI</Option>
           <Option>-I DriversPlus\R7F0C019</Option>
           <Option>-I DriversPlus\Compliers</Option>
-          <Option>-I SDK\GPIO</Option>
-          <Option>-I SDK\MS1022</Option>
-          <Option>-I SDK\Delay</Option>
-          <Option>-I SDK\RTC</Option>
-          <Option>-I SDK\I2C</Option>
           <Option>-I Application\APP</Option>
           <Option>-I Drivers\cg_src</Option>
           <Option>-I Complier</Option>
           <Option>-I DriversLog</Option>
           <Option>-I HWConfig</Option>
           <Option>-I SDK\AT24Cxx</Option>
+          <Option>-I SDK\CRC</Option>
+          <Option>-I SDK\Delay</Option>
+          <Option>-I SDK\GPIO</Option>
+          <Option>-I SDK\I2C</Option>
+          <Option>-I SDK\Key</Option>
+          <Option>-I SDK\MS1022</Option>
+          <Option>-I SDK\RTC</Option>
+          <Option>-I SDK\SPI</Option>
           <Option>-I SDK\SysTick</Option>
+          <Option>-I SDK\UART</Option>
+          <Option>-I SDK\WDT</Option>
           <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA</Option>
           <Option>-lang=c99</Option>
           <Option>-c</Option>
@@ -300,7 +328,7 @@
         <AssembleOptions>
           <Option>-cpu=S2</Option>
           <Option>-obj_path=Debug/obj/%BuildModeName%</Option>
-          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549</Option>
+          <Option>-no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513</Option>
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-asmopt=-define=MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA</Option>
@@ -310,7 +338,7 @@
           <Option>-SECURITY_ID=00000000000000000001</Option>
           <Option>-DEVICE=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-DEBug</Option>
-          <Option>-NOCOmpress</Option>
+          <Option>-COmpress</Option>
           <Option>-NOOPtimize</Option>
           <Option>-OUtput=Debug/obj/%BuildModeName%\%ProjectName%.abs</Option>
           <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78cm4s99.lib</Option>
@@ -320,11 +348,11 @@
           <Option>-DEBUG_MONITOR=FE00-FFFF</Option>
           <Option>-USER_OPT_BYTE=EF5DAA</Option>
           <Option>-LISt=Debug/obj/%BuildModeName%\%ProjectName%.map</Option>
+          <Option>-SHow=Reference,Total_size</Option>
           <Option>-AUTO_SECTION_LAYOUT</Option>
           <Option>-ROm=.data=.dataR</Option>
           <Option>-ROm=.sdata=.sdataR</Option>
           <Option>-NOMessage</Option>
-          <Option>-MEMory=High</Option>
           <Option>-Total_size</Option>
           <Option>-NOLOgo</Option>
           <Option>-END</Option>
@@ -341,1134 +369,6 @@
           <Option>-f</Option>
           <UpdateIOMode>None</UpdateIOMode>
         </IOHeaderGenerationOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_adc.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_adc.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_adc_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_adc_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_cgc.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_cgc.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_cgc_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_cgc_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_comp.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_comp.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_comp_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_comp_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_dmac.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_dmac.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_dmac_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_dmac_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_intp.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_intp.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_intp_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_intp_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_it.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_it.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_it_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_it_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_lcd.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_lcd.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_lcd_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_lcd_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_pclbuz.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_pclbuz.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_pclbuz_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_pclbuz_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_port.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_port.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_port_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_port_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_rtc.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_rtc.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_rtc_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_rtc_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_sau.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_sau.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_tau.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_tau.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_wdt.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_wdt.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="Drivers\cg_src\r_cg_wdt_user.c">
-          <CompileOptions>
-            <Option>-cpu=S2</Option>
-            <Option>-o Debug/obj/%BuildModeName%\r_cg_wdt_user.obj</Option>
-            <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
-            <Option>-g</Option>
-            <Option>-g_line</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\WDT</Option>
-            <Option>-I SDK\UART</Option>
-            <Option>-I SDK\CRC</Option>
-            <Option>-I DriversPlus\R7F0C019</Option>
-            <Option>-I DriversPlus\Compliers</Option>
-            <Option>-I SDK\GPIO</Option>
-            <Option>-I SDK\MS1022</Option>
-            <Option>-I SDK\Delay</Option>
-            <Option>-I SDK\RTC</Option>
-            <Option>-I SDK\I2C</Option>
-            <Option>-I Application\APP</Option>
-            <Option>-I Drivers\cg_src</Option>
-            <Option>-I Complier</Option>
-            <Option>-I DriversLog</Option>
-            <Option>-I HWConfig</Option>
-            <Option>-I SDK\AT24Cxx</Option>
-            <Option>-I SDK\SysTick</Option>
-            <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xFF1FEA</Option>
-            <Option>-lang=c99</Option>
-            <Option>-no_warning_num=20042,20144,20167,20161</Option>
-            <Option>-c</Option>
-          </CompileOptions>
-        </IndividualOptions>
       </BuildMode>
     </BuildOptions>
   </Project>

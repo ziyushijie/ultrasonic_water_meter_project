@@ -1,6 +1,6 @@
 #include "sys_tick_cfg.h"
 
-//---变量定义
+//===变量定义
 SYS_TICK_HandleType			g_sys_tick_one = { 0 };
 pSYS_TICK_HandleType		p_sys_tick_one = &g_sys_tick_one;
 
@@ -177,7 +177,7 @@ uint32_t sys_tick_get_inc_ovf(SYS_TICK_HandleType *systickx)
 //////////////////////////////////////////////////////////////////////////////
 uint32_t sys_tick_get_inc_count(SYS_TICK_HandleType *systickx)
 {
-	return (systickx->msg_inc_count + 5);
+	return (systickx->msg_inc_count + 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

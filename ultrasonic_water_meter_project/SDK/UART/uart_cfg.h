@@ -117,6 +117,9 @@ extern "C" {
 #endif
 
 	//===º¯Êý¶¨Òå
+	void uart_send_reset(UART_HandleType* UARTx);
+	void uart_read_reset(UART_HandleType* UARTx);
+	uint8_t uart_read_end(UART_HandleType* UARTx);
 
 	uint8_t uart_init_one(UART_HandleType* UARTx);
 	uint8_t uart_init_two(UART_HandleType* UARTx);

@@ -1,21 +1,17 @@
-#ifndef MS1022_TASK_H_
-#define MS1022_TASK_H_
+#ifndef KEY_TASK_H_
+#define KEY_TASK_H_
 //////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 extern "C" {
 #endif
 	//////////////////////////////////////////////////////////////////////////////////////
+	#include "key_lib.h"
 	
-	#include "ms1022_lib.h"
-
 	//===º¯Êý¶¨Òå
-	uint8_t ms1022_task_time_tick_init(MS1022_HandleType* MS1022x, uint32_t(*func_time_tick)(void));
-	uint8_t ms1022_task_init(MS1022_HandleType* MS1022x, void(*func_delay_us)(uint32_t us),
-		void(*func_delay_ms)(uint32_t ms), uint32_t(*func_time_tick)(void));
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
 #endif
 //////////////////////////////////////////////////////////////////////////////////////
-#endif /* MS1022_TASK_H_ */
+#endif /* KEY_TASK_H_ */

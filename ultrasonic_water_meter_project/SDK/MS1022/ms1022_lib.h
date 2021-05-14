@@ -5,6 +5,13 @@
 extern "C" {
 #endif
 	//////////////////////////////////////////////////////////////////////////////////////
+	#include "ms1022_cfg.h"
+
+	//===º¯Êý¶¨Òå
+	uint8_t ms1022_lib_time_tick_init(MS1022_HandleType* MS1022x, uint32_t(*func_time_tick)(void));
+	uint8_t ms1022_lib_init(MS1022_HandleType* MS1022x, void(*func_delay_us)(uint32_t us),
+		void(*func_delay_ms)(uint32_t ms), uint32_t(*func_time_tick)(void));
+
 	
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
