@@ -228,8 +228,10 @@ uint8_t uart_config_init_two(UART_HandleType* UARTx)
 	//rl78_sau1_clock(1);
 	rl78_perpheral_clock_enable(PERIPHERAL_UART2);
 	//---外设运行时钟
-	SPS0 =	_0002_SAU_CK00_FCLK_2 | 
-			_0040_SAU_CK01_FCLK_4;
+	/*SPS0 =	_0002_SAU_CK00_FCLK_2 | 
+			_0040_SAU_CK01_FCLK_4;*/
+	SPS0 = _0001_SAU_CK00_FCLK_1 |
+		_0040_SAU_CK01_FCLK_4;
 	//---初始化串口1
 	ST0 |=	_0008_SAU_CH3_STOP_TRG_ON | 
 			_0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */

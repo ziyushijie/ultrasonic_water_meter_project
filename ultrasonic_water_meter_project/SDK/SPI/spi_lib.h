@@ -42,6 +42,9 @@ extern "C" {
 	uint8_t spi_lib_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd);
 	uint8_t spi_lib_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd, uint16_t length);
 
+	uint8_t spi_lib_mhw_it_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length);
+	uint8_t spi_lib_mhw_it_irq_handle(SPI_HandleType* SPIx);
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

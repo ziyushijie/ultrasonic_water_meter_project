@@ -1375,7 +1375,7 @@
       <LibOptionLibraryRuntime-DefaultValue>False</LibOptionLibraryRuntime-DefaultValue>
       <LinkOptionLibraryRuntime-DefaultValue>True</LinkOptionLibraryRuntime-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585808800345966297</TimeTagModified--0>
+      <TimeTagModified--0>-8585805358433283038</TimeTagModified--0>
       <BuildMode-0>DefaultBuild</BuildMode-0>
       <Memo-0 />
       <OutputMessageFormat-0>%TargetFiles%</OutputMessageFormat-0>
@@ -1388,7 +1388,7 @@
       <GeneralOptionMirrorArea-0>Maa0</GeneralOptionMirrorArea-0>
       <GeneralOptionNoWarningNum-0>20042,20144,20167,20161,20301,20177,20549,20513</GeneralOptionNoWarningNum-0>
       <GeneralOptionOutput-0>LoadModuleFile</GeneralOptionOutput-0>
-      <GeneralOptionSimultaneousBuild-0>False</GeneralOptionSimultaneousBuild-0>
+      <GeneralOptionSimultaneousBuild-0>True</GeneralOptionSimultaneousBuild-0>
       <CompilerVersion-0>
 
 0</CompilerVersion-0>
@@ -1483,7 +1483,7 @@
       <COptionCheckLanguageExtension-DefaultValue>False</COptionCheckLanguageExtension-DefaultValue>
       <COptionMisraIntermodule-DefaultValue>False</COptionMisraIntermodule-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585808079036613631</TimeTagModified--0>
+      <TimeTagModified--0>-8585805354529297917</TimeTagModified--0>
       <COptionAsmPath-0>False</COptionAsmPath-0>
       <COptionChangeMessageError-0>No</COptionChangeMessageError-0>
       <COptionCharacterSet-0>Auto</COptionCharacterSet-0>
@@ -1727,7 +1727,7 @@ USER_OPT_BYTE=0xEF5DAA
       <LinkOptionShowCFI-DefaultValue>False</LinkOptionShowCFI-DefaultValue>
       <LinkOptionRrmValue-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585806224758009695</TimeTagModified--0>
+      <TimeTagModified--0>-8585805353573555455</TimeTagModified--0>
       <LinkOptionAutoSectionLayout-0>True</LinkOptionAutoSectionLayout-0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionDebug-0>Debug</LinkOptionDebug-0>
@@ -1742,7 +1742,7 @@ USER_OPT_BYTE=0xEF5DAA
       <LinkOptionStack-0>False</LinkOptionStack-0>
       <LinkOptionVfinfo-0>False</LinkOptionVfinfo-0>
       <LinkOptionBinary-0 />
-      <LinkOptionCompress-0>True</LinkOptionCompress-0>
+      <LinkOptionCompress-0>False</LinkOptionCompress-0>
       <LinkOptionCpuInformation-0 />
       <LinkOptionEntryPoint-0 />
       <LinkOptionLibrarySystem-0 />
@@ -1763,7 +1763,7 @@ USER_OPT_BYTE=0xEF5DAA
       <LinkOptionMsgUnused-0>False</LinkOptionMsgUnused-0>
       <LinkOptionOptimizeSameCode-0>False</LinkOptionOptimizeSameCode-0>
       <LinkOptionPadding-0>False</LinkOptionPadding-0>
-      <LinkOptionShowSymbol-0>False</LinkOptionShowSymbol-0>
+      <LinkOptionShowSymbol-0>True</LinkOptionShowSymbol-0>
       <LinkOptionTotalSize-0>True</LinkOptionTotalSize-0>
       <LinkOptionVfinfoFileName-0>%ProjectName%_vfi.h</LinkOptionVfinfoFileName-0>
       <LinkOptionChangeMessageInformation-0>None</LinkOptionChangeMessageInformation-0>
@@ -1775,7 +1775,7 @@ USER_OPT_BYTE=0xEF5DAA
 .sdata=.sdataR
 </LinkOptionRom-0>
       <LinkOptionSameSize-0>1E</LinkOptionSameSize-0>
-      <LinkOptionShowReference-0>True</LinkOptionShowReference-0>
+      <LinkOptionShowReference-0>False</LinkOptionShowReference-0>
       <LinkOptionVectN-0 />
       <LinkOptionVfinfoOutputType-0 />
       <LinkOptionChangeMessageInformationNumber-0 />

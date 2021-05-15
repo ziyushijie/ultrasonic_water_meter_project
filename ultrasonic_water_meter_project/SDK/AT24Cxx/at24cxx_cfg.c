@@ -1,8 +1,8 @@
 #include "at24cxx_cfg.h"
 
 //===全局变量定义
-AT24CXX_HandleType		g_at24cxx_device_one = { 0 };
-pAT24CXX_HandleType		p_at24cxx_device_one = &g_at24cxx_device_one;
+AT24CXX_HandleType		g_at24cxx_one = { 0 };
+pAT24CXX_HandleType		p_at24cxx_one = &g_at24cxx_one;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数: 

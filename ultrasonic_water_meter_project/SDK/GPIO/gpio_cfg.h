@@ -31,12 +31,13 @@ extern "C" {
 	//===指针结构体
 	typedef	struct _GPIO_HandleType							*pGPIO_HandleType;
 	//===结构体类型
+//#pragma pack
 	struct _GPIO_HandleType
 	{
 		GPIO_TypeDef	*msg_p_port;																					//---端口
 		uint32_t		msg_bit;																						//---序号
 	};
-	
+//#pragma unpack
 	//===函数定义
 	void gpio_init(uint32_t(*func_time_tick)(void));
 	void gpio_time_tick_init(uint32_t(*func_time_tick)(void));

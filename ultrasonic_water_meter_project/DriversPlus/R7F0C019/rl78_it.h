@@ -12,6 +12,7 @@ extern "C" {
 	#include "sys_tick_task.h"
 	#include "uart_task.h"
 	#include "gpio_task.h"
+	#include "ms1022_task.h"
 
 
 	//////////////////////////////////////////////////////////////////////////////////////

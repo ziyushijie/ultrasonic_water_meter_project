@@ -1,0 +1,229 @@
+RL78 Family Assembler V1.10.00.01 Assemble Source List
+
+OFFSET   CODE                  NO  SOURCE STATEMENT
+
+00000000                        1  #CC-RL Compiler RL78 Assembler Source
+00000000                        2  #@  CC-RL Version : V1.10.00 [20 Nov 2020]
+00000000                        3  #@  Commmand :
+00000000                        4  #@   Application\APP\main.c
+00000000                        5  #@   -cpu=S2
+00000000                        6  #@   -o Debug/obj/DefaultBuild\main.obj
+00000000                        7  #@   -no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513
+00000000                        8  #@   -dev=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF
+00000000                        9  #@   -g
+00000000                       10  #@   -I SDK\SPI
+00000000                       11  #@   -I DriversPlus\R7F0C019
+00000000                       12  #@   -I DriversPlus\Compliers
+00000000                       13  #@   -I Application\APP
+00000000                       14  #@   -I Drivers\cg_src
+00000000                       15  #@   -I Complier
+00000000                       16  #@   -I DriversLog
+00000000                       17  #@   -I HWConfig
+00000000                       18  #@   -I SDK\AT24Cxx
+00000000                       19  #@   -I SDK\CRC
+00000000                       20  #@   -I SDK\Delay
+00000000                       21  #@   -I SDK\GPIO
+00000000                       22  #@   -I SDK\I2C
+00000000                       23  #@   -I SDK\Key
+00000000                       24  #@   -I SDK\MS1022
+00000000                       25  #@   -I SDK\RTC
+00000000                       26  #@   -I SDK\SPI
+00000000                       27  #@   -I SDK\SysTick
+00000000                       28  #@   -I SDK\UART
+00000000                       29  #@   -I SDK\WDT
+00000000                       30  #@   -D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA
+00000000                       31  #@   -lang=c99
+00000000                       32  #@   -asmopt=-prn_path=DefaultBuild
+00000000                       33  #@   -c
+00000000                       34  #@   -MAKEUD=Debug/obj/DefaultBuild
+00000000                       35  #@   -exec_time=C:\Users\HARRY\AppData\Local\Temp\CSPlusBuildTool_59040f9f5a68493c8693a0223a94de00r5ex0wzh.34o
+00000000                       36  #@  compiled at Sat May 15 16:46:26 2021
+00000000                       37  
+00000000                       38  	.EXTERN _p_sys_tick_one
+00000000                       39  	.EXTERN _p_at24cxx_device_one
+00000000                       40  	.EXTERN _p_ms1022_one
+00000000                       41  	.EXTERN _p_uart_two
+00000000                       42  	.PUBLIC _app_log
+00000000                       43  	.EXTERN _uart_task_printf_log
+00000000                       44  	.PUBLIC _app_log_args
+00000000                       45  	.PUBLIC _hdwinit
+00000000                       46  	.EXTERN _rl78_clock_init
+00000000                       47  	.EXTERN _rl78_port_init
+00000000                       48  	.PUBLIC _app_get_tick
+00000000                       49  	.EXTERN _sys_tick_task_get_inc_count
+00000000                       50  	.PUBLIC _app_init
+00000000                       51  	.EXTERN _rl78_init
+00000000                       52  	.EXTERN _rl78_pclbuz_init
+00000000                       53  	.EXTERN _rl78_pclbuz_start
+00000000                       54  	.EXTERN _sys_tick_task_init
+00000000                       55  	.EXTERN _gpio_task_init
+00000000                       56  	.EXTERN _crc_task_init
+00000000                       57  	.EXTERN _uart_task_init
+00000000                       58  	.EXTERN _at24cxx_task_i2c_init
+00000000                       59  	.EXTERN _delay_task_us
+00000000                       60  	.EXTERN _delay_task_ms
+00000000                       61  	.EXTERN _ms1022_spi_task_init
+00000000                       62  	.PUBLIC _main
+00000000                       63  	.EXTERN _ms1022_spi_task_send_cmd
+00000000                       64  	.EXTERN _ms1022_spi_task_read_reg_state
+00000000                       65  	.EXTERN _uart_task_read_end
+00000000                       66  	.EXTERN _uart_task_fill_mode_send_two
+00000000                       67  	.EXTERN _uart_task_read_reset
+00000000                       68  	.EXTERN _wdt_task_restart
+00000000                       69  
+00000000                       70  	.SECTION .textf,TEXTF
+00000000                       71  _app_log:
+00000000                       72  	.STACK _app_log = 4
+00000000                       73  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 10
+00000000 12                    74  	movw bc, ax
+00000001 AEF8                  75  	movw ax, sp
+00000003 040400                76  	addw ax, #0x0004
+00000006                       77  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 19
+00000006 14                    78  	movw de, ax
+00000007 AF0000                79  	movw ax, !LOWW(_p_uart_two)
+0000000A FC000000              80  	call !!_uart_task_printf_log
+0000000E                       81  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 25
+0000000E D7                    82  	ret
+0000000F                       83  _app_log_args:
+0000000F                       84  	.STACK _app_log_args = 6
+0000000F                       85  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 35
+0000000F C3                    86  	push bc
+00000010                       87  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 42
+00000010 C4                    88  	pop de
+00000011 12                    89  	movw bc, ax
+00000012 AF0000                90  	movw ax, !LOWW(_p_uart_two)
+00000015 EC000000              91  	br !!_uart_task_printf_log
+00000019                       92  _hdwinit:
+00000019                       93  	.STACK _hdwinit = 4
+00000019                       94  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 60
+00000019 717BFA                95  	di
+0000001C                       96  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 62
+0000001C FC000000              97  	call !!_rl78_clock_init
+00000020                       98  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 64
+00000020 EC000000              99  	br !!_rl78_port_init
+00000024                      100  _app_get_tick:
+00000024                      101  	.STACK _app_get_tick = 4
+00000024                      102  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 77
+00000024 AF0000               103  	movw ax, !LOWW(_p_sys_tick_one)
+00000027 EC000000             104  	br !!_sys_tick_task_get_inc_count
+0000002B                      105  _app_init:
+0000002B                      106  	.STACK _app_init = 16
+0000002B                      107  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 87
+0000002B 2004                 108  	subw sp, #0x04
+0000002D                      109  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 90
+0000002D 717BFA               110  	di
+00000030                      111  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 92
+00000030 51AA                 112  	mov a, #0xAA
+00000032 FC000000             113  	call !!_rl78_init
+00000036                      114  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 94
+00000036 FC000000             115  	call !!_rl78_pclbuz_init
+0000003A                      116  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 96
+0000003A F1                   117  	clrb a
+0000003B FC000000             118  	call !!_rl78_pclbuz_start
+0000003F                      119  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 98
+0000003F AF0000               120  	movw ax, !LOWW(_p_sys_tick_one)
+00000042 FC000000             121  	call !!_sys_tick_task_init
+00000046                      122  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 100
+00000046 340000               123  	movw de, #LOWW(_app_get_tick)
+00000049 5100                 124  	mov a, #LOW(HIGHW(_app_get_tick))
+0000004B FC000000             125  	call !!_gpio_task_init
+0000004F                      126  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 102
+0000004F 340000               127  	movw de, #LOWW(_app_get_tick)
+00000052 5100                 128  	mov a, #LOW(HIGHW(_app_get_tick))
+00000054 FC000000             129  	call !!_crc_task_init
+00000058                      130  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 104
+00000058 AF0000               131  	movw ax, !LOWW(_p_uart_two)
+0000005B 340000               132  	movw de, #LOWW(_app_get_tick)
+0000005E 5200                 133  	mov c, #LOW(HIGHW(_app_get_tick))
+00000060 FC000000             134  	call !!_uart_task_init
+00000064                      135  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 106
+00000064 320000               136  	movw bc, #LOWW(_delay_task_ms)
+00000067 5000                 137  	mov x, #LOW(HIGHW(_app_get_tick))
+00000069 B802                 138  	movw [sp+0x02], ax
+0000006B C1                   139  	push ax
+0000006C 300000               140  	movw ax, #LOWW(_app_get_tick)
+0000006F C1                   141  	push ax
+00000070 5000                 142  	mov x, #LOW(HIGHW(_delay_task_ms))
+00000072 B804                 143  	movw [sp+0x04], ax
+00000074 C1                   144  	push ax
+00000075 C3                   145  	push bc
+00000076 AF0000               146  	movw ax, !LOWW(_p_at24cxx_device_one)
+00000079 340000               147  	movw de, #LOWW(_delay_task_us)
+0000007C F3                   148  	clrb b
+0000007D 5200                 149  	mov c, #LOW(HIGHW(_delay_task_us))
+0000007F FC000000             150  	call !!_at24cxx_task_i2c_init
+00000083 1008                 151  	addw sp, #0x08
+00000085                      152  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 108
+00000085 340000               153  	movw de, #LOWW(_delay_task_us)
+00000088 A802                 154  	movw ax, [sp+0x02]
+0000008A C1                   155  	push ax
+0000008B 300000               156  	movw ax, #LOWW(_app_get_tick)
+0000008E C1                   157  	push ax
+0000008F A804                 158  	movw ax, [sp+0x04]
+00000091 C1                   159  	push ax
+00000092 300000               160  	movw ax, #LOWW(_delay_task_ms)
+00000095 C1                   161  	push ax
+00000096 AF0000               162  	movw ax, !LOWW(_p_ms1022_one)
+00000099 E3                   163  	oneb b
+0000009A 5200                 164  	mov c, #LOW(HIGHW(_delay_task_us))
+0000009C FC000000             165  	call !!_ms1022_spi_task_init
+000000A0 1008                 166  	addw sp, #0x08
+000000A2                      167  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 115
+000000A2 717AFA               168  	ei
+000000A5 1004                 169  	addw sp, #0x04
+000000A7 D7                   170  	ret
+000000A8                      171  _main:
+000000A8                      172  	.STACK _main = 6
+000000A8                      173  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 125
+000000A8 C7                   174  	push hl
+000000A9                      175  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 127
+000000A9 FE0000               176  	call $!_app_init
+000000AC                      177  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 131
+000000AC AF0000               178  	movw ax, !LOWW(_p_ms1022_one)
+000000AF 5250                 179  	mov c, #0x50
+000000B1 FC000000             180  	call !!_ms1022_spi_task_send_cmd
+000000B5                      181  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 132
+000000B5 AF0000               182  	movw ax, !LOWW(_p_ms1022_one)
+000000B8 5250                 183  	mov c, #0x50
+000000BA FC000000             184  	call !!_ms1022_spi_task_send_cmd
+000000BE                      185  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 133
+000000BE AF0000               186  	movw ax, !LOWW(_p_ms1022_one)
+000000C1 FC000000             187  	call !!_ms1022_spi_task_read_reg_state
+000000C5                      188  .BB@LABEL@6_1:	; bb21
+000000C5                      189  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 141
+000000C5 AF0000               190  	movw ax, !LOWW(_p_uart_two)
+000000C8 FC000000             191  	call !!_uart_task_read_end
+000000CC D1                   192  	cmp0 a
+000000CD DF00                 193  	bnz $.BB@LABEL@6_3
+000000CF                      194  .BB@LABEL@6_2:	; if_then_bb
+000000CF                      195  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 143
+000000CF EB0000               196  	movw de, !LOWW(_p_uart_two)
+000000D2 C0                   197  	pop ax
+000000D3 C5                   198  	push de
+000000D4 AA20                 199  	movw ax, [de+0x20]
+000000D6 14                   200  	movw de, ax
+000000D7 C6                   201  	pop hl
+000000D8 C7                   202  	push hl
+000000D9 AC2E                 203  	movw ax, [hl+0x2E]
+000000DB 12                   204  	movw bc, ax
+000000DC 17                   205  	movw ax, hl
+000000DD FC000000             206  	call !!_uart_task_fill_mode_send_two
+000000E1                      207  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 147
+000000E1 AF0000               208  	movw ax, !LOWW(_p_uart_two)
+000000E4 FC000000             209  	call !!_uart_task_read_reset
+000000E8                      210  .BB@LABEL@6_3:	; if_break_bb
+000000E8                      211  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Application/APP/main.c", 149
+000000E8 FC000000             212  	call !!_wdt_task_restart
+000000EC EF00                 213  	br $.BB@LABEL@6_1
+
+Section List
+Attr     Size                Name
+
+TEXTF               238 (000000EE) .textf
+
+Command Line Parameter
+Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\Bin\asrl.exe" @C:\Users\HARRY\AppData\Local\Temp\$ccrl\main.asm.cmd 
+
+Command File Parameter
+-cpu=S2 -dev="D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF" -define=__RENESAS_VERSION__=0x01100000 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Key -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT -character_set=none -prn_path=DefaultBuild -output=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Debug\obj\DefaultBuild\main.obj C:\Users\HARRY\AppData\Local\Temp\$ccrl\main.asm 
+

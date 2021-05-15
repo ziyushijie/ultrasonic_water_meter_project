@@ -77,7 +77,7 @@ uint32_t app_get_tick(void)
 	return sys_tick_task_get_inc_count(SYS_TICK_TASK_ONE);
 }
 
-uint8_t temp_buffer[4]={0};
+uint8_t temp_buffer[4] = { 0 };
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -104,12 +104,10 @@ void app_init(void)
 	crc_task_init(app_get_tick);
 	//---串口初始化
 	uart_task_init(UART_TASK_TWO, app_get_tick);
-	//uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
-	//R_UART1_Send("123\r\n",5);
 	//---eeprom存储器初始化
 	at24cxx_task_i2c_init(AT24CXX_TASK_ONE,delay_task_us,delay_task_ms,app_get_tick,AT24CXX_ENABLE_HW_I2C_ONE);
 	//---TDC芯片初始化
-	ms1022_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick);
+	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick,1);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
@@ -117,13 +115,7 @@ void app_init(void)
 	//gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
 	//---使能中断
 	SEI();
-	//---数据填充
-	temp_buffer[0] = 0x14;
-	temp_buffer[1] = 0x00;
-	temp_buffer[2] = 0x01;
-	temp_buffer[3] = 0x78;
-	at24cxx_task_i2c_send_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
-	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE,0,temp_buffer,4);
+	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -136,9 +128,12 @@ void app_init(void)
 void main(void)
 {
 	app_init();
-	LOG_VA_ARGS("ultrasonic water meter\r\n");
+	//LOG_VA_ARGS("ultrasonic water meter\r\n");
 	//app_log("ultrasonic water meter\r\n");
 	//uart_task_fill_mode_send_two(UART_TASK_TWO,"123\r\n",5);
+	ms1022_spi_task_send_cmd(MS1022_TASK_ONE, 0x50);
+	ms1022_spi_task_send_cmd(MS1022_TASK_ONE, 0x50);
+	ms1022_spi_task_read_reg_state(MS1022_TASK_ONE);
 	while (1)
 	{
 		//gpio_task_pin_toggle(GPIOP4, GPIO_PIN_BIT_5);

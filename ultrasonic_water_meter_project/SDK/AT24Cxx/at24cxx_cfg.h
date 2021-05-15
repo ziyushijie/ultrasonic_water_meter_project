@@ -46,6 +46,8 @@ extern "C" {
 	//===AT24Cxx的数据结构体
 	struct _AT24CXX_HandleType
 	{
+		I2C_HandleType	msg_i2cx;																						//---使用的I2C
+
 		uint8_t		msg_type;																							//---使用的设备
 		uint8_t		msg_page_byte;																						//---每页字节数
 		uint16_t	msg_page_num;																						//---页数
@@ -55,17 +57,16 @@ extern "C" {
 		uint8_t		*msg_page_byte_buffer;																				//---指向缓存区的指针
 #endif
 		void(*msg_f_delay_ms)(uint32_t delay);																			//---毫秒延时函数,编程结束后需要等待5ms
-		I2C_HandleType	msg_i2cx;																						//---使用的I2C
 	};
 
 	//===定义的任务函数
-	#define AT24CXX_TASK_ONE						p_at24cxx_device_one
+	#define AT24CXX_TASK_ONE						p_at24cxx_one
 	#define AT24CXX_TASK_TWO						0
 	#define AT24CXX_TASK_THREE						0
 
 	//===外部调用接口
-	extern AT24CXX_HandleType						g_at24cxx_device_one;
-	extern pAT24CXX_HandleType						p_at24cxx_device_one;
+	extern AT24CXX_HandleType						g_at24cxx_one;
+	extern pAT24CXX_HandleType						p_at24cxx_one;
 
 	//===函数定义
 	uint8_t at24cxx_i2c_init_one(AT24CXX_HandleType *AT24Cx);

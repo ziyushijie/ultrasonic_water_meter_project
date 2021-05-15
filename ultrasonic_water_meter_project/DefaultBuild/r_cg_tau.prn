@@ -1,0 +1,175 @@
+RL78 Family Assembler V1.10.00.01 Assemble Source List
+
+OFFSET   CODE                  NO  SOURCE STATEMENT
+
+00000000                        1  #CC-RL Compiler RL78 Assembler Source
+00000000                        2  #@  CC-RL Version : V1.10.00 [20 Nov 2020]
+00000000                        3  #@  Commmand :
+00000000                        4  #@   Drivers\cg_src\r_cg_tau.c
+00000000                        5  #@   -cpu=S2
+00000000                        6  #@   -o Debug/obj/DefaultBuild\r_cg_tau.obj
+00000000                        7  #@   -no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513
+00000000                        8  #@   -dev=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF
+00000000                        9  #@   -g
+00000000                       10  #@   -I SDK\SPI
+00000000                       11  #@   -I DriversPlus\R7F0C019
+00000000                       12  #@   -I DriversPlus\Compliers
+00000000                       13  #@   -I Application\APP
+00000000                       14  #@   -I Drivers\cg_src
+00000000                       15  #@   -I Complier
+00000000                       16  #@   -I DriversLog
+00000000                       17  #@   -I HWConfig
+00000000                       18  #@   -I SDK\AT24Cxx
+00000000                       19  #@   -I SDK\CRC
+00000000                       20  #@   -I SDK\Delay
+00000000                       21  #@   -I SDK\GPIO
+00000000                       22  #@   -I SDK\I2C
+00000000                       23  #@   -I SDK\Key
+00000000                       24  #@   -I SDK\MS1022
+00000000                       25  #@   -I SDK\RTC
+00000000                       26  #@   -I SDK\SPI
+00000000                       27  #@   -I SDK\SysTick
+00000000                       28  #@   -I SDK\UART
+00000000                       29  #@   -I SDK\WDT
+00000000                       30  #@   -D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA
+00000000                       31  #@   -lang=c99
+00000000                       32  #@   -asmopt=-prn_path=DefaultBuild
+00000000                       33  #@   -c
+00000000                       34  #@   -MAKEUD=Debug/obj/DefaultBuild
+00000000                       35  #@   -exec_time=C:\Users\HARRY\AppData\Local\Temp\CSPlusBuildTool_0388c4e032bd4e1f8622322cb3d384513pai3xc4.fjh
+00000000                       36  #@  compiled at Sat May 15 16:46:26 2021
+00000000                       37  
+00000000                       38  	.PUBLIC _R_TAU0_Create
+00000000                       39  	.PUBLIC _R_TAU0_Channel2_Start
+00000000                       40  	.PUBLIC _R_TAU0_Channel2_Stop
+00000000                       41  
+00000000                       42  	.SECTION .textf,TEXTF
+00000000                       43  _R_TAU0_Create:
+00000000                       44  	.STACK _R_TAU0_Create = 4
+00000000                       45  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 56
+00000000 34F000                46  	movw de, #0x00F0
+00000003 36F000                47  	movw hl, #0x00F0
+00000006 F6                    48  	clrw ax
+00000007                       49  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 58
+00000007 7182                  50  	set1 [hl].0
+00000009                       51  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 59
+00000009 BAC6                  52  	movw [de+0xC6], ax
+0000000B 30FF0A                53  	movw ax, #0x0AFF
+0000000E                       54  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 61
+0000000E BAC4                  55  	movw [de+0xC4], ax
+00000010                       56  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 66
+00000010 716AE5                57  	set1 0xFFFE5.6
+00000013                       58  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 67
+00000013 716BE1                59  	clr1 0xFFFE1.6
+00000016                       60  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 69
+00000016 717AE6                61  	set1 0xFFFE6.7
+00000019                       62  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 70
+00000019 717BE2                63  	clr1 0xFFFE2.7
+0000001C                       64  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 72
+0000001C 710AE6                65  	set1 0xFFFE6.0
+0000001F                       66  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 73
+0000001F 710BE2                67  	clr1 0xFFFE2.0
+00000022                       68  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 75
+00000022 710AE7                69  	set1 0xFFFE7.0
+00000025                       70  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 76
+00000025 710BE3                71  	clr1 0xFFFE3.0
+00000028                       72  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 78
+00000028 711AE7                73  	set1 0xFFFE7.1
+0000002B                       74  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 79
+0000002B 711BE3                75  	clr1 0xFFFE3.1
+0000002E                       76  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 81
+0000002E 713AE6                77  	set1 0xFFFE6.3
+00000031                       78  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 82
+00000031 713BE2                79  	clr1 0xFFFE2.3
+00000034                       80  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 84
+00000034 711AD4                81  	set1 0xFFFD4.1
+00000037                       82  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 85
+00000037 711BD0                83  	clr1 0xFFFD0.1
+0000003A                       84  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 87
+0000003A 712AD4                85  	set1 0xFFFD4.2
+0000003D                       86  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 88
+0000003D 712BD0                87  	clr1 0xFFFD0.2
+00000040                       88  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 90
+00000040 710AD5                89  	set1 0xFFFD5.0
+00000043                       90  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 91
+00000043 710BD1                91  	clr1 0xFFFD1.0
+00000046                       92  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 93
+00000046 711AD5                93  	set1 0xFFFD5.1
+00000049                       94  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 94
+00000049 711BD1                95  	clr1 0xFFFD1.1
+0000004C                       96  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 96
+0000004C 710AEF                97  	set1 0xFFFEF.0
+0000004F                       98  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 97
+0000004F 710AEB                99  	set1 0xFFFEB.0
+00000052 E6                   100  	onew ax
+00000053                      101  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 99
+00000053 BAA4                 102  	movw [de+0xA4], ax
+00000055                      103  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 101
+00000055 CB643F1F             104  	movw 0xFFF64, #0x1F3F
+00000059                      105  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 102
+00000059 AACE                 106  	movw ax, [de+0xCE]
+0000005B 08                   107  	xch a, x
+0000005C 5CFB                 108  	and a, #0xFB
+0000005E 08                   109  	xch a, x
+0000005F BACE                 110  	movw [de+0xCE], ax
+00000061                      111  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 103
+00000061 AACC                 112  	movw ax, [de+0xCC]
+00000063 08                   113  	xch a, x
+00000064 5CFB                 114  	and a, #0xFB
+00000066 08                   115  	xch a, x
+00000067 BACC                 116  	movw [de+0xCC], ax
+00000069                      117  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 104
+00000069 AAC8                 118  	movw ax, [de+0xC8]
+0000006B 08                   119  	xch a, x
+0000006C 5CFB                 120  	and a, #0xFB
+0000006E 08                   121  	xch a, x
+0000006F BAC8                 122  	movw [de+0xC8], ax
+00000071                      123  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 105
+00000071 AACA                 124  	movw ax, [de+0xCA]
+00000073 08                   125  	xch a, x
+00000074 5CFB                 126  	and a, #0xFB
+00000076 08                   127  	xch a, x
+00000077 BACA                 128  	movw [de+0xCA], ax
+00000079 D7                   129  	ret
+0000007A                      130  _R_TAU0_Channel2_Start:
+0000007A                      131  	.STACK _R_TAU0_Channel2_Start = 4
+0000007A                      132  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 113
+0000007A 34B201               133  	movw de, #0x01B2
+0000007D                      134  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 115
+0000007D 710BE3               135  	clr1 0xFFFE3.0
+00000080                      136  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 116
+00000080 710BE7               137  	clr1 0xFFFE7.0
+00000083                      138  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 117
+00000083 A9                   139  	movw ax, [de]
+00000084 08                   140  	xch a, x
+00000085 6C04                 141  	or a, #0x04
+00000087 08                   142  	xch a, x
+00000088 B9                   143  	movw [de], ax
+00000089 D7                   144  	ret
+0000008A                      145  _R_TAU0_Channel2_Stop:
+0000008A                      146  	.STACK _R_TAU0_Channel2_Stop = 4
+0000008A                      147  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 125
+0000008A 34B401               148  	movw de, #0x01B4
+0000008D                      149  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 127
+0000008D A9                   150  	movw ax, [de]
+0000008E 08                   151  	xch a, x
+0000008F 6C04                 152  	or a, #0x04
+00000091 08                   153  	xch a, x
+00000092 B9                   154  	movw [de], ax
+00000093                      155  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 129
+00000093 710AE7               156  	set1 0xFFFE7.0
+00000096                      157  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/Drivers/cg_src/r_cg_tau.c", 130
+00000096 710BE3               158  	clr1 0xFFFE3.0
+00000099 D7                   159  	ret
+
+Section List
+Attr     Size                Name
+
+TEXTF               154 (0000009A) .textf
+
+Command Line Parameter
+Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\Bin\asrl.exe" @C:\Users\HARRY\AppData\Local\Temp\$ccrl001\r_cg_tau.asm.cmd 
+
+Command File Parameter
+-cpu=S2 -dev="D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF" -define=__RENESAS_VERSION__=0x01100000 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Key -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT -character_set=none -prn_path=DefaultBuild -output=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Debug\obj\DefaultBuild\r_cg_tau.obj C:\Users\HARRY\AppData\Local\Temp\$ccrl001\r_cg_tau.asm 
+

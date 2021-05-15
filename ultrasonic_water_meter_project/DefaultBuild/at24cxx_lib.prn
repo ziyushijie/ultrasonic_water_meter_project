@@ -1,0 +1,206 @@
+RL78 Family Assembler V1.10.00.01 Assemble Source List
+
+OFFSET   CODE                  NO  SOURCE STATEMENT
+
+00000000                        1  #CC-RL Compiler RL78 Assembler Source
+00000000                        2  #@  CC-RL Version : V1.10.00 [20 Nov 2020]
+00000000                        3  #@  Commmand :
+00000000                        4  #@   SDK\AT24Cxx\at24cxx_lib.c
+00000000                        5  #@   -cpu=S2
+00000000                        6  #@   -o Debug/obj/DefaultBuild\at24cxx_lib.obj
+00000000                        7  #@   -no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513
+00000000                        8  #@   -dev=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF
+00000000                        9  #@   -g
+00000000                       10  #@   -I SDK\SPI
+00000000                       11  #@   -I DriversPlus\R7F0C019
+00000000                       12  #@   -I DriversPlus\Compliers
+00000000                       13  #@   -I Application\APP
+00000000                       14  #@   -I Drivers\cg_src
+00000000                       15  #@   -I Complier
+00000000                       16  #@   -I DriversLog
+00000000                       17  #@   -I HWConfig
+00000000                       18  #@   -I SDK\AT24Cxx
+00000000                       19  #@   -I SDK\CRC
+00000000                       20  #@   -I SDK\Delay
+00000000                       21  #@   -I SDK\GPIO
+00000000                       22  #@   -I SDK\I2C
+00000000                       23  #@   -I SDK\Key
+00000000                       24  #@   -I SDK\MS1022
+00000000                       25  #@   -I SDK\RTC
+00000000                       26  #@   -I SDK\SPI
+00000000                       27  #@   -I SDK\SysTick
+00000000                       28  #@   -I SDK\UART
+00000000                       29  #@   -I SDK\WDT
+00000000                       30  #@   -D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA
+00000000                       31  #@   -lang=c99
+00000000                       32  #@   -asmopt=-prn_path=DefaultBuild
+00000000                       33  #@   -c
+00000000                       34  #@   -MAKEUD=Debug/obj/DefaultBuild
+00000000                       35  #@   -exec_time=C:\Users\HARRY\AppData\Local\Temp\CSPlusBuildTool_1337bc12fd9e4cf9bbbca79c4fd6102fdl3dhksf.nrm
+00000000                       36  #@  compiled at Sat May 15 16:46:26 2021
+00000000                       37  
+00000000                       38  	.PUBLIC _at24cxx_lib_i2c_time_tick_init
+00000000                       39  	.EXTERN _at24cxx_i2c_time_tick_init
+00000000                       40  	.PUBLIC _at24cxx_lib_i2c_init
+00000000                       41  	.EXTERN _at24cxx_i2c_init
+00000000                       42  	.PUBLIC _at24cxx_lib_i2c_deinit
+00000000                       43  	.EXTERN _at24cxx_i2c_deinit
+00000000                       44  	.PUBLIC _at24cxx_lib_sw_i2c_send_single_byte
+00000000                       45  	.EXTERN _at24cxx_sw_i2c_send_single_byte
+00000000                       46  	.PUBLIC _at24cxx_lib_sw_i2c_send_page_byte
+00000000                       47  	.EXTERN _at24cxx_sw_i2c_send_page_byte
+00000000                       48  	.PUBLIC _at24cxx_lib_sw_i2c_read_single_byte
+00000000                       49  	.EXTERN _at24cxx_sw_i2c_read_single_byte
+00000000                       50  	.PUBLIC _at24cxx_lib_sw_i2c_read_page_byte
+00000000                       51  	.EXTERN _at24cxx_sw_i2c_read_page_byte
+00000000                       52  	.PUBLIC _at24cxx_lib_i2c_send_single_byte
+00000000                       53  	.EXTERN _at24cxx_i2c_send_single_byte
+00000000                       54  	.PUBLIC _at24cxx_lib_i2c_send_page_byte
+00000000                       55  	.EXTERN _at24cxx_i2c_send_page_byte
+00000000                       56  	.PUBLIC _at24cxx_lib_i2c_send_byte
+00000000                       57  	.EXTERN _at24cxx_i2c_send_byte
+00000000                       58  	.PUBLIC _at24cxx_lib_i2c_read_single_byte
+00000000                       59  	.EXTERN _at24cxx_i2c_read_single_byte
+00000000                       60  	.PUBLIC _at24cxx_lib_i2c_read_page_byte
+00000000                       61  	.EXTERN _at24cxx_i2c_read_page_byte
+00000000                       62  	.PUBLIC _at24cxx_lib_i2c_read_byte
+00000000                       63  	.EXTERN _at24cxx_i2c_read_byte
+00000000                       64  
+00000000                       65  	.SECTION .textf,TEXTF
+00000000                       66  _at24cxx_lib_i2c_time_tick_init:
+00000000                       67  	.STACK _at24cxx_lib_i2c_time_tick_init = 4
+00000000                       68  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 10
+00000000 EC000000              69  	br !!_at24cxx_i2c_time_tick_init
+00000004                       70  _at24cxx_lib_i2c_init:
+00000004                       71  	.STACK _at24cxx_lib_i2c_init = 18
+00000004                       72  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 22
+00000004 2006                  73  	subw sp, #0x06
+00000006 16                    74  	movw hl, ax
+00000007                       75  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 28
+00000007 8810                  76  	mov a, [sp+0x10]
+00000009 9801                  77  	mov [sp+0x01], a
+0000000B A80E                  78  	movw ax, [sp+0x0E]
+0000000D B802                  79  	movw [sp+0x02], ax
+0000000F 880C                  80  	mov a, [sp+0x0C]
+00000011 9800                  81  	mov [sp+0x00], a
+00000013 A80A                  82  	movw ax, [sp+0x0A]
+00000015 B804                  83  	movw [sp+0x04], ax
+00000017 8801                  84  	mov a, [sp+0x01]
+00000019 70                    85  	mov x, a
+0000001A C1                    86  	push ax
+0000001B A804                  87  	movw ax, [sp+0x04]
+0000001D C1                    88  	push ax
+0000001E 8804                  89  	mov a, [sp+0x04]
+00000020 70                    90  	mov x, a
+00000021 C1                    91  	push ax
+00000022 A80A                  92  	movw ax, [sp+0x0A]
+00000024 C1                    93  	push ax
+00000025 17                    94  	movw ax, hl
+00000026 FC000000              95  	call !!_at24cxx_i2c_init
+0000002A                       96  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 34
+0000002A 100E                  97  	addw sp, #0x0E
+0000002C D7                    98  	ret
+0000002D                       99  _at24cxx_lib_i2c_deinit:
+0000002D                      100  	.STACK _at24cxx_lib_i2c_deinit = 4
+0000002D                      101  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 43
+0000002D EC000000             102  	br !!_at24cxx_i2c_deinit
+00000031                      103  _at24cxx_lib_sw_i2c_send_single_byte:
+00000031                      104  	.STACK _at24cxx_lib_sw_i2c_send_single_byte = 4
+00000031                      105  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 55
+00000031 EC000000             106  	br !!_at24cxx_sw_i2c_send_single_byte
+00000035                      107  _at24cxx_lib_sw_i2c_send_page_byte:
+00000035                      108  	.STACK _at24cxx_lib_sw_i2c_send_page_byte = 6
+00000035                      109  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 67
+00000035 16                   110  	movw hl, ax
+00000036 A804                 111  	movw ax, [sp+0x04]
+00000038                      112  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 69
+00000038 C1                   113  	push ax
+00000039 17                   114  	movw ax, hl
+0000003A FC000000             115  	call !!_at24cxx_sw_i2c_send_page_byte
+0000003E C6                   116  	pop hl
+0000003F                      117  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 70
+0000003F D7                   118  	ret
+00000040                      119  _at24cxx_lib_sw_i2c_read_single_byte:
+00000040                      120  	.STACK _at24cxx_lib_sw_i2c_read_single_byte = 4
+00000040                      121  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 79
+00000040 EC000000             122  	br !!_at24cxx_sw_i2c_read_single_byte
+00000044                      123  _at24cxx_lib_sw_i2c_read_page_byte:
+00000044                      124  	.STACK _at24cxx_lib_sw_i2c_read_page_byte = 6
+00000044                      125  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 91
+00000044 16                   126  	movw hl, ax
+00000045 A804                 127  	movw ax, [sp+0x04]
+00000047                      128  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 93
+00000047 C1                   129  	push ax
+00000048 17                   130  	movw ax, hl
+00000049 FC000000             131  	call !!_at24cxx_sw_i2c_read_page_byte
+0000004D C6                   132  	pop hl
+0000004E                      133  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 94
+0000004E D7                   134  	ret
+0000004F                      135  _at24cxx_lib_i2c_send_single_byte:
+0000004F                      136  	.STACK _at24cxx_lib_i2c_send_single_byte = 4
+0000004F                      137  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 103
+0000004F EC000000             138  	br !!_at24cxx_i2c_send_single_byte
+00000053                      139  _at24cxx_lib_i2c_send_page_byte:
+00000053                      140  	.STACK _at24cxx_lib_i2c_send_page_byte = 6
+00000053                      141  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 115
+00000053 16                   142  	movw hl, ax
+00000054 A804                 143  	movw ax, [sp+0x04]
+00000056                      144  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 117
+00000056 C1                   145  	push ax
+00000057 17                   146  	movw ax, hl
+00000058 FC000000             147  	call !!_at24cxx_i2c_send_page_byte
+0000005C C6                   148  	pop hl
+0000005D                      149  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 118
+0000005D D7                   150  	ret
+0000005E                      151  _at24cxx_lib_i2c_send_byte:
+0000005E                      152  	.STACK _at24cxx_lib_i2c_send_byte = 6
+0000005E                      153  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 127
+0000005E 16                   154  	movw hl, ax
+0000005F A804                 155  	movw ax, [sp+0x04]
+00000061                      156  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 129
+00000061 C1                   157  	push ax
+00000062 17                   158  	movw ax, hl
+00000063 FC000000             159  	call !!_at24cxx_i2c_send_byte
+00000067 C6                   160  	pop hl
+00000068                      161  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 130
+00000068 D7                   162  	ret
+00000069                      163  _at24cxx_lib_i2c_read_single_byte:
+00000069                      164  	.STACK _at24cxx_lib_i2c_read_single_byte = 4
+00000069                      165  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 139
+00000069 EC000000             166  	br !!_at24cxx_i2c_read_single_byte
+0000006D                      167  _at24cxx_lib_i2c_read_page_byte:
+0000006D                      168  	.STACK _at24cxx_lib_i2c_read_page_byte = 6
+0000006D                      169  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 151
+0000006D 16                   170  	movw hl, ax
+0000006E A804                 171  	movw ax, [sp+0x04]
+00000070                      172  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 153
+00000070 C1                   173  	push ax
+00000071 17                   174  	movw ax, hl
+00000072 FC000000             175  	call !!_at24cxx_i2c_read_page_byte
+00000076 C6                   176  	pop hl
+00000077                      177  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 154
+00000077 D7                   178  	ret
+00000078                      179  _at24cxx_lib_i2c_read_byte:
+00000078                      180  	.STACK _at24cxx_lib_i2c_read_byte = 6
+00000078                      181  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 163
+00000078 16                   182  	movw hl, ax
+00000079 A804                 183  	movw ax, [sp+0x04]
+0000007B                      184  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 165
+0000007B C1                   185  	push ax
+0000007C 17                   186  	movw ax, hl
+0000007D FC000000             187  	call !!_at24cxx_i2c_read_byte
+00000081 C6                   188  	pop hl
+00000082                      189  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/AT24Cxx/at24cxx_lib.c", 166
+00000082 D7                   190  	ret
+
+Section List
+Attr     Size                Name
+
+TEXTF               131 (00000083) .textf
+
+Command Line Parameter
+Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\Bin\asrl.exe" @C:\Users\HARRY\AppData\Local\Temp\$ccrl005\at24cxx_lib.asm.cmd 
+
+Command File Parameter
+-cpu=S2 -dev="D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF" -define=__RENESAS_VERSION__=0x01100000 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Key -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT -character_set=none -prn_path=DefaultBuild -output=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Debug\obj\DefaultBuild\at24cxx_lib.obj C:\Users\HARRY\AppData\Local\Temp\$ccrl005\at24cxx_lib.asm 
+

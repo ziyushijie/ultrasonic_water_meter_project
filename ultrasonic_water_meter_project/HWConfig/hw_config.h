@@ -13,7 +13,7 @@ extern "C" {
 	///////////////软件版本的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
-	#define MODULE_LOG_ENABLE				1
+	//#define MODULE_LOG_ENABLE				1
 	#define MODULE_LOG_UART_INDEX			2
 	//===LOG模块
 #if (MODULE_LOG_ENABLE>0)
@@ -39,6 +39,11 @@ extern "C" {
 	#define GPIO_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
 	#define GPIO_MAX_WAIT_TIME				(4/GPIO_MIN_PULSE_WIDTH)
 	///////////////GPIO信息的基本配置---结束/////////////////////////////////////////////////
+
+	///////////////SPI信息的基本配置---开始/////////////////////////////////////////////////
+	#define SPI_MIN_PULSE_WIDTH				SYS_MIN_PULSE_WIDTH
+	#define SPI_MAX_WAIT_TIME				(4/GPIO_MIN_PULSE_WIDTH)
+	///////////////SPI信息的基本配置---结束/////////////////////////////////////////////////
 
 	///////////////I2C信息的基本配置---开始/////////////////////////////////////////////////
 	//===配置I2C的端口为开漏模式
@@ -145,7 +150,39 @@ extern "C" {
 	#define AT24CXX_I2C_SDA_BIT_ONE									GPIO_PIN_BIT_4
 	//===<<<EEPROM1的初始化---结束//////////////////////////////////////////////////////////
 	
-	///////////////CRC信息的基本配置---结束/////////////////////////////////////////////////
+	///////////////AT24CXX信息的基本配置---结束/////////////////////////////////////////////////
+
+	///////////////MS1022信息的基本配置---开始/////////////////////////////////////////////////	
+	#define MS1022_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
+
+	//===>>>TDC1的初始化---开始//////////////////////////////////////////////////////////
+
+	//===SS端口
+	#define MS1022_SPI_CS_PORT_ONE								GPIOP1
+	#define MS1022_SPI_CS_BIT_ONE								GPIO_PIN_BIT_5
+	//===SCK端口
+	#define MS1022_SPI_SCK_PORT_ONE								GPIOP1
+	#define MS1022_SPI_SCK_BIT_ONE								GPIO_PIN_BIT_6
+
+	//===MISO端口
+	#define MS1022_SPI_MISO_PORT_ONE							GPIOP1
+	#define MS1022_SPI_MISO_BIT_ONE								GPIO_PIN_BIT_7
+	//===MOSI端口
+	#define MS1022_SPI_MOSI_PORT_ONE							GPIOP0
+	#define MS1022_SPI_MOSI_BIT_ONE								GPIO_PIN_BIT_0
+
+	//===RST端口
+	#define MS1022_RST_PORT_ONE									GPIOP1
+	#define MS1022_RST_BIT_ONE									GPIO_PIN_BIT_4
+
+	//===INT端口
+	#define MS1022_INT_PORT_ONE									GPIOP0
+	#define MS1022_INT_BIT_ONE									GPIO_PIN_BIT_2
+
+	
+	//===<<<TDC1的初始化---结束//////////////////////////////////////////////////////////
+	
+	///////////////MS1022信息的基本配置---结束/////////////////////////////////////////////////
 
 #ifdef __cplusplus
 }

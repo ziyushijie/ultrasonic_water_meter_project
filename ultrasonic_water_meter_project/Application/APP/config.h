@@ -14,8 +14,8 @@ extern "C" {
 	#include "sys_tick_task.h"
 	#include "rtc_task.h"
 	#include "i2c_task.h"
-	#include "at24cxx_task.h"
 	#include "ms1022_task.h"
+	#include "at24cxx_task.h"
 	#include "uart_task.h"
 	
 	//////////////////////////////////////////////////////////////////////////////////////

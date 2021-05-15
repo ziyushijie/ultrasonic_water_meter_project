@@ -143,6 +143,10 @@ static void __near uart_interrupt_send_three(void)
 
 #endif
 
+
+#pragma region 滴答定时器
+
+
 #pragma interrupt sys_tick_interrupt(vect=INTTM02)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -157,3 +161,37 @@ static void __near sys_tick_interrupt(void)
 	//---滴答定时器中断处理函数
 	sys_tick_task_it_irq_handle(SYS_TICK_TASK_ONE);
 }
+
+#pragma endregion
+
+#pragma region MS1022中断信号
+
+#pragma interrupt ms1022_interrupt_flag(vect=INTP7)
+#pragma interrupt ms1022_interrupt_spi(vect=INTCSI00)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: ms1022的中断端口标识处理 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near ms1022_interrupt_flag(void)
+{
+	ms1022_spi_task_int_flag_set(MS1022_TASK_ONE);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: ms1022的spi的中断处理函数
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near ms1022_interrupt_spi(void)
+{
+	ms1022_spi_task_mhw_it_irq_handle(MS1022_TASK_ONE);
+}
+
+
+#pragma endregion

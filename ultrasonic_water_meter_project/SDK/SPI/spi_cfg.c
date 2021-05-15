@@ -45,6 +45,8 @@ uint8_t spi_init(SPI_HandleType* SPIx, void(*func_delay_us)(uint32_t delay), uin
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_mhw_gpio_init(SPI_HandleType* SPIx)
 {
+	//---硬件模式
+	SPIx->msg_hw_mode = 1;
 	return OK_0;
 }
 
@@ -1158,53 +1160,116 @@ uint8_t spi_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *
 
 #pragma endregion
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 发送字节数据
+//////功		能: 
 //////输入参	数:
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t spi_msw_send_byte(SPI_HandleType* SPIx, uint8_t val)
+uint8_t spi_mhw_it_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
 {
-	return OK_0;
+	uint32_t cnt = 0;
+	uint8_t _return = ERROR_1;
+	SPIx->msg_p_send_data_buffer = pval;
+	SPIx->msg_p_read_data_buffer = pcmd;
+	if (length > 0)
+	{
+		////---使能数据发送
+		//PIN_OUT_0(SPIx->msg_gpio_cs.msg_p_port, SPIx->msg_gpio_cs.msg_bit);
+		//---设置发送数据个数
+		SPIx->msg_data_count = length;
+		//---设置spi的工作状态为忙碌中
+		SPIx->msg_state = BUSY;
+		//---不使能中断
+		CSIMK00 = 1U;
+		//---清楚中断标志位
+		//CSIIF00 = 0U;
+		//---数据发送
+		SIO00 =0x50;// *(SPIx->msg_p_send_data_buffer);
+		//---数据偏移
+		SPIx->msg_p_send_data_buffer++;
+		//---使能中断
+		CSIMK00 = 0U;
+		//---发送数据个数减少
+		SPIx->msg_data_count--;
+		//---获取时间标签
+		cnt = SPIx->msg_f_time_tick();
+		//---等待数据发送完成
+		while (1)
+		{
+			//---判断发送挖出讷航
+			if (SPIx->msg_state == IDLE)
+			{
+				_return = OK_0;
+				//---正常退出
+				break;
+			}
+			//---判断时间超时
+			if (TIME_SPAN(SPIx->msg_f_time_tick(), cnt) > SPI_WAIT_IDLE_MAX_TIME)
+			{
+				_return = ERROR_2;
+				//---超时退出
+				break;
+			}
+			//---喂狗
+			WDT_RESET();
+		}
+		////---不使能数据发送
+		//PIN_OUT_1(SPIx->msg_gpio_cs.msg_p_port, SPIx->msg_gpio_cs.msg_bit);
+	}
+	return _return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 读取字节数据
+//////功		能: 硬件中断处理函数
 //////输入参	数:
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t spi_msw_read_byte(SPI_HandleType* SPIx, uint8_t *pval)
+uint8_t spi_mhw_it_irq_handle(SPI_HandleType* SPIx)
 {
-	return OK_0;
+	vltuint16_t err_type = 0;
+	err_type = (SSR00 & _0001_SAU_OVERRUN_ERROR);
+	//---清楚错误标识
+	SIR00 = err_type;
+	//---判断错误信息
+	if (err_type == 0)
+	{
+		if (SPIx->msg_data_count != 0)
+		{
+			//---数据接收
+			*(SPIx->msg_p_read_data_buffer) = SIO00;
+			//---数据地址偏移
+			SPIx->msg_p_read_data_buffer++;
+
+			//---数据发送
+			SIO00 = *(SPIx->msg_p_send_data_buffer);
+			//---数据地址偏移
+			SPIx->msg_p_send_data_buffer++;
+
+			SPIx->msg_data_count--;
+		}
+		else
+		{
+			//---数据接收
+			*(SPIx->msg_p_read_data_buffer) = SIO00;
+			//---数据收发完成设置spi的工作状态为完成
+			SPIx->msg_state = IDLE;
+		}
+		return OK_0;
+	}
+	else
+	{
+		//---设置spi的工作状态为错误
+		SPIx->msg_state = ERROR;
+	}
+	return ERROR_1;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//////函		数:
-//////功		能: 收发字节数据
-//////输入参	数:
-//////输出参	数:
-//////说		明:
-//////////////////////////////////////////////////////////////////////////////
-uint8_t spi_msw_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
-{
-	return OK_0;
-}
 
-///////////////////////////////////////////////////////////////////////////////
-//////函		数:
-//////功		能: 收发多字节数据
-//////输入参	数:
-//////输出参	数:
-//////说		明:
-//////////////////////////////////////////////////////////////////////////////
-uint8_t spi_msw_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd,uint16_t length)
-{
-	return OK_0;
-}
 
 
 

@@ -292,7 +292,7 @@
           <MacroForAsm>USER_OPT_BYTE=0xEF5DAA</MacroForAsm>
         </CommonOptions>
         <GeneralOptions>
-          <SimultaneouslyBuild>False</SimultaneouslyBuild>
+          <SimultaneouslyBuild>True</SimultaneouslyBuild>
         </GeneralOptions>
         <CompileOptions>
           <Option>-cpu=S2</Option>
@@ -338,7 +338,7 @@
           <Option>-SECURITY_ID=00000000000000000001</Option>
           <Option>-DEVICE=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-DEBug</Option>
-          <Option>-COmpress</Option>
+          <Option>-NOCOmpress</Option>
           <Option>-NOOPtimize</Option>
           <Option>-OUtput=Debug/obj/%BuildModeName%\%ProjectName%.abs</Option>
           <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78cm4s99.lib</Option>
@@ -348,11 +348,12 @@
           <Option>-DEBUG_MONITOR=FE00-FFFF</Option>
           <Option>-USER_OPT_BYTE=EF5DAA</Option>
           <Option>-LISt=Debug/obj/%BuildModeName%\%ProjectName%.map</Option>
-          <Option>-SHow=Reference,Total_size</Option>
+          <Option>-SHow=SYmbol,Total_size</Option>
           <Option>-AUTO_SECTION_LAYOUT</Option>
           <Option>-ROm=.data=.dataR</Option>
           <Option>-ROm=.sdata=.sdataR</Option>
           <Option>-NOMessage</Option>
+          <Option>-MEMory=High</Option>
           <Option>-Total_size</Option>
           <Option>-NOLOgo</Option>
           <Option>-END</Option>

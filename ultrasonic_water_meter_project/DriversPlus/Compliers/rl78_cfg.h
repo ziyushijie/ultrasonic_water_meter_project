@@ -15,6 +15,7 @@ extern "C" {
 	#include "r_cg_tau.h"	
 	#include "r_cg_port.h"	
 	#include "r_cg_pclbuz.h"
+	#include "r_cg_intp.h"
 	
 #pragma region GPIO≈‰÷√
 

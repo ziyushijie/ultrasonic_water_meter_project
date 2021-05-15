@@ -707,7 +707,8 @@ extern "C" {
 	typedef enum
 	{
 		IDLE = 0,
-		BUSY,
+		BUSY = 1,
+		ERROR
 	}WORK_STATE;
 	//===定义bool变量
 #ifndef bool

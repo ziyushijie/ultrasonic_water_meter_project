@@ -271,7 +271,7 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _CE00_UART1_RECEIVE_DIVISOR      (0xCE00U)
 #define _CE00_UART1_TRANSMIT_DIVISOR     (0xCE00U)
-#define _CE00_CSI00_DIVISOR              (0xCE00U)
+#define _CE00_CSI00_DIVISOR              (0x0200U)
 #define _CE00_UART2_RECEIVE_DIVISOR      (0xCE00U)
 #define _CE00_UART2_TRANSMIT_DIVISOR     (0xCE00U)
 

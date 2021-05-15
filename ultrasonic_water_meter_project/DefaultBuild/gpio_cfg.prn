@@ -1,0 +1,1534 @@
+RL78 Family Assembler V1.10.00.01 Assemble Source List
+
+OFFSET   CODE                  NO  SOURCE STATEMENT
+
+00000000                        1  #CC-RL Compiler RL78 Assembler Source
+00000000                        2  #@  CC-RL Version : V1.10.00 [20 Nov 2020]
+00000000                        3  #@  Commmand :
+00000000                        4  #@   SDK\GPIO\gpio_cfg.c
+00000000                        5  #@   -cpu=S2
+00000000                        6  #@   -o Debug/obj/DefaultBuild\gpio_cfg.obj
+00000000                        7  #@   -no_warning_num=20042,20144,20167,20161,20301,20177,20549,20513
+00000000                        8  #@   -dev=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF
+00000000                        9  #@   -g
+00000000                       10  #@   -I SDK\SPI
+00000000                       11  #@   -I DriversPlus\R7F0C019
+00000000                       12  #@   -I DriversPlus\Compliers
+00000000                       13  #@   -I Application\APP
+00000000                       14  #@   -I Drivers\cg_src
+00000000                       15  #@   -I Complier
+00000000                       16  #@   -I DriversLog
+00000000                       17  #@   -I HWConfig
+00000000                       18  #@   -I SDK\AT24Cxx
+00000000                       19  #@   -I SDK\CRC
+00000000                       20  #@   -I SDK\Delay
+00000000                       21  #@   -I SDK\GPIO
+00000000                       22  #@   -I SDK\I2C
+00000000                       23  #@   -I SDK\Key
+00000000                       24  #@   -I SDK\MS1022
+00000000                       25  #@   -I SDK\RTC
+00000000                       26  #@   -I SDK\SPI
+00000000                       27  #@   -I SDK\SysTick
+00000000                       28  #@   -I SDK\UART
+00000000                       29  #@   -I SDK\WDT
+00000000                       30  #@   -D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA
+00000000                       31  #@   -lang=c99
+00000000                       32  #@   -asmopt=-prn_path=DefaultBuild
+00000000                       33  #@   -c
+00000000                       34  #@   -MAKEUD=Debug/obj/DefaultBuild
+00000000                       35  #@   -exec_time=C:\Users\HARRY\AppData\Local\Temp\CSPlusBuildTool_289b6f993c7f435086b24e6babf4d2a9lrhbqopj.aus
+00000000                       36  #@  compiled at Sat May 15 16:46:26 2021
+00000000                       37  
+00000000                       38  	.PUBLIC _gpio_time_tick
+00000000                       39  	.PUBLIC _gpio_time_tick_init
+00000000                       40  	.EXTERN _sys_tick_task_get_tick
+00000000                       41  	.PUBLIC _gpio_init
+00000000                       42  	.PUBLIC _gpio_pin_mode_set
+00000000                       43  	.PUBLIC _gpio_pin_mode_reset
+00000000                       44  	.PUBLIC _gpio_pin_mode_input
+00000000                       45  	.EXTERN _LOG_VA_ARGS
+00000000                       46  	.PUBLIC _gpio_pin_mode_output
+00000000                       47  	.PUBLIC _gpio_pin_mode_pull_up_set
+00000000                       48  	.PUBLIC _gpio_pin_mode_pull_up_reset
+00000000                       49  	.PUBLIC _gpio_pin_mode_input_normal
+00000000                       50  	.PUBLIC _gpio_pin_mode_input_ttl
+00000000                       51  	.PUBLIC _gpio_pin_mode_output_normal
+00000000                       52  	.PUBLIC _gpio_pin_mode_output_od
+00000000                       53  	.PUBLIC _gpio_pin_mode_digital
+00000000                       54  	.PUBLIC _gpio_pin_mode_analog
+00000000                       55  	.PUBLIC _gpio_pin_mode_ior_set
+00000000                       56  	.PUBLIC _gpio_pin_mode_ior_reset
+00000000                       57  	.PUBLIC _gpio_pin_set
+00000000                       58  	.PUBLIC _gpio_set
+00000000                       59  	.PUBLIC _gpio_pin_reset
+00000000                       60  	.PUBLIC _gpio_reset
+00000000                       61  	.PUBLIC _gpio_pin_toggle
+00000000                       62  	.PUBLIC _gpio_toggle
+00000000                       63  	.PUBLIC _gpio_pin_read
+00000000                       64  	.PUBLIC _gpio_read
+00000000                       65  	.PUBLIC _gpio_wait_time
+00000000                       66  	.EXTERN _wdt_task_restart
+00000000                       67  	.PUBLIC _gpio_set_wait_time
+00000000                       68  	.PUBLIC _gpio_reset_wait_time
+00000000                       69  	.PUBLIC _gpio_toggle_wait_time
+00000000                       70  	.PUBLIC _gpio_read_level_wait_time
+00000000                       71  	.PUBLIC _gpio_read_level_wait
+00000000                       72  
+00000000                       73  	.SECTION .textf,TEXTF
+00000000                       74  _gpio_time_tick_init:
+00000000                       75  	.STACK _gpio_time_tick_init = 6
+00000000                       76  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 17
+00000000 C5                    77  	push de
+00000001 73                    78  	mov b, a
+00000002                       79  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 20
+00000002 318E                  80  	shrw ax, 8+0x00000
+00000004 05                    81  	addw ax, de
+00000005 DF00                  82  	bnz $.BB@LABEL@1_3
+00000007                       83  .BB@LABEL@1_1:	; entry
+00000007 DC00                  84  	bc $.BB@LABEL@1_3
+00000009                       85  .BB@LABEL@1_2:	; bb22
+00000009 5300                  86  	mov b, #LOW(HIGHW(_sys_tick_task_get_tick))
+0000000B 300000                87  	movw ax, #LOWW(_sys_tick_task_get_tick)
+0000000E B800                  88  	movw [sp+0x00], ax
+00000010                       89  .BB@LABEL@1_3:	; bb25
+00000010 A800                  90  	movw ax, [sp+0x00]
+00000012 BF0000                91  	movw !LOWW(_gpio_time_tick), ax
+00000015 A800                  92  	movw ax, [sp+0x00]
+00000017 33                    93  	xchw ax, bc
+00000018 9F0000                94  	mov !LOWW(_gpio_time_tick+0x00002), a
+0000001B                       95  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 24
+0000001B 318E                  96  	shrw ax, 8+0x00000
+0000001D 03                    97  	addw ax, bc
+0000001E DF00                  98  	bnz $.BB@LABEL@1_6
+00000020                       99  .BB@LABEL@1_4:	; bb25
+00000020 DC00                 100  	bc $.BB@LABEL@1_6
+00000022                      101  .BB@LABEL@1_5:	; if_then_bb
+00000022                      102  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 26
+00000022 300000               103  	movw ax, #LOWW(_sys_tick_task_get_tick)
+00000025 BF0000               104  	movw !LOWW(_gpio_time_tick), ax
+00000028 CF000000             105  	mov !LOWW(_gpio_time_tick+0x00002), #LOW(HIGHW(_sys_tick_task_get_tick))
+0000002C                      106  .BB@LABEL@1_6:	; return
+0000002C C6                   107  	pop hl
+0000002D                      108  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 28
+0000002D D7                   109  	ret
+0000002E                      110  _gpio_init:
+0000002E                      111  	.STACK _gpio_init = 4
+0000002E                      112  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 37
+0000002E EF00                 113  	br $_gpio_time_tick_init
+00000030                      114  _gpio_pin_mode_set:
+00000030                      115  	.STACK _gpio_pin_mode_set = 4
+00000030                      116  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 49
+00000030 16                   117  	movw hl, ax
+00000031                      118  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 52
+00000031 62                   119  	mov a, c
+00000032 6D                   120  	or a, [hl]
+00000033 9B                   121  	mov [hl], a
+00000034 D7                   122  	ret
+00000035                      123  _gpio_pin_mode_reset:
+00000035                      124  	.STACK _gpio_pin_mode_reset = 4
+00000035                      125  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 111
+00000035 16                   126  	movw hl, ax
+00000036                      127  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 114
+00000036 62                   128  	mov a, c
+00000037 7CFF                 129  	xor a, #0xFF
+00000039 5D                   130  	and a, [hl]
+0000003A 9B                   131  	mov [hl], a
+0000003B D7                   132  	ret
+0000003C                      133  _gpio_pin_mode_input:
+0000003C                      134  	.STACK _gpio_pin_mode_input = 4
+0000003C                      135  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 173
+0000003C 4400FF               136  	cmpw ax, #0xFF00
+0000003F                      137  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 176
+0000003F DF00                 138  	bnz $.BB@LABEL@5_2
+00000041                      139  .BB@LABEL@5_1:	; if_then_bb
+00000041                      140  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 178
+00000041 3020FF               141  	movw ax, #0xFF20
+00000044 EF00                 142  	br $.BB@LABEL@5_16
+00000046                      143  .BB@LABEL@5_2:	; if_break_bb
+00000046                      144  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 184
+00000046 4401FF               145  	cmpw ax, #0xFF01
+00000049 DF00                 146  	bnz $.BB@LABEL@5_4
+0000004B                      147  .BB@LABEL@5_3:	; if_then_bb10
+0000004B                      148  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 186
+0000004B 3021FF               149  	movw ax, #0xFF21
+0000004E EF00                 150  	br $.BB@LABEL@5_16
+00000050                      151  .BB@LABEL@5_4:	; if_break_bb13
+00000050                      152  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 192
+00000050 4402FF               153  	cmpw ax, #0xFF02
+00000053 DF00                 154  	bnz $.BB@LABEL@5_6
+00000055                      155  .BB@LABEL@5_5:	; if_then_bb18
+00000055                      156  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 194
+00000055 3022FF               157  	movw ax, #0xFF22
+00000058 EF00                 158  	br $.BB@LABEL@5_16
+0000005A                      159  .BB@LABEL@5_6:	; if_break_bb21
+0000005A                      160  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 200
+0000005A 4403FF               161  	cmpw ax, #0xFF03
+0000005D DF00                 162  	bnz $.BB@LABEL@5_8
+0000005F                      163  .BB@LABEL@5_7:	; if_then_bb26
+0000005F                      164  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 202
+0000005F 3023FF               165  	movw ax, #0xFF23
+00000062 EF00                 166  	br $.BB@LABEL@5_16
+00000064                      167  .BB@LABEL@5_8:	; if_break_bb29
+00000064                      168  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 208
+00000064 4404FF               169  	cmpw ax, #0xFF04
+00000067 DF00                 170  	bnz $.BB@LABEL@5_10
+00000069                      171  .BB@LABEL@5_9:	; if_then_bb34
+00000069                      172  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 210
+00000069 3024FF               173  	movw ax, #0xFF24
+0000006C EF00                 174  	br $.BB@LABEL@5_16
+0000006E                      175  .BB@LABEL@5_10:	; if_break_bb37
+0000006E                      176  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 216
+0000006E 4405FF               177  	cmpw ax, #0xFF05
+00000071 DF00                 178  	bnz $.BB@LABEL@5_12
+00000073                      179  .BB@LABEL@5_11:	; if_then_bb42
+00000073                      180  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 218
+00000073 3025FF               181  	movw ax, #0xFF25
+00000076 EF00                 182  	br $.BB@LABEL@5_16
+00000078                      183  .BB@LABEL@5_12:	; if_break_bb45
+00000078                      184  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 224
+00000078 4406FF               185  	cmpw ax, #0xFF06
+0000007B DF00                 186  	bnz $.BB@LABEL@5_14
+0000007D                      187  .BB@LABEL@5_13:	; if_then_bb50
+0000007D                      188  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 226
+0000007D 3026FF               189  	movw ax, #0xFF26
+00000080 EF00                 190  	br $.BB@LABEL@5_16
+00000082                      191  .BB@LABEL@5_14:	; if_break_bb53
+00000082                      192  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 232
+00000082 4407FF               193  	cmpw ax, #0xFF07
+00000085 DF00                 194  	bnz $.BB@LABEL@5_17
+00000087                      195  .BB@LABEL@5_15:	; if_then_bb58
+00000087                      196  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 234
+00000087 3027FF               197  	movw ax, #0xFF27
+0000008A                      198  .BB@LABEL@5_16:	; if_then_bb58
+0000008A EF00                 199  	br $_gpio_pin_mode_set
+0000008C                      200  .BB@LABEL@5_17:	; if_break_bb61
+0000008C                      201  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 272
+0000008C 440CFF               202  	cmpw ax, #0xFF0C
+0000008F                      203  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 274
+0000008F 302CFF               204  	movw ax, #0xFF2C
+00000092 DD00                 205  	bz $.BB@LABEL@5_16
+00000094                      206  .BB@LABEL@5_18:	; if_else_bb
+00000094                      207  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 291
+00000094 300000               208  	movw ax, #SMRLW(.STR@1)
+00000097 EC000000             209  	br !!_LOG_VA_ARGS
+0000009B                      210  _gpio_pin_mode_output:
+0000009B                      211  	.STACK _gpio_pin_mode_output = 4
+0000009B                      212  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 303
+0000009B 4400FF               213  	cmpw ax, #0xFF00
+0000009E                      214  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 306
+0000009E DF00                 215  	bnz $.BB@LABEL@6_2
+000000A0                      216  .BB@LABEL@6_1:	; if_then_bb
+000000A0                      217  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 308
+000000A0 3020FF               218  	movw ax, #0xFF20
+000000A3 EF00                 219  	br $.BB@LABEL@6_16
+000000A5                      220  .BB@LABEL@6_2:	; if_break_bb
+000000A5                      221  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 314
+000000A5 4401FF               222  	cmpw ax, #0xFF01
+000000A8 DF00                 223  	bnz $.BB@LABEL@6_4
+000000AA                      224  .BB@LABEL@6_3:	; if_then_bb10
+000000AA                      225  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 316
+000000AA 3021FF               226  	movw ax, #0xFF21
+000000AD EF00                 227  	br $.BB@LABEL@6_16
+000000AF                      228  .BB@LABEL@6_4:	; if_break_bb13
+000000AF                      229  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 322
+000000AF 4402FF               230  	cmpw ax, #0xFF02
+000000B2 DF00                 231  	bnz $.BB@LABEL@6_6
+000000B4                      232  .BB@LABEL@6_5:	; if_then_bb18
+000000B4                      233  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 324
+000000B4 3022FF               234  	movw ax, #0xFF22
+000000B7 EF00                 235  	br $.BB@LABEL@6_16
+000000B9                      236  .BB@LABEL@6_6:	; if_break_bb21
+000000B9                      237  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 330
+000000B9 4403FF               238  	cmpw ax, #0xFF03
+000000BC DF00                 239  	bnz $.BB@LABEL@6_8
+000000BE                      240  .BB@LABEL@6_7:	; if_then_bb26
+000000BE                      241  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 332
+000000BE 3023FF               242  	movw ax, #0xFF23
+000000C1 EF00                 243  	br $.BB@LABEL@6_16
+000000C3                      244  .BB@LABEL@6_8:	; if_break_bb29
+000000C3                      245  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 338
+000000C3 4404FF               246  	cmpw ax, #0xFF04
+000000C6 DF00                 247  	bnz $.BB@LABEL@6_10
+000000C8                      248  .BB@LABEL@6_9:	; if_then_bb34
+000000C8                      249  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 340
+000000C8 3024FF               250  	movw ax, #0xFF24
+000000CB EF00                 251  	br $.BB@LABEL@6_16
+000000CD                      252  .BB@LABEL@6_10:	; if_break_bb37
+000000CD                      253  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 346
+000000CD 4405FF               254  	cmpw ax, #0xFF05
+000000D0 DF00                 255  	bnz $.BB@LABEL@6_12
+000000D2                      256  .BB@LABEL@6_11:	; if_then_bb42
+000000D2                      257  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 348
+000000D2 3025FF               258  	movw ax, #0xFF25
+000000D5 EF00                 259  	br $.BB@LABEL@6_16
+000000D7                      260  .BB@LABEL@6_12:	; if_break_bb45
+000000D7                      261  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 354
+000000D7 4406FF               262  	cmpw ax, #0xFF06
+000000DA DF00                 263  	bnz $.BB@LABEL@6_14
+000000DC                      264  .BB@LABEL@6_13:	; if_then_bb50
+000000DC                      265  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 356
+000000DC 3026FF               266  	movw ax, #0xFF26
+000000DF EF00                 267  	br $.BB@LABEL@6_16
+000000E1                      268  .BB@LABEL@6_14:	; if_break_bb53
+000000E1                      269  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 362
+000000E1 4407FF               270  	cmpw ax, #0xFF07
+000000E4 DF00                 271  	bnz $.BB@LABEL@6_17
+000000E6                      272  .BB@LABEL@6_15:	; if_then_bb58
+000000E6                      273  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 364
+000000E6 3027FF               274  	movw ax, #0xFF27
+000000E9                      275  .BB@LABEL@6_16:	; if_then_bb58
+000000E9 EE0000               276  	br $!_gpio_pin_mode_reset
+000000EC                      277  .BB@LABEL@6_17:	; if_break_bb61
+000000EC                      278  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 402
+000000EC 440CFF               279  	cmpw ax, #0xFF0C
+000000EF                      280  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 404
+000000EF 302CFF               281  	movw ax, #0xFF2C
+000000F2 DD00                 282  	bz $.BB@LABEL@6_16
+000000F4                      283  .BB@LABEL@6_18:	; if_else_bb
+000000F4                      284  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 421
+000000F4 300000               285  	movw ax, #SMRLW(.STR@1201)
+000000F7 EC000000             286  	br !!_LOG_VA_ARGS
+000000FB                      287  _gpio_pin_mode_pull_up_set:
+000000FB                      288  	.STACK _gpio_pin_mode_pull_up_set = 4
+000000FB                      289  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 433
+000000FB 4400FF               290  	cmpw ax, #0xFF00
+000000FE                      291  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 436
+000000FE DF00                 292  	bnz $.BB@LABEL@7_2
+00000100                      293  .BB@LABEL@7_1:	; if_then_bb
+00000100                      294  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 438
+00000100 303000               295  	movw ax, #0x0030
+00000103 EF00                 296  	br $.BB@LABEL@7_14
+00000105                      297  .BB@LABEL@7_2:	; if_break_bb
+00000105                      298  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 444
+00000105 4401FF               299  	cmpw ax, #0xFF01
+00000108 DF00                 300  	bnz $.BB@LABEL@7_4
+0000010A                      301  .BB@LABEL@7_3:	; if_then_bb10
+0000010A                      302  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 446
+0000010A 3021FF               303  	movw ax, #0xFF21
+0000010D EF00                 304  	br $.BB@LABEL@7_14
+0000010F                      305  .BB@LABEL@7_4:	; if_break_bb13
+0000010F                      306  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 452
+0000010F 4402FF               307  	cmpw ax, #0xFF02
+00000112 DF00                 308  	bnz $.BB@LABEL@7_6
+00000114                      309  .BB@LABEL@7_5:	; if_then_bb18
+00000114                      310  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 454
+00000114 3022FF               311  	movw ax, #0xFF22
+00000117 EF00                 312  	br $.BB@LABEL@7_14
+00000119                      313  .BB@LABEL@7_6:	; if_break_bb21
+00000119                      314  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 460
+00000119 4403FF               315  	cmpw ax, #0xFF03
+0000011C DF00                 316  	bnz $.BB@LABEL@7_8
+0000011E                      317  .BB@LABEL@7_7:	; if_then_bb26
+0000011E                      318  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 462
+0000011E 3023FF               319  	movw ax, #0xFF23
+00000121 EF00                 320  	br $.BB@LABEL@7_14
+00000123                      321  .BB@LABEL@7_8:	; if_break_bb29
+00000123                      322  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 468
+00000123 4404FF               323  	cmpw ax, #0xFF04
+00000126 DF00                 324  	bnz $.BB@LABEL@7_10
+00000128                      325  .BB@LABEL@7_9:	; if_then_bb34
+00000128                      326  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 470
+00000128 303400               327  	movw ax, #0x0034
+0000012B EF00                 328  	br $.BB@LABEL@7_14
+0000012D                      329  .BB@LABEL@7_10:	; if_break_bb37
+0000012D                      330  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 476
+0000012D 4405FF               331  	cmpw ax, #0xFF05
+00000130 DF00                 332  	bnz $.BB@LABEL@7_12
+00000132                      333  .BB@LABEL@7_11:	; if_then_bb42
+00000132                      334  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 478
+00000132 303500               335  	movw ax, #0x0035
+00000135 EF00                 336  	br $.BB@LABEL@7_14
+00000137                      337  .BB@LABEL@7_12:	; if_break_bb45
+00000137                      338  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 492
+00000137 4407FF               339  	cmpw ax, #0xFF07
+0000013A DF00                 340  	bnz $.BB@LABEL@7_15
+0000013C                      341  .BB@LABEL@7_13:	; if_then_bb50
+0000013C                      342  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 494
+0000013C 303700               343  	movw ax, #0x0037
+0000013F                      344  .BB@LABEL@7_14:	; if_then_bb50
+0000013F EE0000               345  	br $!_gpio_pin_mode_set
+00000142                      346  .BB@LABEL@7_15:	; if_break_bb53
+00000142                      347  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 532
+00000142 440CFF               348  	cmpw ax, #0xFF0C
+00000145                      349  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 534
+00000145 303C00               350  	movw ax, #0x003C
+00000148 DD00                 351  	bz $.BB@LABEL@7_14
+0000014A                      352  .BB@LABEL@7_16:	; if_else_bb
+0000014A                      353  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 551
+0000014A 300000               354  	movw ax, #SMRLW(.STR@1212)
+0000014D EC000000             355  	br !!_LOG_VA_ARGS
+00000151                      356  _gpio_pin_mode_pull_up_reset:
+00000151                      357  	.STACK _gpio_pin_mode_pull_up_reset = 4
+00000151                      358  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 563
+00000151 4400FF               359  	cmpw ax, #0xFF00
+00000154                      360  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 566
+00000154 DF00                 361  	bnz $.BB@LABEL@8_2
+00000156                      362  .BB@LABEL@8_1:	; if_then_bb
+00000156                      363  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 568
+00000156 303000               364  	movw ax, #0x0030
+00000159 EF00                 365  	br $.BB@LABEL@8_14
+0000015B                      366  .BB@LABEL@8_2:	; if_break_bb
+0000015B                      367  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 574
+0000015B 4401FF               368  	cmpw ax, #0xFF01
+0000015E DF00                 369  	bnz $.BB@LABEL@8_4
+00000160                      370  .BB@LABEL@8_3:	; if_then_bb10
+00000160                      371  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 576
+00000160 303100               372  	movw ax, #0x0031
+00000163 EF00                 373  	br $.BB@LABEL@8_14
+00000165                      374  .BB@LABEL@8_4:	; if_break_bb13
+00000165                      375  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 582
+00000165 4402FF               376  	cmpw ax, #0xFF02
+00000168 DF00                 377  	bnz $.BB@LABEL@8_6
+0000016A                      378  .BB@LABEL@8_5:	; if_then_bb18
+0000016A                      379  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 584
+0000016A 303200               380  	movw ax, #0x0032
+0000016D EF00                 381  	br $.BB@LABEL@8_14
+0000016F                      382  .BB@LABEL@8_6:	; if_break_bb21
+0000016F                      383  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 590
+0000016F 4403FF               384  	cmpw ax, #0xFF03
+00000172 DF00                 385  	bnz $.BB@LABEL@8_8
+00000174                      386  .BB@LABEL@8_7:	; if_then_bb26
+00000174                      387  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 592
+00000174 303300               388  	movw ax, #0x0033
+00000177 EF00                 389  	br $.BB@LABEL@8_14
+00000179                      390  .BB@LABEL@8_8:	; if_break_bb29
+00000179                      391  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 598
+00000179 4404FF               392  	cmpw ax, #0xFF04
+0000017C DF00                 393  	bnz $.BB@LABEL@8_10
+0000017E                      394  .BB@LABEL@8_9:	; if_then_bb34
+0000017E                      395  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 600
+0000017E 303400               396  	movw ax, #0x0034
+00000181 EF00                 397  	br $.BB@LABEL@8_14
+00000183                      398  .BB@LABEL@8_10:	; if_break_bb37
+00000183                      399  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 606
+00000183 4405FF               400  	cmpw ax, #0xFF05
+00000186 DF00                 401  	bnz $.BB@LABEL@8_12
+00000188                      402  .BB@LABEL@8_11:	; if_then_bb42
+00000188                      403  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 608
+00000188 303500               404  	movw ax, #0x0035
+0000018B EF00                 405  	br $.BB@LABEL@8_14
+0000018D                      406  .BB@LABEL@8_12:	; if_break_bb45
+0000018D                      407  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 622
+0000018D 4407FF               408  	cmpw ax, #0xFF07
+00000190 DF00                 409  	bnz $.BB@LABEL@8_15
+00000192                      410  .BB@LABEL@8_13:	; if_then_bb50
+00000192                      411  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 624
+00000192 303700               412  	movw ax, #0x0037
+00000195                      413  .BB@LABEL@8_14:	; if_then_bb50
+00000195 EE0000               414  	br $!_gpio_pin_mode_reset
+00000198                      415  .BB@LABEL@8_15:	; if_break_bb53
+00000198                      416  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 662
+00000198 440CFF               417  	cmpw ax, #0xFF0C
+0000019B                      418  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 664
+0000019B 303C00               419  	movw ax, #0x003C
+0000019E DD00                 420  	bz $.BB@LABEL@8_14
+000001A0                      421  .BB@LABEL@8_16:	; if_else_bb
+000001A0                      422  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 681
+000001A0 300000               423  	movw ax, #SMRLW(.STR@1223)
+000001A3 EC000000             424  	br !!_LOG_VA_ARGS
+000001A7                      425  _gpio_pin_mode_input_normal:
+000001A7                      426  	.STACK _gpio_pin_mode_input_normal = 4
+000001A7                      427  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 693
+000001A7 4400FF               428  	cmpw ax, #0xFF00
+000001AA                      429  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 696
+000001AA DF00                 430  	bnz $.BB@LABEL@9_2
+000001AC                      431  .BB@LABEL@9_1:	; if_then_bb
+000001AC                      432  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 698
+000001AC 304000               433  	movw ax, #0x0040
+000001AF EF00                 434  	br $.BB@LABEL@9_6
+000001B1                      435  .BB@LABEL@9_2:	; if_break_bb
+000001B1                      436  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 704
+000001B1 4401FF               437  	cmpw ax, #0xFF01
+000001B4 DF00                 438  	bnz $.BB@LABEL@9_4
+000001B6                      439  .BB@LABEL@9_3:	; if_then_bb10
+000001B6                      440  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 706
+000001B6 304100               441  	movw ax, #0x0041
+000001B9 EF00                 442  	br $.BB@LABEL@9_6
+000001BB                      443  .BB@LABEL@9_4:	; if_break_bb13
+000001BB                      444  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 728
+000001BB 4404FF               445  	cmpw ax, #0xFF04
+000001BE DF00                 446  	bnz $.BB@LABEL@9_7
+000001C0                      447  .BB@LABEL@9_5:	; if_then_bb18
+000001C0                      448  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 730
+000001C0 304400               449  	movw ax, #0x0044
+000001C3                      450  .BB@LABEL@9_6:	; if_then_bb18
+000001C3 EE0000               451  	br $!_gpio_pin_mode_reset
+000001C6                      452  .BB@LABEL@9_7:	; if_break_bb21
+000001C6                      453  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 736
+000001C6 4405FF               454  	cmpw ax, #0xFF05
+000001C9                      455  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 738
+000001C9 304500               456  	movw ax, #0x0045
+000001CC DD00                 457  	bz $.BB@LABEL@9_6
+000001CE                      458  .BB@LABEL@9_8:	; if_else_bb
+000001CE                      459  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 811
+000001CE 300000               460  	movw ax, #SMRLW(.STR@1234)
+000001D1 EC000000             461  	br !!_LOG_VA_ARGS
+000001D5                      462  _gpio_pin_mode_input_ttl:
+000001D5                      463  	.STACK _gpio_pin_mode_input_ttl = 4
+000001D5                      464  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 823
+000001D5 4400FF               465  	cmpw ax, #0xFF00
+000001D8                      466  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 826
+000001D8 DF00                 467  	bnz $.BB@LABEL@10_2
+000001DA                      468  .BB@LABEL@10_1:	; if_then_bb
+000001DA                      469  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 828
+000001DA 304000               470  	movw ax, #0x0040
+000001DD EF00                 471  	br $.BB@LABEL@10_6
+000001DF                      472  .BB@LABEL@10_2:	; if_break_bb
+000001DF                      473  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 834
+000001DF 4401FF               474  	cmpw ax, #0xFF01
+000001E2 DF00                 475  	bnz $.BB@LABEL@10_4
+000001E4                      476  .BB@LABEL@10_3:	; if_then_bb10
+000001E4                      477  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 836
+000001E4 304100               478  	movw ax, #0x0041
+000001E7 EF00                 479  	br $.BB@LABEL@10_6
+000001E9                      480  .BB@LABEL@10_4:	; if_break_bb13
+000001E9                      481  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 858
+000001E9 4404FF               482  	cmpw ax, #0xFF04
+000001EC DF00                 483  	bnz $.BB@LABEL@10_7
+000001EE                      484  .BB@LABEL@10_5:	; if_then_bb18
+000001EE                      485  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 860
+000001EE 304400               486  	movw ax, #0x0044
+000001F1                      487  .BB@LABEL@10_6:	; if_then_bb18
+000001F1 EE0000               488  	br $!_gpio_pin_mode_set
+000001F4                      489  .BB@LABEL@10_7:	; if_break_bb21
+000001F4                      490  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 866
+000001F4 4405FF               491  	cmpw ax, #0xFF05
+000001F7                      492  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 868
+000001F7 304500               493  	movw ax, #0x0045
+000001FA DD00                 494  	bz $.BB@LABEL@10_6
+000001FC                      495  .BB@LABEL@10_8:	; if_else_bb
+000001FC                      496  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 941
+000001FC 300000               497  	movw ax, #SMRLW(.STR@1245)
+000001FF EC000000             498  	br !!_LOG_VA_ARGS
+00000203                      499  _gpio_pin_mode_output_normal:
+00000203                      500  	.STACK _gpio_pin_mode_output_normal = 4
+00000203                      501  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 953
+00000203 4400FF               502  	cmpw ax, #0xFF00
+00000206                      503  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 956
+00000206 DF00                 504  	bnz $.BB@LABEL@11_2
+00000208                      505  .BB@LABEL@11_1:	; if_then_bb
+00000208                      506  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 958
+00000208 305000               507  	movw ax, #0x0050
+0000020B EF00                 508  	br $.BB@LABEL@11_6
+0000020D                      509  .BB@LABEL@11_2:	; if_break_bb
+0000020D                      510  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 964
+0000020D 4401FF               511  	cmpw ax, #0xFF01
+00000210 DF00                 512  	bnz $.BB@LABEL@11_4
+00000212                      513  .BB@LABEL@11_3:	; if_then_bb10
+00000212                      514  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 966
+00000212 305100               515  	movw ax, #0x0051
+00000215 EF00                 516  	br $.BB@LABEL@11_6
+00000217                      517  .BB@LABEL@11_4:	; if_break_bb13
+00000217                      518  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 988
+00000217 4404FF               519  	cmpw ax, #0xFF04
+0000021A DF00                 520  	bnz $.BB@LABEL@11_7
+0000021C                      521  .BB@LABEL@11_5:	; if_then_bb18
+0000021C                      522  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 990
+0000021C 305400               523  	movw ax, #0x0054
+0000021F                      524  .BB@LABEL@11_6:	; if_then_bb18
+0000021F EE0000               525  	br $!_gpio_pin_mode_reset
+00000222                      526  .BB@LABEL@11_7:	; if_break_bb21
+00000222                      527  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 996
+00000222 4405FF               528  	cmpw ax, #0xFF05
+00000225                      529  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 998
+00000225 305500               530  	movw ax, #0x0055
+00000228 DD00                 531  	bz $.BB@LABEL@11_6
+0000022A                      532  .BB@LABEL@11_8:	; if_else_bb
+0000022A                      533  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1071
+0000022A 300000               534  	movw ax, #SMRLW(.STR@1256)
+0000022D EC000000             535  	br !!_LOG_VA_ARGS
+00000231                      536  _gpio_pin_mode_output_od:
+00000231                      537  	.STACK _gpio_pin_mode_output_od = 4
+00000231                      538  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1083
+00000231 4400FF               539  	cmpw ax, #0xFF00
+00000234                      540  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1086
+00000234 DF00                 541  	bnz $.BB@LABEL@12_2
+00000236                      542  .BB@LABEL@12_1:	; if_then_bb
+00000236                      543  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1088
+00000236 305000               544  	movw ax, #0x0050
+00000239 EF00                 545  	br $.BB@LABEL@12_6
+0000023B                      546  .BB@LABEL@12_2:	; if_break_bb
+0000023B                      547  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1094
+0000023B 4401FF               548  	cmpw ax, #0xFF01
+0000023E DF00                 549  	bnz $.BB@LABEL@12_4
+00000240                      550  .BB@LABEL@12_3:	; if_then_bb10
+00000240                      551  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1096
+00000240 3021FF               552  	movw ax, #0xFF21
+00000243 EF00                 553  	br $.BB@LABEL@12_6
+00000245                      554  .BB@LABEL@12_4:	; if_break_bb13
+00000245                      555  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1118
+00000245 4404FF               556  	cmpw ax, #0xFF04
+00000248 DF00                 557  	bnz $.BB@LABEL@12_7
+0000024A                      558  .BB@LABEL@12_5:	; if_then_bb18
+0000024A                      559  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1120
+0000024A 305400               560  	movw ax, #0x0054
+0000024D                      561  .BB@LABEL@12_6:	; if_then_bb18
+0000024D EE0000               562  	br $!_gpio_pin_mode_set
+00000250                      563  .BB@LABEL@12_7:	; if_break_bb21
+00000250                      564  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1126
+00000250 4405FF               565  	cmpw ax, #0xFF05
+00000253                      566  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1128
+00000253 305500               567  	movw ax, #0x0055
+00000256 DD00                 568  	bz $.BB@LABEL@12_6
+00000258                      569  .BB@LABEL@12_8:	; if_else_bb
+00000258                      570  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1201
+00000258 300000               571  	movw ax, #SMRLW(.STR@1267)
+0000025B EC000000             572  	br !!_LOG_VA_ARGS
+0000025F                      573  _gpio_pin_mode_digital:
+0000025F                      574  	.STACK _gpio_pin_mode_digital = 4
+0000025F                      575  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1213
+0000025F 4401FF               576  	cmpw ax, #0xFF01
+00000262                      577  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1224
+00000262 DF00                 578  	bnz $.BB@LABEL@13_2
+00000264                      579  .BB@LABEL@13_1:	; if_then_bb
+00000264                      580  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1226
+00000264 306100               581  	movw ax, #0x0061
+00000267 EF00                 582  	br $.BB@LABEL@13_4
+00000269                      583  .BB@LABEL@13_2:	; if_break_bb
+00000269                      584  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1232
+00000269 4402FF               585  	cmpw ax, #0xFF02
+0000026C DF00                 586  	bnz $.BB@LABEL@13_5
+0000026E                      587  .BB@LABEL@13_3:	; if_then_bb10
+0000026E                      588  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1234
+0000026E 306200               589  	movw ax, #0x0062
+00000271                      590  .BB@LABEL@13_4:	; if_then_bb10
+00000271 EE0000               591  	br $!_gpio_pin_mode_reset
+00000274                      592  .BB@LABEL@13_5:	; if_break_bb13
+00000274                      593  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1248
+00000274 4404FF               594  	cmpw ax, #0xFF04
+00000277                      595  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1250
+00000277 306400               596  	movw ax, #0x0064
+0000027A DD00                 597  	bz $.BB@LABEL@13_4
+0000027C                      598  .BB@LABEL@13_6:	; if_else_bb
+0000027C                      599  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1331
+0000027C 300000               600  	movw ax, #SMRLW(.STR@1278)
+0000027F EC000000             601  	br !!_LOG_VA_ARGS
+00000283                      602  _gpio_pin_mode_analog:
+00000283                      603  	.STACK _gpio_pin_mode_analog = 4
+00000283                      604  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1343
+00000283 4401FF               605  	cmpw ax, #0xFF01
+00000286                      606  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1354
+00000286 DF00                 607  	bnz $.BB@LABEL@14_2
+00000288                      608  .BB@LABEL@14_1:	; if_then_bb
+00000288                      609  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1356
+00000288 306100               610  	movw ax, #0x0061
+0000028B EF00                 611  	br $.BB@LABEL@14_4
+0000028D                      612  .BB@LABEL@14_2:	; if_break_bb
+0000028D                      613  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1362
+0000028D 4402FF               614  	cmpw ax, #0xFF02
+00000290 DF00                 615  	bnz $.BB@LABEL@14_5
+00000292                      616  .BB@LABEL@14_3:	; if_then_bb10
+00000292                      617  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1364
+00000292 306200               618  	movw ax, #0x0062
+00000295                      619  .BB@LABEL@14_4:	; if_then_bb10
+00000295 EE0000               620  	br $!_gpio_pin_mode_set
+00000298                      621  .BB@LABEL@14_5:	; if_break_bb13
+00000298                      622  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1378
+00000298 4404FF               623  	cmpw ax, #0xFF04
+0000029B                      624  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1380
+0000029B 306400               625  	movw ax, #0x0064
+0000029E DD00                 626  	bz $.BB@LABEL@14_4
+000002A0                      627  .BB@LABEL@14_6:	; if_else_bb
+000002A0                      628  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1461
+000002A0 300000               629  	movw ax, #SMRLW(.STR@1289)
+000002A3 EC000000             630  	br !!_LOG_VA_ARGS
+000002A7                      631  _gpio_pin_mode_ior_set:
+000002A7                      632  	.STACK _gpio_pin_mode_ior_set = 4
+000002A7                      633  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1473
+000002A7 4400FF               634  	cmpw ax, #0xFF00
+000002AA                      635  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1476
+000002AA DF00                 636  	bnz $.BB@LABEL@15_2
+000002AC                      637  .BB@LABEL@15_1:	; if_then_bb
+000002AC                      638  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1478
+000002AC 307700               639  	movw ax, #0x0077
+000002AF EE0000               640  	br $!_gpio_pin_mode_set
+000002B2                      641  .BB@LABEL@15_2:	; if_else_bb
+000002B2                      642  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1591
+000002B2 300000               643  	movw ax, #SMRLW(.STR@1300)
+000002B5 EC000000             644  	br !!_LOG_VA_ARGS
+000002B9                      645  _gpio_pin_mode_ior_reset:
+000002B9                      646  	.STACK _gpio_pin_mode_ior_reset = 4
+000002B9                      647  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1603
+000002B9 4400FF               648  	cmpw ax, #0xFF00
+000002BC                      649  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1606
+000002BC DF00                 650  	bnz $.BB@LABEL@16_2
+000002BE                      651  .BB@LABEL@16_1:	; if_then_bb
+000002BE                      652  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1608
+000002BE 307700               653  	movw ax, #0x0077
+000002C1 EE0000               654  	br $!_gpio_pin_mode_reset
+000002C4                      655  .BB@LABEL@16_2:	; if_else_bb
+000002C4                      656  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1721
+000002C4 300000               657  	movw ax, #SMRLW(.STR@1311)
+000002C7 EC000000             658  	br !!_LOG_VA_ARGS
+000002CB                      659  _gpio_pin_set:
+000002CB                      660  	.STACK _gpio_pin_set = 4
+000002CB                      661  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1733
+000002CB 16                   662  	movw hl, ax
+000002CC                      663  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1736
+000002CC 62                   664  	mov a, c
+000002CD 6D                   665  	or a, [hl]
+000002CE 9B                   666  	mov [hl], a
+000002CF D7                   667  	ret
+000002D0                      668  _gpio_set:
+000002D0                      669  	.STACK _gpio_set = 6
+000002D0                      670  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1795
+000002D0 C1                   671  	push ax
+000002D1 14                   672  	movw de, ax
+000002D2 C6                   673  	pop hl
+000002D3                      674  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1797
+000002D3 AA02                 675  	movw ax, [de+0x02]
+000002D5 12                   676  	movw bc, ax
+000002D6 AA04                 677  	movw ax, [de+0x04]
+000002D8 14                   678  	movw de, ax
+000002D9 C7                   679  	push hl
+000002DA AB                   680  	movw ax, [hl]
+000002DB C6                   681  	pop hl
+000002DC EF00                 682  	br $_gpio_pin_set
+000002DE                      683  _gpio_pin_reset:
+000002DE                      684  	.STACK _gpio_pin_reset = 4
+000002DE                      685  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1807
+000002DE 16                   686  	movw hl, ax
+000002DF                      687  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1810
+000002DF 62                   688  	mov a, c
+000002E0 7CFF                 689  	xor a, #0xFF
+000002E2 5D                   690  	and a, [hl]
+000002E3 9B                   691  	mov [hl], a
+000002E4 D7                   692  	ret
+000002E5                      693  _gpio_reset:
+000002E5                      694  	.STACK _gpio_reset = 6
+000002E5                      695  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1869
+000002E5 C1                   696  	push ax
+000002E6 14                   697  	movw de, ax
+000002E7 C6                   698  	pop hl
+000002E8                      699  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1871
+000002E8 AA02                 700  	movw ax, [de+0x02]
+000002EA 12                   701  	movw bc, ax
+000002EB AA04                 702  	movw ax, [de+0x04]
+000002ED 14                   703  	movw de, ax
+000002EE C7                   704  	push hl
+000002EF AB                   705  	movw ax, [hl]
+000002F0 C6                   706  	pop hl
+000002F1 EF00                 707  	br $_gpio_pin_reset
+000002F3                      708  _gpio_pin_toggle:
+000002F3                      709  	.STACK _gpio_pin_toggle = 4
+000002F3                      710  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1881
+000002F3 16                   711  	movw hl, ax
+000002F4                      712  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1884
+000002F4 62                   713  	mov a, c
+000002F5 7D                   714  	xor a, [hl]
+000002F6 9B                   715  	mov [hl], a
+000002F7 D7                   716  	ret
+000002F8                      717  _gpio_toggle:
+000002F8                      718  	.STACK _gpio_toggle = 6
+000002F8                      719  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1943
+000002F8 C1                   720  	push ax
+000002F9 14                   721  	movw de, ax
+000002FA C6                   722  	pop hl
+000002FB                      723  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1945
+000002FB AA02                 724  	movw ax, [de+0x02]
+000002FD 12                   725  	movw bc, ax
+000002FE AA04                 726  	movw ax, [de+0x04]
+00000300 14                   727  	movw de, ax
+00000301 C7                   728  	push hl
+00000302 AB                   729  	movw ax, [hl]
+00000303 C6                   730  	pop hl
+00000304 EF00                 731  	br $_gpio_pin_toggle
+00000306                      732  _gpio_pin_read:
+00000306                      733  	.STACK _gpio_pin_read = 4
+00000306                      734  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1955
+00000306 14                   735  	movw de, ax
+00000307                      736  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1958
+00000307 89                   737  	mov a, [de]
+00000308 318E                 738  	shrw ax, 8+0x00000
+0000030A 615B                 739  	and a, b
+0000030C 08                   740  	xch a, x
+0000030D 615A                 741  	and a, c
+0000030F 08                   742  	xch a, x
+00000310 F7                   743  	clrw bc
+00000311 03                   744  	addw ax, bc
+00000312 61F8                 745  	sknz
+00000314                      746  .BB@LABEL@23_1:	; entry
+00000314 61D8                 747  	sknc
+00000316                      748  .BB@LABEL@23_2:	; entry.bb17_crit_edge
+00000316 A3                   749  	incw bc
+00000317                      750  .BB@LABEL@23_3:	; bb17
+00000317                      751  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1959
+00000317 13                   752  	movw ax, bc
+00000318 F7                   753  	clrw bc
+00000319 D7                   754  	ret
+0000031A                      755  _gpio_read:
+0000031A                      756  	.STACK _gpio_read = 6
+0000031A                      757  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1968
+0000031A C1                   758  	push ax
+0000031B 14                   759  	movw de, ax
+0000031C C6                   760  	pop hl
+0000031D                      761  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1970
+0000031D AA02                 762  	movw ax, [de+0x02]
+0000031F 12                   763  	movw bc, ax
+00000320 AA04                 764  	movw ax, [de+0x04]
+00000322 14                   765  	movw de, ax
+00000323 C7                   766  	push hl
+00000324 AB                   767  	movw ax, [hl]
+00000325 C6                   768  	pop hl
+00000326 EF00                 769  	br $_gpio_pin_read
+00000328                      770  _gpio_wait_time:
+00000328                      771  	.STACK _gpio_wait_time = 16
+00000328                      772  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1980
+00000328 C3                   773  	push bc
+00000329 C1                   774  	push ax
+0000032A 2006                 775  	subw sp, #0x06
+0000032C                      776  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1983
+0000032C 8F0000               777  	mov a, !LOWW(_gpio_time_tick+0x00002)
+0000032F 9EFC                 778  	mov cs, a
+00000331 FB0000               779  	movw hl, !LOWW(_gpio_time_tick)
+00000334 61FA                 780  	call hl
+00000336 B802                 781  	movw [sp+0x02], ax
+00000338 C0                   782  	pop ax
+00000339 C3                   783  	push bc
+0000033A                      784  .BB@LABEL@25_1:	; bb35
+0000033A                      785  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1988
+0000033A 8F0000               786  	mov a, !LOWW(_gpio_time_tick+0x00002)
+0000033D 9EFC                 787  	mov cs, a
+0000033F FB0000               788  	movw hl, !LOWW(_gpio_time_tick)
+00000342 61FA                 789  	call hl
+00000344 14                   790  	movw de, ax
+00000345 A800                 791  	movw ax, [sp+0x00]
+00000347 33                   792  	xchw ax, bc
+00000348 43                   793  	cmpw ax, bc
+00000349 A802                 794  	movw ax, [sp+0x02]
+0000034B 12                   795  	movw bc, ax
+0000034C 15                   796  	movw ax, de
+0000034D 61F8                 797  	sknz
+0000034F                      798  .BB@LABEL@25_2:	; bb35
+0000034F 43                   799  	cmpw ax, bc
+00000350                      800  .BB@LABEL@25_3:	; bb35
+00000350 8F0000               801  	mov a, !LOWW(_gpio_time_tick+0x00002)
+00000353 9EFC                 802  	mov cs, a
+00000355 FB0000               803  	movw hl, !LOWW(_gpio_time_tick)
+00000358 DE00                 804  	bnc $.BB@LABEL@25_7
+0000035A                      805  .BB@LABEL@25_4:	; bb13
+0000035A 61FA                 806  	call hl
+0000035C 14                   807  	movw de, ax
+0000035D C6                   808  	pop hl
+0000035E C7                   809  	push hl
+0000035F F6                   810  	clrw ax
+00000360 B1                   811  	decw ax
+00000361 27                   812  	subw ax, hl
+00000362 B804                 813  	movw [sp+0x04], ax
+00000364 A802                 814  	movw ax, [sp+0x02]
+00000366 16                   815  	movw hl, ax
+00000367 F6                   816  	clrw ax
+00000368 B1                   817  	decw ax
+00000369 27                   818  	subw ax, hl
+0000036A 05                   819  	addw ax, de
+0000036B 14                   820  	movw de, ax
+0000036C A804                 821  	movw ax, [sp+0x04]
+0000036E 61D8                 822  	sknc
+00000370                      823  .BB@LABEL@25_5:	; bb13
+00000370 A1                   824  	incw ax
+00000371                      825  .BB@LABEL@25_6:	; bb13
+00000371 03                   826  	addw ax, bc
+00000372 EF00                 827  	br $.BB@LABEL@25_10
+00000374                      828  .BB@LABEL@25_7:	; bb21
+00000374 61FA                 829  	call hl
+00000376 14                   830  	movw de, ax
+00000377 C3                   831  	push bc
+00000378 C6                   832  	pop hl
+00000379 A802                 833  	movw ax, [sp+0x02]
+0000037B 12                   834  	movw bc, ax
+0000037C 15                   835  	movw ax, de
+0000037D 23                   836  	subw ax, bc
+0000037E 14                   837  	movw de, ax
+0000037F C2                   838  	pop bc
+00000380 C3                   839  	push bc
+00000381 17                   840  	movw ax, hl
+00000382 61D8                 841  	sknc
+00000384                      842  .BB@LABEL@25_8:	; bb21
+00000384 B1                   843  	decw ax
+00000385                      844  .BB@LABEL@25_9:	; bb21
+00000385 23                   845  	subw ax, bc
+00000386                      846  .BB@LABEL@25_10:	; bb21
+00000386 12                   847  	movw bc, ax
+00000387 A808                 848  	movw ax, [sp+0x08]
+00000389 33                   849  	xchw ax, bc
+0000038A 43                   850  	cmpw ax, bc
+0000038B A806                 851  	movw ax, [sp+0x06]
+0000038D 12                   852  	movw bc, ax
+0000038E 15                   853  	movw ax, de
+0000038F 61F8                 854  	sknz
+00000391                      855  .BB@LABEL@25_11:	; bb28
+00000391 43                   856  	cmpw ax, bc
+00000392                      857  .BB@LABEL@25_12:	; bb28
+00000392 61C300               858  	bh $.BB@LABEL@25_14
+00000395                      859  .BB@LABEL@25_13:	; if_break_bb
+00000395                      860  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1993
+00000395 FC000000             861  	call !!_wdt_task_restart
+00000399 EF00                 862  	br $.BB@LABEL@25_1
+0000039B                      863  .BB@LABEL@25_14:	; bb37
+0000039B                      864  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 1996
+0000039B F1                   865  	clrb a
+0000039C 100A                 866  	addw sp, #0x0A
+0000039E D7                   867  	ret
+0000039F                      868  _gpio_set_wait_time:
+0000039F                      869  	.STACK _gpio_set_wait_time = 8
+0000039F                      870  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2005
+0000039F 16                   871  	movw hl, ax
+000003A0 C3                   872  	push bc
+000003A1 C5                   873  	push de
+000003A2                      874  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2007
+000003A2 AC02                 875  	movw ax, [hl+0x02]
+000003A4 12                   876  	movw bc, ax
+000003A5 AC04                 877  	movw ax, [hl+0x04]
+000003A7 14                   878  	movw de, ax
+000003A8 AB                   879  	movw ax, [hl]
+000003A9 FE0000               880  	call $!_gpio_pin_set
+000003AC C2                   881  	pop bc
+000003AD C3                   882  	push bc
+000003AE A802                 883  	movw ax, [sp+0x02]
+000003B0                      884  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2008
+000003B0 1004                 885  	addw sp, #0x04
+000003B2 EE0000               886  	br $!_gpio_wait_time
+000003B5                      887  _gpio_reset_wait_time:
+000003B5                      888  	.STACK _gpio_reset_wait_time = 8
+000003B5                      889  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2018
+000003B5 16                   890  	movw hl, ax
+000003B6 C3                   891  	push bc
+000003B7 C5                   892  	push de
+000003B8                      893  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2020
+000003B8 AC02                 894  	movw ax, [hl+0x02]
+000003BA 12                   895  	movw bc, ax
+000003BB AC04                 896  	movw ax, [hl+0x04]
+000003BD 14                   897  	movw de, ax
+000003BE AB                   898  	movw ax, [hl]
+000003BF FE0000               899  	call $!_gpio_pin_reset
+000003C2 C2                   900  	pop bc
+000003C3 C3                   901  	push bc
+000003C4 A802                 902  	movw ax, [sp+0x02]
+000003C6                      903  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2021
+000003C6 1004                 904  	addw sp, #0x04
+000003C8 EE0000               905  	br $!_gpio_wait_time
+000003CB                      906  _gpio_toggle_wait_time:
+000003CB                      907  	.STACK _gpio_toggle_wait_time = 8
+000003CB                      908  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2031
+000003CB 16                   909  	movw hl, ax
+000003CC C3                   910  	push bc
+000003CD C5                   911  	push de
+000003CE                      912  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2033
+000003CE AC02                 913  	movw ax, [hl+0x02]
+000003D0 12                   914  	movw bc, ax
+000003D1 AC04                 915  	movw ax, [hl+0x04]
+000003D3 14                   916  	movw de, ax
+000003D4 AB                   917  	movw ax, [hl]
+000003D5 FE0000               918  	call $!_gpio_pin_toggle
+000003D8 C2                   919  	pop bc
+000003D9 C3                   920  	push bc
+000003DA A802                 921  	movw ax, [sp+0x02]
+000003DC                      922  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2034
+000003DC 1004                 923  	addw sp, #0x04
+000003DE EE0000               924  	br $!_gpio_wait_time
+000003E1                      925  _gpio_read_level_wait_time:
+000003E1                      926  	.STACK _gpio_read_level_wait_time = 16
+000003E1                      927  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2044
+000003E1 C3                   928  	push bc
+000003E2 C1                   929  	push ax
+000003E3 2006                 930  	subw sp, #0x06
+000003E5                      931  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2047
+000003E5 8F0000               932  	mov a, !LOWW(_gpio_time_tick+0x00002)
+000003E8 9EFC                 933  	mov cs, a
+000003EA FB0000               934  	movw hl, !LOWW(_gpio_time_tick)
+000003ED 61FA                 935  	call hl
+000003EF B802                 936  	movw [sp+0x02], ax
+000003F1 C0                   937  	pop ax
+000003F2 C3                   938  	push bc
+000003F3                      939  .BB@LABEL@29_1:	; bb48
+000003F3 A806                 940  	movw ax, [sp+0x06]
+000003F5                      941  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2052
+000003F5 FE0000               942  	call $!_gpio_read
+000003F8 16                   943  	movw hl, ax
+000003F9 C3                   944  	push bc
+000003FA C4                   945  	pop de
+000003FB 8808                 946  	mov a, [sp+0x08]
+000003FD 318E                 947  	shrw ax, 8+0x00000
+000003FF 12                   948  	movw bc, ax
+00000400 15                   949  	movw ax, de
+00000401 6168                 950  	or a, x
+00000403 17                   951  	movw ax, hl
+00000404 61F8                 952  	sknz
+00000406                      953  .BB@LABEL@29_2:	; bb48
+00000406 43                   954  	cmpw ax, bc
+00000407                      955  .BB@LABEL@29_3:	; bb48
+00000407 DD00                 956  	bz $.BB@LABEL@29_17
+00000409                      957  .BB@LABEL@29_4:	; if_break_bb
+00000409                      958  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2058
+00000409 8F0000               959  	mov a, !LOWW(_gpio_time_tick+0x00002)
+0000040C 9EFC                 960  	mov cs, a
+0000040E FB0000               961  	movw hl, !LOWW(_gpio_time_tick)
+00000411 61FA                 962  	call hl
+00000413 14                   963  	movw de, ax
+00000414 A800                 964  	movw ax, [sp+0x00]
+00000416 33                   965  	xchw ax, bc
+00000417 43                   966  	cmpw ax, bc
+00000418 A802                 967  	movw ax, [sp+0x02]
+0000041A 12                   968  	movw bc, ax
+0000041B 15                   969  	movw ax, de
+0000041C 61F8                 970  	sknz
+0000041E                      971  .BB@LABEL@29_5:	; if_break_bb
+0000041E 43                   972  	cmpw ax, bc
+0000041F                      973  .BB@LABEL@29_6:	; if_break_bb
+0000041F 8F0000               974  	mov a, !LOWW(_gpio_time_tick+0x00002)
+00000422 9EFC                 975  	mov cs, a
+00000424 FB0000               976  	movw hl, !LOWW(_gpio_time_tick)
+00000427 DE00                 977  	bnc $.BB@LABEL@29_10
+00000429                      978  .BB@LABEL@29_7:	; bb23
+00000429 61FA                 979  	call hl
+0000042B 14                   980  	movw de, ax
+0000042C C6                   981  	pop hl
+0000042D C7                   982  	push hl
+0000042E F6                   983  	clrw ax
+0000042F B1                   984  	decw ax
+00000430 27                   985  	subw ax, hl
+00000431 B804                 986  	movw [sp+0x04], ax
+00000433 A802                 987  	movw ax, [sp+0x02]
+00000435 16                   988  	movw hl, ax
+00000436 F6                   989  	clrw ax
+00000437 B1                   990  	decw ax
+00000438 27                   991  	subw ax, hl
+00000439 05                   992  	addw ax, de
+0000043A 14                   993  	movw de, ax
+0000043B A804                 994  	movw ax, [sp+0x04]
+0000043D 61D8                 995  	sknc
+0000043F                      996  .BB@LABEL@29_8:	; bb23
+0000043F A1                   997  	incw ax
+00000440                      998  .BB@LABEL@29_9:	; bb23
+00000440 03                   999  	addw ax, bc
+00000441 EF00                1000  	br $.BB@LABEL@29_13
+00000443                     1001  .BB@LABEL@29_10:	; bb31
+00000443 61FA                1002  	call hl
+00000445 14                  1003  	movw de, ax
+00000446 C3                  1004  	push bc
+00000447 C6                  1005  	pop hl
+00000448 A802                1006  	movw ax, [sp+0x02]
+0000044A 12                  1007  	movw bc, ax
+0000044B 15                  1008  	movw ax, de
+0000044C 23                  1009  	subw ax, bc
+0000044D 14                  1010  	movw de, ax
+0000044E C2                  1011  	pop bc
+0000044F C3                  1012  	push bc
+00000450 17                  1013  	movw ax, hl
+00000451 61D8                1014  	sknc
+00000453                     1015  .BB@LABEL@29_11:	; bb31
+00000453 B1                  1016  	decw ax
+00000454                     1017  .BB@LABEL@29_12:	; bb31
+00000454 23                  1018  	subw ax, bc
+00000455                     1019  .BB@LABEL@29_13:	; bb31
+00000455 12                  1020  	movw bc, ax
+00000456 A810                1021  	movw ax, [sp+0x10]
+00000458 33                  1022  	xchw ax, bc
+00000459 43                  1023  	cmpw ax, bc
+0000045A A80E                1024  	movw ax, [sp+0x0E]
+0000045C 12                  1025  	movw bc, ax
+0000045D 15                  1026  	movw ax, de
+0000045E 61F8                1027  	sknz
+00000460                     1028  .BB@LABEL@29_14:	; bb38
+00000460 43                  1029  	cmpw ax, bc
+00000461                     1030  .BB@LABEL@29_15:	; bb38
+00000461 61C300              1031  	bh $.BB@LABEL@29_18
+00000464                     1032  .BB@LABEL@29_16:	; if_break_bb47
+00000464                     1033  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2063
+00000464 FC000000            1034  	call !!_wdt_task_restart
+00000468 EF00                1035  	br $.BB@LABEL@29_1
+0000046A                     1036  .BB@LABEL@29_17:	; bb48.bb52_crit_edge
+0000046A F1                  1037  	clrb a
+0000046B EF00                1038  	br $.BB@LABEL@29_19
+0000046D                     1039  .BB@LABEL@29_18:	; bb38.bb52_crit_edge
+0000046D E1                  1040  	oneb a
+0000046E                     1041  .BB@LABEL@29_19:	; bb52
+0000046E                     1042  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2066
+0000046E 100A                1043  	addw sp, #0x0A
+00000470 D7                  1044  	ret
+00000471                     1045  _gpio_read_level_wait:
+00000471                     1046  	.STACK _gpio_read_level_wait = 8
+00000471                     1047  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2075
+00000471 14                  1048  	movw de, ax
+00000472 F6                  1049  	clrw ax
+00000473                     1050  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2077
+00000473 C1                  1051  	push ax
+00000474 5004                1052  	mov x, #0x04
+00000476 C1                  1053  	push ax
+00000477 15                  1054  	movw ax, de
+00000478 FE0000              1055  	call $!_gpio_read_level_wait_time
+0000047B 1004                1056  	addw sp, #0x04
+0000047D                     1057  	.LINE "D:/兴远仪表/超声表热力表/ultrasonic_water_meter_project/ultrasonic_water_meter_project/SDK/GPIO/gpio_cfg.c", 2078
+0000047D D7                  1058  	ret
+00000000                     1059  	.SECTION .bss,BSS
+00000000                     1060  	.ALIGN 2
+00000000                     1061  _gpio_time_tick:
+00000000                     1062  	.DS (4)
+00000000                     1063  	.SECTION .const,CONST
+00000000                     1064  .STR@1:
+00000000 B6                  1065  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xC8,0xEB,0xC5,0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6
+00000001 CB              
+00000002 BF              
+00000003 DA              
+00000004 CA              
+00000005 E4              
+00000006 C8              
+00000007 EB              
+00000008 C5              
+00000009 E4              
+0000000A D6              
+0000000B C3              
+0000000C 3A              
+0000000D B2              
+0000000E BB              
+0000000F D6              
+00000010 A7                  1066  	.DB 0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+00000011 B3              
+00000012 D6              
+00000013 B5              
+00000014 C4              
+00000015 B6              
+00000016 CB              
+00000017 BF              
+00000018 DA              
+00000019 D0              
+0000001A C5              
+0000001B CF              
+0000001C A2              
+0000001D 0D              
+0000001E 0A              
+0000001F 00                  1067  	.DS (1)
+00000020                     1068  .STR@1201:
+00000020 B6                  1069  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xB3,0xF6,0xC5,0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6
+00000021 CB              
+00000022 BF              
+00000023 DA              
+00000024 CA              
+00000025 E4              
+00000026 B3              
+00000027 F6              
+00000028 C5              
+00000029 E4              
+0000002A D6              
+0000002B C3              
+0000002C 3A              
+0000002D B2              
+0000002E BB              
+0000002F D6              
+00000030 A7                  1070  	.DB 0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+00000031 B3              
+00000032 D6              
+00000033 B5              
+00000034 C4              
+00000035 B6              
+00000036 CB              
+00000037 BF              
+00000038 DA              
+00000039 D0              
+0000003A C5              
+0000003B CF              
+0000003C A2              
+0000003D 0D              
+0000003E 0A              
+0000003F 00                  1071  	.DS (1)
+00000040                     1072  .STR@1212:
+00000040 B6                  1073  	.DB 0xB6,0xCB,0xBF,0xDA,0xC9,0xCF,0xC0,0xAD,0xCA,0xB9,0xC4,0xDC,0xC5,0xE4,0xD6,0xC3
+00000041 CB              
+00000042 BF              
+00000043 DA              
+00000044 C9              
+00000045 CF              
+00000046 C0              
+00000047 AD              
+00000048 CA              
+00000049 B9              
+0000004A C4              
+0000004B DC              
+0000004C C5              
+0000004D E4              
+0000004E D6              
+0000004F C3              
+00000050 3A                  1074  	.DB 0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF
+00000051 B2              
+00000052 BB              
+00000053 D6              
+00000054 A7              
+00000055 B3              
+00000056 D6              
+00000057 B5              
+00000058 C4              
+00000059 B6              
+0000005A CB              
+0000005B BF              
+0000005C DA              
+0000005D D0              
+0000005E C5              
+0000005F CF              
+00000060 A2                  1075  	.DB 0xA2,0x0D,0x0A
+00000061 0D              
+00000062 0A              
+00000063 00                  1076  	.DS (1)
+00000064                     1077  .STR@1223:
+00000064 B6                  1078  	.DB 0xB6,0xCB,0xBF,0xDA,0xC9,0xCF,0xC0,0xAD,0xB2,0xBB,0xCA,0xB9,0xC4,0xDC,0xC5,0xE4
+00000065 CB              
+00000066 BF              
+00000067 DA              
+00000068 C9              
+00000069 CF              
+0000006A C0              
+0000006B AD              
+0000006C B2              
+0000006D BB              
+0000006E CA              
+0000006F B9              
+00000070 C4              
+00000071 DC              
+00000072 C5              
+00000073 E4              
+00000074 D6                  1079  	.DB 0xD6,0xC3,0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0
+00000075 C3              
+00000076 3A              
+00000077 B2              
+00000078 BB              
+00000079 D6              
+0000007A A7              
+0000007B B3              
+0000007C D6              
+0000007D B5              
+0000007E C4              
+0000007F B6              
+00000080 CB              
+00000081 BF              
+00000082 DA              
+00000083 D0              
+00000084 C5                  1080  	.DB 0xC5,0xCF,0xA2,0x0D,0x0A
+00000085 CF              
+00000086 A2              
+00000087 0D              
+00000088 0A              
+00000089 00                  1081  	.DS (1)
+0000008A                     1082  .STR@1234:
+0000008A B6                  1083  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xC8,0xEB,0xD5,0xFD,0xB3,0xA3,0xC4,0xA3,0xCA,0xBD
+0000008B CB              
+0000008C BF              
+0000008D DA              
+0000008E CA              
+0000008F E4              
+00000090 C8              
+00000091 EB              
+00000092 D5              
+00000093 FD              
+00000094 B3              
+00000095 A3              
+00000096 C4              
+00000097 A3              
+00000098 CA              
+00000099 BD              
+0000009A C5                  1084  	.DB 0xC5,0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF
+0000009B E4              
+0000009C D6              
+0000009D C3              
+0000009E 3A              
+0000009F B2              
+000000A0 BB              
+000000A1 D6              
+000000A2 A7              
+000000A3 B3              
+000000A4 D6              
+000000A5 B5              
+000000A6 C4              
+000000A7 B6              
+000000A8 CB              
+000000A9 BF              
+000000AA DA                  1085  	.DB 0xDA,0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+000000AB D0              
+000000AC C5              
+000000AD CF              
+000000AE A2              
+000000AF 0D              
+000000B0 0A              
+000000B1 00                  1086  	.DS (1)
+000000B2                     1087  .STR@1245:
+000000B2 B6                  1088  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xC8,0xEB,0x54,0x54,0x4C,0xC4,0xA3,0xCA,0xBD,0xC5
+000000B3 CB              
+000000B4 BF              
+000000B5 DA              
+000000B6 CA              
+000000B7 E4              
+000000B8 C8              
+000000B9 EB              
+000000BA 54              
+000000BB 54              
+000000BC 4C              
+000000BD C4              
+000000BE A3              
+000000BF CA              
+000000C0 BD              
+000000C1 C5              
+000000C2 E4                  1089  	.DB 0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA
+000000C3 D6              
+000000C4 C3              
+000000C5 3A              
+000000C6 B2              
+000000C7 BB              
+000000C8 D6              
+000000C9 A7              
+000000CA B3              
+000000CB D6              
+000000CC B5              
+000000CD C4              
+000000CE B6              
+000000CF CB              
+000000D0 BF              
+000000D1 DA              
+000000D2 D0                  1090  	.DB 0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+000000D3 C5              
+000000D4 CF              
+000000D5 A2              
+000000D6 0D              
+000000D7 0A              
+000000D8 00                  1091  	.DS (1)
+000000D9                     1092  .STR@1256:
+000000D9 B6                  1093  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xB3,0xF6,0xD5,0xFD,0xB3,0xA3,0xC4,0xA3,0xCA,0xBD
+000000DA CB              
+000000DB BF              
+000000DC DA              
+000000DD CA              
+000000DE E4              
+000000DF B3              
+000000E0 F6              
+000000E1 D5              
+000000E2 FD              
+000000E3 B3              
+000000E4 A3              
+000000E5 C4              
+000000E6 A3              
+000000E7 CA              
+000000E8 BD              
+000000E9 C5                  1094  	.DB 0xC5,0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF
+000000EA E4              
+000000EB D6              
+000000EC C3              
+000000ED 3A              
+000000EE B2              
+000000EF BB              
+000000F0 D6              
+000000F1 A7              
+000000F2 B3              
+000000F3 D6              
+000000F4 B5              
+000000F5 C4              
+000000F6 B6              
+000000F7 CB              
+000000F8 BF              
+000000F9 DA                  1095  	.DB 0xDA,0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+000000FA D0              
+000000FB C5              
+000000FC CF              
+000000FD A2              
+000000FE 0D              
+000000FF 0A              
+00000100 00                  1096  	.DS (1)
+00000101                     1097  .STR@1267:
+00000101 B6                  1098  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xE4,0xB3,0xF6,0xBF,0xAA,0xC2,0xA9,0xC4,0xA3,0xCA,0xBD
+00000102 CB              
+00000103 BF              
+00000104 DA              
+00000105 CA              
+00000106 E4              
+00000107 B3              
+00000108 F6              
+00000109 BF              
+0000010A AA              
+0000010B C2              
+0000010C A9              
+0000010D C4              
+0000010E A3              
+0000010F CA              
+00000110 BD              
+00000111 C5                  1099  	.DB 0xC5,0xE4,0xD6,0xC3,0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF
+00000112 E4              
+00000113 D6              
+00000114 C3              
+00000115 3A              
+00000116 B2              
+00000117 BB              
+00000118 D6              
+00000119 A7              
+0000011A B3              
+0000011B D6              
+0000011C B5              
+0000011D C4              
+0000011E B6              
+0000011F CB              
+00000120 BF              
+00000121 DA                  1100  	.DB 0xDA,0xD0,0xC5,0xCF,0xA2,0x0D,0x0A
+00000122 D0              
+00000123 C5              
+00000124 CF              
+00000125 A2              
+00000126 0D              
+00000127 0A              
+00000128 00                  1101  	.DS (1)
+00000129                     1102  .STR@1278:
+00000129 B6                  1103  	.DB 0xB6,0xCB,0xBF,0xDA,0xCA,0xFD,0xD7,0xD6,0xC4,0xA3,0xCA,0xBD,0xC5,0xE4,0xD6,0xC3
+0000012A CB              
+0000012B BF              
+0000012C DA              
+0000012D CA              
+0000012E FD              
+0000012F D7              
+00000130 D6              
+00000131 C4              
+00000132 A3              
+00000133 CA              
+00000134 BD              
+00000135 C5              
+00000136 E4              
+00000137 D6              
+00000138 C3              
+00000139 3A                  1104  	.DB 0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF
+0000013A B2              
+0000013B BB              
+0000013C D6              
+0000013D A7              
+0000013E B3              
+0000013F D6              
+00000140 B5              
+00000141 C4              
+00000142 B6              
+00000143 CB              
+00000144 BF              
+00000145 DA              
+00000146 D0              
+00000147 C5              
+00000148 CF              
+00000149 A2                  1105  	.DB 0xA2,0x0D,0x0A
+0000014A 0D              
+0000014B 0A              
+0000014C 00                  1106  	.DS (1)
+0000014D                     1107  .STR@1289:
+0000014D B6                  1108  	.DB 0xB6,0xCB,0xBF,0xDA,0xC4,0xA3,0xC4,0xE2,0xC4,0xA3,0xCA,0xBD,0xC5,0xE4,0xD6,0xC3
+0000014E CB              
+0000014F BF              
+00000150 DA              
+00000151 C4              
+00000152 A3              
+00000153 C4              
+00000154 E2              
+00000155 C4              
+00000156 A3              
+00000157 CA              
+00000158 BD              
+00000159 C5              
+0000015A E4              
+0000015B D6              
+0000015C C3              
+0000015D 3A                  1109  	.DB 0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF
+0000015E B2              
+0000015F BB              
+00000160 D6              
+00000161 A7              
+00000162 B3              
+00000163 D6              
+00000164 B5              
+00000165 C4              
+00000166 B6              
+00000167 CB              
+00000168 BF              
+00000169 DA              
+0000016A D0              
+0000016B C5              
+0000016C CF              
+0000016D A2                  1110  	.DB 0xA2,0x0D,0x0A
+0000016E 0D              
+0000016F 0A              
+00000170 00                  1111  	.DS (1)
+00000171                     1112  .STR@1300:
+00000171 B6                  1113  	.DB 0xB6,0xCB,0xBF,0xDA,0xB8,0xB4,0xD3,0xC3,0xC9,0xE8,0xD6,0xC3,0xC5,0xE4,0xD6,0xC3
+00000172 CB              
+00000173 BF              
+00000174 DA              
+00000175 B8              
+00000176 B4              
+00000177 D3              
+00000178 C3              
+00000179 C9              
+0000017A E8              
+0000017B D6              
+0000017C C3              
+0000017D C5              
+0000017E E4              
+0000017F D6              
+00000180 C3              
+00000181 3A                  1114  	.DB 0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF
+00000182 B2              
+00000183 BB              
+00000184 D6              
+00000185 A7              
+00000186 B3              
+00000187 D6              
+00000188 B5              
+00000189 C4              
+0000018A B6              
+0000018B CB              
+0000018C BF              
+0000018D DA              
+0000018E D0              
+0000018F C5              
+00000190 CF              
+00000191 A2                  1115  	.DB 0xA2,0x0D,0x0A
+00000192 0D              
+00000193 0A              
+00000194 00                  1116  	.DS (1)
+00000195                     1117  .STR@1311:
+00000195 B6                  1118  	.DB 0xB6,0xCB,0xBF,0xDA,0xB8,0xB4,0xD3,0xC3,0xC7,0xE5,0xC1,0xE3,0xC5,0xE4,0xD6,0xC3
+00000196 CB              
+00000197 BF              
+00000198 DA              
+00000199 B8              
+0000019A B4              
+0000019B D3              
+0000019C C3              
+0000019D C7              
+0000019E E5              
+0000019F C1              
+000001A0 E3              
+000001A1 C5              
+000001A2 E4              
+000001A3 D6              
+000001A4 C3              
+000001A5 3A                  1119  	.DB 0x3A,0xB2,0xBB,0xD6,0xA7,0xB3,0xD6,0xB5,0xC4,0xB6,0xCB,0xBF,0xDA,0xD0,0xC5,0xCF
+000001A6 B2              
+000001A7 BB              
+000001A8 D6              
+000001A9 A7              
+000001AA B3              
+000001AB D6              
+000001AC B5              
+000001AD C4              
+000001AE B6              
+000001AF CB              
+000001B0 BF              
+000001B1 DA              
+000001B2 D0              
+000001B3 C5              
+000001B4 CF              
+000001B5 A2                  1120  	.DB 0xA2,0x0D,0x0A
+000001B6 0D              
+000001B7 0A              
+000001B8 00                  1121  	.DS (1)
+
+Section List
+Attr     Size                Name
+
+TEXTF              1150 (0000047E) .textf
+CONST               441 (000001B9) .const
+BSS                   4 (00000004) .bss
+
+Command Line Parameter
+Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\Bin\asrl.exe" @C:\Users\HARRY\AppData\Local\Temp\$ccrl000\gpio_cfg.asm.cmd 
+
+Command File Parameter
+-cpu=S2 -dev="D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device_Custom\RL78\Devicefile\DR5FC019L.DVF" -define=__RENESAS_VERSION__=0x01100000 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Key -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022 -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART -include=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT -character_set=none -prn_path=DefaultBuild -output=D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Debug\obj\DefaultBuild\gpio_cfg.obj C:\Users\HARRY\AppData\Local\Temp\$ccrl000\gpio_cfg.asm 
+

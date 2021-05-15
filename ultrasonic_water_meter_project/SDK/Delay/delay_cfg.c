@@ -9,10 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////
 void delay_nop(uint32_t cnt)
 {
-	/*while ((cnt--))
+	while ((cnt--))
 	{
 		__nop();
-	}*/
+		__nop();
+		__nop();
+		__nop();
+	}
 	
 	//while (1)
 	//{
@@ -26,10 +29,10 @@ void delay_nop(uint32_t cnt)
 	//		cnt--;
 	//	}
 	//}
-	__nop();
-	__nop();
-	__nop();
-	__nop();
+//	__nop();
+//	__nop();
+//	__nop();
+//	__nop();
 	//__nop();
 	//__nop();
 	//__nop();
@@ -75,7 +78,7 @@ void delay_n_us(uint32_t us)
 		us *= (SYS_CLOCK_MHZ / 8);
 	}*/
 	//delay_clk_nop(us);
-	delay_nop(1);
+	delay_nop((us/2));
 }
 
 ///////////////////////////////////////////////////////////////////////////////

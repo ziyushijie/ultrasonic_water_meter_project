@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_time_tick_init(SPI_HandleType* SPIx, uint32_t(*func_time_tick)(void))
 {
-
+	return spi_time_tick_init(SPIx, func_time_tick);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ uint8_t spi_lib_time_tick_init(SPI_HandleType* SPIx, uint32_t(*func_time_tick)(v
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_init(SPI_HandleType* SPIx, void(*func_delay_us)(uint32_t delay), uint32_t(*func_time_tick)(void))
 {
-
+	return spi_init(SPIx,func_delay_us, func_time_tick);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ uint8_t spi_lib_init(SPI_HandleType* SPIx, void(*func_delay_us)(uint32_t delay),
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_mhw_gpio_init(SPI_HandleType* SPIx)
 {
-
+	return spi_mhw_gpio_init(SPIx);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ uint8_t spi_lib_mhw_gpio_init(SPI_HandleType* SPIx)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_gpio_init(SPI_HandleType* SPIx)
 {
-
+	return spi_msw_gpio_init(SPIx);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ uint8_t spi_lib_msw_gpio_init(SPI_HandleType* SPIx)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_gpio_deinit(SPI_HandleType* SPIx, uint8_t is_init_ss)
 {
-
+	return spi_gpio_deinit(SPIx,is_init_ss);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,10 +67,9 @@ uint8_t spi_lib_gpio_deinit(SPI_HandleType* SPIx, uint8_t is_init_ss)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-
 uint8_t spi_lib_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t polarity)
 {
-
+	return spi_msw_send_msb_byte(SPIx, val,polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -82,7 +81,7 @@ uint8_t spi_lib_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t pol
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
-
+	return spi_msw_read_msb_byte(SPIx, pval, polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -94,7 +93,7 @@ uint8_t spi_lib_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t p
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
-
+	return spi_msw_read_msb_byte(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,7 +105,7 @@ uint8_t spi_lib_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint16_t length)
 {
-
+	return spi_msw_send_msb_byte_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -118,7 +117,7 @@ uint8_t spi_lib_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, ui
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, uint16_t length)
 {
-
+	return spi_msw_read_msb_byte_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -130,7 +129,7 @@ uint8_t spi_lib_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, ui
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
 {
-
+	return spi_msw_msb_byte_buffer(SPIx, pval,pcmd, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -142,7 +141,7 @@ uint8_t spi_lib_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
-
+	return spi_msw_send_msb_word(SPIx, val,polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -154,7 +153,7 @@ uint8_t spi_lib_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t po
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
 {
-
+	return spi_msw_read_msb_word(SPIx, pval, polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -166,7 +165,7 @@ uint8_t spi_lib_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t 
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-
+	return spi_msw_send_msb_word_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -178,7 +177,7 @@ uint8_t spi_lib_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, u
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-
+	return spi_msw_read_msb_word_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -190,7 +189,7 @@ uint8_t spi_lib_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, u
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-
+	return spi_msw_msb_word_cmd(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -202,7 +201,7 @@ uint8_t spi_lib_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *p
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-
+	return spi_msw_msb_word(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -214,7 +213,7 @@ uint8_t spi_lib_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd, uint16_t length)
 {
-
+	return spi_msw_msb_word_buffer(SPIx, pval, pcmd,length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -224,10 +223,9 @@ uint8_t spi_lib_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-
 uint8_t spi_lib_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t polarity)
 {
-
+	return spi_msw_send_lsb_byte(SPIx, val, polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -239,7 +237,7 @@ uint8_t spi_lib_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t pol
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
-
+	return spi_lib_msw_read_lsb_byte(SPIx, pval, polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -251,7 +249,7 @@ uint8_t spi_lib_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t p
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
-
+	return spi_msw_lsb_byte(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -263,7 +261,7 @@ uint8_t spi_lib_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint16_t length)
 {
-
+	return spi_msw_send_lsb_byte_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -275,7 +273,7 @@ uint8_t spi_lib_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, ui
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, uint16_t length)
 {
-
+	return spi_msw_read_lsb_byte_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -287,7 +285,7 @@ uint8_t spi_lib_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval, ui
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
 {
-
+	return spi_msw_lsb_byte_buffer(SPIx, pval,pcmd, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -299,7 +297,7 @@ uint8_t spi_lib_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
-
+	return spi_msw_send_lsb_word(SPIx, val,polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -311,7 +309,7 @@ uint8_t spi_lib_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t po
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
 {
-
+	return spi_msw_read_lsb_word(SPIx, pval, polarity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -323,7 +321,7 @@ uint8_t spi_lib_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t 
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-
+	return spi_msw_send_lsb_word_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -335,7 +333,7 @@ uint8_t spi_lib_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, u
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
-
+	return spi_msw_read_lsb_word_buffer(SPIx, pval, length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -347,7 +345,7 @@ uint8_t spi_lib_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, u
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-
+	return spi_msw_lsb_word_cmd(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -359,7 +357,7 @@ uint8_t spi_lib_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *p
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
-
+	return spi_msw_lsb_word(SPIx, val, pcmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -371,7 +369,7 @@ uint8_t spi_lib_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_lib_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd, uint16_t length)
 {
-
+	return spi_msw_lsb_word_buffer(SPIx, pval, pcmd,length);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -381,3 +379,19 @@ uint8_t spi_lib_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_mhw_it_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd, uint16_t length)
+{
+	return spi_mhw_it_byte_buffer(SPIx, pval, pcmd, length);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t spi_lib_mhw_it_irq_handle(SPI_HandleType* SPIx)
+{
+	return spi_mhw_it_irq_handle(SPIx);
+}
