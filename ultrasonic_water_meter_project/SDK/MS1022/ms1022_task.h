@@ -20,6 +20,8 @@ extern "C" {
 	uint8_t ms1022_spi_task_read_reg_state(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_task_read_reg_pw1st(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_task_comm_test(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_read_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_calibration_resonator(MS1022_HandleType* MS1022x);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

@@ -38,7 +38,7 @@ Includes
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_intc0_interrupt(vect=INTP0)
+//#pragma interrupt r_intc0_interrupt(vect=INTP0)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 

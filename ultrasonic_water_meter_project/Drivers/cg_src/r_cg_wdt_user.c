@@ -38,7 +38,7 @@ Includes
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_wdt_interrupt(vect=INTWDTI)
+//#pragma interrupt r_wdt_interrupt(vect=INTWDTI)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 

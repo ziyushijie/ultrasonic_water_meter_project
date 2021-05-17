@@ -13,15 +13,15 @@ extern "C" {
 	///////////////软件版本的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
-	//#define MODULE_LOG_ENABLE				1
+	#define MODULE_LOG_ENABLE				1
 	#define MODULE_LOG_UART_INDEX			2
 	//===LOG模块
 #if (MODULE_LOG_ENABLE>0)
-	#define MODULE_LOG_GPIO					1
+	#define MODULE_LOG_GPIO					0
 	#define MODULE_LOG_I2C					0
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
-	#define MODULE_LOG_MS1022				0
+	#define MODULE_LOG_MS1022				1
 #endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////
 	
@@ -141,7 +141,7 @@ extern "C" {
 	//===使用IO模拟I2C协议使用定义一个脉冲的宽度，最小值是0
 	#define AT24CXX_I2C_PLUSE_WIDTH_ONE								0
 	//===I2C使用的模式，0---软件模拟，1---硬件端口
-	#define AT24CXX_ENABLE_HW_I2C_ONE								0
+	#define AT24CXX_I2C_ENABLE_HW_ONE								0
 	//===SCL端口
 	#define AT24CXX_I2C_SCL_PORT_ONE								GPIOP4
 	#define AT24CXX_I2C_SCL_BIT_ONE									GPIO_PIN_BIT_5
@@ -154,30 +154,41 @@ extern "C" {
 
 	///////////////MS1022信息的基本配置---开始/////////////////////////////////////////////////	
 	#define MS1022_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
+	//===定义MS1022的工作主晶振时钟
+	#define MS1022_HSE_CLOK_MHZ				4.0f
+	//===计算每个时钟周期的宽度，单位是us
+	#define MS1022_HSE_CLOCK_MIN_WIDTH		(1.0f/MS1022_HSE_CLOK_MHZ)
+	//===定义温度采集使用是PT1000还是PT100
+	#define MS1022_ENABLE_PT1000			
+	//===通道3接铂电阻的阻值，单位是欧姆
+	#define MS1022_PT_RTD_REF1				1000
+	//===通道4接铂电阻的阻值，单位是欧姆
+	#define MS1022_PT_RTD_REF2				1400
 
 	//===>>>TDC1的初始化---开始//////////////////////////////////////////////////////////
-
+	//===SPI使用的模式，0---软件模拟，1---硬件端口
+	#define MS1022_SPI_ENABLE_HW_ONE								1
 	//===SS端口
-	#define MS1022_SPI_CS_PORT_ONE								GPIOP1
-	#define MS1022_SPI_CS_BIT_ONE								GPIO_PIN_BIT_5
+	#define MS1022_SPI_CS_PORT_ONE									GPIOP1
+	#define MS1022_SPI_CS_BIT_ONE									GPIO_PIN_BIT_5
 	//===SCK端口
-	#define MS1022_SPI_SCK_PORT_ONE								GPIOP1
-	#define MS1022_SPI_SCK_BIT_ONE								GPIO_PIN_BIT_6
+	#define MS1022_SPI_SCK_PORT_ONE									GPIOP1
+	#define MS1022_SPI_SCK_BIT_ONE									GPIO_PIN_BIT_6
 
 	//===MISO端口
-	#define MS1022_SPI_MISO_PORT_ONE							GPIOP1
-	#define MS1022_SPI_MISO_BIT_ONE								GPIO_PIN_BIT_7
+	#define MS1022_SPI_MISO_PORT_ONE								GPIOP1
+	#define MS1022_SPI_MISO_BIT_ONE									GPIO_PIN_BIT_7
 	//===MOSI端口
-	#define MS1022_SPI_MOSI_PORT_ONE							GPIOP0
-	#define MS1022_SPI_MOSI_BIT_ONE								GPIO_PIN_BIT_0
+	#define MS1022_SPI_MOSI_PORT_ONE								GPIOP0
+	#define MS1022_SPI_MOSI_BIT_ONE									GPIO_PIN_BIT_0
 
 	//===RST端口
-	#define MS1022_RST_PORT_ONE									GPIOP1
-	#define MS1022_RST_BIT_ONE									GPIO_PIN_BIT_4
+	#define MS1022_RST_PORT_ONE										GPIOP1
+	#define MS1022_RST_BIT_ONE										GPIO_PIN_BIT_4
 
 	//===INT端口
-	#define MS1022_INT_PORT_ONE									GPIOP0
-	#define MS1022_INT_BIT_ONE									GPIO_PIN_BIT_2
+	#define MS1022_INT_PORT_ONE										GPIOP0
+	#define MS1022_INT_BIT_ONE										GPIO_PIN_BIT_2
 
 	
 	//===<<<TDC1的初始化---结束//////////////////////////////////////////////////////////

@@ -1,5 +1,8 @@
 ﻿#include "rl78_cfg.h"
 
+//char _REL_sysheap[SIZE_HEAP];
+//size_t _REL_sizeof_sysheap=SIZE_HEAP;
+
 //===系统时钟的时钟
 volatile uint32_t g_system_core_clock=1000000UL;
 //===外部调用函数

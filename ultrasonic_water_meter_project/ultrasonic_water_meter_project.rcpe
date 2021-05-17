@@ -30,12 +30,6 @@
         <Path>Drivers\cg_src\r_cg_cgc.c</Path>
         <Path>Drivers\cg_src\r_cg_cgc.h</Path>
         <Path>Drivers\cg_src\r_cg_cgc_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_comp.c</Path>
-        <Path>Drivers\cg_src\r_cg_comp.h</Path>
-        <Path>Drivers\cg_src\r_cg_comp_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_dmac.c</Path>
-        <Path>Drivers\cg_src\r_cg_dmac.h</Path>
-        <Path>Drivers\cg_src\r_cg_dmac_user.c</Path>
         <Path>Drivers\cg_src\r_cg_intp.c</Path>
         <Path>Drivers\cg_src\r_cg_intp.h</Path>
         <Path>Drivers\cg_src\r_cg_intp_user.c</Path>
@@ -200,10 +194,6 @@
           <Path>Debug\obj\DefaultBuild\r_cg_adc_user.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_cgc.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_cgc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_comp.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_comp_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_dmac.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_dmac_user.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_intp.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_intp_user.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_it.obj</Path>
@@ -266,6 +256,7 @@
           <Path>Debug\obj\DefaultBuild\key_task.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>DefaultBuild</IncludePathForC>
           <IncludePathForC>SDK\SPI</IncludePathForC>
           <IncludePathForC>DriversPlus\R7F0C019</IncludePathForC>
           <IncludePathForC>DriversPlus\Compliers</IncludePathForC>
@@ -292,7 +283,7 @@
           <MacroForAsm>USER_OPT_BYTE=0xEF5DAA</MacroForAsm>
         </CommonOptions>
         <GeneralOptions>
-          <SimultaneouslyBuild>True</SimultaneouslyBuild>
+          <SimultaneouslyBuild>False</SimultaneouslyBuild>
         </GeneralOptions>
         <CompileOptions>
           <Option>-cpu=S2</Option>
@@ -301,6 +292,7 @@
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
+          <Option>-I DefaultBuild</Option>
           <Option>-I SDK\SPI</Option>
           <Option>-I DriversPlus\R7F0C019</Option>
           <Option>-I DriversPlus\Compliers</Option>
@@ -348,12 +340,12 @@
           <Option>-DEBUG_MONITOR=FE00-FFFF</Option>
           <Option>-USER_OPT_BYTE=EF5DAA</Option>
           <Option>-LISt=Debug/obj/%BuildModeName%\%ProjectName%.map</Option>
-          <Option>-SHow=SYmbol,Total_size</Option>
+          <Option>-SHow=SYmbol,Reference,Total_size,VECTOR,RELOCATION_ATTRIBUTE</Option>
           <Option>-AUTO_SECTION_LAYOUT</Option>
           <Option>-ROm=.data=.dataR</Option>
           <Option>-ROm=.sdata=.sdataR</Option>
           <Option>-NOMessage</Option>
-          <Option>-MEMory=High</Option>
+          <Option>-STACk</Option>
           <Option>-Total_size</Option>
           <Option>-NOLOgo</Option>
           <Option>-END</Option>

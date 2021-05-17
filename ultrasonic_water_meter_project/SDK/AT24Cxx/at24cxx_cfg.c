@@ -85,7 +85,7 @@ uint8_t at24cxx_i2c_init_one(AT24CXX_HandleType* AT24Cx)
 	AT24Cx->msg_i2cx.msg_gpio_scl.msg_bit = AT24CXX_I2C_SCL_BIT_ONE;
 	AT24Cx->msg_i2cx.msg_gpio_sda.msg_p_port = AT24CXX_I2C_SDA_PORT_ONE;
 	AT24Cx->msg_i2cx.msg_gpio_sda.msg_bit = AT24CXX_I2C_SDA_BIT_ONE;
-	AT24Cx->msg_i2cx.msg_hw_mode = AT24CXX_ENABLE_HW_I2C_ONE;
+	AT24Cx->msg_i2cx.msg_hw_mode = AT24CXX_I2C_ENABLE_HW_ONE;
 	AT24Cx->msg_i2cx.msg_pluse_width = AT24CXX_I2C_PLUSE_WIDTH_ONE;
 	AT24Cx->msg_i2cx.msg_f_delay_us = NULL;
 	AT24Cx->msg_i2cx.msg_addr = AT24CXX_WRITE_ADDR_ONE;

@@ -248,7 +248,7 @@ uint8_t sys_tick_wait_ms(SYS_TICK_HandleType *systickx,uint32_t ms)
 	//---计算要延时的us时间
 	uint32_t us_delay = (ticks / SYS_CLOCK_MHZ);
 	//---如果时间在1us的误差内，放弃
-	if (us_delay>1)
+	if ((us_delay>1)&&(us_delay<1000))
 	{
 		sys_tick_wait_us(us_delay);
 		//---ms中断计数减小

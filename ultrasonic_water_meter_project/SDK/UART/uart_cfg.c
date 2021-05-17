@@ -234,25 +234,22 @@ uint8_t uart_config_init_two(UART_HandleType* UARTx)
 		_0040_SAU_CK01_FCLK_4;
 	//---初始化串口1
 	ST0 |=	_0008_SAU_CH3_STOP_TRG_ON | 
-			_0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
+			_0004_SAU_CH2_STOP_TRG_ON;   
 
-	STMK1 = 1U;    /* disable INTST1 interrupt */
-	STIF1 = 0U;    /* clear INTST1 interrupt flag */
-	SRMK1 = 1U;    /* disable INTSR1 interrupt */
-	SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
-	SREMK1 = 1U;   /* disable INTSRE1 interrupt */
-	SREIF1 = 0U;   /* clear INTSRE1 interrupt flag */
+	STMK1 = 1U;    
+	STIF1 = 0U;    
+	SRMK1 = 1U;    
+	SRIF1 = 0U;    
+	SREMK1 = 1U;   
+	SREIF1 = 0U;   
 
 	//--->>>中断优先级设置
-	/* Set INTST1 low priority */
 	//---发送中断优先级
 	STPR11 = 1U;
 	STPR01 = 1U;
-	/* Set INTSR1 low priority */
 	//---接受中断优先级
 	SRPR11 = 1U;
 	SRPR01 = 1U;
-	/* Set INTSRE1 low priority */
 	//---接受错误中断优先级
 	SREPR11 = 1U;
 	SREPR01 = 1U;
@@ -279,7 +276,7 @@ uint8_t uart_config_init_two(UART_HandleType* UARTx)
 	//---接受清楚标志位
 	SIR03 = _0004_SAU_SIRMN_FECTMN | 
 			_0002_SAU_SIRMN_PECTMN | 
-			_0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
+			_0001_SAU_SIRMN_OVCTMN;   
 	//---接受模式配置
 	SMR03 = _0020_SAU_SMRMN_INITIALVALUE | 
 			_8000_SAU_CLOCK_SELECT_CK01 | 
@@ -301,9 +298,9 @@ uint8_t uart_config_init_two(UART_HandleType* UARTx)
 	SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
 
 	//---发送和接受串行数据直接输出，不是取反输出
-	SOL0 |= _0000_SAU_CHANNEL2_NORMAL;       /* output level normal */
+	SOL0 |= _0000_SAU_CHANNEL2_NORMAL;       
 	//---允许串行通信的输出
-	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
+	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;   
 	
 	//---端口复用模式
 	//PIOR = 0x04;
@@ -344,20 +341,20 @@ uint8_t uart_config_init_two(UART_HandleType* UARTx)
 void uart_start_two(UART_HandleType* UARTx)
 {
 #ifdef TYPE_UART2
-	SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;    /* output level normal */
-	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
+	SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
+	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;
 	//---使能收发
 	SS0 |=	_0008_SAU_CH3_START_TRG_ON | 
-			_0004_SAU_CH2_START_TRG_ON;    /* enable UART1 receive and transmit */
+			_0004_SAU_CH2_START_TRG_ON;   
 	
 	//---清楚中断标识
-	STIF1 = 0U;    /* clear INTST1 interrupt flag */
-	SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
-	SREIF1 = 0U;   /* clear INTSRE1 interrupt flag */
+	STIF1 = 0U; 
+	SRIF1 = 0U; 
+	SREIF1 = 0U;
 	//---使能中断
-	STMK1 = 0U;    /* enable INTST1 interrupt */
-	SRMK1 = 0U;    /* enable INTSR1 interrupt */
-	SREMK1 = 0U;   /* enable INTSRE1 interrupt */
+	STMK1 = 0U;  
+	SRMK1 = 0U;  
+	SREMK1 = 0U; 
 #endif
 }
 
@@ -372,18 +369,18 @@ void uart_stop_two(UART_HandleType* UARTx)
 {
 #ifdef TYPE_UART2
 	//---不使能中断
-	STMK1 = 1U;    /* disable INTST1 interrupt */
-	SRMK1 = 1U;    /* disable INTSR1 interrupt */
-	SREMK1 = 1U;   /* disable INTSRE1 interrupt */
+	STMK1 = 1U; 
+	SRMK1 = 1U; 
+	SREMK1 = 1U;
 	//---不是能收发
 	ST0 |=  _0008_SAU_CH3_STOP_TRG_ON | 
-			_0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
+			_0004_SAU_CH2_STOP_TRG_ON;  
 	//---不使能串口输出
-	SOE0 &= ~_0004_SAU_CH2_OUTPUT_ENABLE;    /* disable UART1 output */
+	SOE0 &= ~_0004_SAU_CH2_OUTPUT_ENABLE;   
 	//---清楚中断标识
-	STIF1 = 0U;    /* clear INTST1 interrupt flag */
-	SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
-	SREIF1 = 0U;   /* clear INTSRE1 interrupt flag */
+	STIF1 = 0U;  
+	SRIF1 = 0U;  
+	SREIF1 = 0U; 
 #endif
 }
 
@@ -511,19 +508,16 @@ void uart_fill_mode_send_buffer_two(UART_HandleType* UARTx, uint8_t *buffer, uin
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
 uint8_t uart_init_two(UART_HandleType* UARTx)
-{
-	
+{	
 #ifdef TYPE_UART2
 	uart_config_init_two(UARTx);
 #if defined(UART_RX_SIZE_MAX_TWO)&&(UART_RX_SIZE_MAX_TWO!=0)
 	//---缓存区地址初始化
-	UARTx->msg_uart_txd.msg_p_data_buffer = p_uart_tx_buffer_two;
 	UARTx->msg_uart_rxd.msg_p_data_buffer = p_uart_rx_buffer_two;
 #endif
 #if defined(UART_TX_SIZE_MAX_TWO)&&(UART_TX_SIZE_MAX_TWO!=0)
 	//---缓存区地址初始化
 	UARTx->msg_uart_txd.msg_p_data_buffer = p_uart_tx_buffer_two;
-	UARTx->msg_uart_rxd.msg_p_data_buffer = p_uart_rx_buffer_two;
 #endif
 
 	UARTx->msg_uart_rxd.msg_step=0;
@@ -551,22 +545,162 @@ uint8_t uart_init_two(UART_HandleType* UARTx)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-void uart_config_init_three(UART_HandleType* UARTx)
+uint8_t uart_config_init_three(UART_HandleType* UARTx)
 {
+#ifdef TYPE_UART3
+	//---使能外设时钟
+	//rl78_sau1_clock(1);
+	rl78_perpheral_clock_enable(PERIPHERAL_UART3);
+	//---外设运行时钟
+	SPS1 = _0001_SAU_CK00_FCLK_1 |
+		_0040_SAU_CK01_FCLK_4;
+	//---初始化串口1
+	ST1 |=	_0002_SAU_CH1_STOP_TRG_ON | 
+			_0001_SAU_CH0_STOP_TRG_ON;
 
+	STMK2 = 1U;
+	STIF2 = 0U;
+	SRMK2 = 1U;
+	SRIF2 = 0U;
+	SREMK2 = 1U;
+	SREIF2 = 0U;
+
+	//--->>>中断优先级设置
+	//---发送中断优先级
+	STPR12 = 1U;
+	STPR02 = 1U;
+	//---接受中断优先级
+	SRPR12 = 1U;
+	SRPR02 = 1U;
+	//---接受错误中断优先级
+	SREPR12 = 1U;
+	SREPR02 = 1U;
+	//---<<<中断优先级设置
+
+	//---发送模式配置
+	SMR10 = _0020_SAU_SMRMN_INITIALVALUE | 
+			_0000_SAU_CLOCK_SELECT_CK00 | 
+			_0000_SAU_TRIGGER_SOFTWARE |
+			_0002_SAU_MODE_UART | 
+			_0000_SAU_TRANSFER_END;
+	//---发送传输模式配置
+	SCR10 =	_8000_SAU_TRANSMISSION | 
+			_0000_SAU_INTSRE_MASK | 
+			_0200_SAU_PARITY_EVEN | 
+			_0080_SAU_LSB |
+			_0010_SAU_STOP_1 | 
+			_0007_SAU_LENGTH_8;
+	//---发送波特率计算
+	SDR10 = _CE00_UART2_TRANSMIT_DIVISOR;
+	//---接受引脚噪声滤波器
+	NFEN0 |= _10_SAU_RXD2_FILTER_ON;
+	//---接受清楚标志位
+	SIR11 = _0004_SAU_SIRMN_FECTMN | 
+			_0002_SAU_SIRMN_PECTMN | 
+			_0001_SAU_SIRMN_OVCTMN;
+	//---接受模式配置
+	SMR11 = _0020_SAU_SMRMN_INITIALVALUE | 
+			_0000_SAU_CLOCK_SELECT_CK00 | 
+			_0100_SAU_TRIGGER_RXD | 
+			_0000_SAU_EDGE_FALL |
+			_0002_SAU_MODE_UART | 
+			_0000_SAU_TRANSFER_END;
+	//---发送传输模式配置
+	SCR11 = _4000_SAU_RECEPTION | 
+			_0400_SAU_INTSRE_ENABLE | 
+			_0200_SAU_PARITY_EVEN | 
+			_0080_SAU_LSB | 
+			_0010_SAU_STOP_1 |
+			_0007_SAU_LENGTH_8;
+	//---发送波特率计算
+	SDR11 = _CE00_UART2_RECEIVE_DIVISOR;
+	//---发送和接受串行时钟输出为0，串行数据输出为1
+	SO1 |= _0001_SAU_CH0_DATA_OUTPUT_1;
+
+	//---发送和接受串行数据直接输出，不是取反输出
+	SOL1 |= _0000_SAU_CHANNEL0_NORMAL;
+	//---允许串行通信的输出
+	SOE1 |= _0001_SAU_CH0_OUTPUT_ENABLE;
+
+	//---端口复用模式
+	//PIOR = 0x04;
+	//gpio_task_pin_mode_ior_set(GPIOP0, GPIO_PIN_BIT_2);
+	/* Set RxD1 pin */
+	//PFSEG5 &= 0x7FU;
+	//PM0 |= 0x08U;
+	//---数字端口输入输出
+	gpio_task_pin_mode_digital(GPIOP0, GPIO_PIN_BIT_3);
+	//---输入模式
+	gpio_task_pin_mode_input(GPIOP0, GPIO_PIN_BIT_3);
+	////---上拉使能
+	//gpio_task_pin_mode_pull_up_set(GPIOP4, GPIO_PIN_BIT_3);
+	//--->>>设置TX端口
+	/* Set TxD2 pin */
+	//PFSEG6 &= 0xFEU;
+	//P0 |= 0x10U;
+	//PM0 &= 0xEFU;
+	//---数字端口输入输出
+	gpio_task_pin_mode_digital(GPIOP0, GPIO_PIN_BIT_4);
+	//---输出高电平
+	gpio_task_pin_set(GPIOP0, GPIO_PIN_BIT_4);
+	//---输出模式
+	gpio_task_pin_mode_output(GPIOP0, GPIO_PIN_BIT_4);
+	//---上拉使能
+	gpio_task_pin_mode_pull_up_set(GPIOP0, GPIO_PIN_BIT_4);
+#endif
+	return OK_0;
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 
+//////功		能: 启动串口
 //////输入参	数:
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t uart_init_three(UART_HandleType* UARTx)
+void uart_start_three(UART_HandleType* UARTx)
 {
-	uart_config_init_three(UARTx);
-	return OK_0;
+#ifdef TYPE_UART3
+	SO1 |= _0001_SAU_CH0_DATA_OUTPUT_1;
+	SOE1 |= _0001_SAU_CH0_OUTPUT_ENABLE;
+	//---使能收发
+	SS1 |=	_0002_SAU_CH1_START_TRG_ON |
+			_0001_SAU_CH0_START_TRG_ON;
+
+	//---清楚中断标识
+	STIF2 = 0U;
+	SRIF2 = 0U;   
+	SREIF2 = 0U;   
+	//---使能中断
+	STMK2 = 0U;
+	SRMK2 = 0U;
+	SREMK2 = 0U;
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 停止串口
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+void uart_stop_three(UART_HandleType* UARTx)
+{
+#ifdef TYPE_UART3
+	//---不使能中断
+	STMK2 = 1U;   
+	SRMK2 = 1U; 
+	SREMK2 = 1U; 
+	//---不使能收发
+	ST1 |=	_0002_SAU_CH1_STOP_TRG_ON |
+			_0001_SAU_CH0_STOP_TRG_ON;
+	//---不使能串口输出
+	SOE1 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;
+	//---清楚中断标识
+	STIF2 = 0U;   
+	SRIF2 = 0U; 
+	SREIF2 = 0U; 
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -578,19 +712,74 @@ uint8_t uart_init_three(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_fill_mode_send_three(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
 {
-
+	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
+#ifdef TYPE_UART3
+	if (length > UART_TX_SIZE_MAX_THREE)
+	{
+		length = UART_RX_SIZE_MAX_THREE;
+	}
+	//---将数据填充到发送缓存区
+	UARTx->msg_uart_txd.msg_data_length = length;
+	UARTx->msg_uart_txd.msg_send_index = length;
+	UARTx->msg_uart_txd.msg_read_index = 0;
+	//---执行数据拷贝
+	memcpy(UARTx->msg_uart_txd.msg_p_data_buffer, buffer, length);
+	//---设置发送超时时间
+	UARTx->msg_uart_txd.msg_timeout_max =
+		(UARTx->msg_uart_txd.msg_data_length + UART_TX_MAX_TIME_THREE)*UART_BYTE_TIME_ONE / UART_MIN_PULSE_WIDTH;
+	//---获取时间节点
+	UARTx->msg_uart_txd.msg_time_record = UARTx->msg_uart_txd.msg_f_time_tick();
+	//---设置发送状态为发送模式
+	UARTx->msg_uart_txd.msg_state = UART_STATE_BUSY;
+	//---不使能中断
+	STMK2 = 1U;
+	//---清楚中断标识
+	STIF2 = 0U;
+	//---发送数据
+	TXD2 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+	UARTx->msg_uart_txd.msg_read_index++;
+	//---使能中断
+	STMK2 = 0U;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 
+//////功		能: 直接启动发送，数据已经准备好
 //////输入参	数:
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
 void uart_fill_mode_send_start_three(UART_HandleType* UARTx)
 {
-
+	//---等待上次发送完成
+	uart_wait_send_idle(UARTx);
+#ifdef TYPE_UART3
+	if (UARTx->msg_uart_txd.msg_send_index > UART_TX_SIZE_MAX_THREE)
+	{
+		UARTx->msg_uart_txd.msg_send_index = UART_RX_SIZE_MAX_THREE;
+	}
+	//---将数据填充到发送缓存区
+	UARTx->msg_uart_txd.msg_data_length = UARTx->msg_uart_txd.msg_send_index;
+	UARTx->msg_uart_txd.msg_read_index = 0;
+	//---设置发送超时时间
+	UARTx->msg_uart_txd.msg_timeout_max =
+		(UARTx->msg_uart_txd.msg_data_length + UART_TX_MAX_TIME_THREE)*UART_BYTE_TIME_ONE / UART_MIN_PULSE_WIDTH;
+	//---获取时间节点
+	UARTx->msg_uart_txd.msg_time_record = UARTx->msg_uart_txd.msg_f_time_tick();
+	//---不使能中断
+	STMK2 = 1U;
+	//---清楚中断标识
+	STIF2 = 0U;
+	//---发送数据
+	TXD2 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+	UARTx->msg_uart_txd.msg_read_index++;
+	//---设置发送状态为发送模式
+	UARTx->msg_uart_txd.msg_state = UART_STATE_BUSY;
+	//---使能中断
+	STMK2 = 0U;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -602,7 +791,71 @@ void uart_fill_mode_send_start_three(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_fill_mode_send_buffer_three(UART_HandleType* UARTx, uint8_t *buffer, uint16_t length)
 {
+#ifdef TYPE_UART3
+	if (length > UART_TX_SIZE_MAX_THREE)
+	{
+		length = UART_RX_SIZE_MAX_THREE;
+	}
+	//---将数据填充到发送缓存区
+	UARTx->msg_uart_txd.msg_data_length = length;
+	UARTx->msg_uart_txd.msg_send_index = length;
+	UARTx->msg_uart_txd.msg_read_index = 0;
+	//---设置发送超时时间
+	UARTx->msg_uart_txd.msg_timeout_max =
+		(UARTx->msg_uart_txd.msg_data_length + UART_TX_MAX_TIME_THREE)*UART_BYTE_TIME_ONE / UART_MIN_PULSE_WIDTH;
+	//---获取时间节点
+	UARTx->msg_uart_txd.msg_time_record = UARTx->msg_uart_txd.msg_f_time_tick();
+	//---设置发送状态为发送模式
+	UARTx->msg_uart_txd.msg_state = UART_STATE_BUSY;
+	//---不使能中断
+	STMK2 = 1U;
+	//---清楚中断标识
+	STIF2 = 0U;
+	//---发送数据
+	TXD2 = UARTx->msg_uart_txd.msg_p_data_buffer[UARTx->msg_uart_txd.msg_read_index];
+	UARTx->msg_uart_txd.msg_read_index++;
+	//---使能中断
+	STMK2 = 0U;
+#endif
+}
 
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t uart_init_three(UART_HandleType* UARTx)
+{
+#ifdef TYPE_UART3
+	uart_config_init_three(UARTx);
+#if defined(UART_RX_SIZE_MAX_THREE)&&(UART_RX_SIZE_MAX_THREE!=0)
+	//---缓存区地址初始化
+	UARTx->msg_uart_rxd.msg_p_data_buffer = p_uart_rx_buffer_three;
+#endif
+#if defined(UART_TX_SIZE_MAX_THREE)&&(UART_TX_SIZE_MAX_THREE!=0)
+	//---缓存区地址初始化
+	UARTx->msg_uart_txd.msg_p_data_buffer = p_uart_tx_buffer_three;
+#endif
+
+	UARTx->msg_uart_rxd.msg_step = 0;
+	UARTx->msg_uart_rxd.msg_state = UART_STATE_BUSY;
+	UARTx->msg_uart_rxd.msg_send_index = 0;
+	UARTx->msg_uart_rxd.msg_read_index = 0;
+	UARTx->msg_uart_rxd.msg_data_length = 0;
+	//---定义接收做大超时时间
+	UARTx->msg_uart_rxd.msg_timeout_max = UART_BYTE_TIME_ONE * 2;
+
+	UARTx->msg_uart_txd.msg_step = 0;
+	UARTx->msg_uart_txd.msg_state = UART_STATE_OK;
+	UARTx->msg_uart_txd.msg_send_index = 0;
+	UARTx->msg_uart_txd.msg_read_index = 0;
+	UARTx->msg_uart_txd.msg_data_length = 0;
+	//---启动串口
+	uart_start_three(UARTx);
+#endif
+	return OK_0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -614,7 +867,53 @@ void uart_fill_mode_send_buffer_three(UART_HandleType* UARTx, uint8_t *buffer, u
 //////////////////////////////////////////////////////////////////////////////
 void uart_it_irq_read_handle_one(UART_HandleType* UARTx)
 {
-
+#ifdef TYPE_UART1
+	//---数据缓存区
+	vltuint8_t temp_rx = 0;
+	//---判断数据接收是否符合
+	if (UARTx->msg_uart_rxd.msg_state == UART_STATE_BUSY)
+	{
+		//---缓存接收到的数据
+		temp_rx = RXD0;
+		//---依次接收数据
+		switch (UARTx->msg_uart_rxd.msg_step)
+		{
+			case 0:
+			{
+				if (UARTx->msg_uart_rxd.msg_read_index != 0)
+				{
+					UARTx->msg_uart_rxd.msg_read_index = 0;
+				}
+				//---存储接收的数据
+				UARTx->msg_uart_rxd.msg_p_data_buffer[UARTx->msg_uart_rxd.msg_read_index++] = temp_rx;
+				//---更新时间节拍
+				UARTx->msg_uart_rxd.msg_time_tick = UARTx->msg_uart_rxd.msg_f_time_tick();
+				//---记录接收的第一个数据
+				UARTx->msg_uart_rxd.msg_time_record = UARTx->msg_uart_rxd.msg_f_time_tick();
+				//---执行下一步骤
+				UARTx->msg_uart_rxd.msg_step++;
+				break;
+			}
+			case 1:
+			{
+				//---存储接收到的数据
+				UARTx->msg_uart_rxd.msg_p_data_buffer[UARTx->msg_uart_rxd.msg_read_index++] = temp_rx;
+				//---更新时间节拍
+				UARTx->msg_uart_rxd.msg_time_tick = UARTx->msg_uart_rxd.msg_f_time_tick();
+				//---判断数据的接收是否超出缓存区
+				if (UARTx->msg_uart_rxd.msg_read_index > UART_RX_SIZE_MAX_ONE)
+				{
+					UARTx->msg_uart_rxd.msg_read_index = 0;
+				}
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -626,7 +925,18 @@ void uart_it_irq_read_handle_one(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_it_irq_read_error_handle_one(UART_HandleType* UARTx)
 {
-
+#ifdef TYPE_UART1
+	//---数据缓存区
+	vltuint8_t temp_rx = 0;
+	//---获取收到的数据
+	temp_rx = RXD0;
+	//---获取错误标识
+	UARTx->msg_uart_rxd.msg_send_index = (SSR01 & 0x0007U);
+	//---清楚错误标志位
+	SSR01 = UARTx->msg_uart_rxd.msg_send_index;
+	//---数据发送复位
+	uart_read_reset(UARTx);
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////

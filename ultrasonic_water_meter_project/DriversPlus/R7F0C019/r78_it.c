@@ -20,6 +20,7 @@
 static void __near uart_interrupt_receive_one(void)
 {
 	uart_task_it_irq_read_handle_one(UART_TASK_ONE);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,6 +33,7 @@ static void __near uart_interrupt_receive_one(void)
 static void __near uart_interrupt_receive_error_one(void)
 {
 	uart_task_it_irq_read_error_handle_one(UART_TASK_ONE);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,6 +46,7 @@ static void __near uart_interrupt_receive_error_one(void)
 static void __near uart_interrupt_send_one(void)
 {
 	uart_task_it_irq_send_handle_one(UART_TASK_ONE);
+	SEI();
 }
 #endif
 
@@ -67,6 +70,7 @@ static void __near uart_interrupt_send_one(void)
 static void __near uart_interrupt_receive_two(void)
 {
 	uart_task_it_irq_read_handle_two(UART_TASK_TWO);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,6 +83,7 @@ static void __near uart_interrupt_receive_two(void)
 static void __near uart_interrupt_receive_error_two(void)
 {
 	uart_task_it_irq_read_error_handle_two(UART_TASK_TWO);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -91,6 +96,7 @@ static void __near uart_interrupt_receive_error_two(void)
 static void __near uart_interrupt_send_two(void)
 {
 	uart_task_it_irq_send_handle_two(UART_TASK_TWO);
+	SEI();
 }
 
 #endif
@@ -115,6 +121,7 @@ static void __near uart_interrupt_send_two(void)
 static void __near uart_interrupt_receive_three(void)
 {
 	uart_task_it_irq_read_handle_three(UART_TASK_THREE);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,6 +134,7 @@ static void __near uart_interrupt_receive_three(void)
 static void __near uart_interrupt_receive_error_three(void)
 {
 	uart_task_it_irq_read_error_handle_three(UART_TASK_THREE);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,6 +147,7 @@ static void __near uart_interrupt_receive_error_three(void)
 static void __near uart_interrupt_send_three(void)
 {
 	uart_task_it_irq_send_handle_three(UART_TASK_THREE);
+	SEI();
 }
 
 #endif
@@ -160,6 +169,7 @@ static void __near sys_tick_interrupt(void)
 {
 	//---滴答定时器中断处理函数
 	sys_tick_task_it_irq_handle(SYS_TICK_TASK_ONE);
+	SEI();
 }
 
 #pragma endregion
@@ -179,6 +189,7 @@ static void __near sys_tick_interrupt(void)
 static void __near ms1022_interrupt_flag(void)
 {
 	ms1022_spi_task_int_flag_set(MS1022_TASK_ONE);
+	SEI();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -191,7 +202,7 @@ static void __near ms1022_interrupt_flag(void)
 static void __near ms1022_interrupt_spi(void)
 {
 	ms1022_spi_task_mhw_it_irq_handle(MS1022_TASK_ONE);
+	SEI();
 }
-
 
 #pragma endregion

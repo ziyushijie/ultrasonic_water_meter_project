@@ -16,6 +16,12 @@ extern "C" {
 	#include "r_cg_port.h"	
 	#include "r_cg_pclbuz.h"
 	#include "r_cg_intp.h"
+//	#include "stacksct.h"
+
+	#define SIZE_HEAP		0x200
+	
+	#pragma stacksize su=0x300
+	#pragma stacksize si=0x100
 	
 #pragma region GPIO配置
 
@@ -392,9 +398,13 @@ extern "C" {
 	#define SOFT_RESET()							asm("db 0xFF")
 	//===系统重启
 	#define SYS_REBOOT()							SOFT_RESET()
+	//===单周期时钟言辞
+	#define NOP()									__nop();
 
 	//===外部定义
 	extern volatile uint32_t g_system_core_clock;
+	//extern char _REL_sysheap[SIZE_HEAP];
+	//extern size_t _REL_sizeof_sysheap;
 
 	//===函数定义
 	void rl78_init(uint8_t opt);

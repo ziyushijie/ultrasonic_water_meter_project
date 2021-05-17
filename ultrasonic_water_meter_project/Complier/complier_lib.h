@@ -17,12 +17,15 @@ extern "C" {
 	uint8_t  asc_sort_byte(uint8_t *buffer, uint16_t length);
 	uint8_t  asc_sort_word(uint16_t *buffer, uint16_t length);
 	uint8_t  asc_sort_double_word(uint32_t* buffer, uint16_t length);
+	uint8_t  asc_sort_float(float* buffer, uint16_t length);
 	uint8_t  desc_sort_byte(uint8_t *buffer, uint16_t length);
 	uint8_t  desc_sort_word(uint16_t *buffer, uint16_t length);
+	uint8_t  desc_sort_float(float *buffer, uint16_t length);
 	uint16_t calc_avg_word_from_index(uint16_t *buffer, uint16_t length, uint16_t index);
 	uint16_t calc_avg_word(uint16_t *buffer, uint16_t length);
 	uint8_t  calc_avg_byte_from_index(uint8_t *buffer, uint16_t length, uint16_t index);
 	uint16_t calc_avg_byte(uint8_t *buffer, uint16_t length);
+	float calc_avg_float(float*buffer, uint16_t length);
 	uint32_t calc_avg_double_word_from_index(uint32_t* buffer, uint16_t length, uint16_t index);
 	uint8_t  compare_byte_to_byte(uint8_t *p1, uint8_t *p2, uint16_t length);
 	uint8_t  compare_byte_to_byte_from_index(uint8_t *p1, uint8_t *p2, uint16_t index, uint16_t length);
