@@ -89,7 +89,7 @@ uint8_t ms1022_spi_lib_send_cmd(MS1022_HandleType* MS1022x, uint8_t cmd)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t ms1022_spi_lib_read_reg_state(MS1022_HandleType* MS1022x)
+uint16_t ms1022_spi_lib_read_reg_state(MS1022_HandleType* MS1022x)
 {
 	return ms1022_spi_read_reg_state(MS1022x);
 }
@@ -122,9 +122,21 @@ uint8_t ms1022_spi_lib_comm_test(MS1022_HandleType* MS1022x)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t ms1022_spi_lib_read_temperature(MS1022_HandleType* MS1022x)
+uint8_t ms1022_spi_lib_read_start_temperature(MS1022_HandleType* MS1022x)
 {
-	return ms1022_spi_read_temperature(MS1022x);
+	return ms1022_spi_read_start_temperature(MS1022x);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_lib_read_start_temperature_restart(MS1022_HandleType* MS1022x)
+{
+	return ms1022_spi_read_start_temperature_restart(MS1022x);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -137,4 +149,29 @@ uint8_t ms1022_spi_lib_read_temperature(MS1022_HandleType* MS1022x)
 uint8_t ms1022_spi_lib_calibration_resonator(MS1022_HandleType* MS1022x)
 {
 	return ms1022_spi_calibration_resonator(MS1022x);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_lib_read_start_tof(MS1022_HandleType* MS1022x)
+{
+	return ms1022_spi_read_start_tof(MS1022x);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_lib_read_start_tof_restart(MS1022_HandleType* MS1022x)
+{
+	return ms1022_spi_read_start_tof_restart(MS1022x);
 }

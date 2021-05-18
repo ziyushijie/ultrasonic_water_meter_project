@@ -63,6 +63,9 @@ extern "C" {
 	//===定义飞行时间采样点个数
 	#define MS1022_TOF_SAMPLE_MAX_NUM					24
 
+	#define MS1022_REG_START_CAL_RESONATOR_MASK			0x00800000
+	#define MS1022_REG_START_CAL_RESONATOR_VAL			0xFF0FFFFF
+	
 	//===定义飞行时间结构体
 	typedef struct _MS1022_TOF_HandleType		MS1022_TOF_HandleType;
 	//===定义飞行时间指针结构体
@@ -76,6 +79,7 @@ extern "C" {
 		float msg_diff_time;				//---飞行时间超
 		float msg_time_factor;				//---时间系数
 		float msg_rssi;						//---第一波模式计算时差的信号强度
+		float msg_sound_speed;				//---超声波的速度
 	};
 
 	//===定义水温结构体
@@ -85,10 +89,10 @@ extern "C" {
 	//===水温结构定义
 	struct _MS1022_TEMPERATURE_HandleType
 	{
-		uint8_t msg_state : 2;				//---水温测试状态
-		uint8_t msg_in_state : 3;			//---进水温度测试状态
-		uint8_t	msg_out_state : 3;			//---出水温度测试状态
-		uint8_t	msg_positive_mode : 2;		//---温差正负，0---正数；1---负数
+		uint8_t msg_state : 3;				//---水温测试状态
+		uint8_t msg_in_state : 2;			//---进水温度测试状态
+		uint8_t	msg_out_state : 2;			//---出水温度测试状态
+		uint8_t	msg_positive_mode : 1;		//---温差正负，0---正数；1---负数
 
 		float msg_in_temp_factor;			//---进水口温度系数
 		float msg_in_temp;					//---进水口温度[RED]
@@ -145,13 +149,15 @@ extern "C" {
 	uint8_t ms1022_spi_read_reg(MS1022_HandleType* MS1022x, uint8_t index);
 	uint8_t ms1022_spi_send_reg(MS1022_HandleType* MS1022x, uint8_t index, uint32_t val);
 	uint8_t ms1022_spi_send_cmd(MS1022_HandleType* MS1022x, uint8_t cmd);
-	uint8_t ms1022_spi_read_reg_state(MS1022_HandleType* MS1022x);
+	uint16_t ms1022_spi_read_reg_state(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_read_reg_pw1st(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_comm_test(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_config_init(MS1022_HandleType* MS1022x);
-	uint8_t ms1022_spi_read_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_calibration_resonator(MS1022_HandleType* MS1022x);
-
+	uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

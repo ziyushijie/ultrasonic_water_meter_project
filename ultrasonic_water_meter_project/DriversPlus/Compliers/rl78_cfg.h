@@ -398,8 +398,8 @@ extern "C" {
 	#define SOFT_RESET()							asm("db 0xFF")
 	//===系统重启
 	#define SYS_REBOOT()							SOFT_RESET()
-	//===单周期时钟言辞
-	#define NOP()									__nop();
+	//===单周期时钟延时
+	//#define NOP()									asm("nop")
 
 	//===外部定义
 	extern volatile uint32_t g_system_core_clock;

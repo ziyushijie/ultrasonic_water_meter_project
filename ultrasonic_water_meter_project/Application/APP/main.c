@@ -131,15 +131,16 @@ void main(void)
 {
 	app_init();
 	uint32_t cnt = app_get_tick();
-	ms1022_spi_task_calibration_resonator(MS1022_TASK_ONE);
+	//ms1022_spi_task_calibration_resonator(MS1022_TASK_ONE);
+	//ms1022_spi_task_read_start_temperature_restart(MS1022_TASK_ONE);
 	while (1)
 	{
 		//---检查是否收到数据
 		if (uart_task_read_end(UART_TASK_TWO)==OK_0)
 		{
-			uart_task_fill_mode_send_two(UART_TASK_TWO,
-				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
-				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
+//			uart_task_fill_mode_send_two(UART_TASK_TWO,
+//				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
+//				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_TWO);
 		}
@@ -151,11 +152,42 @@ void main(void)
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_THREE);
 		}
-		/*if (TIME_SPAN(app_get_tick(),cnt)>1000)
+		if (TIME_SPAN(app_get_tick(), cnt) >10000)
 		{
-			ms1022_spi_task_read_temperature(MS1022_TASK_ONE);
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[0]=0xFE;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[1] = 0xFE;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[2] = 0xFE;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[3] = 0x68;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[4] = 0x55;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[5] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[6] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[7] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[8] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[9] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[10] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[11] = 0xAA;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[12] = 0x23;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[13] = 0x04;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[14] = 0x81;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[15] = 0x0A;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[16] = 0x01;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[17] = 0x00;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[18] = 0x16;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[19] = 0x16;
+
+			//uart_task_fill_mode_send_two(UART_TASK_TWO,
+			//	UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
+			//	20);
+			////---复位接收，等待下次数据的到来
+			//uart_task_read_reset(UART_TASK_TWO);
+			ms1022_spi_task_read_start_temperature(MS1022_TASK_ONE);
 			cnt = app_get_tick();
-		}*/
+		}
 		
 		
 		WDT_RESET();

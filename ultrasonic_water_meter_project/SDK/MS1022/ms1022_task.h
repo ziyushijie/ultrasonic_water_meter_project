@@ -17,11 +17,15 @@ extern "C" {
 	uint8_t ms1022_spi_task_read_reg(MS1022_HandleType* MS1022x, uint8_t index);
 	uint8_t ms1022_spi_task_send_reg(MS1022_HandleType* MS1022x, uint8_t index, uint32_t val);
 	uint8_t ms1022_spi_task_send_cmd(MS1022_HandleType* MS1022x, uint8_t cmd);
-	uint8_t ms1022_spi_task_read_reg_state(MS1022_HandleType* MS1022x);
+	uint16_t ms1022_spi_task_read_reg_state(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_task_read_reg_pw1st(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_task_comm_test(MS1022_HandleType* MS1022x);
-	uint8_t ms1022_spi_task_read_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_read_start_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_read_start_temperature_restart(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_task_calibration_resonator(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_read_start_tof(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_task_read_start_tof_restart(MS1022_HandleType* MS1022x);
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
