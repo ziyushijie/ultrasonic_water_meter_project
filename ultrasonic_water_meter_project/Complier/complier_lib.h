@@ -33,6 +33,7 @@ extern "C" {
 	uint8_t  compare_word_to_word_from_index(uint16_t *p1, uint16_t *p2, uint16_t index, uint16_t length);
 	uint8_t	 compare_byte(uint8_t* p1, uint8_t buffer, uint16_t length);
 	uint8_t  compare_word(uint16_t* p1, uint16_t buffer, uint16_t length);
+	uint8_t  compare_double_word(uint32_t* p1, uint32_t buffer, uint16_t length);
 	uint8_t  invert_uint8(uint8_t* buffer);
 	uint8_t  swap_bit_uint8(uint8_t val);
 	uint16_t invert_uint16(uint16_t* buffer);

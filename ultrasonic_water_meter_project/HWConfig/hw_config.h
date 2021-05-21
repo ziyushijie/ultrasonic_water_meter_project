@@ -156,8 +156,12 @@ extern "C" {
 	#define MS1022_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
 	//===定义MS1022的工作主晶振时钟
 	#define MS1022_HSE_CLOK_MHZ				4.0f
+	//===定时MS1022时钟的分频数，1是不分屏，2是2分频，3和4是4分频
+	#define MS1022_CLKHSDIV_PRE				1
 	//===计算每个时钟周期的宽度，单位是us
 	#define MS1022_HSE_CLOCK_MIN_WIDTH		(1.0f/MS1022_HSE_CLOK_MHZ)
+	//===换能器的驱动脉冲的最小脉冲宽度，单位是us
+	#define MS1022_DIV_FIRE_MIN_WIDTH		4.0f
 	//===定义温度采集使用是PT1000还是PT100
 	#define MS1022_ENABLE_PT1000			
 	//===通道3接铂电阻的阻值，单位是欧姆

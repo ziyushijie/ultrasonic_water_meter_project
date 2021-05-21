@@ -1,20 +1,56 @@
 #include "ms1022_cfg.h"
 
-//===不同温度下水的热焓值<1Mpa
-const float g_water_enthalpy_table[101] =
+//===>>>给定的查表数据只有0到100摄氏度的数据，不在此范围的都是异常数据===开始
+
+//===不同温度下水的粘度pa.s
+
+const float g_viscosity_table[101] = 
 {
-	/*   0          1       2       3        4         5        6       7         8       9  */
+	/*   0       1       2       3       4       5       6       7       8       9  */
+	/*00*/0.001709, 0.001662, 0.001616, 0.001573, 0.001530, 0.001490, 0.001450, 0.001413, 0.001376, 0.001341,
+	/*10*/0.001307, 0.001274, 0.001243, 0.001212, 0.001182, 0.001154, 0.001126, 0.001100, 0.001074, 0.001049,
+	/*20*/0.001025, 0.001002, 0.000979, 0.000957, 0.000936, 0.000916, 0.000896, 0.000876, 0.000858, 0.000840,
+	/*30*/0.000822, 0.000805, 0.000789, 0.000773, 0.000757, 0.000742, 0.000727, 0.000713, 0.000699, 0.000686,
+	/*40*/0.000673, 0.000660, 0.000648, 0.000636, 0.000624, 0.000613, 0.000602, 0.000591, 0.000581, 0.000571,
+	/*50*/0.000561, 0.000551, 0.000542, 0.000533, 0.000524, 0.000515, 0.000507, 0.000499, 0.000491, 0.000483,
+	/*60*/0.000475, 0.000468, 0.000461, 0.000454, 0.000447, 0.000440, 0.000433, 0.000427, 0.000421, 0.000415,
+	/*70*/0.000409,	0.000403, 0.000397, 0.000392, 0.000386, 0.000381, 0.000376, 0.000371, 0.000366, 0.000361,
+	/*80*/0.000356, 0.000351, 0.000347, 0.000343, 0.000338, 0.000334, 0.000330, 0.000326, 0.000322, 0.000318,
+	/*90*/0.000314, 0.000310, 0.000307, 0.000303, 0.000300, 0.000296, 0.000293, 0.000289, 0.000286, 0.000283,
+	/*100*/0.000280
+};
+
+//===不同温度下水的密度 <1Mpa
+const float g_density_table[101] =
+{
+	/*   0       1       2       3       4       5       6       7       8       9  */
+	/*00*/1000.2, 1000.2, 1000.2, 1000.2, 1000.2, 1000.2, 1000.2, 1000.1,1000.1, 1000,
+	/*10*/999.9, 999.84, 999.74, 999.61, 999.48, 999.34, 999.18,999.01, 998.83, 998.64,
+	/*20*/998.44, 998.22, 98, 997.77, 997.52, 997.2, 997.01, 996.74,996.46, 996.17,
+	/*30*/995.87, 995.56, 995.25, 994.93, 994.59, 994.25, 993.91,993.55, 993.19, 992.81,
+	/*40*/992.44, 992.05, 991.65, 991.25, 990.85, 990.43, 990.01,989.58, 989.14, 988.7,
+	/*50*/988.25, 987.8, 987.33, 986.87, 986.39, 985.91, 985.42,984.93, 984.43, 983.93,
+	/*60*/983.41, 982.9, 982.37, 981.84, 981.31, 980.77, 980.22,979.67, 979.12, 978.55,
+	/*70*/977.98, 977.41, 976.83, 976.25, 975.66, 975.06, 974.46,973.86, 973.25, 972.63,
+	/*80*/972.01, 971.39, 970.76, 970.12, 969.48, 968.84, 968.19,967.53, 966.87, 966.21,
+	/*90*/965.54, 964.86, 964.18, 963.5, 962.81, 962.12, 961.42,960.72, 960.01, 959.3,
+	/*100*/958.58
+};
+//===不同温度下水的热焓值<1Mpa
+const float g_enthalpy_table[101]=
+{
+	/*   0       1       2       3       4       5       6       7       8       9  */
 	/*00*/4.784, 8.996, 13.206, 17.412, 21.616, 25.818, 30.018, 34.215,38.411,
-	/*10*/42.605, 46.798, 50.989, 55.178, 59.367, 63.554, 67.740,71.926, 76.110,80.294,
-	/*20*/84.476, 88.659, 92.840, 97.021, 101.200, 105.380,109.560, 113.740,117.920, 122.100,
-	/*30*/126.280, 130.460, 134.630, 138.810,142.990, 147.170, 151.350,155.520, 159.700, 163.880,
-	/*40*/168.060, 172.240, 176.410,180.590, 184.770, 188.950,193.130, 197.310, 201.490, 205.670,
-	/*50*/209.850, 214.030,218.210, 222.390, 226.570,230.750, 234.940, 239.120, 243.300, 247.480,
-	/*60*/ 251.670,255.850, 260.040, 264.220,268.410, 272.590, 270.780, 280.970, 285.150, 289.340,
-	/*70*/293.530, 297.720, 301.910,306.100, 310.290, 314.480, 318.680, 322.870, 327.060,331.260,
-	/*80*/335.450, 339.650,343.850, 348.040, 352.240, 356.440, 360.640, 364.840,369.040, 373.250,
-	/*90*/377.450,381.650, 385.860, 390.070, 394.270, 398.480, 402.690,406.900, 411.110, 415.330,
-	/*100*/419.540
+	/*10*/42.605, 46.798, 50.989, 55.178, 59.367, 03.554, 67.740,71.926, 76.110,
+	/*20*/80.294, 84.476, 88.659, 92.840, 97.021, 101.200, 105.380,109.560, 113.740,
+	/*30*/117.920, 122.100, 126.280, 130.460, 134.630, 138.810,142.990, 147.170, 151.350,
+	/*40*/155.520, 159.700, 163.880, 168.060, 172.240, 176.410,180.590, 184.770, 188.950,
+	/*50*/193.130, 197.310, 201.490, 205.670, 209.850, 214.030,218.210, 222.390, 226.570,
+	/*60*/230.750, 234.940, 239.120, 243.300, 247.480, 251.670,255.850, 260.040, 264.220,
+	/*70*/268.410, 272.590, 270.780, 280.970, 285.150, 289.340,293.530, 297.720, 301.910,
+	/*80*/306.100, 310.290, 314.480, 318.680, 322.870, 327.060,331.260, 335.450, 339.650,
+	/*90*/343.850, 348.040, 352.240, 356.440, 360.640, 364.840,369.040, 373.250, 377.450,
+	/*100*/381.650
 };
 
 #ifdef MS1022_ENABLE_PT1000
@@ -145,16 +181,18 @@ const float g_sound_speed_table[101] =
 
 #ifdef MS1022_ENABLE_PT500
 //===PT500电阻不同温度下对应电阻值
-const float  g_pt_table[][10] =
+const float  g_pt_table[101][10] =
 {
 
 }
 #endif
 
+//===<<<给定的查表数据只有0到100摄氏度的数据，不在此范围的都是异常数据===开始
+
 
 //===变量定义
-MS1022_HandleType						g_ms1022_one = { 0 };
-pMS1022_HandleType						p_ms1022_one = &g_ms1022_one;
+MS1022_HandleType			g_ms1022_one = { 0 };
+pMS1022_HandleType			p_ms1022_one = &g_ms1022_one;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -403,6 +441,12 @@ uint8_t ms1022_spi_init(MS1022_HandleType* MS1022x, void(*func_delay_us)(uint32_
 		MS1022x->msg_water_temperature.msg_out_temp_factor = 1.0f;
 		//---飞行时间系数
 		MS1022x->msg_water_tof.msg_time_factor = 1.0f;
+		//---管段的类型
+		MS1022x->msg_water_transducer.msg_type = 0x15;
+		//---两个换能器的中心间距
+		MS1022x->msg_water_transducer.msg_space_length = 0.062;
+		//---管段的直径
+		MS1022x->msg_water_transducer.msg_diameter = 0.015;
 		//---初始化复位ms1022
 		ms1022_spi_rst(MS1022x);
 		//---初始化配置
@@ -463,7 +507,7 @@ uint8_t ms1022_spi_int_flag_clear(MS1022_HandleType* MS1022x)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t ms1022_spi_int_flag_wait(MS1022_HandleType* MS1022x)
 {
-	uint8_t _return = ERROR_1;
+	uint8_t _return = OK_0;
 	uint32_t cnt = 0;
 	//---获取时间标签
 	cnt = MS1022x->msg_f_time_tick();
@@ -481,7 +525,7 @@ uint8_t ms1022_spi_int_flag_wait(MS1022_HandleType* MS1022x)
 		if (TIME_SPAN(MS1022x->msg_f_time_tick(),cnt)>MS1022_WAIT_FLAG_MAX_TIME)
 		{
 			//---超时退出
-			_return = ERROR_2;
+			_return = ERROR_1;
 			break;
 		}
 		//---喂狗
@@ -702,7 +746,7 @@ uint8_t ms1022_spi_send_cmd(MS1022_HandleType* MS1022x, uint8_t cmd)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint16_t ms1022_spi_read_reg_state(MS1022_HandleType* MS1022x)
+uint16_t ms1022_spi_read_state(MS1022_HandleType* MS1022x)
 {
 	uint16_t _return = OK_0;
 	MS1022x->msg_send_data_buffer[0] = MS1022_CMD_READ_STATE| MS1022_READ_ADDR_MASK;
@@ -722,19 +766,32 @@ uint16_t ms1022_spi_read_reg_state(MS1022_HandleType* MS1022x)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t ms1022_spi_read_reg_pw1st(MS1022_HandleType* MS1022x)
+uint8_t ms1022_spi_read_pw1st(MS1022_HandleType* MS1022x,uint8_t isup)
 {
 	uint8_t _return = OK_0;
 	MS1022x->msg_send_data_buffer[0] = MS1022_CMD_READ_PW1ST | MS1022_READ_ADDR_MASK;
 	MS1022x->msg_send_data_buffer[1] = 0xFF;
 	_return=ms1022_spi_byte_buffer(MS1022x, MS1022x->msg_send_data_buffer, MS1022x->msg_read_data_buffer, 2);
 	//---计算小数部分
-	MS1022x->msg_water_tof.msg_rssi = MS1022x->msg_read_data_buffer[1] & 0x7f;
-	MS1022x->msg_water_tof.msg_rssi /= 128.0f;
-	//---获取整数部分
-	if ((MS1022x->msg_read_data_buffer[1] & 0x80)!=0)
+	if (isup!=0)
 	{
-		MS1022x->msg_water_tof.msg_rssi += 1.0f;
+		MS1022x->msg_water_tof.msg_up_rssi = MS1022x->msg_read_data_buffer[1] & 0x7f;
+		MS1022x->msg_water_tof.msg_up_rssi /= 128.0f;
+		//---获取整数部分
+		if ((MS1022x->msg_read_data_buffer[1] & 0x80) != 0)
+		{
+			MS1022x->msg_water_tof.msg_up_rssi += 1.0f;
+		}
+	}
+	else
+	{
+		MS1022x->msg_water_tof.msg_down_rssi = MS1022x->msg_read_data_buffer[1] & 0x7f;
+		MS1022x->msg_water_tof.msg_down_rssi /= 128.0f;
+		//---获取整数部分
+		if ((MS1022x->msg_read_data_buffer[1] & 0x80) != 0)
+		{
+			MS1022x->msg_water_tof.msg_down_rssi += 1.0f;
+		}
 	}
 	return _return;
 }
@@ -789,28 +846,29 @@ uint8_t ms1022_spi_fosc_enable(MS1022_HandleType* MS1022x)
 uint8_t ms1022_spi_config_init(MS1022_HandleType* MS1022x)
 {
 	ms1022_spi_send_cmd(MS1022_TASK_ONE, MS1022_CMD_POWER_ON_RESET);
-	ms1022_spi_send_cmd(MS1022_TASK_ONE, MS1022_CMD_POWER_ON_RESET);
-	//---等待数据稳定
-	delay_task_us(800);
-	//--配置MS1022配置寄存器0 
-	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
-	//--配置MS1022配置寄存器1                 
-	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);     
-	//---配置MS1022配置寄存器6【模拟模式】            
-	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
-	//---配置MS1022配置寄存器6【数字模式】
-	//ms1022_spi_send_reg(MS1022x,6,0x4EC06006);               
+	//ms1022_spi_send_cmd(MS1022_TASK_ONE, MS1022_CMD_POWER_ON_RESET);
+	////---等待数据稳定
+	//delay_task_us(800);
+	////--配置MS1022配置寄存器0 
+	//ms1022_spi_send_reg(MS1022x, 0, 0xF387E810);
+	////--配置MS1022配置寄存器1                 
+	//ms1022_spi_send_reg(MS1022x, 1, 0x21444012);     
+	////---配置MS1022配置寄存器6【模拟模式】            
+	//ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	////---配置MS1022配置寄存器6【数字模式】
+	////ms1022_spi_send_reg(MS1022x,6,0x4EC06006);               
 
-	//---配置MS1022配置寄存器2
-	ms1022_spi_send_reg(MS1022x, 2, 0xA01F1402);    
-	//---配置MS1022配置寄存器3              
-	ms1022_spi_send_reg(MS1022x, 3, 0x08000003);                 
-	//---配置MS1022配置寄存器4
-	ms1022_spi_send_reg(MS1022x, 4, 0x20000004);               
-	//---配置MS1022配置寄存器5【下游模式】
-	ms1022_spi_send_reg(MS1022x, 5, 0x50000005);    
-
-	return OK_0;
+	////---配置MS1022配置寄存器2
+	//ms1022_spi_send_reg(MS1022x, 2, 0xA01F1402);    
+	////---配置MS1022配置寄存器3              
+	//ms1022_spi_send_reg(MS1022x, 3, 0x08000003);                 
+	////---配置MS1022配置寄存器4
+	//ms1022_spi_send_reg(MS1022x, 4, 0x20000004);               
+	////---配置MS1022配置寄存器5【下游模式】
+	//ms1022_spi_send_reg(MS1022x, 5, 0x50000005);  
+	//return OK_0;
+	//---获取进水口和出水口的温度，并计算超声波在水中的传播的速度
+	return ms1022_spi_read_start_temperature(MS1022x);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -837,7 +895,7 @@ float linear_interpolation(float xl1, float xh2, float yl1, float yh2, float xne
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-float calcuate_temperature(float ptres)
+float calculate_temperature(float ptres)
 {
 	float _return = 0.0f;
 	int xp = 0,yp = 0;
@@ -888,6 +946,63 @@ float calcate_sound_speed(float temperature)
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
+//////功		能: 根据温度计算焓值
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+float calculate_enthalpy(float temperature)
+{
+	//---温度的整数部分
+	uint16_t temp_integer = (uint16_t)temperature;
+	//---返回经过插值计算的结果
+	return linear_interpolation(temp_integer,
+		temp_integer + 1,
+		g_enthalpy_table[temp_integer],
+		g_enthalpy_table[temp_integer + 1],
+		temperature);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 计算水的密度
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+float calculate_density(float temperature)
+{
+	//---温度的整数部分
+	uint16_t temp_integer = (uint16_t)temperature;
+	//---返回经过插值计算的结果
+	return linear_interpolation(temp_integer,
+		temp_integer + 1,
+		g_density_table[temp_integer],
+		g_density_table[temp_integer + 1],
+		temperature);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 计算当前水温下的粘度
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+float calculate_viscosity(float temperature)
+{
+	//---温度的整数部分
+	uint16_t temp_integer = (uint16_t)temperature;
+	//---返回经过插值计算的结果
+	return linear_interpolation(temp_integer,
+		temp_integer + 1,
+		g_viscosity_table[temp_integer],
+		g_viscosity_table[temp_integer + 1],
+		temperature);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
 //////功		能: 计算通道的PT电阻值，用于换算为温度值
 //////输入参	数:
 //////输出参	数:
@@ -922,7 +1037,8 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_reg(MS1022x,0, 0xF387E810);
 	ms1022_spi_send_reg(MS1022x,1, 0x21444012);
 	ms1022_spi_send_reg(MS1022x,6, 0xCEC06006);
-
+	//---清楚状态信息
+	ms1022_spi_int_flag_clear(MS1022x);
 	//-->>>循环测试多组温度值，计算平均值---开始
 	for (sample_index=0;sample_index<MS1022_TEMPERATURE_SAMPLE_MAX_NUM;sample_index++)
 	{
@@ -938,7 +1054,7 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 		if (_return==OK_0)
 		{
 			//---解析读取状态寄存器的值
-			sample_state=ms1022_spi_read_reg_state(MS1022x);
+			sample_state=ms1022_spi_read_state(MS1022x);
 			//---判断温度状态信息
 			if ((sample_state&MS1022_STATE_TEMPERATURE_MASK)!=0)
 			{
@@ -1043,11 +1159,11 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 		//---计算出水PT电阻的平均值，去掉最大和最小的各2个
 		samp_res[1] = calc_avg_float(samp_pt_out + 2, MS1022_TEMPERATURE_SAMPLE_MAX_NUM - 4);
 		//---根据PT电阻值计算出水温度值
-		MS1022x->msg_water_temperature.msg_out_temp = calcuate_temperature(samp_res[0]);
+		MS1022x->msg_water_temperature.msg_out_temp = calculate_temperature(samp_res[0]);
 		//---根据温度系数换算为实际出水温度
 		MS1022x->msg_water_temperature.msg_out_temp *= MS1022x->msg_water_temperature.msg_out_temp_factor;
 		//---根据PT电阻值计算进水温度值
-		MS1022x->msg_water_temperature.msg_in_temp = calcuate_temperature(samp_res[1]); 
+		MS1022x->msg_water_temperature.msg_in_temp = calculate_temperature(samp_res[1]); 
 		//---根据温度系数换算为实际进水温度
 		MS1022x->msg_water_temperature.msg_in_temp *= MS1022x->msg_water_temperature.msg_in_temp_factor;
 		//---计算温差
@@ -1118,7 +1234,8 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444012);
 	//---温度测量间隔是15ms
 	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
-
+	//---清楚中断标志
+	ms1022_spi_int_flag_clear(MS1022x);
 	//-->>>循环测试多组温度值，计算平均值---开始
 	for (sample_index = 0; sample_index < MS1022_TEMPERATURE_SAMPLE_MAX_NUM; sample_index+=2)
 	{
@@ -1136,7 +1253,7 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 
 			//---第一次温度测量
 			//---读取状态寄存器的值
-			sample_state|=ms1022_spi_read_reg_state(MS1022x);
+			sample_state|=ms1022_spi_read_state(MS1022x);
 			//---判断温度状态信息
 			if ((sample_state&MS1022_STATE_TEMPERATURE_MASK) != 0)
 			{
@@ -1224,7 +1341,7 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 			//---清除中断标识
 			ms1022_spi_int_flag_clear(MS1022x);
 			//---解析读取状态寄存器的值
-			sample_state = ms1022_spi_read_reg_state(MS1022x);
+			sample_state = ms1022_spi_read_state(MS1022x);
 			//---通道0的电阻值
 			ms1022_spi_read_reg(MS1022x, 0);
 			//---计算整数部分
@@ -1311,11 +1428,11 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 		//---计算出水PT电阻的平均值，去掉最大和最小的各2个
 		samp_res[1] = calc_avg_float(samp_pt_out + 2, MS1022_TEMPERATURE_SAMPLE_MAX_NUM - 4);
 		//---根据PT电阻值计算出水温度值
-		MS1022x->msg_water_temperature.msg_out_temp = calcuate_temperature(samp_res[0]);
+		MS1022x->msg_water_temperature.msg_out_temp = calculate_temperature(samp_res[0]);
 		//---根据温度系数换算为实际出水温度
 		MS1022x->msg_water_temperature.msg_out_temp *= MS1022x->msg_water_temperature.msg_out_temp_factor;
 		//---根据PT电阻值计算进水温度值
-		MS1022x->msg_water_temperature.msg_in_temp = calcuate_temperature(samp_res[1]);
+		MS1022x->msg_water_temperature.msg_in_temp = calculate_temperature(samp_res[1]);
 		//---根据温度系数换算为实际进水温度
 		MS1022x->msg_water_temperature.msg_in_temp *= MS1022x->msg_water_temperature.msg_in_temp_factor;
 		//---计算温差
@@ -1366,6 +1483,8 @@ uint8_t ms1022_spi_calibration_resonator(MS1022_HandleType* MS1022x)
 	//ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---等待时钟稳定和数据稳定
 	//delay_task_us(800);
+	//---清除中断标识
+	ms1022_spi_int_flag_clear(MS1022x);
 	//---发送初始化命令
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
 	//---启动温度测量
@@ -1405,6 +1524,459 @@ uint8_t ms1022_spi_calibration_resonator(MS1022_HandleType* MS1022x)
 	return _return;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 设置屏蔽窗口的时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint32_t  ms1022_spi_calculate_delval(MS1022_HandleType* MS1022x,float us)
+{
+	uint32_t _return = 0;
+	us /= MS1022_HSE_CLOCK_MIN_WIDTH;
+	us /= MS1022_CLKHSDIV_PRE;
+	//---计算整数值
+	us *= 32;
+	_return= (uint32_t)us;
+	return (_return << 8);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 设置第一波模式的偏置电压
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint32_t  ms1022_spi_calculate_offset(MS1022_HandleType* MS1022x, uint32_t offsetmv)
+{
+	uint32_t _return = 0;
+	switch (offsetmv)
+	{
+		case MS1022_OFFSET_MV_P0	:
+		case MS1022_OFFSET_MV_P1	:
+		case MS1022_OFFSET_MV_P2	:
+		case MS1022_OFFSET_MV_P3	:
+		case MS1022_OFFSET_MV_P4	:
+		case MS1022_OFFSET_MV_P5	:
+		case MS1022_OFFSET_MV_P6	:
+		case MS1022_OFFSET_MV_P7	:
+		case MS1022_OFFSET_MV_P8	:
+		case MS1022_OFFSET_MV_P9	:
+		case MS1022_OFFSET_MV_P10  :
+		case MS1022_OFFSET_MV_P11  :
+		case MS1022_OFFSET_MV_P12  :
+		case MS1022_OFFSET_MV_P13  :
+		case MS1022_OFFSET_MV_P14  :
+		case MS1022_OFFSET_MV_P15  :
+		case MS1022_OFFSET_MV_N1	:
+		case MS1022_OFFSET_MV_N2	:
+		case MS1022_OFFSET_MV_N3	:
+		case MS1022_OFFSET_MV_N4	:
+		case MS1022_OFFSET_MV_N5	:
+		case MS1022_OFFSET_MV_N6	:
+		case MS1022_OFFSET_MV_N7	:
+		case MS1022_OFFSET_MV_N8	:
+		case MS1022_OFFSET_MV_N9	:
+		case MS1022_OFFSET_MV_N10  :
+		case MS1022_OFFSET_MV_N11  :
+		case MS1022_OFFSET_MV_N12  :
+		case MS1022_OFFSET_MV_N13  :
+		case MS1022_OFFSET_MV_N14  :
+		case MS1022_OFFSET_MV_N15  :
+		case MS1022_OFFSET_MV_N16 :
+		{
+			_return = offsetmv;
+			break;
+		}
+		default:
+		{
+			_return = MS1022_OFFSET_MV_P10;
+			break; 
+		}
+	}
+	return _return;
+}
+
+float sample_temp[4] = { 0.0f };
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: TDC测试前的猪呢比
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstate, uint32_t offsetmv)
+{
+	uint8_t _return = OK_0;
+	uint16_t sample_state = 0;
+	uint16_t sample_integer = 0;
+	uint32_t temp_reg = 0;
+	float samp_res[2] = { 0.0f };
+	//---计算偏置电压的设置
+	temp_reg = ms1022_spi_calculate_offset(MS1022x, offsetmv);
+	temp_reg |= 0x20004004;
+	ms1022_spi_send_reg(MS1022x, 4, temp_reg);
+	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+	//---清楚中断标志位
+	ms1022_spi_int_flag_clear(MS1022x);
+	//--->>>读取上游时差
+	//---初始化设备
+	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
+	//---启动时差测量
+	//---上电复位设备
+	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_START_TOF);
+	//---等待测量完成
+	_return = ms1022_spi_int_flag_wait(MS1022x);
+	//---清楚状态信息
+	ms1022_spi_int_flag_clear(MS1022x);
+	//---判断中断标志
+	if (_return == OK_0)
+	{
+		//---解析读取状态寄存器的值
+		sample_state = ms1022_spi_read_state(MS1022x);
+		//---判断温度状态信息
+		if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+		{
+			if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+			{
+				//---14位粗值计数器溢出
+				_return = ERROR_2;
+			}
+			else
+			{
+				//---TDC测量单元溢出
+				_return = ERROR_3;
+			}
+		}
+		//---如果状态寄存器为0
+		if ((sample_state&0x03)!=0x03)
+		{
+			//---3个结果寄存器数据获取失败
+			_return = ERROR_4;
+		}
+		//---保存上游的状态寄存器值
+		(*pstate) = sample_state;
+		//---读取结果寄存器0
+		ms1022_spi_read_reg(MS1022x, 0);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---判断是否是最大值
+		if (sample_integer == 0xFFFF)
+		{
+			_return = ERROR_5;
+		}
+		//---计算小数部分
+		sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---判断是否是最大值
+		if (((uint16_t)sample_temp[0]) == 0xFFFF)
+		{
+			_return = ERROR_6;
+		}
+		//---计算实际值
+		sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+		//---读取结果寄存器1
+		ms1022_spi_read_reg(MS1022x, 1);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+		//---读取结果寄存器2
+		ms1022_spi_read_reg(MS1022x, 2);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+		//---读取结果寄存器3
+		ms1022_spi_read_reg(MS1022x, 3);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+		//---脉冲宽度检查信号
+		ms1022_spi_read_pw1st(MS1022x,1);
+		//---判断结果是否有效
+		if (((sample_temp[3] / sample_temp[0]) < 2.8f) ||
+			((sample_temp[3] / sample_temp[1]) < 2.8f) ||
+			((sample_temp[3] / sample_temp[2]) < 2.8f))
+		{
+			_return = ERROR_7;
+		}
+		//---调试记录时间信息
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("UP_TEST:T0:%.3f,T1:%.3f,T2:%.3f,T3:%.3f,RSSI:%.3f\r\n",
+			sample_temp[0] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[1] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			MS1022x->msg_water_tof.msg_up_rssi);
+#endif
+	}
+	//---<<<读取上游时差
+	//--->>>读取下游时差
+	//---设置偏置电压
+	//ms1022_spi_send_reg(MS1022x, 4, temp_reg);
+	ms1022_spi_send_reg(MS1022x, 5, 0x50000005);
+	//---初始化设备
+	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
+	//---启动时差测量
+	//---上电复位设备
+	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_START_TOF);
+	//---等待测量完成
+	_return = ms1022_spi_int_flag_wait(MS1022x);
+	//---清楚中断标志位
+	ms1022_spi_int_flag_clear(MS1022x);
+	//---判断中断标志
+	if (_return == OK_0)
+	{
+		//---解析读取状态寄存器的值
+		sample_state = ms1022_spi_read_state(MS1022x);
+		//---判断温度状态信息
+		if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+		{
+			if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+			{
+				//---14位粗值计数器溢出
+				_return = ERROR_2+0x80;
+			}
+			else
+			{
+				//---TDC测量单元溢出
+				_return = ERROR_3 + 0x80;
+			}
+		}
+		//---如果状态寄存器为0
+		if ((sample_state & 0x03) != 0x03)
+		{
+			//---3个结果寄存器数据获取失败
+			_return = ERROR_4 + 0x80;
+		}
+		//---保存下游的状态寄存器值
+		(*pstate) =((*pstate)<<16)|sample_state;
+		//---读取结果寄存器0
+		ms1022_spi_read_reg(MS1022x, 0);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---判断是否是最大值
+		if (sample_integer==0xFFFF)
+		{
+			_return = ERROR_5+0x80;
+		}
+		//---计算小数部分
+		sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---判断是否是最大值
+		if (((uint16_t)sample_temp[0]) == 0xFFFF)
+		{
+			_return = ERROR_6+0x80;
+		}
+		//---计算实际值
+		sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+		//---读取结果寄存器1
+		ms1022_spi_read_reg(MS1022x, 1);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+		//---读取结果寄存器2
+		ms1022_spi_read_reg(MS1022x, 2);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+		//---读取结果寄存器3
+		ms1022_spi_read_reg(MS1022x, 3);
+		//---计算整数部分
+		sample_integer = MS1022x->msg_read_data_buffer[1];
+		sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+		//---计算小数部分
+		sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+		sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+		//---计算实际值
+		sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+		//---脉冲宽度检查信号
+		ms1022_spi_read_pw1st(MS1022x,0);
+		//---判断结果是否有效
+		if (((sample_temp[3] / sample_temp[0]) < 2.8f) ||
+			((sample_temp[3] / sample_temp[1]) < 2.8f) ||
+			((sample_temp[3] / sample_temp[2]) < 2.8f) )
+		{
+			_return = ERROR_7+0x80;
+		}
+		//---调试记录时间信息
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("DOWN_TEST:T0:%.3f,T1:%.3f,T2:%.3f,T3:%.3f,RSSI:%.3f\r\n",
+			sample_temp[0] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[1] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
+			MS1022x->msg_water_tof.msg_down_rssi);
+#endif
+	}
+	else
+	{
+		_return += 0x80;
+	}
+	//---<<<读取下游时差
+	return _return;
+}
+
+uint32_t temp_res[4] = { 0 };
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取第一波模式最佳偏置电压设置
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
+{
+	uint8_t _return = OK_0;
+	uint8_t index = 0;
+	//---状态寄存器的值
+	uint32_t temp_state = 0;
+	//---保存返回值
+	//uint32_t temp_res[4] = { 0 };
+	//---保存信号强度信息
+	float temp_rssi[4] = { 0.0f };
+	float swap_rssi = 0.0f;
+	//--->>>通过第一波模式信号强度，验证型号强度---开始
+	//---1. 设置波的触发电平+20mV
+	//---2. 触发电平自动被设置到0mV
+	//---3. 设置设置屏蔽窗口，比如设置到收到第5,6,7回波脉冲作为stop信号
+	//---4. 计算第一个和第五个的脉冲宽度，计算比率，判断超声波信号的强度
+#if (MODULE_LOG_MS1022>0)
+	LOG_VA_ARGS("OFFSET:0mV\r\n");
+#endif
+
+	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P0);
+	temp_res[0] = temp_state;
+	//---计算平均信号强度
+	if ((MS1022x->msg_water_tof.msg_up_rssi>0.3f)&&
+		(MS1022x->msg_water_tof.msg_down_rssi>0.3f))
+	{
+		temp_rssi[0] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	}
+	else
+	{
+		_return |= 0x01;
+	}
+
+#if (MODULE_LOG_MS1022>0)
+	LOG_VA_ARGS("OFFSET:5mV\r\n");
+#endif
+
+	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P5);
+	temp_res[1] = temp_state;
+	//---计算平均信号强度
+	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
+		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
+	{
+		temp_rssi[1] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	}
+	else
+	{
+		_return |= 0x02;
+	}
+#if (MODULE_LOG_MS1022 > 0)
+	LOG_VA_ARGS("OFFSET:10mV\r\n");
+#endif
+
+	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P10);
+	temp_res[2] = temp_state;
+	//---计算平均信号强度
+	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
+		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
+	{
+		temp_rssi[2] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	}
+	else
+	{
+		_return |= 0x03;
+	}
+#if (MODULE_LOG_MS1022>0)
+	LOG_VA_ARGS("OFFSET:15mV\r\n");
+#endif
+
+	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P15);
+	temp_res[3] = temp_state;
+	//---计算平均信号强度
+	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
+		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
+	{
+		temp_rssi[3] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	}
+	else
+	{
+		_return |= 0x04;
+	}
+
+#if (MODULE_LOG_MS1022>0)
+	LOG_VA_ARGS("0mV_RSSI:%0.3f,0mV_STA:%X\r\n5mV_RSSI:%0.3f,5mV_STA:%X\r\n10mV_RSSI:%0.3f,10mV_STA:%X\r\n15mV_RSSI:%0.3f,15mV_STA:%X\r\n",
+		temp_rssi[0], temp_res[0],
+		temp_rssi[1], temp_res[1],
+		temp_rssi[2], temp_res[2],
+		temp_rssi[3], temp_res[3]);
+	LOG_VA_ARGS("RES_STA:%X\r\n", _return);
+#endif
+	//---<<<通过第一波模式信号强度，验证型号强度---开始
+	//---查找最大值
+	if ((compare_double_word(temp_res,0x00230023,4)==OK_0)&&(_return==OK_0))
+	{
+		//---查找最大信号幅度值
+		for (index = 0; index < 4; index++)
+		{
+			if (temp_rssi[index]>swap_rssi)
+			{
+				swap_rssi = temp_rssi[index];
+				temp_state = index;
+			}
+		}
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("FRSSI:%0.3f,FINDEX:%d\r\n",
+			swap_rssi, temp_state);
+#endif
+		//---最终的灵敏度
+		MS1022x->msg_water_tof.msg_up_rssi = temp_rssi[temp_state];
+		MS1022x->msg_water_tof.msg_down_rssi = temp_rssi[temp_state];
+		//---最佳偏置电压
+		temp_state *= 5;
+		temp_state << 8;
+		//---重新设置偏置电压
+		//---计算偏置电压的设置
+		temp_state = ms1022_spi_calculate_offset(MS1022x, temp_state);
+		temp_state |= 0x20004004;
+		ms1022_spi_send_reg(MS1022x, 4, temp_state);
+		ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+	}
+	return _return;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -1417,6 +1989,15 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 {
 	uint8_t _return = OK_0;
 	uint8_t sample_index = 0;
+	uint16_t sample_state = 0;
+	uint16_t sample_integer = 0;
+	uint32_t temp_reg = 0;
+	float sample_temp[4] = { 0.0f };
+	float samp_res[2] = { 0.0f };
+	//---上游时差
+	float samp_up_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
+	//---下游时差
+	float samp_down_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---打开参考时钟
 	MS1022_32KHZ_CLOCK_ENABLE();
 	//---延时等待时钟稳定
@@ -1430,39 +2011,268 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---等待时钟稳定和数据稳定
 	delay_task_us(800);
-	//---初始化温度测量配置
+	//---初始化设置
 	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
-	ms1022_spi_send_reg(MS1022x, 2, 0xa01e0002);
-	ms1022_spi_send_reg(MS1022x, 3, 0xf8510303);
-	ms1022_spi_send_reg(MS1022x, 4, 0x20004f04);
-	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
 
-	//--->>>通过第一波模式信号强度，验证型号强度---开始
-	//
+	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
+	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
+	temp_reg = ms1022_spi_calculate_delval(MS1022x, 
+		(MS1022x->msg_water_transducer.msg_space_length*1000.0f/(MS1022x->msg_water_tof.msg_sound_speed/1000.0f))+
+		MS1022_DIV_FIRE_MIN_WIDTH*3);
+	temp_reg |= 0xA0000002;
+	ms1022_spi_send_reg(MS1022x, 2, temp_reg);
+	//ms1022_spi_send_reg(MS1022x, 2, 0xa01e0002);
+	//---设置第一波模式,1024us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
+	//ms1022_spi_send_reg(MS1022x, 3, 0xF0510303);
+	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
+	ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//---开启脉冲宽度测量,增加额外的20mV偏置,设置比较器的值5mV,偏置电压25mV
+	//ms1022_spi_send_reg(MS1022x, 4, 0x20004F04);
+	temp_reg = ms1022_spi_calculate_offset(MS1022x, MS1022_OFFSET_MV_P0);
+	temp_reg |= 0x20004004;
+	ms1022_spi_send_reg(MS1022x, 4, temp_reg);
+	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 
+	//---清楚中断标志
+	//ms1022_spi_int_flag_clear(MS1022x);
 
-	//---<<<通过第一波模式信号强度，验证型号强度---开始
-
-	//---读取信号强度
-
-	//---循环读取飞行时间
-	for (sample_index=0;sample_index<MS1022_TOF_SAMPLE_MAX_NUM;sample_index++)
+	//---查找第一波模式的最佳偏置电压
+	_return= ms1022_spi_get_offset(MS1022x);
+	
+	//---判断最佳偏置电压信息
+	if (_return==OK_0)
 	{
-		//---测试上游飞行时间
+		//---清楚中断标志
+		ms1022_spi_int_flag_clear(MS1022x);
+		//---循环读取飞行时间
+		for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
+		{
+			//--->>>测试上游飞行时间---开始
+			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+			//---初始化设备
+			ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
+			//---启动时差测量
+			//---上电复位设备
+			ms1022_spi_send_cmd(MS1022x, MS1022_CMD_START_TOF);
+			//---等待测量完成
+			_return = ms1022_spi_int_flag_wait(MS1022x);
+			//---清楚中断状态标志
+			ms1022_spi_int_flag_clear(MS1022x);
+			//---判断中断状态是否有效
+			if (_return == OK_0)
+			{
+				//---解析读取状态寄存器的值
+				sample_state = ms1022_spi_read_state(MS1022x);
+				//---判断温度状态信息
+				if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+				{
+					if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+					{
+						//---14位粗值计数器溢出
+						_return = ERROR_2;
+					}
+					else
+					{
+						//---TDC测量单元溢出
+						_return = ERROR_3;
+					}
+					break;
+				}
+				//---如果状态寄存器为0
+				if ((sample_state & 0x03) != 0x03)
+				{
+					//---3个结果寄存器数据获取失败
+					_return = ERROR_4;
+					break;
+				}
+				//---判断状态寄存器的信息
+				if (_return == OK_0)
+				{
+					/*
+					//---读取结果寄存器0
+					ms1022_spi_read_reg(MS1022x, 0);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+					//---读取结果寄存器1
+					ms1022_spi_read_reg(MS1022x, 1);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+					//---读取结果寄存器2
+					ms1022_spi_read_reg(MS1022x, 2);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+					*/
+					//---读取结果寄存器3
+					ms1022_spi_read_reg(MS1022x, 3);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+					//---计算上游时差
+					samp_up_diff_time[sample_index] = sample_temp[3];
+				}
+			}
 
-		//---测试下游飞行时间
+			//---<<<测试上游飞行时间---结束
+
+			//--->>>测试下游飞行时间---开始
+
+			if (_return == OK_0)
+			{
+				//--->>>测试上游飞行时间---开始
+				ms1022_spi_send_reg(MS1022x, 5, 0x50000005);
+				//---初始化设备
+				ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
+				//---启动时差测量
+				//---上电复位设备
+				ms1022_spi_send_cmd(MS1022x, MS1022_CMD_START_TOF);
+				//---等待测量完成
+				_return = ms1022_spi_int_flag_wait(MS1022x);
+				//---清楚中断状态标志
+				ms1022_spi_int_flag_clear(MS1022x);
+				//---判断中断状态是否有效
+				if (_return == OK_0)
+				{
+					//---解析读取状态寄存器的值
+					sample_state = ms1022_spi_read_state(MS1022x);
+					//---判断温度状态信息
+					if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+					{
+						if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+						{
+							//---14位粗值计数器溢出
+							_return = ERROR_2 + 0x80;
+						}
+						else
+						{
+							//---TDC测量单元溢出
+							_return = ERROR_3 + 0x80;
+						}
+						break;
+					}
+					//---如果状态寄存器为0
+					if ((sample_state & 0x03) != 0x03)
+					{
+						//---3个结果寄存器数据获取失败
+						_return = ERROR_4 + 0x80;
+						break;
+					}
+					//---判断状态寄存器的信息
+					if (_return == OK_0)
+					{
+						/*
+						//---读取结果寄存器0
+						ms1022_spi_read_reg(MS1022x, 0);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+						//---读取结果寄存器1
+						ms1022_spi_read_reg(MS1022x, 1);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+						//---读取结果寄存器2
+						ms1022_spi_read_reg(MS1022x, 2);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+						*/
+						//---读取结果寄存器3
+						ms1022_spi_read_reg(MS1022x, 3);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+						//---计算下游时差
+						samp_down_diff_time[sample_index] = sample_temp[3];
+					}
+				}
+			}
+			//---<<<测试下游飞行时间---结束
+		}
 	}
-
 	//---关闭晶振---降低功耗
 	ms1022_spi_fosc_disable(MS1022x);
 	//---上电复位设备
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
+	//---判断飞行时间的测量结果
+	if (_return == OK_0)
+	{
+		//---升序排列上游飞行时间
+		asc_sort_float(samp_up_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---升序排列下游飞行时间
+		asc_sort_float(samp_down_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---计算上游飞行时间的平均值，去掉最大和最小的各4个
+		samp_res[0] = calc_avg_float(samp_up_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
+		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		//---计算上行飞行时间
+		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---计算上游飞行时间
+		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---计算飞行时间差
+		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
+		//---计算水流的速度
+		MS1022x->msg_water_transducer.msg_water_speed = (MS1022x->msg_water_transducer.msg_space_length*MS1022x->msg_water_tof.msg_diff_time*1000.0f)
+			/ (MS1022x->msg_water_tof.msg_up_time*MS1022x->msg_water_tof.msg_down_time);
+		MS1022x->msg_water_transducer.msg_water_speed *= 500.0f;
 
-	return OK_0;
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
+		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f,WSPEED:.3f\r\n",
+			MS1022x->msg_water_tof.msg_up_rssi, 
+			MS1022x->msg_water_tof.msg_up_time,
+			MS1022x->msg_water_tof.msg_down_time, 
+			MS1022x->msg_water_tof.msg_diff_time,
+			MS1022x->msg_water_transducer.msg_water_speed);
+#endif
+	}
+	return _return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1476,6 +2286,15 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 {
 	uint8_t _return = OK_0;
 	uint8_t sample_index = 0;
+	uint16_t sample_state = 0;
+	uint16_t sample_integer = 0;
+	uint32_t temp_reg = 0;
+	float sample_temp[4] = { 0.0f };
+	float samp_res[2] = { 0.0f };
+	//---上游时差
+	float samp_up_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
+	//---下游时差
+	float samp_down_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---打开参考时钟
 	MS1022_32KHZ_CLOCK_ENABLE();
 	//---延时等待时钟稳定
@@ -1489,39 +2308,304 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---等待时钟稳定和数据稳定
 	delay_task_us(800);
-	//---初始化温度测量配置
+	//---初始化设置
 	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
-	ms1022_spi_send_reg(MS1022x, 2, 0xa01e0002);
-	ms1022_spi_send_reg(MS1022x, 3, 0xf8510303);
-	ms1022_spi_send_reg(MS1022x, 4, 0x20004f04);
-	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
 
-	//--->>>通过第一波模式信号强度，验证型号强度---开始
-	//---1. 设置波的触发电平+20mV
-	//---2. 触发电平自动被设置到0mV
-	//---3. 设置设置屏蔽窗口，比如设置到收到第5,6,7回波脉冲作为stop信号
-	//---4. 计算第一个和第五个的脉冲宽度，计算比率，判断超声波信号的强度
-	//
+	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
+	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
+	temp_reg = ms1022_spi_calculate_delval(MS1022x,
+		(MS1022x->msg_water_transducer.msg_space_length*1000.0f / (MS1022x->msg_water_tof.msg_sound_speed / 1000.0f)) +
+		MS1022_DIV_FIRE_MIN_WIDTH * 3);
+	temp_reg |= 0xA0000002;
+	ms1022_spi_send_reg(MS1022x, 2, temp_reg);
+	//ms1022_spi_send_reg(MS1022x, 2, 0xa01e0002);
+	//---设置第一波模式,1024us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
+	//ms1022_spi_send_reg(MS1022x, 3, 0xF0510303);
+	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
+	ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//---开启脉冲宽度测量,增加额外的20mV偏置,设置比较器的值5mV,偏置电压25mV
+	//ms1022_spi_send_reg(MS1022x, 4, 0x20004F04);
+	temp_reg = ms1022_spi_calculate_offset(MS1022x, MS1022_OFFSET_MV_P0);
+	temp_reg |= 0x20004004;
+	ms1022_spi_send_reg(MS1022x, 4, temp_reg);
+	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 
-	//---<<<通过第一波模式信号强度，验证型号强度---开始
+	//---清楚中断标志
+	//ms1022_spi_int_flag_clear(MS1022x);
 
-	//---读取信号强度
+	//---查找第一波模式的最佳偏置电压
+	_return = ms1022_spi_get_offset(MS1022x);
 
-	//---循环读取飞行时间
-	for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
+	//---判断最佳偏置电压信息
+	if (_return == OK_0)
 	{
-		//---测试上游飞行时间
+		//---清楚中断标志
+		ms1022_spi_int_flag_clear(MS1022x);
+		//---循环读取飞行时间
+		for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
+		{
+			//---初始化设备
+			ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
+			//---启动时差测量
+			//---上电复位设备
+			ms1022_spi_send_cmd(MS1022x, MS1022_CMD_START_TOF_RESTART);
+			//---等待测量完成
+			_return = ms1022_spi_int_flag_wait(MS1022x);
+			//---清楚中断状态标志
+			ms1022_spi_int_flag_clear(MS1022x);
+			//---判断中断状态是否有效
+			if (_return == OK_0)
+			{
+				//---解析读取状态寄存器的值
+				sample_state = ms1022_spi_read_state(MS1022x);
+				//---判断温度状态信息
+				if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+				{
+					if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+					{
+						//---14位粗值计数器溢出
+						_return = ERROR_2;
+					}
+					else
+					{
+						//---TDC测量单元溢出
+						_return = ERROR_3;
+					}
+					break;
+				}
+				//---如果状态寄存器为0
+				if ((sample_state & 0x03) != 0x03)
+				{
+					//---3个结果寄存器数据获取失败
+					_return = ERROR_4;
+					break;
+				}
+				//---判断状态寄存器的信息
+				if (_return == OK_0)
+				{
+					/*
+					//---读取结果寄存器0
+					ms1022_spi_read_reg(MS1022x, 0);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+					//---读取结果寄存器1
+					ms1022_spi_read_reg(MS1022x, 1);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+					//---读取结果寄存器2
+					ms1022_spi_read_reg(MS1022x, 2);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+					*/
+					//---读取结果寄存器3
+					ms1022_spi_read_reg(MS1022x, 3);
+					//---计算整数部分
+					sample_integer = MS1022x->msg_read_data_buffer[1];
+					sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+					//---计算小数部分
+					sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+					sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+					//---计算实际值
+					sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+					//---计算上游时差
+					samp_up_diff_time[sample_index] = sample_temp[3];
+				}
+			}
 
-		//---测试下游飞行时间
+			//---<<<测试上游飞行时间---结束
+
+			//--->>>测试下游飞行时间---开始
+
+			if (_return == OK_0)
+			{
+				//---等待测量完成
+				_return = ms1022_spi_int_flag_wait(MS1022x);
+				//---清楚中断状态标志
+				ms1022_spi_int_flag_clear(MS1022x);
+				//---判断中断状态是否有效
+				if (_return == OK_0)
+				{
+					//---解析读取状态寄存器的值
+					sample_state = ms1022_spi_read_state(MS1022x);
+					//---判断温度状态信息
+					if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
+					{
+						if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
+						{
+							//---14位粗值计数器溢出
+							_return = ERROR_2 + 0x80;
+						}
+						else
+						{
+							//---TDC测量单元溢出
+							_return = ERROR_3 + 0x80;
+						}
+						break;
+					}
+					//---如果状态寄存器为0
+					if ((sample_state & 0x03) != 0x03)
+					{
+						//---3个结果寄存器数据获取失败
+						_return = ERROR_4 + 0x80;
+						break;
+					}
+					//---判断状态寄存器的信息
+					if (_return == OK_0)
+					{
+						/*
+						//---读取结果寄存器0
+						ms1022_spi_read_reg(MS1022x, 0);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[0] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[0] = ((uint16_t)sample_temp[0] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[0] = sample_temp[0] / 65536.0f + sample_integer;
+						//---读取结果寄存器1
+						ms1022_spi_read_reg(MS1022x, 1);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[1] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[1] = ((uint16_t)sample_temp[1] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[1] = sample_temp[1] / 65536.0f + sample_integer;
+						//---读取结果寄存器2
+						ms1022_spi_read_reg(MS1022x, 2);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[2] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[2] = ((uint16_t)sample_temp[2] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[2] = sample_temp[2] / 65536.0f + sample_integer;
+						*/
+						//---读取结果寄存器3
+						ms1022_spi_read_reg(MS1022x, 3);
+						//---计算整数部分
+						sample_integer = MS1022x->msg_read_data_buffer[1];
+						sample_integer = (sample_integer << 8) + MS1022x->msg_read_data_buffer[2];
+						//---计算小数部分
+						sample_temp[3] = MS1022x->msg_read_data_buffer[3];
+						sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
+						//---计算实际值
+						sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+						//---计算下游时差
+						samp_down_diff_time[sample_index] = sample_temp[3];
+					}
+				}
+			}
+			//---<<<测试下游飞行时间---结束
+		}
 	}
-
 	//---关闭晶振---降低功耗
 	ms1022_spi_fosc_disable(MS1022x);
 	//---上电复位设备
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
+	//---判断飞行时间的测量结果
+	if (_return == OK_0)
+	{
+		//---升序排列上游飞行时间
+		asc_sort_float(samp_up_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---升序排列下游飞行时间
+		asc_sort_float(samp_down_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---计算上游飞行时间的平均值，去掉最大和最小的各4个
+		samp_res[0] = calc_avg_float(samp_up_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
+		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		//---计算上行飞行时间
+		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---计算上游飞行时间
+		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---计算飞行时间差
+		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
+		//---计算水流的速度
+		MS1022x->msg_water_transducer.msg_water_speed = (MS1022x->msg_water_transducer.msg_space_length*MS1022x->msg_water_tof.msg_diff_time*1000.0f)
+			/ (MS1022x->msg_water_tof.msg_up_time*MS1022x->msg_water_tof.msg_down_time);
+		MS1022x->msg_water_transducer.msg_water_speed *= 500.0f;
+
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
+		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f,WSPEED:.3f\r\n",
+			MS1022x->msg_water_tof.msg_up_rssi,
+			MS1022x->msg_water_tof.msg_up_time,
+			MS1022x->msg_water_tof.msg_down_time,
+			MS1022x->msg_water_tof.msg_diff_time,
+			MS1022x->msg_water_transducer.msg_water_speed);
+#endif
+	}
+	return _return;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取温度
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_get_temperature(MS1022_HandleType* MS1022x)
+{
+	return ms1022_spi_read_start_temperature(MS1022x);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 获取流量信息
+//////输入参	数:
+//////输出参	数:
+//////说		明: 计算流速，计算体积流量
+//////////////////////////////////////////////////////////////////////////////
+uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
+{
+	//---获取超声波时差信息
+	uint8_t _return= ms1022_spi_read_start_tof(MS1022x);
+	//---判断时差获取结果
+	if (_return==OK_0)
+	{
+		//---计算流速
+		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_down_time*MS1022x->msg_water_tof.msg_sound_speed;
+		MS1022x->msg_water_transducer.msg_flow_speed *= MS1022x->msg_water_tof.msg_sound_speed;
+		//---除以换能器的距离
+		MS1022x->msg_water_transducer.msg_flow_speed /= MS1022x->msg_water_transducer.msg_space_length;
+		MS1022x->msg_water_transducer.msg_flow_speed /= 2.0F;
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("FLOW_SPEED:%.3f\r\n",
+			MS1022x->msg_water_transducer.msg_flow_speed);
+#endif
+		//---计算体积流量
+		MS1022x->msg_water_transducer.msg_flow_volume *= MS1022x->msg_water_transducer.msg_flow_speed;
+		MS1022x->msg_water_transducer.msg_flow_volume *= CIRCLE_AREA(MS1022x->msg_water_transducer.msg_space_length);
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("FLOW_VOLUME:%.3f\r\n",
+			MS1022x->msg_water_transducer.msg_flow_volume);
+#endif
+	}
 	return _return;
 }

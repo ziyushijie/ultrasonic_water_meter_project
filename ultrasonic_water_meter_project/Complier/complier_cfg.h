@@ -727,6 +727,7 @@ extern "C" {
 	//#define BIG_ENDIAN_FORCE																							//---将高序字节存储在起始地址
 	
 	//===数据基本操作
+	#define PI										3.1415926F															//---三角函数π的值
 	#define MAX(a,b)								( (a) > (b) ? (a) : (b) )											//---取最大值
 	//#define MIN(a,b)								( (a) < (b) ? (a) : (b) )											//---取最小值
 	#define ODD(x)									((x&0x01)==1?1:0)													//---校验是不是奇数
@@ -737,6 +738,10 @@ extern "C" {
 	#define SWAP_16BITS(val)						( ((val&0x00FF)<<8)|((val&0xFF00)>>8) )
 	#define SWAP_32BITS(val)						(((val&0x000000FF)<<24)|((val&0x0000FF00)<<8)| \
 													 ((val&0x00FF0000)>>8)|((val&0xFF000000)>>24))
+
+	//===根据直径计算圆的面积
+	#define CIRCLE_AREA(d)							(PI*d*d/4.0f)						
+
 
 	#define	VERSION_DATE_SIZE						12																	//---利用__DATE__获取当前日期，占用12个字节，包括字符串结束符
 	#define VERSION_TIME_SIZE						9																	//---利用__TIME__获取当前时间，占用9个字节，包括字符串结束符	

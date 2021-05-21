@@ -9,10 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////	
 void app_log(char *fmt,...)
 {
+	
+#if (MODULE_LOG_ENABLE>0)
 	va_list args;
 	va_start(args, fmt);
-#if (MODULE_LOG_ENABLE>0)
-
 #if (MODULE_LOG_UART_INDEX==1)&&defined(TYPE_UART1)
 	uart_task_printf_log(UART_TASK_ONE, fmt, args);
 #elif (MODULE_LOG_UART_INDEX==2)&&defined(TYPE_UART2)
@@ -20,9 +20,9 @@ void app_log(char *fmt,...)
 #elif (MODULE_LOG_UART_INDEX==3)&&defined(TYPE_UART3)
 	uart_task_printf_log(UART_TASK_THREE, fmt, args);
 #endif
-
-#endif
 	va_end(args);
+#endif
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -138,9 +138,9 @@ void main(void)
 		//---检查是否收到数据
 		if (uart_task_read_end(UART_TASK_TWO)==OK_0)
 		{
-//			uart_task_fill_mode_send_two(UART_TASK_TWO,
-//				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
-//				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
+			uart_task_fill_mode_send_two(UART_TASK_TWO,
+				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
+				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_TWO);
 		}
@@ -152,7 +152,7 @@ void main(void)
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_THREE);
 		}
-		if (TIME_SPAN(app_get_tick(), cnt) >10000)
+		if (TIME_SPAN(app_get_tick(), cnt) >3000)
 		{
 			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[0]=0xFE;
 			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[1] = 0xFE;
@@ -185,7 +185,11 @@ void main(void)
 			//	20);
 			////---复位接收，等待下次数据的到来
 			//uart_task_read_reset(UART_TASK_TWO);
-			ms1022_spi_task_read_start_temperature(MS1022_TASK_ONE);
+			//---获取进出水口的温度
+			//ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+			//---获取流量信息
+			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
+			//---更新节拍信息
 			cnt = app_get_tick();
 		}
 		

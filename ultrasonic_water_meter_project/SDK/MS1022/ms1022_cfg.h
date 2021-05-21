@@ -52,6 +52,8 @@ extern "C" {
 	#define MS1022_STATE_TDC_TIME_OUT					(1<<9)
 	//===测量范围2的14位粗值计数器溢出
 	#define MS1022_STATE_PRECOUNTER_TIME_OUT			(1<<10)
+	//===TDC测试单元MASK
+	#define	MS1022_STATE_TDC_MASK						(3<<9)
 	//===温度传感器开路
 	#define MS1022_STATE_TEMPERATURE_OPEN				(1<<11)
 	//===温度传感器短路
@@ -65,6 +67,55 @@ extern "C" {
 
 	#define MS1022_REG_START_CAL_RESONATOR_MASK			0x00800000
 	#define MS1022_REG_START_CAL_RESONATOR_VAL			0xFF0FFFFF
+
+	#define MS1022_OFFSET_MV_P0							(0<<8)
+	#define MS1022_OFFSET_MV_P1							(1<<8)
+	#define MS1022_OFFSET_MV_P2							(2<<8)
+	#define MS1022_OFFSET_MV_P3							(3<<8)
+	#define MS1022_OFFSET_MV_P4							(4<<8)
+	#define MS1022_OFFSET_MV_P5							(5<<8)
+	#define MS1022_OFFSET_MV_P6							(6<<8)
+	#define MS1022_OFFSET_MV_P7							(7<<8)
+	#define MS1022_OFFSET_MV_P8							(8<<8)
+	#define MS1022_OFFSET_MV_P9							(9<<8)
+	#define MS1022_OFFSET_MV_P10						(10<<8)
+	#define MS1022_OFFSET_MV_P11						(11<<8)
+	#define MS1022_OFFSET_MV_P12						(12<<8)
+	#define MS1022_OFFSET_MV_P13						(13<<8)
+	#define MS1022_OFFSET_MV_P14						(14<<8)
+	#define MS1022_OFFSET_MV_P15						(15<<8)
+	#define MS1022_OFFSET_MV_N1							(31<<8)
+	#define MS1022_OFFSET_MV_N2							(30<<8)
+	#define MS1022_OFFSET_MV_N3							(29<<8)
+	#define MS1022_OFFSET_MV_N4							(28<<8)
+	#define MS1022_OFFSET_MV_N5							(27<<8)
+	#define MS1022_OFFSET_MV_N6							(26<<8)
+	#define MS1022_OFFSET_MV_N7							(25<<8)
+	#define MS1022_OFFSET_MV_N8							(24<<8)
+	#define MS1022_OFFSET_MV_N9							(23<<8)
+	#define MS1022_OFFSET_MV_N10						(22<<8)
+	#define MS1022_OFFSET_MV_N11						(21<<8)
+	#define MS1022_OFFSET_MV_N12						(20<<8)
+	#define MS1022_OFFSET_MV_N13						(19<<8)
+	#define MS1022_OFFSET_MV_N14						(18<<8)
+	#define MS1022_OFFSET_MV_N15						(17<<8)
+	#define MS1022_OFFSET_MV_N16						(16<<8)
+
+	//===定义换能器结构体
+	typedef struct _MS1022_TRANSDUCER_HandleType		MS1022_TRANSDUCER_HandleType;
+	//===定义换能器指针结构体
+	typedef	struct _MS1022_TRANSDUCER_HandleType		*pMS1022_TRANSDUCER_HandleType;
+	//===换能器结构定义
+	struct _MS1022_TRANSDUCER_HandleType
+	{
+		uint16_t msg_type;						//---管段类型,DN15:0x15;DN20:0x20;DN25:0x25;DN32:0x32;DN40:0x40
+		float msg_space_length;					//---间距长度m
+		float msg_diameter;						//---管段直径
+		float msg_water_speed;					//---粗计算水流的速度
+		float msg_flow_speed;					//---计算管道中的流速
+		float msg_flow_volume;					//---计算体积流量
+	};
+
 	
 	//===定义飞行时间结构体
 	typedef struct _MS1022_TOF_HandleType		MS1022_TOF_HandleType;
@@ -78,8 +129,9 @@ extern "C" {
 		float msg_down_time;				//---反向飞行时间
 		float msg_diff_time;				//---飞行时间超
 		float msg_time_factor;				//---时间系数
-		float msg_rssi;						//---第一波模式计算时差的信号强度
-		float msg_sound_speed;				//---超声波的速度
+		float msg_up_rssi;					//---第一波模式计算时差的上游信号强度
+		float msg_down_rssi;				//---第一波模式计算时差的上游信号强度
+		float msg_sound_speed;				//---超声波的速度m/s
 	};
 
 	//===定义水温结构体
@@ -89,7 +141,7 @@ extern "C" {
 	//===水温结构定义
 	struct _MS1022_TEMPERATURE_HandleType
 	{
-		uint8_t msg_state : 3;				//---水温测试状态
+		uint8_t msg_state : 3;				//---水温测试状态	 0:正常;1:错误;2:开路;3:短路
 		uint8_t msg_in_state : 2;			//---进水温度测试状态
 		uint8_t	msg_out_state : 2;			//---出水温度测试状态
 		uint8_t	msg_positive_mode : 1;		//---温差正负，0---正数；1---负数
@@ -109,18 +161,19 @@ extern "C" {
 //#pragma pack
 	struct _MS1022_HandleType
 	{
-		SPI_HandleType  msg_spix;																						//---使用的spi接口
-		GPIO_HandleType	msg_gpio_rst;																					//---MOSI
+		SPI_HandleType  msg_spix;											//---使用的spi接口
+		GPIO_HandleType	msg_gpio_rst;										//---MOSI
 
-		MS1022_TEMPERATURE_HandleType msg_water_temperature;															//---水温定义
-		MS1022_TOF_HandleType		  msg_water_tof;																	//---飞行时间测量
+		MS1022_TEMPERATURE_HandleType msg_water_temperature;				//---水温定义
+		MS1022_TOF_HandleType		  msg_water_tof;						//---飞行时间测量
+		MS1022_TRANSDUCER_HandleType  msg_water_transducer;					//---换能器信息
 
-		vltuint8_t msg_int_flag;																						//---中断标识信息
-		vltuint8_t msg_send_data_buffer[MS1022_DATA_BUFFER_MAX_SIZE];													//---发送数据缓存区
-		vltuint8_t msg_read_data_buffer[MS1022_DATA_BUFFER_MAX_SIZE];													//---接收数据缓存区
+		vltuint8_t msg_int_flag;											//---中断标识信息
+		vltuint8_t msg_send_data_buffer[MS1022_DATA_BUFFER_MAX_SIZE];		//---发送数据缓存区
+		vltuint8_t msg_read_data_buffer[MS1022_DATA_BUFFER_MAX_SIZE];		//---接收数据缓存区
 		
-		void(*msg_f_delay_ms)(uint32_t delay);																			//---延时参数
-		uint32_t(*msg_f_time_tick)(void);																				//---用于超时计数
+		void(*msg_f_delay_ms)(uint32_t delay);								//---延时参数
+		uint32_t(*msg_f_time_tick)(void);									//---用于超时计数
 	};
 //#pragma unpack
 
@@ -149,8 +202,8 @@ extern "C" {
 	uint8_t ms1022_spi_read_reg(MS1022_HandleType* MS1022x, uint8_t index);
 	uint8_t ms1022_spi_send_reg(MS1022_HandleType* MS1022x, uint8_t index, uint32_t val);
 	uint8_t ms1022_spi_send_cmd(MS1022_HandleType* MS1022x, uint8_t cmd);
-	uint16_t ms1022_spi_read_reg_state(MS1022_HandleType* MS1022x);
-	uint8_t ms1022_spi_read_reg_pw1st(MS1022_HandleType* MS1022x);
+	uint16_t ms1022_spi_read_state(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_read_pw1st(MS1022_HandleType* MS1022x, uint8_t isup);
 	uint8_t ms1022_spi_comm_test(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_config_init(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x);
@@ -158,6 +211,9 @@ extern "C" {
 	uint8_t ms1022_spi_calibration_resonator(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x);
 	uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x);
+
+	uint8_t ms1022_spi_get_temperature(MS1022_HandleType* MS1022x);
+	uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

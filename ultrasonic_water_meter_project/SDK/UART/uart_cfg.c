@@ -1430,7 +1430,7 @@ void uart_fill_mode_send_start(UART_HandleType* UARTx)
 //////////////////////////////////////////////////////////////////////////////
 void uart_printf_log_one(UART_HandleType* UARTx, char* fmt, va_list args)
 {
-#ifdef TYPE_UART1
+#if defined(TYPE_UART1)&&(MODULE_LOG_ENABLE>0)&&(MODULE_LOG_UART_INDEX==2)
 	int16_t length = 0;
 	//---等待上次发送完成
 	uart_wait_send_idle(UARTx);
@@ -1458,9 +1458,9 @@ void uart_printf_log_one(UART_HandleType* UARTx, char* fmt, va_list args)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-	void uart_printf_log_two(UART_HandleType* UARTx, char* fmt, va_list args)
+void uart_printf_log_two(UART_HandleType* UARTx, char* fmt, va_list args)
 {
-#ifdef TYPE_UART2
+#if defined(TYPE_UART2)&&(MODULE_LOG_ENABLE>0)&&(MODULE_LOG_UART_INDEX==2)
 	int16_t length = 0;
 	//---等待上次发送完成
 	uart_wait_send_idle(UARTx);
@@ -1490,7 +1490,7 @@ void uart_printf_log_one(UART_HandleType* UARTx, char* fmt, va_list args)
 //////////////////////////////////////////////////////////////////////////////
 void uart_printf_log_three(UART_HandleType* UARTx, char* fmt, va_list args)
 {
-#ifdef TYPE_UART3
+#if defined(TYPE_UART3)&&(MODULE_LOG_ENABLE>0)&&(MODULE_LOG_UART_INDEX==3)
 	int16_t length = 0;
 	//---等待上次发送完成
 	uart_wait_send_idle(UARTx);

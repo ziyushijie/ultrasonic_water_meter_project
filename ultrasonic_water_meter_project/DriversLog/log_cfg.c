@@ -13,12 +13,12 @@
 //////////////////////////////////////////////////////////////////////////////
 void LOG_VA_ARGS(char*fmt,...)
 {
+#if (MODULE_LOG_ENABLE>0)
 	va_list args;
 	va_start(args, fmt);
-#if (MODULE_LOG_ENABLE>0)
 	app_log_args(fmt, args);
-#endif
 	va_end(args);
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -30,12 +30,13 @@ void LOG_VA_ARGS(char*fmt,...)
 //////////////////////////////////////////////////////////////////////////////
 void log_printf(char* fmt, ...)
 {
+#if (MODULE_LOG_ENABLE>0)
 	va_list args;
 	va_start(args, fmt);
-#if (MODULE_LOG_ENABLE>0)
 	app_log_args(fmt, args);
-#endif
 	va_end(args);
+#endif
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////
