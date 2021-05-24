@@ -49,6 +49,9 @@
     <ClInclude Include="SDK\Key\key_cfg.h" />
     <ClInclude Include="SDK\Key\key_lib.h" />
     <ClInclude Include="SDK\Key\key_task.h" />
+    <ClInclude Include="SDK\LCD\lcd_cfg.h" />
+    <ClInclude Include="SDK\LCD\lcd_lib.h" />
+    <ClInclude Include="SDK\LCD\lcd_task.h" />
     <ClInclude Include="SDK\MS1022\ms1022_cfg.h" />
     <ClInclude Include="SDK\MS1022\ms1022_lib.h" />
     <ClInclude Include="SDK\MS1022\ms1022_task.h" />
@@ -119,6 +122,9 @@
     <ClCompile Include="SDK\Key\key_cfg.c" />
     <ClCompile Include="SDK\Key\key_lib.c" />
     <ClCompile Include="SDK\Key\key_task.c" />
+    <ClCompile Include="SDK\LCD\lcd_cfg.c" />
+    <ClCompile Include="SDK\LCD\lcd_lib.c" />
+    <ClCompile Include="SDK\LCD\lcd_task.c" />
     <ClCompile Include="SDK\MS1022\ms1022_cfg.c" />
     <ClCompile Include="SDK\MS1022\ms1022_lib.c" />
     <ClCompile Include="SDK\MS1022\ms1022_task.c" />
@@ -181,7 +187,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>MCU_USE_RL78_R7F0;USER_OPT_BYTE=0xEF5DAA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Doc;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\Compliers;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversPlus\R7F0C019;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\DriversLog;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Drivers\cg_src;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Complier;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Doc;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\HWConfig;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\Application\APP;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\AT24Cxx;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\CRC;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\Delay;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\GPIO;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\I2C;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\MS1022;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\RTC;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SPI;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\SysTick;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\UART;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\WDT;D:\兴远仪表\超声表热力表\ultrasonic_water_meter_project\ultrasonic_water_meter_project\SDK\LCD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>

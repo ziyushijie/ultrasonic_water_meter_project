@@ -91,6 +91,9 @@ void rl78_port_init(void)
 	PFSEG4 = _03_PFSEG4_DEFAULT;
 	PFSEG5 = 0x00;
 	PFSEG6 = 0x00;
+
+	//---斯密特触发缓存器为数字输入模式有效
+	ISCLCD  = _02_ISCVL3_VALID|_01_ISCCAP_VALID;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

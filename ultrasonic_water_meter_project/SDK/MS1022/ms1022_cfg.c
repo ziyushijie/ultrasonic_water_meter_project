@@ -1180,14 +1180,14 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 			MS1022x->msg_water_temperature.msg_positive_mode = 0;
 		}
 		//---计算在水中的传播速度
-		MS1022x->msg_water_tof.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
+		MS1022x->msg_water_temperature.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
 
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("PT_IN:%.3f,PT_OUT:%.3f,PT_DIF:%.3f,SPEED:%.3f\r\n",
 			MS1022x->msg_water_temperature.msg_in_temp, 
 			MS1022x->msg_water_temperature.msg_out_temp,
 			(MS1022x->msg_water_temperature.msg_positive_mode==0)?(MS1022x->msg_water_temperature.msg_diff_temp):(MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
-			MS1022x->msg_water_tof.msg_sound_speed);
+			MS1022x->msg_water_temperature.msg_sound_speed);
 #endif
 	}
 	//--<<<循环测试多组温度值，计算平均值---结束
@@ -1449,14 +1449,14 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 			MS1022x->msg_water_temperature.msg_positive_mode = 0;
 		}
 		//---计算在水中的传播速度
-		MS1022x->msg_water_tof.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
+		MS1022x->msg_water_temperature.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
 
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("PT_IN:%.3f,PT_OUT:%.3f,PT_DIF:%.3f,SPEED:%.3f\r\n",
 			MS1022x->msg_water_temperature.msg_in_temp,
 			MS1022x->msg_water_temperature.msg_out_temp,
 			(MS1022x->msg_water_temperature.msg_positive_mode == 0) ? (MS1022x->msg_water_temperature.msg_diff_temp) : (MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
-			MS1022x->msg_water_tof.msg_sound_speed);
+			MS1022x->msg_water_temperature.msg_sound_speed);
 #endif
 	}
 	//--<<<循环测试多组温度值，计算平均值---结束
@@ -1599,7 +1599,9 @@ uint32_t  ms1022_spi_calculate_offset(MS1022_HandleType* MS1022x, uint32_t offse
 	return _return;
 }
 
-float sample_temp[4] = { 0.0f };
+//float sample_temp[4] = { 0.0f };
+
+uint32_t g_ms1022_state = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -1615,6 +1617,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	uint16_t sample_integer = 0;
 	uint32_t temp_reg = 0;
 	float samp_res[2] = { 0.0f };
+	float sample_temp[4] = { 0.0f };
 	//---计算偏置电压的设置
 	temp_reg = ms1022_spi_calculate_offset(MS1022x, offsetmv);
 	temp_reg |= 0x20004004;
@@ -1726,6 +1729,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			MS1022x->msg_water_tof.msg_up_rssi);
+		LOG_VA_ARGS("STATE_TEST:%X\r\n", sample_state);
 #endif
 	}
 	//---<<<读取上游时差
@@ -1768,7 +1772,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			_return = ERROR_4 + 0x80;
 		}
 		//---保存下游的状态寄存器值
-		(*pstate) =((*pstate)<<16)|sample_state;
+		(*pstate) =((*pstate)<<16)+sample_state;
 		//---读取结果寄存器0
 		ms1022_spi_read_reg(MS1022x, 0);
 		//---计算整数部分
@@ -1836,6 +1840,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			MS1022x->msg_water_tof.msg_down_rssi);
+		LOG_VA_ARGS("STATE_TEST:%X\r\n", sample_state);
 #endif
 	}
 	else
@@ -1846,7 +1851,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	return _return;
 }
 
-uint32_t temp_res[4] = { 0 };
+//uint32_t temp_res[4] = { 0 };
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -1862,7 +1867,7 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	//---状态寄存器的值
 	uint32_t temp_state = 0;
 	//---保存返回值
-	//uint32_t temp_res[4] = { 0 };
+	uint32_t temp_res[4] = { 0 };
 	//---保存信号强度信息
 	float temp_rssi[4] = { 0.0f };
 	float swap_rssi = 0.0f;
@@ -1938,12 +1943,11 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	}
 
 #if (MODULE_LOG_MS1022>0)
-	LOG_VA_ARGS("0mV_RSSI:%0.3f,0mV_STA:%X\r\n5mV_RSSI:%0.3f,5mV_STA:%X\r\n10mV_RSSI:%0.3f,10mV_STA:%X\r\n15mV_RSSI:%0.3f,15mV_STA:%X\r\n",
-		temp_rssi[0], temp_res[0],
-		temp_rssi[1], temp_res[1],
-		temp_rssi[2], temp_res[2],
-		temp_rssi[3], temp_res[3]);
-	LOG_VA_ARGS("RES_STA:%X\r\n", _return);
+	LOG_VA_ARGS("0mV_RSSI:%0.3f,0mV_STA:%08lX\r\n", temp_rssi[0], temp_res[0]);
+	LOG_VA_ARGS("5mV_RSSI:%0.3f,5mV_STA:%08lX\r\n", temp_rssi[1], temp_res[1]);
+	LOG_VA_ARGS("10mV_RSSI:%0.3f,10mV_STA:%08lX\r\n", temp_rssi[2], temp_res[2]);
+	LOG_VA_ARGS("15mV_RSSI:%0.3f,15mV_STA:%08lX\r\n", temp_rssi[3], temp_res[3]);
+	LOG_VA_ARGS("RES_STA:%d\r\n", _return);
 #endif
 	//---<<<通过第一波模式信号强度，验证型号强度---开始
 	//---查找最大值
@@ -1967,7 +1971,7 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 		MS1022x->msg_water_tof.msg_down_rssi = temp_rssi[temp_state];
 		//---最佳偏置电压
 		temp_state *= 5;
-		temp_state << 8;
+		temp_state <<= 8;
 		//---重新设置偏置电压
 		//---计算偏置电压的设置
 		temp_state = ms1022_spi_calculate_offset(MS1022x, temp_state);
@@ -2019,7 +2023,7 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
 	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
 	temp_reg = ms1022_spi_calculate_delval(MS1022x, 
-		(MS1022x->msg_water_transducer.msg_space_length*1000.0f/(MS1022x->msg_water_tof.msg_sound_speed/1000.0f))+
+		(MS1022x->msg_water_transducer.msg_space_length*1000.0f/(MS1022x->msg_water_temperature.msg_sound_speed/1000.0f))+
 		MS1022_DIV_FIRE_MIN_WIDTH*3);
 	temp_reg |= 0xA0000002;
 	ms1022_spi_send_reg(MS1022x, 2, temp_reg);
@@ -2257,19 +2261,14 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---计算飞行时间差
 		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
-		//---计算水流的速度
-		MS1022x->msg_water_transducer.msg_water_speed = (MS1022x->msg_water_transducer.msg_space_length*MS1022x->msg_water_tof.msg_diff_time*1000.0f)
-			/ (MS1022x->msg_water_tof.msg_up_time*MS1022x->msg_water_tof.msg_down_time);
-		MS1022x->msg_water_transducer.msg_water_speed *= 500.0f;
 
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
-		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f,WSPEED:.3f\r\n",
+		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi, 
 			MS1022x->msg_water_tof.msg_up_time,
 			MS1022x->msg_water_tof.msg_down_time, 
-			MS1022x->msg_water_tof.msg_diff_time,
-			MS1022x->msg_water_transducer.msg_water_speed);
+			MS1022x->msg_water_tof.msg_diff_time);
 #endif
 	}
 	return _return;
@@ -2316,7 +2315,7 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
 	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
 	temp_reg = ms1022_spi_calculate_delval(MS1022x,
-		(MS1022x->msg_water_transducer.msg_space_length*1000.0f / (MS1022x->msg_water_tof.msg_sound_speed / 1000.0f)) +
+		(MS1022x->msg_water_transducer.msg_space_length*1000.0f / (MS1022x->msg_water_temperature.msg_sound_speed / 1000.0f)) +
 		MS1022_DIV_FIRE_MIN_WIDTH * 3);
 	temp_reg |= 0xA0000002;
 	ms1022_spi_send_reg(MS1022x, 2, temp_reg);
@@ -2545,19 +2544,14 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---计算飞行时间差
 		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
-		//---计算水流的速度
-		MS1022x->msg_water_transducer.msg_water_speed = (MS1022x->msg_water_transducer.msg_space_length*MS1022x->msg_water_tof.msg_diff_time*1000.0f)
-			/ (MS1022x->msg_water_tof.msg_up_time*MS1022x->msg_water_tof.msg_down_time);
-		MS1022x->msg_water_transducer.msg_water_speed *= 500.0f;
 
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
-		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f,WSPEED:.3f\r\n",
+		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi,
 			MS1022x->msg_water_tof.msg_up_time,
 			MS1022x->msg_water_tof.msg_down_time,
-			MS1022x->msg_water_tof.msg_diff_time,
-			MS1022x->msg_water_transducer.msg_water_speed);
+			MS1022x->msg_water_tof.msg_diff_time);
 #endif
 	}
 	return _return;
@@ -2589,21 +2583,29 @@ uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 	//---判断时差获取结果
 	if (_return==OK_0)
 	{
+		//MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
+		//MS1022x->msg_water_temperature.msg_sound_speed = 1500;
 		//---计算流速
-		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_down_time*MS1022x->msg_water_tof.msg_sound_speed;
-		MS1022x->msg_water_transducer.msg_flow_speed *= MS1022x->msg_water_tof.msg_sound_speed;
+		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_diff_time*MS1022x->msg_water_temperature.msg_sound_speed;
+		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;
+		MS1022x->msg_water_transducer.msg_flow_speed *=MS1022x->msg_water_temperature.msg_sound_speed;
+		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;
 		//---除以换能器的距离
 		MS1022x->msg_water_transducer.msg_flow_speed /= MS1022x->msg_water_transducer.msg_space_length;
 		MS1022x->msg_water_transducer.msg_flow_speed /= 2.0F;
 #if (MODULE_LOG_MS1022>0)
-		LOG_VA_ARGS("FLOW_SPEED:%.3f\r\n",
+		LOG_VA_ARGS("FLOW_SPEED:%.8f\r\n",
 			MS1022x->msg_water_transducer.msg_flow_speed);
 #endif
 		//---计算体积流量
+		//---面积
+		MS1022x->msg_water_transducer.msg_flow_volume = CIRCLE_AREA(MS1022x->msg_water_transducer.msg_diameter*1000.0F);
 		MS1022x->msg_water_transducer.msg_flow_volume *= MS1022x->msg_water_transducer.msg_flow_speed;
-		MS1022x->msg_water_transducer.msg_flow_volume *= CIRCLE_AREA(MS1022x->msg_water_transducer.msg_space_length);
+		MS1022x->msg_water_transducer.msg_flow_volume /= 1000.0F;
+		MS1022x->msg_water_transducer.msg_flow_volume /= 1000.0F;
+		
 #if (MODULE_LOG_MS1022>0)
-		LOG_VA_ARGS("FLOW_VOLUME:%.3f\r\n",
+		LOG_VA_ARGS("FLOW_VOLUME:%.8f\r\n",
 			MS1022x->msg_water_transducer.msg_flow_volume);
 #endif
 	}

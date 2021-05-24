@@ -177,6 +177,14 @@
           <Path>SDK\WDT\wdt_task.c</Path>
           <Path>SDK\WDT\wdt_task.h</Path>
         </Category>
+        <Category Name="LCD">
+          <Path>SDK\LCD\lcd_cfg.c</Path>
+          <Path>SDK\LCD\lcd_cfg.h</Path>
+          <Path>SDK\LCD\lcd_lib.c</Path>
+          <Path>SDK\LCD\lcd_lib.h</Path>
+          <Path>SDK\LCD\lcd_task.c</Path>
+          <Path>SDK\LCD\lcd_task.h</Path>
+        </Category>
       </Category>
     </Files>
     <DebugOptions>
@@ -254,8 +262,12 @@
           <Path>Debug\obj\DefaultBuild\key_cfg.obj</Path>
           <Path>Debug\obj\DefaultBuild\key_lib.obj</Path>
           <Path>Debug\obj\DefaultBuild\key_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\lcd_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\lcd_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\lcd_task.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>SDK\LCD</IncludePathForC>
           <IncludePathForC>DefaultBuild</IncludePathForC>
           <IncludePathForC>SDK\SPI</IncludePathForC>
           <IncludePathForC>DriversPlus\R7F0C019</IncludePathForC>
@@ -277,6 +289,7 @@
           <IncludePathForC>SDK\SysTick</IncludePathForC>
           <IncludePathForC>SDK\UART</IncludePathForC>
           <IncludePathForC>SDK\WDT</IncludePathForC>
+          <IncludePathForC>SDK\LCD</IncludePathForC>
           <MacroForC>MCU_USE_RL78_R7F0</MacroForC>
           <MacroForC>USER_OPT_BYTE=0xEF5DAA</MacroForC>
           <MacroForAsm>MCU_USE_RL78_R7F0</MacroForAsm>
@@ -292,6 +305,7 @@
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
+          <Option>-I SDK\LCD</Option>
           <Option>-I DefaultBuild</Option>
           <Option>-I SDK\SPI</Option>
           <Option>-I DriversPlus\R7F0C019</Option>
@@ -313,6 +327,7 @@
           <Option>-I SDK\SysTick</Option>
           <Option>-I SDK\UART</Option>
           <Option>-I SDK\WDT</Option>
+          <Option>-I SDK\LCD</Option>
           <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA</Option>
           <Option>-lang=c99</Option>
           <Option>-c</Option>

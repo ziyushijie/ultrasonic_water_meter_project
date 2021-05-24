@@ -742,7 +742,6 @@ extern "C" {
 	//===根据直径计算圆的面积
 	#define CIRCLE_AREA(d)							(PI*d*d/4.0f)						
 
-
 	#define	VERSION_DATE_SIZE						12																	//---利用__DATE__获取当前日期，占用12个字节，包括字符串结束符
 	#define VERSION_TIME_SIZE						9																	//---利用__TIME__获取当前时间，占用9个字节，包括字符串结束符	
 	#define YEAR_TYPE(a)							( ((a%100!=0)&&(a%4==0))||(a%400==0) )								//---判断是否是闰年

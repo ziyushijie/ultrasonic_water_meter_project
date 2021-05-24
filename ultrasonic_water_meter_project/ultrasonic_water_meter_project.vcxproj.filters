@@ -68,6 +68,8 @@
     </Filter>
     <Filter Include="SDK\Key">
     </Filter>
+    <Filter Include="SDK\LCD">
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\APP\config.h">
@@ -249,6 +251,15 @@
     </ClInclude>
     <ClInclude Include="SDK\Key\key_task.h">
       <Filter>SDK\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\LCD\lcd_cfg.h">
+      <Filter>SDK\LCD</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\LCD\lcd_lib.h">
+      <Filter>SDK\LCD</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\LCD\lcd_task.h">
+      <Filter>SDK\LCD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +466,15 @@
     </ClCompile>
     <ClCompile Include="SDK\Key\key_task.c">
       <Filter>SDK\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\LCD\lcd_cfg.c">
+      <Filter>SDK\LCD</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\LCD\lcd_lib.c">
+      <Filter>SDK\LCD</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\LCD\lcd_task.c">
+      <Filter>SDK\LCD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

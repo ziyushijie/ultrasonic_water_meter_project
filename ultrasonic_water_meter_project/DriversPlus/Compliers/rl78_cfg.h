@@ -16,6 +16,7 @@ extern "C" {
 	#include "r_cg_port.h"	
 	#include "r_cg_pclbuz.h"
 	#include "r_cg_intp.h"
+	#include "r_cg_lcd.h"
 //	#include "stacksct.h"
 
 	#define SIZE_HEAP		0x200

@@ -79,7 +79,7 @@ uint32_t app_get_tick(void)
 	return sys_tick_task_get_inc_count(SYS_TICK_TASK_ONE);
 }
 
-uint8_t temp_buffer[4] = { 0 };
+uint8_t lcd_index = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -104,6 +104,7 @@ void app_init(void)
 	gpio_task_init(app_get_tick);
 	//---CRC初始化
 	crc_task_init(app_get_tick);
+	
 	//---串口初始化
 	uart_task_init(UART_TASK_TWO, app_get_tick);
 	//---串口初始化
@@ -112,12 +113,26 @@ void app_init(void)
 	at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
 	//---TDC芯片初始化
 	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
+	//---断码液晶显示
+	lcd_segment_task_init();
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
 	//PM4 &= ~(1<<5);
 	//gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
-	at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
+	//at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
+	//lcd_segment_task_show_all();
+	for (lcd_index=0;lcd_index<14;lcd_index++)
+	{
+		lcd_segment_task_text_title_on(lcd_index);
+		delay_task_ms(10);
+	}
+	lcd_segment_task_clear();
+	for (lcd_index = 0; lcd_index < 14; lcd_index++)
+	{
+		lcd_segment_task_unit_title_on(lcd_index);
+		delay_task_ms(10);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -130,7 +145,8 @@ void app_init(void)
 void main(void)
 {
 	app_init();
-	uint32_t cnt = app_get_tick();
+	uint32_t cnt_flow = app_get_tick();
+	uint32_t cnt_temp = app_get_tick();
 	//ms1022_spi_task_calibration_resonator(MS1022_TASK_ONE);
 	//ms1022_spi_task_read_start_temperature_restart(MS1022_TASK_ONE);
 	while (1)
@@ -146,13 +162,13 @@ void main(void)
 		}
 		if (uart_task_read_end(UART_TASK_THREE) == OK_0)
 		{
-			uart_task_fill_mode_send_two(UART_TASK_THREE,
+			uart_task_fill_mode_send_three(UART_TASK_THREE,
 				UART_TASK_THREE->msg_uart_rxd.msg_p_data_buffer,
 				UART_TASK_THREE->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_THREE);
 		}
-		if (TIME_SPAN(app_get_tick(), cnt) >3000)
+		if (TIME_SPAN(app_get_tick(), cnt_flow) >3000)
 		{
 			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[0]=0xFE;
 			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[1] = 0xFE;
@@ -185,14 +201,18 @@ void main(void)
 			//	20);
 			////---复位接收，等待下次数据的到来
 			//uart_task_read_reset(UART_TASK_TWO);
-			//---获取进出水口的温度
-			//ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
 			//---获取流量信息
 			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
 			//---更新节拍信息
-			cnt = app_get_tick();
+			cnt_flow = app_get_tick();
 		}
-		
+		if (TIME_SPAN(app_get_tick(), cnt_temp) > 5000)
+		{
+			//---获取进出水口的温度
+			ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_temp = app_get_tick();
+		}
 		
 		WDT_RESET();
 	}

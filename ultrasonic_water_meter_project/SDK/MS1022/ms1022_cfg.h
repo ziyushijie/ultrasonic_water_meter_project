@@ -111,7 +111,6 @@ extern "C" {
 		uint16_t msg_type;						//---管段类型,DN15:0x15;DN20:0x20;DN25:0x25;DN32:0x32;DN40:0x40
 		float msg_space_length;					//---间距长度m
 		float msg_diameter;						//---管段直径
-		float msg_water_speed;					//---粗计算水流的速度
 		float msg_flow_speed;					//---计算管道中的流速
 		float msg_flow_volume;					//---计算体积流量
 	};
@@ -131,7 +130,6 @@ extern "C" {
 		float msg_time_factor;				//---时间系数
 		float msg_up_rssi;					//---第一波模式计算时差的上游信号强度
 		float msg_down_rssi;				//---第一波模式计算时差的上游信号强度
-		float msg_sound_speed;				//---超声波的速度m/s
 	};
 
 	//===定义水温结构体
@@ -151,6 +149,8 @@ extern "C" {
 		float msg_out_temp_factor;			//---出水口温度系数
 		float msg_out_temp;					//---出水口温度[BLUE]
 		float msg_diff_temp;				//---进出水温差
+
+		float msg_sound_speed;				//---超声波的速度m/s
 	};
 
 	//===定义结构体

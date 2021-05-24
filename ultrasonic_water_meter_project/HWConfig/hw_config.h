@@ -14,7 +14,7 @@ extern "C" {
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
 	#define MODULE_LOG_ENABLE				1
-	#define MODULE_LOG_UART_INDEX			2
+	#define MODULE_LOG_UART_INDEX			3
 	//===LOG模块
 #if (MODULE_LOG_ENABLE>0)
 	#define MODULE_LOG_GPIO					0

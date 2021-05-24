@@ -519,6 +519,12 @@
       <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
       <Property>2aede258-1ea0-407d-a481-7e0cbd78799a</Property>
     </Instance>
+    <Instance Guid="f394c340-e96b-4b91-a6ab-bc923f63f555">
+      <Name>LCD</Name>
+      <Type>Category</Type>
+      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
+      <Property>b6efeaee-36f2-4648-8fca-b705915fa783</Property>
+    </Instance>
     <Instance Guid="af57e11e-facc-4a75-bf44-7f5c64a3ed86">
       <Name>at24cxx_cfg.c</Name>
       <Type>File</Type>
@@ -1023,6 +1029,48 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>58fc4c9e-06b6-4820-b11e-f52027662202</ParentItem>
     </Instance>
+    <Instance Guid="8f0a2db3-8e53-4de4-b2f8-493a800303fe">
+      <Name>lcd_cfg.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_cfg.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
+    <Instance Guid="2a1f39f2-bb69-4781-9d84-bdcd9f6487d8">
+      <Name>lcd_cfg.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_cfg.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
+    <Instance Guid="2aa50508-b555-41b0-b948-3ec9721e11fa">
+      <Name>lcd_lib.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_lib.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
+    <Instance Guid="23147407-f2e0-4019-9e99-07dbc6c16dd2">
+      <Name>lcd_lib.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_lib.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
+    <Instance Guid="58b612db-09ba-4dff-9fc2-8534bd97def7">
+      <Name>lcd_task.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_task.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
+    <Instance Guid="5891f096-9b42-43df-a524-b16f1803da36">
+      <Name>lcd_task.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\LCD\lcd_task.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f394c340-e96b-4b91-a6ab-bc923f63f555</ParentItem>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -1098,6 +1146,9 @@
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="2aede258-1ea0-407d-a481-7e0cbd78799a">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="b6efeaee-36f2-4648-8fca-b705915fa783">
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
@@ -1269,7 +1320,13 @@
       <SourceItemType63>CSource</SourceItemType63>
       <SourceItemGuid64>8b14fbef-53ac-49c5-92a7-4579d994c530</SourceItemGuid64>
       <SourceItemType64>CSource</SourceItemType64>
-      <SourceItemCount>65</SourceItemCount>
+      <SourceItemGuid65>8f0a2db3-8e53-4de4-b2f8-493a800303fe</SourceItemGuid65>
+      <SourceItemType65>CSource</SourceItemType65>
+      <SourceItemGuid66>2aa50508-b555-41b0-b948-3ec9721e11fa</SourceItemGuid66>
+      <SourceItemType66>CSource</SourceItemType66>
+      <SourceItemGuid67>58b612db-09ba-4dff-9fc2-8534bd97def7</SourceItemGuid67>
+      <SourceItemType67>CSource</SourceItemType67>
+      <SourceItemCount>68</SourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
     <Instance Guid="6bb7060d-7e24-4135-bd9b-7db166417523">
@@ -1433,14 +1490,15 @@
       <COptionCheckLanguageExtension-DefaultValue>False</COptionCheckLanguageExtension-DefaultValue>
       <COptionMisraIntermodule-DefaultValue>False</COptionMisraIntermodule-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585804638878821367</TimeTagModified--0>
+      <TimeTagModified--0>-8585799637167043270</TimeTagModified--0>
       <COptionAsmPath-0>False</COptionAsmPath-0>
       <COptionChangeMessageError-0>No</COptionChangeMessageError-0>
       <COptionCharacterSet-0>Auto</COptionCharacterSet-0>
       <COptionConvertCc-0>None</COptionConvertCc-0>
       <COptionDblSize-0>True</COptionDblSize-0>
       <COptionG-0>True</COptionG-0>
-      <COptionI-0>DefaultBuild
+      <COptionI-0>SDK\LCD
+DefaultBuild
 SDK\SPI
 DriversPlus\R7F0C019
 DriversPlus\Compliers
@@ -1461,6 +1519,7 @@ SDK\SPI
 SDK\SysTick
 SDK\UART
 SDK\WDT
+SDK\LCD
 </COptionI-0>
       <COptionLangC-0>C99</COptionLangC-0>
       <COptionMOrC-0>-c</COptionMOrC-0>
@@ -2440,6 +2499,30 @@ USER_OPT_BYTE=0xEF5DAA
       <ItemAddTime>637564074050093281</ItemAddTime>
       <ItemAddTimeCount>5</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="8f0a2db3-8e53-4de4-b2f8-493a800303fe">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="2a1f39f2-bb69-4781-9d84-bdcd9f6487d8">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="2aa50508-b555-41b0-b948-3ec9721e11fa">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>2</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="23147407-f2e0-4019-9e99-07dbc6c16dd2">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>3</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="58b612db-09ba-4dff-9fc2-8534bd97def7">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>4</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="5891f096-9b42-43df-a524-b16f1803da36">
+      <ItemAddTime>637572687005554343</ItemAddTime>
+      <ItemAddTimeCount>5</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="f782db2c-1c42-4ca1-af6a-53a3a5067217">
       <TimeTagModified-SourceItem0--0>-8585852102664643092</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -2693,6 +2776,18 @@ USER_OPT_BYTE=0xEF5DAA
       <SourceItem64-IsLockedByUser>False</SourceItem64-IsLockedByUser>
       <SourceItem64-BuildingTarget-0>True</SourceItem64-BuildingTarget-0>
       <SourceItem64-IndividualCompileOption-0>False</SourceItem64-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem65--0>-8585799637849221465</TimeTagModified-SourceItem65--0>
+      <SourceItem65-IsLockedByUser>False</SourceItem65-IsLockedByUser>
+      <SourceItem65-BuildingTarget-0>True</SourceItem65-BuildingTarget-0>
+      <SourceItem65-IndividualCompileOption-0>False</SourceItem65-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem66--0>-8585799637849211406</TimeTagModified-SourceItem66--0>
+      <SourceItem66-IsLockedByUser>False</SourceItem66-IsLockedByUser>
+      <SourceItem66-BuildingTarget-0>True</SourceItem66-BuildingTarget-0>
+      <SourceItem66-IndividualCompileOption-0>False</SourceItem66-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem67--0>-8585799637849211406</TimeTagModified-SourceItem67--0>
+      <SourceItem67-IsLockedByUser>False</SourceItem67-IsLockedByUser>
+      <SourceItem67-BuildingTarget-0>True</SourceItem67-BuildingTarget-0>
+      <SourceItem67-IndividualCompileOption-0>False</SourceItem67-IndividualCompileOption-0>
     </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem25--0>-8585861550920951480</TimeTagModified-SourceItem25--0>
