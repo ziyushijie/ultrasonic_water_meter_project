@@ -17,8 +17,11 @@ extern "C" {
 	uint8_t lcd_segment_lib_unit_title_on(uint16_t unit);
 	uint8_t lcd_segment_lib_decimal_point(uint16_t index, uint8_t isshow);
 	uint8_t lcd_segment_lib_data_on(uint16_t index, char dat);
+	uint8_t lcd_segment_lib_data_off(uint16_t index);
 	uint8_t lcd_segment_lib_test_enter(void);
 	uint8_t lcd_segment_lib_test_exit(void);
+	uint8_t lcd_segment_lib_show_integer(uint32_t dat);
+	uint8_t lcd_segment_lib_show_float(float dat, uint8_t pnum);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

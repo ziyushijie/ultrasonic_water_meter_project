@@ -97,6 +97,8 @@ extern "C" {
 	uint8_t lcd_segment_data_off(uint16_t index);
 	uint8_t lcd_segment_test_enter(void);
 	uint8_t lcd_segment_test_exit(void);
+	uint8_t lcd_segment_show_integer(uint32_t dat);
+	uint8_t lcd_segment_show_float(float dat,uint8_t pnum);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

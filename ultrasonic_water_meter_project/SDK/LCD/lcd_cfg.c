@@ -8,7 +8,7 @@ uint16_t g_lcd_segment_unit = UNIT_NONE;
 //===LCD断码表
 //0,1,2,3,4,5,6,7,8,9,A,b,C,d,E,F,i,n,o,r,t,u,-
 const uint8_t g_lcd_segment_display_table[23] = {
-	0x5F,0x06,0x3D,0x4F,0x66,0x6B,0x7B,0x4E,0x7F,0x6F,
+	0x5F,0x06,0x3D,0x2F,0x66,0x6B,0x7B,0x0E,0x7F,0x6F,
 	0x7E,0x73,0x59,0x37,0x79,0x78,0x10,0x32,0x33,0x30,
 	0x71,0x13,0x20
 };
@@ -102,7 +102,8 @@ uint8_t lcd_segment_init(void)
 
 	//---显示A图形区域
 	LCDM1 |= _00_LCD_DISPLAY_PATTERN_A;
-	LCDC0 = _05_LCD_CLOCK_FSUB_FIL_6;
+	//---限定LCD的时钟频率，过快时钟频率会有虚影，
+	LCDC0 = _07_LCD_CLOCK_FSUB_FIL_8;//_05_LCD_CLOCK_FSUB_FIL_6;
 
 	lcd_segment_show_all();
 
@@ -842,7 +843,7 @@ uint8_t lcd_segment_data_on(uint16_t index, char dat )
 		default:
 		{
 			return lcd_segment_clear();
-			break;
+			//break;
 		}
 	}
 	//---判断显示内容，从左到右，依次是1,2,3,4,5,6,7,8
@@ -850,58 +851,66 @@ uint8_t lcd_segment_data_on(uint16_t index, char dat )
 	{
 		case 1:
 		{
-			SEG1 = temp_data & 0x0F;
-			temp_seg = SEG0&0xF8;
-			SEG0 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG1 &= 0xF0;
+			SEG0 &= 0xF8;
+			SEG1 |= (temp_data & 0x0F);
+			SEG0 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 2:
 		{
-			SEG3 = temp_data & 0x0F;
-			temp_seg = SEG2 & 0xF8;
-			SEG2 = ((temp_data >> 4) & 0x07) | temp_seg;
+			SEG3 &= 0xF0;
+			SEG2 &= 0xF8;
+			SEG3 |= (temp_data & 0x0F);
+			SEG2 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 3:
 		{
-			SEG8 = temp_data & 0x0F;
-			temp_seg = SEG7 & 0xF8;
-			SEG7 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG8 &= 0xF0;
+			SEG7 &= 0xF8;
+			SEG8 |= (temp_data & 0x0F);
+			SEG7 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 4:
 		{
-			SEG12 = temp_data & 0x0F;
-			temp_seg = SEG11 & 0xF8;
-			SEG11= ((temp_data>>4) & 0x07)| temp_seg;
+			SEG12 &= 0xF0;
+			SEG11 &= 0xF8;
+			SEG12 |= (temp_data & 0x0F);
+			SEG11 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 5:
 		{
-			SEG17 = temp_data & 0x0F;
-			temp_seg = SEG16 & 0xF8;
-			SEG16 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG17 &= 0xF0;
+			SEG16 &= 0xF8;
+			SEG17 |= (temp_data & 0x0F);
+			SEG16 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 6:
 		{
-			SEG19 = temp_data & 0x0F;
-			temp_seg = SEG18 & 0xF8;
-			SEG18 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG19 &= 0xF0;
+			SEG18 &= 0xF8;
+			SEG19 |= (temp_data & 0x0F);
+			SEG18 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 7:
 		{
-			SEG21 = temp_data & 0x0F;
-			temp_seg = SEG20 & 0xF8;
-			SEG20 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG21 &= 0xF0;
+			SEG20 &= 0xF8;
+			SEG21 |= (temp_data & 0x0F);
+			SEG20 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		case 8:
 		{
-			SEG23 = temp_data & 0x0F;
-			temp_seg = SEG22 & 0xF8;
-			SEG22 = ((temp_data>>4) & 0x07)| temp_seg;
+			SEG23 &= 0xF0;
+			SEG22 &= 0xF8;
+			SEG23 |= (temp_data & 0x0F);
+			SEG22 |= ((temp_data >> 4) & 0x07);
 			break;
 		}
 		default:
@@ -927,50 +936,50 @@ uint8_t lcd_segment_data_off(uint16_t index)
 	{
 		case 1:
 		{
-			SEG1 = 0xF0;
-			SEG0 = 0xF8;
+			SEG1 &= 0xF0;
+			SEG0 &= 0xF8;
 			break;
 		}
 		case 2:
 		{
-			SEG3 = 0xF0;
-			SEG2 = 0xF8;
+			SEG3 &= 0xF0;
+			SEG2 &= 0xF8;
 			break;
 		}
 		case 3:
 		{
-			SEG8 = 0xF0;
-			SEG7 = 0xF8;
+			SEG8 &= 0xF0;
+			SEG7 &= 0xF8;
 			break;
 		}
 		case 4:
 		{
-			SEG12 = 0xF0;
-			SEG11 = 0xF8;
+			SEG12 &= 0xF0;
+			SEG11 &= 0xF8;
 			break;
 		}
 		case 5:
 		{
-			SEG17 = 0xF0;
-			SEG16 = 0xF8;
+			SEG17 &= 0xF0;
+			SEG16 &= 0xF8;
 			break;
 		}
 		case 6:
 		{
-			SEG19 = 0xF0;
-			SEG18 = 0xF8;
+			SEG19 &= 0xF0;
+			SEG18 &= 0xF8;
 			break;
 		}
 		case 7:
 		{
-			SEG21 = 0xF0;
-			SEG20 = 0xF8;
+			SEG21 &= 0xF0;
+			SEG20 &= 0xF8;
 			break;
 		}
 		case 8:
 		{
-			SEG23 = 0xF0;
-			SEG22 = 0xF8;
+			SEG23 &= 0xF0;
+			SEG22 &= 0xF8;
 			break;
 		}
 		default:
@@ -1009,5 +1018,664 @@ uint8_t lcd_segment_test_exit(void)
 	BLON = 0;
 	LCDSEL = 0;
 	SEG38 &= 0x77;
+	return OK_0;
+}
+
+
+//uint8_t temp_dat = 0;
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示整数
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_integer(uint32_t dat)
+{
+	uint8_t temp_dat = dat / 10000000;
+	//temp_dat = dat / 10000000;
+	if (temp_dat==0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	dat %= 10000000;
+	temp_dat = dat / 1000000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	dat %= 1000000;
+	temp_dat = dat / 100000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 0);
+	dat %= 100000;
+	temp_dat = dat / 10000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(4);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(2, 0);
+	dat %= 10000;
+	temp_dat = dat / 1000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(5);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 0);
+	dat %= 1000;
+	temp_dat = dat / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(6);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 0);
+	dat %= 100;
+	temp_dat = dat / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(7);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7, 0);
+	temp_dat = dat % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(8);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数,小数点后保留5位
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float_p5f(float dat)
+{
+	//---强制转换为整数
+	uint16_t temp_integer = (uint16_t)dat;
+	uint8_t temp_dat = temp_integer / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	temp_integer %= 100;
+	temp_dat = temp_integer / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 1);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer= (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(4, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(4, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(5, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(6, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(7, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(8, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数,小数点后保留4位
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float_p4f(float dat)
+{
+	//---强制转换为整数
+	uint16_t temp_integer = (uint16_t)dat;
+	uint8_t temp_dat = temp_integer / 1000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	temp_integer %= 1000;
+	temp_dat = temp_integer / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	temp_integer %= 100;
+	temp_dat = temp_integer / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 0);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(4);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(4, 1);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(5, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(6, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(7, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(8, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数,小数点后保留3位
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float_p3f(float dat)
+{
+	//---强制转换为整数
+	uint32_t temp_integer = (uint32_t)dat;
+	uint8_t temp_dat = temp_integer / 10000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	temp_integer %= 10000;
+	temp_dat = temp_integer / 1000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	temp_integer %= 1000;
+	temp_dat = temp_integer / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 0);
+	temp_integer %= 100;
+	temp_dat = temp_integer / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(4);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(4, 0);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(5, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 1);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(6, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(7, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(8, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数,小数点后保留2位
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float_p2f(float dat)
+{
+	//---强制转换为整数
+	uint32_t temp_integer = (uint32_t)dat;
+	uint8_t temp_dat = temp_integer / 100000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	temp_integer %= 100000;
+	temp_dat = temp_integer / 10000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	temp_integer %= 10000;
+	temp_dat = temp_integer / 1000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 0);
+	temp_integer %= 1000;
+	temp_dat = temp_integer / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(4);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(4, 0);
+	temp_integer %= 100;
+	temp_dat = temp_integer / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(5);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 0);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(6, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 1);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(7, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7, 0);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(8, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数,小数点后保留1位
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float_p1f(float dat)
+{
+	//---强制转换为整数
+	uint32_t temp_integer = (uint32_t)dat;
+	uint8_t temp_dat = temp_integer / 1000000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(1);
+	}
+	else
+	{
+		lcd_segment_data_on(1, temp_dat);
+	}
+	temp_integer %= 1000000;
+	temp_dat = temp_integer / 100000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(2);
+	}
+	else
+	{
+		lcd_segment_data_on(2, temp_dat);
+	}
+	temp_integer %= 100000;
+	temp_dat = temp_integer / 10000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(3);
+	}
+	else
+	{
+		lcd_segment_data_on(3, temp_dat);
+	}
+	lcd_segment_decimal_point(3, 0);
+	temp_integer %= 10000;
+	temp_dat = temp_integer / 1000;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(4);
+	}
+	else
+	{
+		lcd_segment_data_on(4, temp_dat);
+	}
+	lcd_segment_decimal_point(4, 0);
+	temp_integer %= 1000;
+	temp_dat = temp_integer / 100;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(5);
+	}
+	else
+	{
+		lcd_segment_data_on(5, temp_dat);
+	}
+	lcd_segment_decimal_point(5, 0);
+	temp_integer %= 100;
+	temp_dat = temp_integer / 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_off(6);
+	}
+	else
+	{
+		lcd_segment_data_on(6, temp_dat);
+	}
+	lcd_segment_decimal_point(6, 0);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(7, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(7, temp_dat);
+	}
+	lcd_segment_decimal_point(7,1);
+	dat -= temp_integer;
+	dat *= 10.0f;
+	temp_integer = (uint16_t)(dat);
+	temp_dat = temp_integer % 10;
+	if (temp_dat == 0)
+	{
+		lcd_segment_data_on(8, 0);
+	}
+	else
+	{
+		lcd_segment_data_on(8, temp_dat);
+	}
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示浮点数，并决定小数点后保留几位小数，依次是1,2,3,4,5位小数
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_float(float dat, uint8_t pnum)
+{
+	//---判断保留的小数点位数
+	switch (pnum)
+	{
+		case 1:
+		{
+			lcd_segment_show_float_p1f(dat);
+			break;
+		}
+		case 2:
+		{
+			lcd_segment_show_float_p2f(dat);
+			break;
+		}
+		case 3:
+		{
+			lcd_segment_show_float_p3f(dat);
+			break;
+		}
+		case 4:
+		{
+			lcd_segment_show_float_p4f(dat);
+			break;
+		}
+		case 5:
+		{
+			lcd_segment_show_float_p5f(dat);
+			break;
+		}
+		default:
+		{
+			lcd_segment_show_integer(dat);
+			break;
+		}
+	}
 	return OK_0;
 }

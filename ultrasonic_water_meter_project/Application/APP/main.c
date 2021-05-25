@@ -81,6 +81,11 @@ uint32_t app_get_tick(void)
 
 uint8_t lcd_index = 0;
 
+const uint8_t g_lcd_segment_display_data_table[23]=
+{
+	0,1,2,3,4,5,6,7,8,9,'A','b','C','d','E','F','i','n','o','r','t','u','-'
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 应用初始化函数
@@ -106,9 +111,13 @@ void app_init(void)
 	crc_task_init(app_get_tick);
 	
 	//---串口初始化
+#ifdef TYPE_UART2
 	uart_task_init(UART_TASK_TWO, app_get_tick);
+#endif
 	//---串口初始化
+#ifdef TYPE_UART3
 	uart_task_init(UART_TASK_THREE, app_get_tick);
+#endif
 	//---eeprom存储器初始化
 	at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
 	//---TDC芯片初始化
@@ -133,6 +142,29 @@ void app_init(void)
 		lcd_segment_task_unit_title_on(lcd_index);
 		delay_task_ms(10);
 	}
+
+	//for (lcd_index = 0; lcd_index < 23; lcd_index++)
+	//{
+	//	lcd_segment_task_data_on(1, g_lcd_segment_display_data_table[lcd_index]);
+	//	delay_task_ms(10);
+	//}
+	lcd_segment_task_show_integer(12345678);
+	/*for (lcd_index=0;lcd_index<4;lcd_index++)
+	{
+		SEG0 |= (1 << lcd_index);
+		delay_task_ms(10);
+		SEG0 &= 0xF0;
+	}*/
+	lcd_segment_task_show_float(876.54321,5);
+	delay_task_ms(10);
+	lcd_segment_task_show_float(876.54321, 4);
+	delay_task_ms(10);
+	lcd_segment_task_show_float(876.54321, 3);
+	delay_task_ms(10);
+	lcd_segment_task_show_float(876.54321, 2);
+	delay_task_ms(10);
+	lcd_segment_task_show_float(876.54321, 1);
+	delay_task_ms(10);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,23 +183,28 @@ void main(void)
 	//ms1022_spi_task_read_start_temperature_restart(MS1022_TASK_ONE);
 	while (1)
 	{
+#ifdef TYPE_UART2
 		//---检查是否收到数据
 		if (uart_task_read_end(UART_TASK_TWO)==OK_0)
 		{
-			uart_task_fill_mode_send_two(UART_TASK_TWO,
+			uart_task_fill_mode_send(UART_TASK_TWO,
 				UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
 				UART_TASK_TWO->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_TWO);
 		}
+#endif
+#ifdef TYPE_UART3
 		if (uart_task_read_end(UART_TASK_THREE) == OK_0)
 		{
-			uart_task_fill_mode_send_three(UART_TASK_THREE,
+			uart_task_fill_mode_send(UART_TASK_THREE,
 				UART_TASK_THREE->msg_uart_rxd.msg_p_data_buffer,
 				UART_TASK_THREE->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_THREE);
 		}
+#endif
+		/*
 		if (TIME_SPAN(app_get_tick(), cnt_flow) >3000)
 		{
 			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[0]=0xFE;
@@ -213,7 +250,7 @@ void main(void)
 			//---更新节拍信息
 			cnt_temp = app_get_tick();
 		}
-		
+		*/
 		WDT_RESET();
 	}
 }
