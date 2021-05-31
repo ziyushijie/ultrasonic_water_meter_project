@@ -22,26 +22,35 @@ extern "C" {
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
 	#define MODULE_LOG_MS1022				1
+	#define MODULE_LOG_KEY_BUTTON			1
 #endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////SysTick信息的基本配置---开始/////////////////////////////////////////////////
 	//===默认的最小系统节拍,单位是ms，系统节拍的最小值是1ms，可以通过这里修改，必须是1的整数倍
 	#define	SYS_TICK_MIN_PULSE_WIDTH		1
+	//===最小脉冲宽度ms
 	#define SYS_MIN_PULSE_WIDTH				SYS_TICK_MIN_PULSE_WIDTH
 	///////////////SysTick信息的基本配置---结束/////////////////////////////////////////////////
 
 	///////////////CRC信息的基本配置---开始/////////////////////////////////////////////////
+	//===最小脉冲宽度ms
 	#define CRC_MIN_PULSE_WIDTH				SYS_MIN_PULSE_WIDTH
 	///////////////CRC信息的基本配置---结束/////////////////////////////////////////////////
 
 	///////////////GPIO信息的基本配置---开始/////////////////////////////////////////////////
+	//===最小脉冲宽度ms
 	#define GPIO_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
+	//===最大等待时间ms
 	#define GPIO_MAX_WAIT_TIME				(4/GPIO_MIN_PULSE_WIDTH)
 	///////////////GPIO信息的基本配置---结束/////////////////////////////////////////////////
 
 	///////////////SPI信息的基本配置---开始/////////////////////////////////////////////////
+	//===允许软件模拟SPI
+	//#define SPI_EBABLE_SW
+	//===最小脉冲宽度ms
 	#define SPI_MIN_PULSE_WIDTH				SYS_MIN_PULSE_WIDTH
+	//===最大等待时间ms
 	#define SPI_MAX_WAIT_TIME				(4/GPIO_MIN_PULSE_WIDTH)
 	///////////////SPI信息的基本配置---结束/////////////////////////////////////////////////
 
@@ -55,7 +64,9 @@ extern "C" {
 	#define TYPE_UART2
 	#define TYPE_UART3
 
+	//===最小脉冲宽度ms
 	#define UART_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
+	//===缓存区大小偏置
 	#define UART_BASE_SIZE_OFFSET			0
 
 	//===>>>串口1的初始化---开始//////////////////////////////////////////////////////////
@@ -131,6 +142,7 @@ extern "C" {
 	
 	
 	///////////////AT24CXX信息的基本配置---开始/////////////////////////////////////////////////
+	//===最小脉冲宽度ms
 	#define AT24CXX_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
 
 	//===>>>EEPROM1的初始化---开始//////////////////////////////////////////////////////////
@@ -153,6 +165,7 @@ extern "C" {
 	///////////////AT24CXX信息的基本配置---结束/////////////////////////////////////////////////
 
 	///////////////MS1022信息的基本配置---开始/////////////////////////////////////////////////	
+	//===最小脉冲宽度ms
 	#define MS1022_MIN_PULSE_WIDTH			SYS_MIN_PULSE_WIDTH
 	//===定义MS1022的工作主晶振时钟
 	#define MS1022_HSE_CLOK_MHZ				4.0f
@@ -171,7 +184,11 @@ extern "C" {
 
 	//===>>>TDC1的初始化---开始//////////////////////////////////////////////////////////
 	//===SPI使用的模式，0---软件模拟，1---硬件端口
+#ifdef SPI_EBABLE_SW
 	#define MS1022_SPI_ENABLE_HW_ONE								1
+#else
+	#define MS1022_SPI_ENABLE_HW_ONE								1 
+#endif
 	//===SS端口
 	#define MS1022_SPI_CS_PORT_ONE									GPIOP1
 	#define MS1022_SPI_CS_BIT_ONE									GPIO_PIN_BIT_5
@@ -198,6 +215,21 @@ extern "C" {
 	//===<<<TDC1的初始化---结束//////////////////////////////////////////////////////////
 	
 	///////////////MS1022信息的基本配置---结束/////////////////////////////////////////////////
+
+	///////////////按键信息的基本配置---开始/////////////////////////////////////////////////	
+	//===最小脉冲值
+	#define KEY_BUTTON_MIN_PULSE_WIDTH								SYS_MIN_PULSE_WIDTH
+	
+	//===定义支持的按键个数
+	#define KEY_BUTTON_MAX_NUM										1
+	//===按键1端口	
+	#define KEY_BUTTON_PORT_ONE										GPIOP13
+	//===按键1端口号	
+	#define KEY_BUTTON_BIT_ONE										GPIO_PIN_BIT_7
+	//===按键1端口激活电平
+	#define KEY_BUTTON_ACTIVE_LEVEL_ONE								ACTIVE_LEVEL_LOW
+
+	///////////////按键信息的基本配置---结束/////////////////////////////////////////////////
 
 #ifdef __cplusplus
 }

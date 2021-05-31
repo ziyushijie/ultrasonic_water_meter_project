@@ -155,7 +155,6 @@ static void __near uart_interrupt_send_three(void)
 
 #pragma region 滴答定时器
 
-
 #pragma interrupt sys_tick_interrupt(vect=INTTM02)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,7 +173,7 @@ static void __near sys_tick_interrupt(void)
 
 #pragma endregion
 
-#pragma region MS1022中断信号
+#pragma region MS1022中断处理
 
 #pragma interrupt ms1022_interrupt_flag(vect=INTP7)
 #pragma interrupt ms1022_interrupt_spi(vect=INTCSI00)
@@ -206,3 +205,23 @@ static void __near ms1022_interrupt_spi(void)
 }
 
 #pragma endregion
+
+#pragma region 按键中断处理
+
+#pragma interrupt key_interrupt_one(vect=INTP0)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 按键中断处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near key_interrupt_one(void)
+{
+	key_task_it_irq_one(KEY_TASK_ONE);
+	SEI();
+}
+
+#pragma endregion
+

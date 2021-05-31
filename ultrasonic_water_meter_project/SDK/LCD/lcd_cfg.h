@@ -61,7 +61,7 @@ extern "C" {
 		TEXT_RTC,		//---时间
 		TEXT_ACC_RTC,	//---累积时间
 		TEXT_BATTERY ,	//---电池
-	}text_title_on;
+	}TEXT_TITTLE;
 
 	//===单元标题
 	typedef enum
@@ -80,25 +80,144 @@ extern "C" {
 		UNIT_M3,    //---显示m3
 		UNIT_M3_H,  //---显示m3小数点后的h
 		UNIT_M3H,   //---显示m3/h
-	}unit_title_on;
+	}UNIT_TITTLE;
+
+	//===定义结构体
+	typedef struct _LCD_HandleType			LCD_HandleType;
+	//===定义指针结构体
+	typedef struct _LCD_HandleType			* pLCD_HandleType;
+	//===结构体变量
+	struct _LCD_HandleType
+	{
+		uint8_t msg_backlight;					//---显示背光
+		uint16_t msg_text;						//---显示文本
+		uint16_t msg_unit;						//---显示单位
+		uint32_t msg_backlight_record;			//---背光记录
+		uint32_t(*msg_f_time_tick)(void);		//---时间节拍
+	};
+
+	#define LCD_TASK_ONE						p_lcd_one
+	#define LCD_TASK_TWO						0
+	#define LCD_TASK_THREE						0
+
+	//===外部调用接口
+	extern LCD_HandleType						g_lcd_one;
+	extern pLCD_HandleType						p_lcd_one;
+	
+	//===函数定义
+	uint8_t lcd_segment_time_tick_init(LCD_HandleType* LCDx, uint32_t(*func_time_tick)(void));
+	uint8_t lcd_segment_init(LCD_HandleType *LCDx, uint32_t(*func_time_tick)(void));
+
+	uint8_t lcd_segment_enable_one(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_enable_two(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_enable_three(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_enable(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_disable_one(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_disable_two(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_disable_three(LCD_HandleType *LCDx);
+	uint8_t lcd_segment_disable(LCD_HandleType *LCDx);
+
+	uint8_t lcd_segment_clear_one(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_clear_two(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_clear_three(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_clear(LCD_HandleType *LCDx);
+
+	uint8_t lcd_segment_show_all_one  (LCD_HandleType* LCDx);
+	uint8_t lcd_segment_show_all_two  (LCD_HandleType* LCDx);
+	uint8_t lcd_segment_show_all_three(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_show_all(LCD_HandleType *LCDx);
+
+	uint8_t lcd_segment_text_title_on_one(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_on_two(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_on_three(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_on(LCD_HandleType *LCDx,uint16_t text);
+
+	uint8_t lcd_segment_text_title_off_one(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_off_two(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_off_three(LCD_HandleType* LCDx, uint16_t text);
+	uint8_t lcd_segment_text_title_off(LCD_HandleType *LCDx, uint16_t text);
+
+	uint8_t lcd_segment_unit_title_on_one(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_on_two(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_on_three(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_on(LCD_HandleType *LCDx, uint16_t unit);
+
+	uint8_t lcd_segment_unit_title_off_one(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_off_two(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_off_three(LCD_HandleType* LCDx, uint16_t unit);
+	uint8_t lcd_segment_unit_title_off(LCD_HandleType* LCDx, uint16_t unit);
+
+	uint8_t lcd_segment_decimal_point_one(LCD_HandleType* LCDx, uint16_t index, uint8_t isshow);
+	uint8_t lcd_segment_decimal_point_two(LCD_HandleType* LCDx, uint16_t index, uint8_t isshow);
+	uint8_t lcd_segment_decimal_point_three(LCD_HandleType* LCDx, uint16_t index, uint8_t isshow);
+	uint8_t lcd_segment_decimal_point(LCD_HandleType *LCDx, uint16_t index, uint8_t isshow);
+
+	uint8_t lcd_segment_data_on_one(LCD_HandleType* LCDx, uint16_t index, char dat);
+	uint8_t lcd_segment_data_on_two(LCD_HandleType* LCDx, uint16_t index, char dat);
+	uint8_t lcd_segment_data_on_three(LCD_HandleType* LCDx, uint16_t index, char dat);
+	uint8_t lcd_segment_data_on(LCD_HandleType* LCDx, uint16_t index, char dat);
+
+	uint8_t lcd_segment_data_off_one(LCD_HandleType* LCDx, uint16_t index);
+	uint8_t lcd_segment_data_off_two(LCD_HandleType* LCDx, uint16_t index);
+	uint8_t lcd_segment_data_off_three(LCD_HandleType* LCDx, uint16_t index);
+	uint8_t lcd_segment_data_off(LCD_HandleType* LCDx, uint16_t index);
 
 
-	uint8_t lcd_segment_init(void);
-	uint8_t lcd_segment_enable(void);
-	uint8_t lcd_segment_disable(void);
-	uint8_t lcd_segment_clear(void);
-	uint8_t lcd_segment_show_all(void);
-	uint8_t lcd_segment_text_title_on(uint16_t text);
-	uint8_t lcd_segment_text_title_off(uint16_t text);
-	uint8_t lcd_segment_unit_title_on(uint16_t unit);
-	uint8_t lcd_segment_unit_title_off(uint16_t unit);
-	uint8_t lcd_segment_decimal_point(uint16_t index, uint8_t isshow);
-	uint8_t lcd_segment_data_on(uint16_t index, char dat);
-	uint8_t lcd_segment_data_off(uint16_t index);
-	uint8_t lcd_segment_test_enter(void);
-	uint8_t lcd_segment_test_exit(void);
-	uint8_t lcd_segment_show_integer(uint32_t dat);
-	uint8_t lcd_segment_show_float(float dat,uint8_t pnum);
+	uint8_t lcd_segment_test_enter_one(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_enter_two(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_enter_three(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_enter(LCD_HandleType* LCDx);
+	
+	uint8_t lcd_segment_test_exit_one(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_exit_two(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_exit_three(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_test_exit(LCD_HandleType* LCDx);
+
+	uint8_t lcd_segment_show_integer_one(LCD_HandleType* LCDx, uint32_t dat, uint8_t isfill);
+	uint8_t lcd_segment_show_integer_two(LCD_HandleType* LCDx, uint32_t dat, uint8_t isfill);
+	uint8_t lcd_segment_show_integer_three(LCD_HandleType* LCDx, uint32_t dat, uint8_t isfill);
+	uint8_t lcd_segment_show_integer(LCD_HandleType* LCDx, uint32_t dat, uint8_t isfill);
+
+	uint8_t lcd_segment_show_float_one(LCD_HandleType* LCDx, float dat, uint8_t pnum);
+	uint8_t lcd_segment_show_float_two(LCD_HandleType* LCDx, float dat, uint8_t pnum);
+	uint8_t lcd_segment_show_float_three(LCD_HandleType* LCDx, float dat, uint8_t pnum);
+	uint8_t lcd_segment_show_float(LCD_HandleType *LCDx, float dat,uint8_t pnum);
+
+	uint8_t lcd_segment_show_diff_temperature_one(LCD_HandleType* LCDx, float temperature, uint8_t positive, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_temperature_two(LCD_HandleType* LCDx, float temperature, uint8_t positive, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_temperature_three(LCD_HandleType* LCDx, float temperature, uint8_t positive, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_temperature(LCD_HandleType* LCDx, float temperature, uint8_t positive, uint8_t istestmode);
+
+	uint8_t lcd_segment_show_temperature_one(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
+	uint8_t lcd_segment_show_temperature_two(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
+	uint8_t lcd_segment_show_temperature_three(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
+	uint8_t lcd_segment_show_temperature(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
+
+	uint8_t lcd_segment_show_flow_one(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_two(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_three(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+
+	uint8_t lcd_segment_show_addr_one(LCD_HandleType* LCDx, uint32_t addr);
+	uint8_t lcd_segment_show_addr_two(LCD_HandleType* LCDx, uint32_t addr);
+	uint8_t lcd_segment_show_addr_three(LCD_HandleType* LCDx, uint32_t addr);
+	uint8_t lcd_segment_show_addr(LCD_HandleType* LCDx, uint32_t addr);
+
+	uint8_t lcd_segment_show_rtc_one(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_rtc_two(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_rtc_three(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_rtc(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+
+	uint8_t lcd_segment_show_acc_rtc_one(LCD_HandleType* LCDx, uint32_t accrtc);
+	uint8_t lcd_segment_show_acc_rtc_two(LCD_HandleType* LCDx, uint32_t accrtc);
+	uint8_t lcd_segment_show_acc_rtc_three(LCD_HandleType* LCDx, uint32_t accrtc);
+	uint8_t lcd_segment_show_acc_rtc(LCD_HandleType* LCDx, uint32_t accrtc);
+
+	uint8_t lcd_segment_show_power_one(LCD_HandleType* LCDx, float power, uint8_t istestmode);
+	uint8_t lcd_segment_show_power_two(LCD_HandleType* LCDx, float power, uint8_t istestmode);
+	uint8_t lcd_segment_show_power_three(LCD_HandleType* LCDx, float power, uint8_t istestmode);
+	uint8_t lcd_segment_show_power(LCD_HandleType* LCDx, float power, uint8_t istestmode);
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

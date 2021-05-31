@@ -8,6 +8,7 @@ extern "C" {
 	#include "key_lib.h"
 	
 	//===º¯Êı¶¨Òå
+	uint8_t key_task_it_irq_one(KEY_HandleType *KEYx);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

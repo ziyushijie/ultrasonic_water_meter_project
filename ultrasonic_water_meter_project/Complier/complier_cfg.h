@@ -671,6 +671,18 @@ extern "C" {
 		ERROR_FF = 0xFF,
 	}FuncSTATE;
 
+	#define ZXINT_TBZM_KEY_PRESS_ACTIVE_LEVEL_LOW			0															//---按键低电平有效
+	#define ZXINT_TBZM_KEY_PRESS_ACTIVE_LEVEL_HIGH			1															//---按键高电平有效
+
+	//===激活电平
+	typedef enum
+	{
+		ACTIVE_LEVEL_LOW=0,				//---低电平激活
+		ACTIVE_LEVEL_HIGH=1,			//---高电平激活
+		ACTIVE_LEVEL_RISING_EDGE,		//---上升沿激活---不支持
+		ACTIVE_LEVEL_FALLING_EDGE		//---下降沿激活---不支持
+	}ACTIVE_LEVEL;
+
 	//===结构体定义
 	typedef struct _Record_DataType					Record_DataType;
 	//===定义指针结构体

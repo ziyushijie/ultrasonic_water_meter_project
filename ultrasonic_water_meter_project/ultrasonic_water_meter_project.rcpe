@@ -24,32 +24,23 @@
         <Path>Doc\read me.txt</Path>
       </Category>
       <Category Name="Drivers">
-        <Path>Drivers\cg_src\r_cg_adc.c</Path>
         <Path>Drivers\cg_src\r_cg_adc.h</Path>
         <Path>Drivers\cg_src\r_cg_adc_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_cgc.c</Path>
         <Path>Drivers\cg_src\r_cg_cgc.h</Path>
         <Path>Drivers\cg_src\r_cg_cgc_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_intp.c</Path>
         <Path>Drivers\cg_src\r_cg_intp.h</Path>
         <Path>Drivers\cg_src\r_cg_intp_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_it.c</Path>
         <Path>Drivers\cg_src\r_cg_it.h</Path>
         <Path>Drivers\cg_src\r_cg_it_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_lcd.c</Path>
         <Path>Drivers\cg_src\r_cg_lcd.h</Path>
         <Path>Drivers\cg_src\r_cg_lcd_user.c</Path>
         <Path>Drivers\cg_src\r_cg_macrodriver.h</Path>
-        <Path>Drivers\cg_src\r_cg_pclbuz.c</Path>
         <Path>Drivers\cg_src\r_cg_pclbuz.h</Path>
         <Path>Drivers\cg_src\r_cg_pclbuz_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_port.c</Path>
         <Path>Drivers\cg_src\r_cg_port.h</Path>
         <Path>Drivers\cg_src\r_cg_port_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_rtc.c</Path>
         <Path>Drivers\cg_src\r_cg_rtc.h</Path>
         <Path>Drivers\cg_src\r_cg_rtc_user.c</Path>
-        <Path>Drivers\cg_src\r_cg_sau.c</Path>
         <Path>Drivers\cg_src\r_cg_sau.h</Path>
         <Path>Drivers\cg_src\r_cg_tau.c</Path>
         <Path>Drivers\cg_src\r_cg_tau.h</Path>
@@ -198,23 +189,14 @@
       <BuildMode Name="DefaultBuild" Active="True">
         <LinkOrder>
           <Path>Debug\obj\DefaultBuild\rl78_cfg.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_adc.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_adc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_cgc.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_cgc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_intp.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_intp_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_it.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_it_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_lcd.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_lcd_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_pclbuz.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_pclbuz_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_port.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_port_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_rtc.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_rtc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_sau.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_tau.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_wdt.obj</Path>
           <Path>Debug\obj\DefaultBuild\r_cg_wdt_user.obj</Path>

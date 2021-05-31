@@ -101,6 +101,25 @@ extern "C" {
 	#define MS1022_OFFSET_MV_N15						(17<<8)
 	#define MS1022_OFFSET_MV_N16						(16<<8)
 
+	//===定义计量结构体
+	typedef struct _MS1022_METER_HandleType				MS1022_METER_HandleType;
+	//===定义计量指针结构体
+	typedef	struct _MS1022_METER_HandleType				*pMS1022_METER_HandleType;
+
+	struct _MS1022_METER_HandleType
+	{
+		float msg_flow_volume;					//---瞬时流量m3/h
+		float msg_flow_acc_volume;				//---累积流量m3
+
+		float msg_flow_cool;					//---冷量kWh
+		float msg_flow_acc_cool;				//---累积热量kWh
+
+		float msg_flow_heat;					//---热量kWh
+		float msg_flow_acc_heat;				//---累积热量kWh
+
+		float msg_acc_rtc;						//---累积时间
+	};
+
 	//===定义换能器结构体
 	typedef struct _MS1022_TRANSDUCER_HandleType		MS1022_TRANSDUCER_HandleType;
 	//===定义换能器指针结构体
@@ -115,11 +134,19 @@ extern "C" {
 		float msg_flow_volume;					//---计算体积流量
 	};
 
-	
 	//===定义飞行时间结构体
 	typedef struct _MS1022_TOF_HandleType		MS1022_TOF_HandleType;
 	//===定义飞行时间指针结构体
 	typedef	struct _MS1022_TOF_HandleType		*pMS1022_TOF_HandleType;
+
+	//---BIT0		1---进水温度异常，0---进水温度正常
+	//---BIT1		1---回水温度异常，0---回水温度正常
+	//---BIT2		1---错误，0---正常
+	//---BIT3		1---开路，0---正常
+	//---BIT4		1---短路，0---正常
+	//---BIT5
+	//---BIT6
+	//---BIT7		1---负数，0---正数
 	//===飞行时间结构定义
 	struct _MS1022_TOF_HandleType
 	{
@@ -136,14 +163,19 @@ extern "C" {
 	typedef struct _MS1022_TEMPERATURE_HandleType		MS1022_TEMPERATURE_HandleType;
 	//===定义水温指针结构体
 	typedef	struct _MS1022_TEMPERATURE_HandleType		*pMS1022_TEMPERATURE_HandleType;
+
+	//---BIT0		1---进水温度异常，0---进水温度正常
+	//---BIT1		1---回水温度异常，0---回水温度正常
+	//---BIT2		1---错误，0---正常
+	//---BIT3		1---开路，0---正常
+	//---BIT4		1---短路，0---正常
+	//---BIT5
+	//---BIT6
+	//---BIT7		1---负数，0---正数
 	//===水温结构定义
 	struct _MS1022_TEMPERATURE_HandleType
 	{
-		uint8_t msg_state : 3;				//---水温测试状态	 0:正常;1:错误;2:开路;3:短路
-		uint8_t msg_in_state : 2;			//---进水温度测试状态
-		uint8_t	msg_out_state : 2;			//---出水温度测试状态
-		uint8_t	msg_positive_mode : 1;		//---温差正负，0---正数；1---负数
-
+		union_uint8_t msg_state ;			//---水温测试状态
 		float msg_in_temp_factor;			//---进水口温度系数
 		float msg_in_temp;					//---进水口温度[RED]
 		float msg_out_temp_factor;			//---出水口温度系数
@@ -167,6 +199,7 @@ extern "C" {
 		MS1022_TEMPERATURE_HandleType msg_water_temperature;				//---水温定义
 		MS1022_TOF_HandleType		  msg_water_tof;						//---飞行时间测量
 		MS1022_TRANSDUCER_HandleType  msg_water_transducer;					//---换能器信息
+		MS1022_METER_HandleType		  msg_water_meter;						//---计量信息
 
 		vltuint8_t msg_int_flag;											//---中断标识信息
 		vltuint8_t msg_send_data_buffer[MS1022_DATA_BUFFER_MAX_SIZE];		//---发送数据缓存区

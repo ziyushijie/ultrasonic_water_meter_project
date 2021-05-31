@@ -1037,6 +1037,8 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_reg(MS1022x,0, 0xF387E810);
 	ms1022_spi_send_reg(MS1022x,1, 0x21444012);
 	ms1022_spi_send_reg(MS1022x,6, 0xCEC06006);
+	//---清零状态标识
+	MS1022x->msg_water_temperature.msg_state.bits = 0;
 	//---清楚状态信息
 	ms1022_spi_int_flag_clear(MS1022x);
 	//-->>>循环测试多组温度值，计算平均值---开始
@@ -1061,12 +1063,12 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 				if ((sample_state&MS1022_STATE_TEMPERATURE_OPEN)!=0)
 				{
 					//---温度传感器开路
-					_return = ERROR_2;
+					MS1022x->msg_water_temperature.msg_state.bit.b3=1;
 				}
 				else
 				{
 					//---温度传感器短路
-					_return = ERROR_3;
+					MS1022x->msg_water_temperature.msg_state.bit.b4 = 1;
 				}
 				break;
 			}
@@ -1137,10 +1139,12 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 		else
 		{
 			//---判断温度采集状态
-			_return = ERROR_1;
+			MS1022x->msg_water_temperature.msg_state.bit.b2=1;
 			break;
 		}
 	}
+	//---给出温度采集的值状态
+	_return = MS1022x->msg_water_temperature.msg_state.bits;
 	//---关闭晶振
 	ms1022_spi_fosc_disable(MS1022x);
 	//---上电复位设备
@@ -1172,12 +1176,12 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 		if (MS1022x->msg_water_temperature.msg_in_temp<MS1022x->msg_water_temperature.msg_out_temp)
 		{
 			//---温差为负数
-			MS1022x->msg_water_temperature.msg_positive_mode = 1;
+			MS1022x->msg_water_temperature.msg_state.bit.b7 = 1;
 		}
 		else
 		{
 			//---温差为正数
-			MS1022x->msg_water_temperature.msg_positive_mode = 0;
+			MS1022x->msg_water_temperature.msg_state.bit.b7 = 0;
 		}
 		//---计算在水中的传播速度
 		MS1022x->msg_water_temperature.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
@@ -1186,14 +1190,11 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 		LOG_VA_ARGS("PT_IN:%.3f,PT_OUT:%.3f,PT_DIF:%.3f,SPEED:%.3f\r\n",
 			MS1022x->msg_water_temperature.msg_in_temp, 
 			MS1022x->msg_water_temperature.msg_out_temp,
-			(MS1022x->msg_water_temperature.msg_positive_mode==0)?(MS1022x->msg_water_temperature.msg_diff_temp):(MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
+			(MS1022x->msg_water_temperature.msg_state.bit.b7==0)?(MS1022x->msg_water_temperature.msg_diff_temp):(MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
 			MS1022x->msg_water_temperature.msg_sound_speed);
 #endif
 	}
-	//--<<<循环测试多组温度值，计算平均值---结束
-	//---水温采集状态
-	MS1022x->msg_water_temperature.msg_state = _return;
-	
+	//--<<<循环测试多组温度值，计算平均值---结束	
 	return _return;
 }
 
@@ -1234,6 +1235,8 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444012);
 	//---温度测量间隔是15ms
 	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	//---清零状态标识
+	MS1022x->msg_water_temperature.msg_state.bits = 0;
 	//---清楚中断标志
 	ms1022_spi_int_flag_clear(MS1022x);
 	//-->>>循环测试多组温度值，计算平均值---开始
@@ -1257,15 +1260,15 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 			//---判断温度状态信息
 			if ((sample_state&MS1022_STATE_TEMPERATURE_MASK) != 0)
 			{
-				if ((sample_state&MS1022_STATE_TEMPERATURE_OPEN) != 0)
+				if ((sample_state & MS1022_STATE_TEMPERATURE_OPEN) != 0)
 				{
 					//---温度传感器开路
-					_return = ERROR_2;
+					MS1022x->msg_water_temperature.msg_state.bit.b3 = 1;
 				}
 				else
 				{
 					//---温度传感器短路
-					_return = ERROR_3;
+					MS1022x->msg_water_temperature.msg_state.bit.b4 = 1;
 				}
 				break;
 			}
@@ -1406,10 +1409,12 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 		else
 		{
 			//---判断温度采集状态
-			_return = ERROR_1;
+			MS1022x->msg_water_temperature.msg_state.bit.b2 = 1;
 			break;
 		}
 	}
+	//---给出温度采集的值状态
+	_return = MS1022x->msg_water_temperature.msg_state.bits;
 	//---关闭晶振
 	ms1022_spi_fosc_disable(MS1022x);
 	//---上电复位设备
@@ -1441,13 +1446,13 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 		if (MS1022x->msg_water_temperature.msg_in_temp < MS1022x->msg_water_temperature.msg_out_temp)
 		{
 			//---温差为负数
-			MS1022x->msg_water_temperature.msg_positive_mode = 1;
+			MS1022x->msg_water_temperature.msg_state.bit.b7 = 1;
 		}
-		else
-		{
-			//---温差为正数
-			MS1022x->msg_water_temperature.msg_positive_mode = 0;
-		}
+		//else
+		//{
+		//	//---温差为正数
+		//	MS1022x->msg_water_temperature.msg_state.bit.b7 = 0;
+		//}
 		//---计算在水中的传播速度
 		MS1022x->msg_water_temperature.msg_sound_speed = calcate_sound_speed(MS1022x->msg_water_temperature.msg_in_temp);
 
@@ -1455,14 +1460,11 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 		LOG_VA_ARGS("PT_IN:%.3f,PT_OUT:%.3f,PT_DIF:%.3f,SPEED:%.3f\r\n",
 			MS1022x->msg_water_temperature.msg_in_temp,
 			MS1022x->msg_water_temperature.msg_out_temp,
-			(MS1022x->msg_water_temperature.msg_positive_mode == 0) ? (MS1022x->msg_water_temperature.msg_diff_temp) : (MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
+			(MS1022x->msg_water_temperature.msg_state.bit.b7 == 0) ? (MS1022x->msg_water_temperature.msg_diff_temp) : (MS1022x->msg_water_temperature.msg_diff_temp*(-1)),
 			MS1022x->msg_water_temperature.msg_sound_speed);
 #endif
 	}
 	//--<<<循环测试多组温度值，计算平均值---结束
-	//---水温采集状态
-	MS1022x->msg_water_temperature.msg_state = _return;
-
 	return _return;
 }
 
@@ -1601,7 +1603,7 @@ uint32_t  ms1022_spi_calculate_offset(MS1022_HandleType* MS1022x, uint32_t offse
 
 //float sample_temp[4] = { 0.0f };
 
-uint32_t g_ms1022_state = 0;
+//uint32_t g_ms1022_state = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -1736,6 +1738,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	//--->>>读取下游时差
 	//---设置偏置电压
 	//ms1022_spi_send_reg(MS1022x, 4, temp_reg);
+	//---配置读取下游数据
 	ms1022_spi_send_reg(MS1022x, 5, 0x50000005);
 	//---初始化设备
 	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
@@ -2585,7 +2588,7 @@ uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 	{
 		//MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
 		//MS1022x->msg_water_temperature.msg_sound_speed = 1500;
-		//---计算流速
+		//---计算流速m/s
 		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_diff_time*MS1022x->msg_water_temperature.msg_sound_speed;
 		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;
 		MS1022x->msg_water_transducer.msg_flow_speed *=MS1022x->msg_water_temperature.msg_sound_speed;
@@ -2602,7 +2605,9 @@ uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 		MS1022x->msg_water_transducer.msg_flow_volume = CIRCLE_AREA(MS1022x->msg_water_transducer.msg_diameter*1000.0F);
 		MS1022x->msg_water_transducer.msg_flow_volume *= MS1022x->msg_water_transducer.msg_flow_speed;
 		MS1022x->msg_water_transducer.msg_flow_volume /= 1000.0F;
-		MS1022x->msg_water_transducer.msg_flow_volume /= 1000.0F;
+		//MS1022x->msg_water_transducer.msg_flow_volume /= 1000.0F;
+		//---计算瞬时流量m3/h
+		MS1022x->msg_water_transducer.msg_flow_volume *= 3.6F;
 		
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("FLOW_VOLUME:%.8f\r\n",

@@ -59,6 +59,7 @@ uint8_t spi_mhw_gpio_init(SPI_HandleType* SPIx)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_gpio_init(SPI_HandleType* SPIx)
 {
+#ifdef SPI_EBABLE_SW
 	if (SPIx->msg_gpio_cs.msg_p_port != NULL)
 	{
 		//---SS---设置为输出
@@ -84,6 +85,7 @@ uint8_t spi_msw_gpio_init(SPI_HandleType* SPIx)
 	PIN_OUT_1(SPIx->msg_gpio_miso.msg_p_port, SPIx->msg_gpio_miso.msg_bit);
 	//---软件模拟模式
 	SPIx->msg_hw_mode = 0;
+#endif
 	return OK_0;
 }
 
@@ -125,10 +127,12 @@ uint8_t spi_gpio_deinit(SPI_HandleType* SPIx, uint8_t is_init_ss)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_bit_msb_byte(SPI_HandleType* SPIx, uint8_t val)
 {
+#ifdef SPI_EBABLE_SW
 	//---发送1bit的数据
 	((val & 0x80) != 0x00) ?
 		PIN_OUT_1(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit) :
 		PIN_OUT_0(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit);
+#endif
 	return OK_0;
 }
 
@@ -141,8 +145,10 @@ uint8_t spi_msw_send_bit_msb_byte(SPI_HandleType* SPIx, uint8_t val)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_bit_msb_byte(SPI_HandleType* SPIx, uint8_t* pval)
 {
+#ifdef SPI_EBABLE_SW
 	//---读取1bit的数据
 	(*pval) |=((PIN_GET_STATE(SPIx->msg_gpio_miso.msg_p_port, SPIx->msg_gpio_miso.msg_bit) != 0) ? 1 : 0);
+#endif
 	return OK_0;
 }
 
@@ -155,10 +161,12 @@ uint8_t spi_msw_read_bit_msb_byte(SPI_HandleType* SPIx, uint8_t* pval)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_bit_msb_word(SPI_HandleType* SPIx, uint16_t val)
 {
+#ifdef SPI_EBABLE_SW
 	//---发送1bit的数据
 	((val & 0x8000) != 0x0000) ?
 		PIN_OUT_1(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit) :
 		PIN_OUT_0(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit);
+#endif
 	return OK_0;
 }
 
@@ -171,8 +179,10 @@ uint8_t spi_msw_send_bit_msb_word(SPI_HandleType* SPIx, uint16_t val)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_bit_msb_word(SPI_HandleType* SPIx, uint16_t* pval)
 {
+#ifdef SPI_EBABLE_SW
 	//---读取1bit的数据
 	(*pval) |=((PIN_GET_STATE(SPIx->msg_gpio_miso.msg_p_port, SPIx->msg_gpio_miso.msg_bit) != 0) ? 1 : 0);
+#endif
 	return OK_0;
 }
 
@@ -185,13 +195,14 @@ uint8_t spi_msw_read_bit_msb_word(SPI_HandleType* SPIx, uint16_t* pval)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	spi_msw_send_bit_msb_byte(SPIx, val);
 	//---校验是否需要读取数据
 	if (pcmd!=NULL)
 	{
 		spi_msw_read_bit_msb_byte(SPIx, pcmd);
 	}
-	
+#endif
 	return OK_0;
 }
 
@@ -204,6 +215,7 @@ uint8_t spi_msw_bit_msb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_msb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---00---11
 	if (((SPIx->msg_cpol == 0) && (SPIx->msg_cpha == 0)) || ((SPIx->msg_cpol == 1) && (SPIx->msg_cpha == 1)))
 	{
@@ -218,6 +230,7 @@ uint8_t spi_msw_bit_msb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint
 		spi_msw_bit_msb_byte(SPIx,val, pcmd);
 		PIN_OUT_0(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	}
+#endif
 	return OK_0;
 }
 
@@ -230,12 +243,14 @@ uint8_t spi_msw_bit_msb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	spi_msw_send_bit_msb_word(SPIx, val);
 	//---校验是否需要读取数据
 	if (pcmd!=NULL)
 	{
 		spi_msw_read_bit_msb_word(SPIx, pcmd);
 	}	
+#endif
 	return OK_0;
 }
 
@@ -248,6 +263,7 @@ uint8_t spi_msw_bit_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_msb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---00---11
 	if (((SPIx->msg_cpol == 0) && (SPIx->msg_cpha == 0)) || ((SPIx->msg_cpol == 1) && (SPIx->msg_cpha == 1)))
 	{
@@ -262,6 +278,7 @@ uint8_t spi_msw_bit_msb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uin
 		spi_msw_bit_msb_word(SPIx,val, pcmd);
 		PIN_OUT_0(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	}
+#endif
 	return OK_0;
 }
 
@@ -274,6 +291,7 @@ uint8_t spi_msw_bit_msb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uin
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -292,6 +310,7 @@ uint8_t spi_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity
 	}	
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -304,6 +323,7 @@ uint8_t spi_msw_send_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -322,6 +342,7 @@ uint8_t spi_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polar
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -334,6 +355,7 @@ uint8_t spi_msw_read_msb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polar
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---发送8bit 
 	for (index = 0; index < 8; index++)
@@ -342,6 +364,7 @@ uint8_t spi_msw_msb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 		spi_msw_bit_msb_byte(SPIx, val, pcmd);
 		val <<= 1;
 	}
+#endif
 	return OK_0;
 }
 
@@ -354,6 +377,7 @@ uint8_t spi_msw_msb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
 	spi_msw_msb_byte_cmd(SPIx, val, pcmd);
@@ -363,6 +387,7 @@ uint8_t spi_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -375,6 +400,7 @@ uint8_t spi_msw_msb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -390,6 +416,7 @@ uint8_t spi_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -402,6 +429,7 @@ uint8_t spi_msw_send_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -417,6 +445,7 @@ uint8_t spi_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -429,6 +458,7 @@ uint8_t spi_msw_read_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -445,6 +475,7 @@ uint8_t spi_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pc
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -457,6 +488,7 @@ uint8_t spi_msw_msb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pc
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -476,6 +508,7 @@ uint8_t spi_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polari
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -488,6 +521,7 @@ uint8_t spi_msw_send_msb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polari
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -507,6 +541,7 @@ uint8_t spi_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t pola
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -519,6 +554,7 @@ uint8_t spi_msw_read_msb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t pola
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -534,6 +570,7 @@ uint8_t spi_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -546,6 +583,7 @@ uint8_t spi_msw_send_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -561,6 +599,7 @@ uint8_t spi_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif 
 	return OK_0;
 }
 
@@ -573,6 +612,7 @@ uint8_t spi_msw_read_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---发送8bit 
 	for (index = 0; index < 16; index++)
@@ -581,6 +621,7 @@ uint8_t spi_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 		spi_msw_bit_msb_word(SPIx, val, pcmd);
 		val <<= 1;
 	}
+#endif
 	return OK_0;
 }
 
@@ -593,6 +634,7 @@ uint8_t spi_msw_msb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
 	//---发送子数据
@@ -603,6 +645,7 @@ uint8_t spi_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif 
 	return OK_0;
 }
 
@@ -616,6 +659,7 @@ uint8_t spi_msw_msb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -632,6 +676,7 @@ uint8_t spi_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -648,10 +693,12 @@ uint8_t spi_msw_msb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t val)
 {
+#ifdef SPI_EBABLE_SW
 	//---发送1bit的数据
 	((val & 0x01) != 0x00) ?
 		PIN_OUT_1(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit) :
 		PIN_OUT_0(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit);
+#endif
 	return OK_0;
 }
 
@@ -664,8 +711,10 @@ uint8_t spi_msw_send_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t val)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval)
 {
+#ifdef SPI_EBABLE_SW
 	//---读取1bit的数据
 	(*pval) |=((PIN_GET_STATE(SPIx->msg_gpio_miso.msg_p_port, SPIx->msg_gpio_miso.msg_bit) != 0) ? 0x80 : 0);
+#endif
 	return OK_0;
 }
 
@@ -678,10 +727,12 @@ uint8_t spi_msw_read_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_bit_lsb_word(SPI_HandleType* SPIx, uint16_t val)
 {
+#ifdef SPI_EBABLE_SW
 	//---发送1bit的数据
 	((val & 0x0001) != 0x0000) ?
 		PIN_OUT_1(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit) :
 		PIN_OUT_0(SPIx->msg_gpio_mosi.msg_p_port, SPIx->msg_gpio_mosi.msg_bit);
+#endif
 	return OK_0;
 }
 
@@ -694,8 +745,10 @@ uint8_t spi_msw_send_bit_lsb_word(SPI_HandleType* SPIx, uint16_t val)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_bit_lsb_word(SPI_HandleType* SPIx, uint16_t* pval)
 {
+#ifdef SPI_EBABLE_SW
 	//---读取1bit的数据
 	(*pval) |=((PIN_GET_STATE(SPIx->msg_gpio_miso.msg_p_port, SPIx->msg_gpio_miso.msg_bit) != 0) ? 0x8000 : 0);
+#endif
 	return OK_0;
 }
 
@@ -708,13 +761,14 @@ uint8_t spi_msw_read_bit_lsb_word(SPI_HandleType* SPIx, uint16_t* pval)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	spi_msw_send_bit_lsb_byte(SPIx, val);
 	//---校验是否需要读取数据
 	if (pcmd!=NULL)
 	{
 		spi_msw_read_bit_lsb_byte(SPIx, pcmd);
 	}
-	
+#endif
 	return OK_0;
 }
 
@@ -727,6 +781,7 @@ uint8_t spi_msw_bit_lsb_byte(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_lsb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---00---11
 	if (((SPIx->msg_cpol == 0) && (SPIx->msg_cpha == 0)) || ((SPIx->msg_cpol == 1) && (SPIx->msg_cpha == 1)))
 	{
@@ -741,6 +796,7 @@ uint8_t spi_msw_bit_lsb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint
 		spi_msw_bit_lsb_byte(SPIx,val, pcmd);
 		PIN_OUT_0(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	}
+#endif
 	return OK_0;
 }
 
@@ -753,12 +809,14 @@ uint8_t spi_msw_bit_lsb_byte_clock_pulse(SPI_HandleType* SPIx, uint8_t val, uint
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	spi_msw_send_bit_lsb_word(SPIx, val);
 	//---校验是否需要读取数据
 	if (pcmd!=NULL)
 	{
 		spi_msw_read_bit_lsb_word(SPIx, pcmd);
 	}	
+#endif
 	return OK_0;
 }
 
@@ -771,6 +829,7 @@ uint8_t spi_msw_bit_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_bit_lsb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---00---11
 	if (((SPIx->msg_cpol == 0) && (SPIx->msg_cpha == 0)) || ((SPIx->msg_cpol == 1) && (SPIx->msg_cpha == 1)))
 	{
@@ -785,6 +844,7 @@ uint8_t spi_msw_bit_lsb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uin
 		spi_msw_bit_lsb_word(SPIx,val, pcmd);
 		PIN_OUT_0(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	}
+#endif
 	return OK_0;
 }
 
@@ -797,6 +857,7 @@ uint8_t spi_msw_bit_lsb_word_clock_pulse(SPI_HandleType* SPIx, uint16_t val, uin
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -815,6 +876,7 @@ uint8_t spi_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity
 	}	
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -827,6 +889,7 @@ uint8_t spi_msw_send_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t polarity
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -845,6 +908,7 @@ uint8_t spi_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polar
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -857,6 +921,7 @@ uint8_t spi_msw_read_lsb_byte(SPI_HandleType* SPIx, uint8_t* pval, uint8_t polar
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---发送8bit 
 	for (index = 0; index < 8; index++)
@@ -865,6 +930,7 @@ uint8_t spi_msw_lsb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 		spi_msw_bit_lsb_byte(SPIx, val, pcmd);
 		val >>= 1;
 	}
+#endif
 	return OK_0;
 }
 
@@ -877,6 +943,7 @@ uint8_t spi_msw_lsb_byte_cmd(SPI_HandleType* SPIx, uint8_t val, uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
 	spi_msw_lsb_byte_cmd(SPIx, val, pcmd);
@@ -886,6 +953,7 @@ uint8_t spi_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -898,6 +966,7 @@ uint8_t spi_msw_lsb_byte(SPI_HandleType* SPIx, uint8_t val,uint8_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -913,6 +982,7 @@ uint8_t spi_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -925,6 +995,7 @@ uint8_t spi_msw_send_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval,uint16_
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -940,6 +1011,7 @@ uint8_t spi_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -952,6 +1024,7 @@ uint8_t spi_msw_read_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t* pval,uint16_
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pcmd,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -968,6 +1041,7 @@ uint8_t spi_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pc
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -980,6 +1054,7 @@ uint8_t spi_msw_lsb_byte_buffer(SPI_HandleType* SPIx, uint8_t *pval, uint8_t *pc
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -999,6 +1074,7 @@ uint8_t spi_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polari
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -1011,6 +1087,7 @@ uint8_t spi_msw_send_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint8_t polari
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t polarity)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -1030,6 +1107,7 @@ uint8_t spi_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t pola
 	}
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -1042,6 +1120,7 @@ uint8_t spi_msw_read_lsb_word(SPI_HandleType* SPIx, uint16_t* pval, uint8_t pola
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -1057,6 +1136,7 @@ uint8_t spi_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -1069,6 +1149,7 @@ uint8_t spi_msw_send_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -1084,6 +1165,7 @@ uint8_t spi_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -1096,6 +1178,7 @@ uint8_t spi_msw_read_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint1
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	uint8_t index = 0;
 	//---发送8bit 
 	for (index = 0; index < 16; index++)
@@ -1104,6 +1187,7 @@ uint8_t spi_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 		spi_msw_bit_lsb_word(SPIx, val, pcmd);
 		val >>= 1;
 	}
+#endif
 	return OK_0;
 }
 
@@ -1116,6 +1200,7 @@ uint8_t spi_msw_lsb_word_cmd(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 {
+#ifdef SPI_EBABLE_SW
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
 	//---发送子数据
@@ -1126,6 +1211,7 @@ uint8_t spi_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 
@@ -1139,6 +1225,7 @@ uint8_t spi_msw_lsb_word(SPI_HandleType* SPIx, uint16_t val, uint16_t *pcmd)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t spi_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *pcmd,uint16_t length)
 {
+#ifdef SPI_EBABLE_SW
 	uint16_t index = 0;
 	//---工作状态为忙碌
 	SPIx->msg_state = BUSY;
@@ -1155,6 +1242,7 @@ uint8_t spi_msw_lsb_word_buffer(SPI_HandleType* SPIx, uint16_t *pval, uint16_t *
 		PIN_OUT_1(SPIx->msg_gpio_sck.msg_p_port, SPIx->msg_gpio_sck.msg_bit);
 	//---工作状态为空闲
 	SPIx->msg_state = IDLE;
+#endif
 	return OK_0;
 }
 

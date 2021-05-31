@@ -123,7 +123,7 @@ void app_init(void)
 	//---TDC芯片初始化
 	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
 	//---断码液晶显示
-	lcd_segment_task_init();
+	lcd_segment_task_init(LCD_TASK_ONE,app_get_tick);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
@@ -133,13 +133,13 @@ void app_init(void)
 	//lcd_segment_task_show_all();
 	for (lcd_index=0;lcd_index<14;lcd_index++)
 	{
-		lcd_segment_task_text_title_on(lcd_index);
+		lcd_segment_task_text_title_on(LCD_TASK_ONE,lcd_index);
 		delay_task_ms(10);
 	}
-	lcd_segment_task_clear();
+	lcd_segment_task_clear(LCD_TASK_ONE);
 	for (lcd_index = 0; lcd_index < 14; lcd_index++)
 	{
-		lcd_segment_task_unit_title_on(lcd_index);
+		lcd_segment_task_unit_title_on(LCD_TASK_ONE,lcd_index);
 		delay_task_ms(10);
 	}
 
@@ -148,15 +148,16 @@ void app_init(void)
 	//	lcd_segment_task_data_on(1, g_lcd_segment_display_data_table[lcd_index]);
 	//	delay_task_ms(10);
 	//}
-	lcd_segment_task_show_integer(12345678);
+	lcd_segment_task_show_integer(LCD_TASK_ONE,1,1);
 	/*for (lcd_index=0;lcd_index<4;lcd_index++)
 	{
 		SEG0 |= (1 << lcd_index);
 		delay_task_ms(10);
 		SEG0 &= 0xF0;
 	}*/
-	lcd_segment_task_show_float(876.54321,5);
+	lcd_segment_task_show_float(LCD_TASK_ONE,070.54321,5);
 	delay_task_ms(10);
+	/*
 	lcd_segment_task_show_float(876.54321, 4);
 	delay_task_ms(10);
 	lcd_segment_task_show_float(876.54321, 3);
@@ -164,7 +165,7 @@ void app_init(void)
 	lcd_segment_task_show_float(876.54321, 2);
 	delay_task_ms(10);
 	lcd_segment_task_show_float(876.54321, 1);
-	delay_task_ms(10);
+	delay_task_ms(10);*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////

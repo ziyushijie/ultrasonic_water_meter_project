@@ -13,6 +13,7 @@ extern "C" {
 	#include "uart_task.h"
 	#include "gpio_task.h"
 	#include "ms1022_task.h"
+	#include "key_task.h"
 
 
 	//////////////////////////////////////////////////////////////////////////////////////

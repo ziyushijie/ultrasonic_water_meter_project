@@ -8,6 +8,8 @@ extern "C" {
 	#include "key_cfg.h"
 
 	//===º¯Êý¶¨Òå
+	uint8_t key_lib_it_irq_one(KEY_HandleType *KEYx);
+
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
