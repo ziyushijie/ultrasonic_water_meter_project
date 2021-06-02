@@ -51,12 +51,12 @@ static void __near uart_interrupt_send_one(void)
 #endif
 
 #ifdef TYPE_UART2
-////===串口1的中断处理函数
-////---发送中断处理
+//===串口1的中断处理函数
+//---发送中断处理
 #pragma interrupt uart_interrupt_send_two(vect=INTST1)
-////---接受中断处理
+//---接受中断处理
 #pragma interrupt uart_interrupt_receive_two(vect=INTSR1)
-////---错误中断处理
+//---错误中断处理
 #pragma interrupt uart_interrupt_receive_error_two(vect=INTSRE1)
 
 
@@ -187,7 +187,7 @@ static void __near sys_tick_interrupt(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near ms1022_interrupt_flag(void)
 {
-	ms1022_spi_task_int_flag_set(MS1022_TASK_ONE);
+	ms1022_spi_task_it_irq_handle_int_flag(MS1022_TASK_ONE);
 	SEI();
 }
 
@@ -219,9 +219,29 @@ static void __near ms1022_interrupt_spi(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near key_interrupt_one(void)
 {
-	key_task_it_irq_one(KEY_TASK_ONE);
+	key_task_it_irq_handle_one(KEY_TASK_ONE,0);
 	SEI();
 }
 
 #pragma endregion
+
+#pragma region 看门狗中断处理
+
+#pragma interrupt wdt_interrupt(vect=INTWDTI)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 看门狗中断处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near wdt_interrupt(void)
+{
+	wdt_task_it_irq_handle();
+	SEI();
+}
+
+#pragma endregion
+
 

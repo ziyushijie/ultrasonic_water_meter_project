@@ -81,11 +81,6 @@ uint32_t app_get_tick(void)
 
 uint8_t lcd_index = 0;
 
-const uint8_t g_lcd_segment_display_data_table[23]=
-{
-	0,1,2,3,4,5,6,7,8,9,'A','b','C','d','E','F','i','n','o','r','t','u','-'
-};
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 应用初始化函数
@@ -124,48 +119,17 @@ void app_init(void)
 	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
 	//---断码液晶显示
 	lcd_segment_task_init(LCD_TASK_ONE,app_get_tick);
+	//---按键初始化
+	key_task_init(KEY_TASK_ONE, app_get_tick);
+	//---RTC时钟初始化
+	//rtc_task_init(RTC_TASK_ONE, app_get_tick, 1);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
 	//PM4 &= ~(1<<5);
-	//gpio_task_pin_mode_output(GPIOP4, GPIO_PIN_BIT_5);
-	//at24cxx_task_i2c_read_byte(AT24CXX_TASK_ONE, 0, temp_buffer, 4);
-	//lcd_segment_task_show_all();
-	for (lcd_index=0;lcd_index<14;lcd_index++)
-	{
-		lcd_segment_task_text_title_on(LCD_TASK_ONE,lcd_index);
-		delay_task_ms(10);
-	}
+	//---清除显示
 	lcd_segment_task_clear(LCD_TASK_ONE);
-	for (lcd_index = 0; lcd_index < 14; lcd_index++)
-	{
-		lcd_segment_task_unit_title_on(LCD_TASK_ONE,lcd_index);
-		delay_task_ms(10);
-	}
-
-	//for (lcd_index = 0; lcd_index < 23; lcd_index++)
-	//{
-	//	lcd_segment_task_data_on(1, g_lcd_segment_display_data_table[lcd_index]);
-	//	delay_task_ms(10);
-	//}
-	lcd_segment_task_show_integer(LCD_TASK_ONE,1,1);
-	/*for (lcd_index=0;lcd_index<4;lcd_index++)
-	{
-		SEG0 |= (1 << lcd_index);
-		delay_task_ms(10);
-		SEG0 &= 0xF0;
-	}*/
 	lcd_segment_task_show_float(LCD_TASK_ONE,070.54321,5);
-	delay_task_ms(10);
-	/*
-	lcd_segment_task_show_float(876.54321, 4);
-	delay_task_ms(10);
-	lcd_segment_task_show_float(876.54321, 3);
-	delay_task_ms(10);
-	lcd_segment_task_show_float(876.54321, 2);
-	delay_task_ms(10);
-	lcd_segment_task_show_float(876.54321, 1);
-	delay_task_ms(10);*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -180,6 +144,7 @@ void main(void)
 	app_init();
 	uint32_t cnt_flow = app_get_tick();
 	uint32_t cnt_temp = app_get_tick();
+	app_log("超声波热量表调试\r\n");
 	//ms1022_spi_task_calibration_resonator(MS1022_TASK_ONE);
 	//ms1022_spi_task_read_start_temperature_restart(MS1022_TASK_ONE);
 	while (1)
@@ -203,6 +168,17 @@ void main(void)
 				UART_TASK_THREE->msg_uart_rxd.msg_data_length);
 			//---复位接收，等待下次数据的到来
 			uart_task_read_reset(UART_TASK_THREE);
+		}
+#endif
+		//---按键扫描
+		key_task_scan(KEY_TASK_ONE);
+#if (KEY_BUTTON_MAX_NUM>1)
+
+#else
+		if (KEY_TASK_ONE->msg_button.msg_pin_scan_active==ACTIVE_STATE_ENABLE)
+		{
+			lcd_segment_task_show_integer(LCD_TASK_ONE, KEY_TASK_ONE->msg_button.msg_pin_scan_state,1);
+			KEY_TASK_ONE->msg_button.msg_pin_scan_active = ACTIVE_STATE_DISABLE;
 		}
 #endif
 		/*

@@ -683,6 +683,13 @@ extern "C" {
 		ACTIVE_LEVEL_FALLING_EDGE		//---下降沿激活---不支持
 	}ACTIVE_LEVEL;
 
+	//===激活状态
+	typedef enum
+	{
+		ACTIVE_STATE_DISABLE = 0,			//---激活状态不使能
+		ACTIVE_STATE_ENABLE = 1,			//---激活状态使能
+	}ACTIVE_STATE;
+
 	//===结构体定义
 	typedef struct _Record_DataType					Record_DataType;
 	//===定义指针结构体

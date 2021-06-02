@@ -5,6 +5,12 @@
 extern "C" {
 #endif
 	//////////////////////////////////////////////////////////////////////////////////////
+
+	#include "rtc_cfg.h"
+
+	//===º¯Êý¶¨Òå
+	uint8_t rtc_lib_time_tick_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void));
+	uint8_t rtc_lib_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void), uint8_t ishw);
 	
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

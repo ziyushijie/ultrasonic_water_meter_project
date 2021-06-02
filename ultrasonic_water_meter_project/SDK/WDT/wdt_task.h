@@ -10,7 +10,7 @@ extern "C" {
 	//===º¯Êý¶¨Òå
 	void wdt_task_init(void);
 	void wdt_task_restart(void);
-
+	uint8_t wdt_task_it_irq_handle(void);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

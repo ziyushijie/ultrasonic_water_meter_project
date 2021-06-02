@@ -14,6 +14,7 @@ extern "C" {
 	#include "gpio_task.h"
 	#include "ms1022_task.h"
 	#include "key_task.h"
+	#include "wdt_task.h"
 
 
 	//////////////////////////////////////////////////////////////////////////////////////

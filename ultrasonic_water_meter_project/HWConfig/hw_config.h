@@ -13,15 +13,15 @@ extern "C" {
 	///////////////软件版本的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
-	#define MODULE_LOG_ENABLE				0
-	#define MODULE_LOG_UART_INDEX			3
+	#define MODULE_LOG_ENABLE				1
+	#define MODULE_LOG_UART_INDEX			2
 	//===LOG模块
 #if (MODULE_LOG_ENABLE>0)
 	#define MODULE_LOG_GPIO					0
 	#define MODULE_LOG_I2C					0
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
-	#define MODULE_LOG_MS1022				1
+	#define MODULE_LOG_MS1022				0
 	#define MODULE_LOG_KEY_BUTTON			1
 #endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////
@@ -221,13 +221,23 @@ extern "C" {
 	#define KEY_BUTTON_MIN_PULSE_WIDTH								SYS_MIN_PULSE_WIDTH
 	
 	//===定义支持的按键个数
-	#define KEY_BUTTON_MAX_NUM										1
+	#define KEY_BUTTON_MAX_NUM										2
 	//===按键1端口	
-	#define KEY_BUTTON_PORT_ONE										GPIOP13
+	#define KEY_BUTTON_PORT_ONE_K1									GPIOP13
 	//===按键1端口号	
-	#define KEY_BUTTON_BIT_ONE										GPIO_PIN_BIT_7
+	#define KEY_BUTTON_BIT_ONE_K1									GPIO_PIN_BIT_7
 	//===按键1端口激活电平
-	#define KEY_BUTTON_ACTIVE_LEVEL_ONE								ACTIVE_LEVEL_LOW
+	#define KEY_BUTTON_ACTIVE_LEVEL_ONE_K1							ACTIVE_LEVEL_LOW
+	//===按键1在数组中的索引
+	#define KEY_BUTTON_INDEX_ONE_K1									0
+
+	///////////////按键信息的基本配置---结束/////////////////////////////////////////////////
+
+	///////////////RTC信息的基本配置---开始/////////////////////////////////////////////////	
+	//===最小脉冲值，单位是ms
+	#define RTC_MIN_PULSE_WIDTH										SYS_MIN_PULSE_WIDTH
+	//===根据年月日时分秒计算时间的节拍的最小脉冲，单位是10ms；如果是1ms，最大32位的数据会发生溢出操作
+	#define RTC_YEAR_MIN_PULSE_WIDTH								10
 
 	///////////////按键信息的基本配置---结束/////////////////////////////////////////////////
 

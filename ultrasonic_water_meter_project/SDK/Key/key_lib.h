@@ -8,8 +8,11 @@ extern "C" {
 	#include "key_cfg.h"
 
 	//===º¯Êý¶¨Òå
-	uint8_t key_lib_it_irq_one(KEY_HandleType *KEYx);
+	uint8_t key_lib_it_irq_handle_one(KEY_HandleType *KEYx, uint8_t index);
 
+	uint8_t key_lib_time_tick_init(KEY_HandleType* KEYx, uint32_t(*func_time_tick)(void));
+	uint8_t key_lib_init(KEY_HandleType* KEYx, uint32_t(*func_time_tick)(void));
+	uint8_t key_lib_scan(KEY_HandleType* KEYx);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

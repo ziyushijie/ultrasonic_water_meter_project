@@ -12,6 +12,7 @@ extern "C" {
 	//===º¯Êý¶¨Òå
 	void wdt_init(void);
 	void wdt_restart(void);
+	uint8_t wdt_it_irq_handle(void);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

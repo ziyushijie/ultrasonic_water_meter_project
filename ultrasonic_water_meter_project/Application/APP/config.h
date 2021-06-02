@@ -18,6 +18,7 @@ extern "C" {
 	#include "at24cxx_task.h"
 	#include "uart_task.h"
 	#include "lcd_task.h"
+	#include "key_task.h"
 	
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

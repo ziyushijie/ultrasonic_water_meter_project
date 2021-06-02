@@ -1,87 +1,103 @@
 #include "rtc_cfg.h"
 
-//===每个月的天数,默认是12个月，这样正好对应数组的1到12，故数组大小是13字节
-const uint8_t g_month_days_table[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//===全局变量
+RTC_HandleType		g_rtc_one = {0};
+pRTC_HandleType		p_rtc_one=&g_rtc_one;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 根据年月日计算是星期几（使用基姆拉尔森计算公式）
-//////输入参数:
-//////输出参数: 1---星期一；2---星期二；3---星期三；4---星期四；5---星期五；6---星期六；7---星期天；0---错误
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t rtc_calc_week(RTC_TimeType* RTCx)
+uint8_t rtc_hw_init_one(RTC_HandleType *RTCx, uint32_t(*func_time_tick)(void))
 {
-	//---年
-	int temp_y = RTCx->msg_years;
-	//---月
-	int temp_m = RTCx->msg_month;
-	//---日
-	int temp_d = RTCx->msg_day;
-	//---星期
-	int temp_w = -1;
-	uint8_t _return = 0;
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	////基姆拉尔森计算公式:
-	////W= (d+2*m+3*(m+1)/5+y+y/4-y/100+y/400) mod 7
-	////在公式中d表示日期中的日数，m表示月份数，y表示年数。
-	////注意:在公式中有个与其他公式不同的地方:
-	////把一月和二月看成是上一年的十三月和十四月，例:如果是2004-1-10则换算成:2003-13-10来代入公式计算
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	if (1 == temp_m || 2 == temp_m)
+
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t rtc_hw_init_two(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void))
+{
+	return ERROR_1;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t rtc_hw_init_three(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void))
+{
+	return ERROR_1;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t rtc_hw_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void))
+{
+	if ((RTCx != NULL) && (RTCx == RTC_TASK_ONE))
 	{
-		temp_m += 12;
-		temp_y--;
+		return rtc_hw_init_one(RTCx, func_time_tick);
 	}
-	temp_w = (temp_d + 1 + 2 * temp_m + 3 * (temp_m + 1) / 5 + temp_y + temp_y / 4 - temp_y / 100 + temp_y / 400) % 7;
-	//---解析星期几
-	switch (temp_w)
+	if ((RTCx != NULL) && (RTCx == RTC_TASK_TWO))
 	{
-		case 0:
-		{
-			_return = 7;
-			break;
-		}
-		case 1:
-		{
-			_return = 1;
-			break;
-		}
-		case 2:
-		{
-			_return = 2;
-			break;
-		}
-		case 3:
-		{
-			_return = 3;
-			break;
-		}
-		case 4:
-		{
-			_return = 4;
-			break;
-		}
-		case 5:
-		{
-			_return = 5;
-			break;
-		}
-		case 6:
-		{
-			_return = 6;
-			break;
-		}
-		case 7:
-		{
-			_return = 7;
-			break;
-		}
-		default:
-		{	
-			_return = 0;
-			break;
-		}
+		return rtc_hw_init_two(RTCx, func_time_tick);
 	}
-	return _return;
+	if ((RTCx != NULL) && (RTCx == RTC_TASK_THREE))
+	{
+		return rtc_hw_init_three(RTCx, func_time_tick);
+	}
+	return ERROR_2;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t rtc_time_tick_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void))
+{
+	//---注册滴答函数
+	(func_time_tick != NULL) ?
+		(RTCx->msg_f_time_tick = func_time_tick) :
+		(RTCx->msg_f_time_tick = sys_tick_task_get_tick);
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t rtc_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void),uint8_t ishw)
+{
+	if (ishw!=0)
+	{
+		return rtc_hw_init(RTCx, func_time_tick);
+	}
+	else
+	{
+		return ERROR_3;
+	}
 }

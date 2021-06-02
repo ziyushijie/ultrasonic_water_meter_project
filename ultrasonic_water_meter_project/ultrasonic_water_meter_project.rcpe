@@ -25,29 +25,17 @@
       </Category>
       <Category Name="Drivers">
         <Path>Drivers\cg_src\r_cg_adc.h</Path>
-        <Path>Drivers\cg_src\r_cg_adc_user.c</Path>
         <Path>Drivers\cg_src\r_cg_cgc.h</Path>
-        <Path>Drivers\cg_src\r_cg_cgc_user.c</Path>
         <Path>Drivers\cg_src\r_cg_intp.h</Path>
-        <Path>Drivers\cg_src\r_cg_intp_user.c</Path>
         <Path>Drivers\cg_src\r_cg_it.h</Path>
-        <Path>Drivers\cg_src\r_cg_it_user.c</Path>
         <Path>Drivers\cg_src\r_cg_lcd.h</Path>
-        <Path>Drivers\cg_src\r_cg_lcd_user.c</Path>
         <Path>Drivers\cg_src\r_cg_macrodriver.h</Path>
         <Path>Drivers\cg_src\r_cg_pclbuz.h</Path>
-        <Path>Drivers\cg_src\r_cg_pclbuz_user.c</Path>
         <Path>Drivers\cg_src\r_cg_port.h</Path>
-        <Path>Drivers\cg_src\r_cg_port_user.c</Path>
         <Path>Drivers\cg_src\r_cg_rtc.h</Path>
-        <Path>Drivers\cg_src\r_cg_rtc_user.c</Path>
         <Path>Drivers\cg_src\r_cg_sau.h</Path>
-        <Path>Drivers\cg_src\r_cg_tau.c</Path>
         <Path>Drivers\cg_src\r_cg_tau.h</Path>
-        <Path>Drivers\cg_src\r_cg_userdefine.h</Path>
-        <Path>Drivers\cg_src\r_cg_wdt.c</Path>
         <Path>Drivers\cg_src\r_cg_wdt.h</Path>
-        <Path>Drivers\cg_src\r_cg_wdt_user.c</Path>
         <Path>Drivers\cg_src\r_option_cc.txt</Path>
       </Category>
       <Category Name="DriversLog">
@@ -189,17 +177,6 @@
       <BuildMode Name="DefaultBuild" Active="True">
         <LinkOrder>
           <Path>Debug\obj\DefaultBuild\rl78_cfg.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_adc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_cgc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_intp_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_it_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_lcd_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_pclbuz_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_port_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_rtc_user.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_tau.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_wdt.obj</Path>
-          <Path>Debug\obj\DefaultBuild\r_cg_wdt_user.obj</Path>
           <Path>Debug\obj\DefaultBuild\cstart.obj</Path>
           <Path>Debug\obj\DefaultBuild\stkinit.obj</Path>
           <Path>Debug\obj\DefaultBuild\log_cfg.obj</Path>

@@ -25,7 +25,7 @@ extern "C" {
 	uint16_t calc_avg_word(uint16_t *buffer, uint16_t length);
 	uint8_t  calc_avg_byte_from_index(uint8_t *buffer, uint16_t length, uint16_t index);
 	uint16_t calc_avg_byte(uint8_t *buffer, uint16_t length);
-	float calc_avg_float(float*buffer, uint16_t length);
+	float    calc_avg_float(float*buffer, uint16_t length);
 	uint32_t calc_avg_double_word_from_index(uint32_t* buffer, uint16_t length, uint16_t index);
 	uint8_t  compare_byte_to_byte(uint8_t *p1, uint8_t *p2, uint16_t length);
 	uint8_t  compare_byte_to_byte_from_index(uint8_t *p1, uint8_t *p2, uint16_t index, uint16_t length);
@@ -43,6 +43,8 @@ extern "C" {
 	void ascii_to_utf8_array(uint8_t* ascii, uint8_t* utf8, uint16_t length, uint8_t is_low_case);
 	char* my_itoa(int val, char* s,uint16_t* length, int radix);
 	char* my_str_n_str(const char* src, const char* des, uint32_t length);
+	uint8_t calc_rtc_week(RTC_TimeType* RTCx);
+	uint16_t calc_rtc_year_day(RTC_TimeType* RTCx);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
