@@ -13,30 +13,6 @@ pKEY_HandleType		p_key_one=&g_key_one;
 //////////////////////////////////////////////////////////////////////////////
 uint8_t key_init_one(KEY_HandleType* KEYx,uint32_t(*func_time_tick)(void))
 {
-	//--->>>配置端口中断---开始
-	//---不使能中断
-	PMK0 = 1U;    /* disable INTP7 operation */
-	//---清楚中断标志
-	PIF0 = 0U;    /* clear INTP7 interrupt flag */
-
-	//---设置中断优先级
-	PPR10 = 0U;
-	PPR00 = 1U;
-
-	//---屏蔽上升沿触发中断
-	EGP0 &= ~_01_INTP0_EDGE_RISING_SEL;
-	//---使能下降沿触发中断
-	EGN0 |= _01_INTP0_EDGE_FALLING_SEL;
-
-	//---设置Key为输入模式且上拉使能
-	gpio_task_pin_mode_input(KEY_BUTTON_PORT_ONE_K1, KEY_BUTTON_BIT_ONE_K1);
-	gpio_task_pin_mode_pull_up_set(KEY_BUTTON_PORT_ONE_K1, KEY_BUTTON_BIT_ONE_K1);
-
-	//---清楚中断标志
-	PIF0 = 0U;
-	//---使能中断
-	PMK0 = 0U;
-
 #if (KEY_BUTTON_MAX_NUM > 1)
 	uint8_t button_index = 0;
 	for (button_index=0;button_index<KEY_BUTTON_MAX_NUM;button_index++)
@@ -77,6 +53,39 @@ uint8_t key_init_one(KEY_HandleType* KEYx,uint32_t(*func_time_tick)(void))
 		}
 	}
 #else
+	//--->>>配置端口中断---开始
+	//---不使能中断
+	PMK0 = 1U;
+	//---清楚中断标志
+	PIF0 = 0U;
+
+	//---设置中断优先级
+	PPR10 = 0U;
+	PPR00 = 1U;
+
+#if (KEY_BUTTON_ACTIVE_LEVEL_ONE_K1==ACTIVE_LEVEL_LOW)
+	//---屏蔽上升沿触发中断
+	EGP0 &= ~_01_INTP0_EDGE_RISING_SEL;
+	//---使能下降沿触发中断
+	EGN0 |= _01_INTP0_EDGE_FALLING_SEL;
+#elif (KEY_BUTTON_ACTIVE_LEVEL_ONE_K1==ACTIVE_LEVEL_HIGH)
+	//---屏蔽下降沿触发中断
+	EGN0 &=~ _01_INTP0_EDGE_FALLING_SEL;
+	//---使能上升沿触发中断
+	EGP0 |= _01_INTP0_EDGE_RISING_SEL;
+#else
+	#error "不支持的触发中断配置!"
+#endif
+	//---设置Key为输入模式且上拉使能
+	gpio_task_pin_mode_input(KEY_BUTTON_PORT_ONE_K1, KEY_BUTTON_BIT_ONE_K1);
+#if (KEY_BUTTON_ACTIVE_LEVEL_ONE_K1==ACTIVE_LEVEL_LOW)
+	gpio_task_pin_mode_pull_up_set(KEY_BUTTON_PORT_ONE_K1, KEY_BUTTON_BIT_ONE_K1);
+#endif
+	//---清楚中断标志
+	PIF0 = 0U;
+	//---使能中断
+	PMK0 = 0U;
+
 	KEYx->msg_button.msg_pin_index = KEY_BUTTON_INDEX_ONE_K1;
 	//---激活有效电平
 	KEYx->msg_button.msg_pin_level_active = KEY_BUTTON_ACTIVE_LEVEL_ONE_K1;
@@ -124,11 +133,15 @@ uint8_t key_init_three(KEY_HandleType* KEYx, uint32_t(*func_time_tick)(void))
 //////////////////////////////////////////////////////////////////////////////
 uint8_t key_start_one(KEY_HandleType* KEYx,uint8_t index)
 {
+#if (KEY_BUTTON_MAX_NUM > 1)
+	return ERROR_1;
+#else
 	//---清除中断标识
 	PIF0 = 0U;    
 	//---使能中断
 	PMK0 = 0U;    
 	return OK_0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -140,11 +153,15 @@ uint8_t key_start_one(KEY_HandleType* KEYx,uint8_t index)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t key_stop_one(KEY_HandleType* KEYx,uint8_t index)
 {
+#if (KEY_BUTTON_MAX_NUM > 1)
+	return ERROR_1;
+#else
 	//---使能中断
 	PMK0 = 1U;    
 	//---清除中断标识
 	PIF0 = 0U;   
 	return OK_0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -156,11 +173,15 @@ uint8_t key_stop_one(KEY_HandleType* KEYx,uint8_t index)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t key_rising_edge_one(KEY_HandleType* KEYx,uint8_t index)
 {
+#if (KEY_BUTTON_MAX_NUM > 1)
+	return ERROR_1;
+#else
 	//---屏蔽下降沿中断允许寄存器
 	EGN0 &= ~_01_INTP0_EDGE_FALLING_SEL;
 	//---使能上升沿触发中断
 	EGP0 |= _01_INTP0_EDGE_RISING_SEL;
 	return OK_0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -172,11 +193,15 @@ uint8_t key_rising_edge_one(KEY_HandleType* KEYx,uint8_t index)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t key_falling_edge_one(KEY_HandleType* KEYx, uint8_t index)
 {
+#if (KEY_BUTTON_MAX_NUM > 1)
+	return ERROR_1;
+#else
 	//---屏蔽上升沿中断允许寄存器
 	EGP0 &= ~_01_INTP0_EDGE_RISING_SEL;
 	//---使能下降沿触发中断
 	EGN0 |= _01_INTP0_EDGE_FALLING_SEL;
 	return OK_0;
+#endif
 }
 
 
@@ -231,11 +256,11 @@ uint8_t key_it_irq_handle_one(KEY_HandleType *KEYx, uint8_t index)
 	key_stop_one(KEYx,index);
 	//---标注有按键按下
 #if (KEY_BUTTON_MAX_NUM>1)
-
+	return ERROR_1;
 #else
 	KEYx->msg_active = 1;
-#endif
 	return OK_0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -245,7 +270,7 @@ uint8_t key_it_irq_handle_one(KEY_HandleType *KEYx, uint8_t index)
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t key_press_driver_one(KEY_PRESS_HandleType* KEYx)
+uint8_t key_driver_one(KEY_PRESS_HandleType* KEYx)
 {
 	if (KEYx->msg_f_pin_level!=NULL)
 	{
@@ -801,7 +826,7 @@ uint8_t key_scan_one(KEY_HandleType* KEYx)
 	}
 #else
 	//---获取按键状态
-	key_press_driver_one(&(KEYx->msg_button));
+	key_driver_one(&(KEYx->msg_button));
 	//---扫描状态轮训
 	switch (KEYx->msg_button.msg_pin_scan_step)
 	{

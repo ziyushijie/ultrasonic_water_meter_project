@@ -2258,11 +2258,11 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		samp_res[0] = calc_avg_float(samp_up_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
 		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
 		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
-		//---计算上行飞行时间
+		//---计算上行飞行时间us
 		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
-		//---计算上游飞行时间
+		//---计算上游飞行时间us
 		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
-		//---计算飞行时间差
+		//---计算飞行时间差us
 		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
 
 #if (MODULE_LOG_MS1022>0)

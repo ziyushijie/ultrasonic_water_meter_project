@@ -1872,22 +1872,23 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	lcd_segment_decimal_point_one(LCDx, 7, 0);
 	temp_dat = dat % 10;
-	if ((temp_dat == 0) && (dat_flag == 0))
-	{
-		if (isfill != 0)
-		{
-			lcd_segment_data_on_one(LCDx, 8, 0);
-		}
-		else
-		{
-			lcd_segment_data_off_one(LCDx, 8);
-		}
-	}
-	else
-	{
-		dat_flag = 1;
-		lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	}
+	//if ((temp_dat == 0) && (dat_flag == 0))
+	//{
+	//	if (isfill != 0)
+	//	{
+	//		lcd_segment_data_on_one(LCDx, 8, 0);
+	//	}
+	//	else
+	//	{
+	//		lcd_segment_data_off_one(LCDx, 8);
+	//	}
+	//}
+	//else
+	//{
+	//	dat_flag = 1;
+	//	lcd_segment_data_on_one(LCDx, 8, temp_dat);
+	//}
+	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
 
@@ -2110,7 +2111,6 @@ uint8_t lcd_segment_show_float_p4f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint16_t temp_integer = (uint16_t)dat;
 	uint8_t temp_dat = temp_integer / 1000;
-	uint8_t dat_flag = 0;
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2143,7 +2143,7 @@ uint8_t lcd_segment_show_float_p4f_one(LCD_HandleType *LCDx, float dat)
 	temp_dat = temp_integer % 10;
 	if (temp_dat == 0)
 	{
-		lcd_segment_data_off_one(LCDx, 4);
+		lcd_segment_data_on_one(LCDx, 4, 0);
 	}
 	else
 	{
@@ -2264,7 +2264,7 @@ uint8_t lcd_segment_show_float_p3f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 10000;
-	uint8_t dat_flag = 0;
+	//uint8_t dat_flag = 0;
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off(LCDx, 1);
@@ -2416,7 +2416,6 @@ uint8_t lcd_segment_show_float_p2f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 100000;
-	uint8_t dat_flag = 0;
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2566,7 +2565,6 @@ uint8_t lcd_segment_show_float_p1f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 1000000;
-	uint8_t dat_flag = 0;
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2957,12 +2955,138 @@ uint8_t lcd_segment_show_temperature(LCD_HandleType* LCDx, float temperature, ui
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
+//////功		能: 时间差，单位是us
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_diff_time_one(LCD_HandleType* LCDx, float time, uint8_t istestmode)
+{
+	//---显示小数
+	lcd_segment_show_float_p4f_one(LCDx, time);
+	//---显示单位
+	lcd_segment_data_on_one(LCDx, 1,'d');
+	lcd_segment_data_on_one(LCDx, 2, 't');
+	lcd_segment_data_on_one(LCDx, 3, '-');
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_diff_time_two(LCD_HandleType* LCDx, float time, uint8_t istestmode)
+{
+	return ERROR_1;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_diff_time_three(LCD_HandleType* LCDx, float time, uint8_t istestmode)
+{
+	return ERROR_1;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示飞行时间差
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_diff_time(LCD_HandleType* LCDx, float time, uint8_t istestmode)
+{
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_ONE))
+	{
+		return lcd_segment_show_diff_time_one(LCDx, time, istestmode);
+	}
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_TWO))
+	{
+		return lcd_segment_show_diff_time_two(LCDx, time,istestmode);
+	}
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_THREE))
+	{
+		return lcd_segment_show_diff_time_three(LCDx, time,istestmode);
+	}
+	return ERROR_2;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示上下游时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_time_one(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode)
+{
+	return OK_0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示上下游时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_time_two(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode)
+{
+	return ERROR_1;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示上下游时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_time_three(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode)
+{
+	return ERROR_1;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 显示上下游时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_show_time(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode)
+{
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_ONE))
+	{
+		return lcd_segment_show_time_one(LCDx, time, isup, istestmode);
+	}
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_TWO))
+	{
+		return lcd_segment_show_time_two(LCDx, time, isup, istestmode);
+	}
+	if ((LCDx != NULL) && (LCDx == LCD_TASK_THREE))
+	{
+		return lcd_segment_show_time_three(LCDx, time, isup, istestmode);
+	}
+	return ERROR_2;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
 //////功		能: 显示流量，并判断是不是测试模式
 //////输入参	数:
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_show_flow_one(LCD_HandleType *LCDx, float flow,uint8_t istestmode)
+uint8_t lcd_segment_show_flow_volume_one(LCD_HandleType *LCDx, float flow,uint8_t istestmode)
 {
 	//---显示温度标题
 	lcd_segment_text_title_on_one(LCDx, TEXT_FLOW);
@@ -2987,7 +3111,7 @@ uint8_t lcd_segment_show_flow_one(LCD_HandleType *LCDx, float flow,uint8_t istes
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_show_flow_two(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+uint8_t lcd_segment_show_flow_volume_two(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
 {
 	return ERROR_1;
 }
@@ -2999,7 +3123,7 @@ uint8_t lcd_segment_show_flow_two(LCD_HandleType* LCDx, float flow, uint8_t iste
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_show_flow_three(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+uint8_t lcd_segment_show_flow_volume_three(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
 {
 	return ERROR_1;
 }
@@ -3011,19 +3135,19 @@ uint8_t lcd_segment_show_flow_three(LCD_HandleType* LCDx, float flow, uint8_t is
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_show_flow(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+uint8_t lcd_segment_show_flow_volume(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
 {
 	if ((LCDx != NULL) && (LCDx == LCD_TASK_ONE))
 	{
-		return lcd_segment_show_flow_one(LCDx, flow, istestmode);
+		return lcd_segment_show_flow_volume_one(LCDx, flow, istestmode);
 	}
 	if ((LCDx != NULL) && (LCDx == LCD_TASK_TWO))
 	{
-		return lcd_segment_show_flow_two(LCDx, flow, istestmode);
+		return lcd_segment_show_flow_volume_two(LCDx, flow, istestmode);
 	}
 	if ((LCDx != NULL) && (LCDx == LCD_TASK_THREE))
 	{
-		return lcd_segment_show_flow_three(LCDx, flow, istestmode);
+		return lcd_segment_show_flow_volume_three(LCDx, flow, istestmode);
 	}
 	return ERROR_2;
 }

@@ -122,8 +122,8 @@ extern "C" {
 	uint8_t lcd_segment_clear_three(LCD_HandleType* LCDx);
 	uint8_t lcd_segment_clear(LCD_HandleType *LCDx);
 
-	uint8_t lcd_segment_show_all_one  (LCD_HandleType* LCDx);
-	uint8_t lcd_segment_show_all_two  (LCD_HandleType* LCDx);
+	uint8_t lcd_segment_show_all_one(LCD_HandleType* LCDx);
+	uint8_t lcd_segment_show_all_two(LCD_HandleType* LCDx);
 	uint8_t lcd_segment_show_all_three(LCD_HandleType* LCDx);
 	uint8_t lcd_segment_show_all(LCD_HandleType *LCDx);
 
@@ -193,10 +193,20 @@ extern "C" {
 	uint8_t lcd_segment_show_temperature_three(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
 	uint8_t lcd_segment_show_temperature(LCD_HandleType* LCDx, float temperature, uint8_t isin, uint8_t istestmode);
 
+	uint8_t lcd_segment_show_diff_time_one(LCD_HandleType* LCDx, float time, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_time_two(LCD_HandleType* LCDx, float time, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_time_three(LCD_HandleType* LCDx, float time, uint8_t istestmode);
+	uint8_t lcd_segment_show_diff_time(LCD_HandleType* LCDx, float time, uint8_t istestmode);
+
+	uint8_t lcd_segment_show_time_one(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
+	uint8_t lcd_segment_show_time_two(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
+	uint8_t lcd_segment_show_time_three(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
+	uint8_t lcd_segment_show_time(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
+
 	uint8_t lcd_segment_show_flow_one(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
 	uint8_t lcd_segment_show_flow_two(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
 	uint8_t lcd_segment_show_flow_three(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
-	uint8_t lcd_segment_show_flow(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_volume(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
 
 	uint8_t lcd_segment_show_addr_one(LCD_HandleType* LCDx, uint32_t addr);
 	uint8_t lcd_segment_show_addr_two(LCD_HandleType* LCDx, uint32_t addr);

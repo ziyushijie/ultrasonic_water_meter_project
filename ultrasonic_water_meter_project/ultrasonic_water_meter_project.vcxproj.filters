@@ -70,6 +70,8 @@
     </Filter>
     <Filter Include="SDK\LCD">
     </Filter>
+    <Filter Include="SDK\Pulse">
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\APP\config.h">
@@ -260,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="SDK\LCD\lcd_task.h">
       <Filter>SDK\LCD</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Pulse\pulse_cfg.h">
+      <Filter>SDK\Pulse</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Pulse\pulse_lib.h">
+      <Filter>SDK\Pulse</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Pulse\pulse_task.h">
+      <Filter>SDK\Pulse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +486,15 @@
     </ClCompile>
     <ClCompile Include="SDK\LCD\lcd_task.c">
       <Filter>SDK\LCD</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Pulse\pulse_cfg.c">
+      <Filter>SDK\Pulse</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Pulse\pulse_lib.c">
+      <Filter>SDK\Pulse</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Pulse\pulse_task.c">
+      <Filter>SDK\Pulse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

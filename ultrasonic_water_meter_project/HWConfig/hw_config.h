@@ -221,7 +221,7 @@ extern "C" {
 	#define KEY_BUTTON_MIN_PULSE_WIDTH								SYS_MIN_PULSE_WIDTH
 	
 	//===定义支持的按键个数
-	#define KEY_BUTTON_MAX_NUM										2
+	#define KEY_BUTTON_MAX_NUM										1
 	//===按键1端口	
 	#define KEY_BUTTON_PORT_ONE_K1									GPIOP13
 	//===按键1端口号	
@@ -238,6 +238,17 @@ extern "C" {
 	#define RTC_MIN_PULSE_WIDTH										SYS_MIN_PULSE_WIDTH
 	//===根据年月日时分秒计算时间的节拍的最小脉冲，单位是10ms；如果是1ms，最大32位的数据会发生溢出操作
 	#define RTC_YEAR_MIN_PULSE_WIDTH								10
+
+	///////////////按键信息的基本配置---结束/////////////////////////////////////////////////
+	
+	//===最小脉冲值
+	#define PULSE_MIN_PULSE_WIDTH									SYS_MIN_PULSE_WIDTH
+	//===按键1端口	
+	#define PULSE_PORT_ONE											GPIOP0
+	//===按键1端口号	
+	#define PULSE_BIT_ONE											GPIO_PIN_BIT_1
+	//===按键1端口激活电平
+	#define PULSE_ACTIVE_LEVEL_ONE									ACTIVE_LEVEL_LOW
 
 	///////////////按键信息的基本配置---结束/////////////////////////////////////////////////
 

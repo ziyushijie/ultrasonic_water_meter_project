@@ -211,9 +211,33 @@ uint8_t lcd_segment_task_show_temperature(LCD_HandleType* LCDx, float temperatur
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_task_show_flow(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+uint8_t lcd_segment_task_show_diff_time(LCD_HandleType* LCDx, float time, uint8_t istestmode)
 {
-	return lcd_segment_lib_show_flow(LCDx, flow, istestmode);
+	return lcd_segment_lib_show_diff_time(LCDx, time, istestmode);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_task_show_time(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode)
+{
+	return lcd_segment_lib_show_time(LCDx, time, isup, istestmode);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_task_show_flow_volume(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+{
+	return lcd_segment_lib_show_flow_volume(LCDx, flow, istestmode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
- #include "main.h"
+#include "main.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -112,9 +112,9 @@ void app_init(void)
 	uart_task_init(UART_TASK_THREE, app_get_tick);
 #endif
 	//---eeprom存储器初始化
-	//at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
+	at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
 	//---TDC芯片初始化
-	//ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
+	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
 	//---断码液晶显示
 	lcd_segment_task_init(LCD_TASK_ONE,app_get_tick);
 	//---按键初始化
@@ -129,9 +129,7 @@ void app_init(void)
 	//PM4 &= ~(1<<5);
 	//---清除显示
 	lcd_segment_task_clear(LCD_TASK_ONE);
-	//lcd_segment_task_show_float(LCD_TASK_ONE,000.54321,4);
-	//---清零显示
-	lcd_segment_task_show_integer(LCD_TASK_ONE,0,1);
+	lcd_segment_task_show_float(LCD_TASK_ONE,000.54321,4);
 }
 
 
@@ -177,31 +175,107 @@ void main(void)
 #endif
 		//---按键扫描
 		key_task_scan(KEY_TASK_ONE);
-		//---按键功能检查
+		/*
+		if (TIME_SPAN(app_get_tick(), cnt_flow) >3000)
+		{
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[0]=0xFE;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[1] = 0xFE;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[2] = 0xFE;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[3] = 0x68;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[4] = 0x55;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[5] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[6] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[7] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[8] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[9] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[10] = 0xAA;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[11] = 0xAA;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[12] = 0x23;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[13] = 0x04;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[14] = 0x81;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[15] = 0x0A;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[16] = 0x01;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[17] = 0x00;
+
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[18] = 0x16;
+			//UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer[19] = 0x16;
+
+			//uart_task_fill_mode_send_two(UART_TASK_TWO,
+			//	UART_TASK_TWO->msg_uart_rxd.msg_p_data_buffer,
+			//	20);
+			////---复位接收，等待下次数据的到来
+			//uart_task_read_reset(UART_TASK_TWO);
+			//---获取流量信息
+			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_flow = app_get_tick();
+		}
+		if (TIME_SPAN(app_get_tick(), cnt_temp) > 5000)
+		{
+			//---获取进出水口的温度
+			ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_temp = app_get_tick();
+		}
+		*/
+		if (TIME_SPAN(app_get_tick(), cnt_flow) > 1000)
+		{
+			//---获取流量信息
+			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_flow = app_get_tick();
+		}
+		if (TIME_SPAN(app_get_tick(), cnt_temp) >3000)
+		{
+			//---获取进出水口的温度
+			ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_temp = app_get_tick();
+		}
+
 #if (KEY_BUTTON_MAX_NUM<=1)
 		//---校验按键是否有效
 		if (KEY_TASK_ONE->msg_button.msg_pin_scan_active == ACTIVE_STATE_ENABLE)
 		{
 			KEY_TASK_ONE->msg_button.msg_pin_scan_active = ACTIVE_STATE_DISABLE;
-			//---清零显示
-			lcd_segment_task_show_integer(LCD_TASK_ONE,0,1);
-			//---清零脉冲计数
-			PULSE_TASK_ONE->msg_level_count = 0;
+			key_step++;
+			//---显示上游时间
+			if (key_step==1)
+			{
+				lcd_segment_task_show_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_up_time
+					, 1, 0);
+			}
+			//---显示下游时间
+			else if (key_step ==2)
+			{
+				lcd_segment_task_show_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_down_time
+					, 0, 0);
+			}
+			//---实现飞行时差
+			else if (key_step == 3)
+			{
+				lcd_segment_task_show_diff_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_diff_time,0);
+			}
+			//---显示流速
+			else if (key_step == 4)
+			{
+				//lcd_segment_task_show_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_transducer.msg_flow_speed, 0);
+			}
+			//---显示流量
+			else if (key_step == 5)
+			{
+				lcd_segment_task_show_flow_volume(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_transducer.msg_flow_volume, 0);
+			}
+			else
+			{
+				key_step = 0;
+			}
 		}
 #endif
-		//---脉冲有效扫描校验
-		if (pulse_task_scan(PULSE_TASK_ONE)==OK_0)
-		{
-			//---显示脉冲计数值
-			lcd_segment_task_show_integer(LCD_TASK_ONE, PULSE_TASK_ONE->msg_level_count, 1);
-		}
-
-		if (TIME_SPAN(app_get_tick(), cnt_flow) > 1000)
-		{
-			PULSE_TASK_ONE->msg_level_state = ACTIVE_STATE_ENABLE;
-			//---更新节拍信息
-			cnt_flow = app_get_tick();
-		}
 
 		WDT_RESET();
 	}

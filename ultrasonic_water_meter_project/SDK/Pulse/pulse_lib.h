@@ -1,26 +1,23 @@
-#ifndef RL78_IT_H_
-#define RL78_IT_H_
+#ifndef PULSE_LIB_H_
+#define PULSE_LIB_H_
 //////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 extern "C" {
 #endif
 	//////////////////////////////////////////////////////////////////////////////////////
-	//// 所有的中断处理函数的入口和中断函数
-	//////////////////////////////////////////////////////////////////////////////////////
-	#include "complier_lib.h"
-	#include "hw_config.h"
-	#include "sys_tick_task.h"
-	#include "uart_task.h"
-	#include "gpio_task.h"
-	#include "ms1022_task.h"
-	#include "key_task.h"
-	#include "pulse_task.h"
-	#include "wdt_task.h"
+	
+	#include "pulse_cfg.h"
 
+	//===函数定义
+	uint8_t pulse_lib_it_irq_handle_one(PULSE_HandleType* Pulsex);
+
+	uint8_t pulse_lib_scan(PULSE_HandleType* Pulsex);
+	uint8_t pulse_lib_time_tick_init(PULSE_HandleType* Pulsex, uint32_t(*func_time_tick)(void));
+	uint8_t pulse_lib_init(PULSE_HandleType* Pulsex, uint32_t(*func_time_tick)(void));
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
 #endif
 //////////////////////////////////////////////////////////////////////////////////////
-#endif /* RL78_IT_H_ */
+#endif /* PULSE_LIB_H_ */

@@ -244,4 +244,23 @@ static void __near wdt_interrupt(void)
 
 #pragma endregion
 
+#pragma region 脉冲中断处理
+
+#pragma interrupt pulse_interrupt_one(vect=INTP5)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 按键中断处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near pulse_interrupt_one(void)
+{
+	pulse_task_it_irq_handle_one(PULSE_TASK_ONE);
+	SEI();
+}
+
+#pragma endregion
+
 

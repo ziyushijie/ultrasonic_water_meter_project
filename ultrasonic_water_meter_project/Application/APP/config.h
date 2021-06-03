@@ -19,6 +19,7 @@ extern "C" {
 	#include "uart_task.h"
 	#include "lcd_task.h"
 	#include "key_task.h"
+	#include "pulse_task.h"
 	
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
