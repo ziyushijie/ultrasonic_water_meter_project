@@ -384,6 +384,24 @@
       <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
       <Property>82b4b7c4-16bc-4262-90bc-d3375e737d9e</Property>
     </Instance>
+    <Instance Guid="f9b8181c-1c7e-4f69-a54d-74edff6d7bba">
+      <Name>IRDA</Name>
+      <Type>Category</Type>
+      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
+      <Property>9aece0af-3a62-45aa-abd2-2b87b00fde84</Property>
+    </Instance>
+    <Instance Guid="1e9db528-a5d8-4259-8ecb-7923b7fa8c51">
+      <Name>MBUS</Name>
+      <Type>Category</Type>
+      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
+      <Property>00d2fe0e-1488-429f-ad06-b8d9c9d60269</Property>
+    </Instance>
+    <Instance Guid="4adad540-a8f1-4e6e-900b-2b4c683d6fa7">
+      <Name>Sleep</Name>
+      <Type>Category</Type>
+      <ParentItem>880c8ff3-442b-40cd-b581-b0ef6ba9f5a8</ParentItem>
+      <Property>50451eb6-f45e-4888-8c6a-15d0038cea02</Property>
+    </Instance>
     <Instance Guid="af57e11e-facc-4a75-bf44-7f5c64a3ed86">
       <Name>at24cxx_cfg.c</Name>
       <Type>File</Type>
@@ -972,6 +990,132 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>58b91b25-664c-413b-8d65-edee21f84020</ParentItem>
     </Instance>
+    <Instance Guid="e6caf1e7-1e06-465b-897d-62a8cd4d5fd1">
+      <Name>irda_cfg.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_cfg.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="9580f59f-40ff-4c5c-9c6e-fad6b7fc29d6">
+      <Name>irda_cfg.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_cfg.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="5b01fa11-5bf5-4896-91a0-6ef16556add4">
+      <Name>irda_lib.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_lib.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="b778c571-0532-4d4d-a78d-195de7391666">
+      <Name>irda_lib.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_lib.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="0054d6fa-516e-41f5-ae4a-97db79eca075">
+      <Name>irda_task.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_task.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="8b6bd7c6-e740-40a5-87ee-cae76b34fa8e">
+      <Name>irda_task.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\IRDA\irda_task.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>f9b8181c-1c7e-4f69-a54d-74edff6d7bba</ParentItem>
+    </Instance>
+    <Instance Guid="ba35e353-ceac-4efc-85c9-a241a897f138">
+      <Name>mbus_cfg.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_cfg.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="fd21d842-c202-4280-a949-8e7c7c8061f8">
+      <Name>mbus_cfg.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_cfg.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="972db44d-45a3-40ac-acb4-77389b31ac4f">
+      <Name>mbus_lib.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_lib.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="69450bc0-45b7-4fd7-89fe-872591fc9542">
+      <Name>mbus_lib.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_lib.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="9677102e-4dcc-447b-b96c-da902d9d4e6c">
+      <Name>mbus_task.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_task.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="51732a2d-95a2-4286-b48b-75bab086a4ec">
+      <Name>mbus_task.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\MBUS\mbus_task.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>1e9db528-a5d8-4259-8ecb-7923b7fa8c51</ParentItem>
+    </Instance>
+    <Instance Guid="7ee58e82-2e8a-4653-8a9e-cb454f449cca">
+      <Name>sleep_cfg.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_cfg.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
+    <Instance Guid="14438103-71e3-441c-a4b3-f57b244e613b">
+      <Name>sleep_cfg.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_cfg.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
+    <Instance Guid="a593dada-5f48-4119-b9bc-3ebc29a49462">
+      <Name>sleep_lib.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_lib.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
+    <Instance Guid="c86ed74e-ee73-419f-959b-32c8a9c7da47">
+      <Name>sleep_lib.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_lib.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
+    <Instance Guid="251b7895-8c45-43fa-89b5-9bdab18a024e">
+      <Name>sleep_task.c</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_task.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
+    <Instance Guid="3124191b-aeb2-4744-a22b-cd106ef7f202">
+      <Name>sleep_task.h</Name>
+      <Type>File</Type>
+      <RelativePath>SDK\Sleep\sleep_task.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>4adad540-a8f1-4e6e-900b-2b4c683d6fa7</ParentItem>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -1053,6 +1197,15 @@
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="82b4b7c4-16bc-4262-90bc-d3375e737d9e">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="9aece0af-3a62-45aa-abd2-2b87b00fde84">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="00d2fe0e-1488-429f-ad06-b8d9c9d60269">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="50451eb6-f45e-4888-8c6a-15d0038cea02">
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
@@ -1196,7 +1349,25 @@
       <SourceItemType49>CSource</SourceItemType49>
       <SourceItemGuid50>8655f325-44f3-42e7-b9cc-e3a4b0a3473b</SourceItemGuid50>
       <SourceItemType50>CSource</SourceItemType50>
-      <SourceItemCount>51</SourceItemCount>
+      <SourceItemGuid51>e6caf1e7-1e06-465b-897d-62a8cd4d5fd1</SourceItemGuid51>
+      <SourceItemType51>CSource</SourceItemType51>
+      <SourceItemGuid52>5b01fa11-5bf5-4896-91a0-6ef16556add4</SourceItemGuid52>
+      <SourceItemType52>CSource</SourceItemType52>
+      <SourceItemGuid53>0054d6fa-516e-41f5-ae4a-97db79eca075</SourceItemGuid53>
+      <SourceItemType53>CSource</SourceItemType53>
+      <SourceItemGuid54>ba35e353-ceac-4efc-85c9-a241a897f138</SourceItemGuid54>
+      <SourceItemType54>CSource</SourceItemType54>
+      <SourceItemGuid55>972db44d-45a3-40ac-acb4-77389b31ac4f</SourceItemGuid55>
+      <SourceItemType55>CSource</SourceItemType55>
+      <SourceItemGuid56>9677102e-4dcc-447b-b96c-da902d9d4e6c</SourceItemGuid56>
+      <SourceItemType56>CSource</SourceItemType56>
+      <SourceItemGuid57>7ee58e82-2e8a-4653-8a9e-cb454f449cca</SourceItemGuid57>
+      <SourceItemType57>CSource</SourceItemType57>
+      <SourceItemGuid58>a593dada-5f48-4119-b9bc-3ebc29a49462</SourceItemGuid58>
+      <SourceItemType58>CSource</SourceItemType58>
+      <SourceItemGuid59>251b7895-8c45-43fa-89b5-9bdab18a024e</SourceItemGuid59>
+      <SourceItemType59>CSource</SourceItemType59>
+      <SourceItemCount>60</SourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
     <Instance Guid="6bb7060d-7e24-4135-bd9b-7db166417523">
@@ -1360,14 +1531,17 @@
       <COptionCheckLanguageExtension-DefaultValue>False</COptionCheckLanguageExtension-DefaultValue>
       <COptionMisraIntermodule-DefaultValue>False</COptionMisraIntermodule-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585789744000051972</TimeTagModified--0>
+      <TimeTagModified--0>-8585783666007107817</TimeTagModified--0>
       <COptionAsmPath-0>False</COptionAsmPath-0>
       <COptionChangeMessageError-0>No</COptionChangeMessageError-0>
       <COptionCharacterSet-0>Auto</COptionCharacterSet-0>
       <COptionConvertCc-0>None</COptionConvertCc-0>
       <COptionDblSize-0>True</COptionDblSize-0>
       <COptionG-0>True</COptionG-0>
-      <COptionI-0>SDK\Pulse
+      <COptionI-0>SDK\Sleep
+SDK\MBUS
+SDK\IRDA
+SDK\Pulse
 SDK\LCD
 DefaultBuild
 SDK\SPI
@@ -1392,6 +1566,9 @@ SDK\UART
 SDK\WDT
 SDK\LCD
 SDK\Pulse
+SDK\MBUS
+SDK\IRDA
+SDK\Sleep
 </COptionI-0>
       <COptionLangC-0>C99</COptionLangC-0>
       <COptionMOrC-0>-c</COptionMOrC-0>
@@ -2335,6 +2512,78 @@ USER_OPT_BYTE=0xEF5DAA
       <ItemAddTime>637582580592775838</ItemAddTime>
       <ItemAddTimeCount>5</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="e6caf1e7-1e06-465b-897d-62a8cd4d5fd1">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="9580f59f-40ff-4c5c-9c6e-fad6b7fc29d6">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="5b01fa11-5bf5-4896-91a0-6ef16556add4">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>2</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="b778c571-0532-4d4d-a78d-195de7391666">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>3</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="0054d6fa-516e-41f5-ae4a-97db79eca075">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>4</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="8b6bd7c6-e740-40a5-87ee-cae76b34fa8e">
+      <ItemAddTime>637584264608090662</ItemAddTime>
+      <ItemAddTimeCount>5</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="ba35e353-ceac-4efc-85c9-a241a897f138">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="fd21d842-c202-4280-a949-8e7c7c8061f8">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="972db44d-45a3-40ac-acb4-77389b31ac4f">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>2</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="69450bc0-45b7-4fd7-89fe-872591fc9542">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>3</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="9677102e-4dcc-447b-b96c-da902d9d4e6c">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>4</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="51732a2d-95a2-4286-b48b-75bab086a4ec">
+      <ItemAddTime>637584264810635064</ItemAddTime>
+      <ItemAddTimeCount>5</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="7ee58e82-2e8a-4653-8a9e-cb454f449cca">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="14438103-71e3-441c-a4b3-f57b244e613b">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="a593dada-5f48-4119-b9bc-3ebc29a49462">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>2</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="c86ed74e-ee73-419f-959b-32c8a9c7da47">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>3</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="251b7895-8c45-43fa-89b5-9bdab18a024e">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>4</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="3124191b-aeb2-4744-a22b-cd106ef7f202">
+      <ItemAddTime>637587541964244619</ItemAddTime>
+      <ItemAddTimeCount>5</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="f782db2c-1c42-4ca1-af6a-53a3a5067217">
       <TimeTagModified-SourceItem0--0>-8585852102664643092</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -2532,6 +2781,42 @@ USER_OPT_BYTE=0xEF5DAA
       <SourceItem50-IsLockedByUser>False</SourceItem50-IsLockedByUser>
       <SourceItem50-BuildingTarget-0>True</SourceItem50-BuildingTarget-0>
       <SourceItem50-IndividualCompileOption-0>False</SourceItem50-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem51--0>-8585788060246685146</TimeTagModified-SourceItem51--0>
+      <SourceItem51-IsLockedByUser>False</SourceItem51-IsLockedByUser>
+      <SourceItem51-BuildingTarget-0>True</SourceItem51-BuildingTarget-0>
+      <SourceItem51-IndividualCompileOption-0>False</SourceItem51-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem52--0>-8585788060246685146</TimeTagModified-SourceItem52--0>
+      <SourceItem52-IsLockedByUser>False</SourceItem52-IsLockedByUser>
+      <SourceItem52-BuildingTarget-0>True</SourceItem52-BuildingTarget-0>
+      <SourceItem52-IndividualCompileOption-0>False</SourceItem52-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem53--0>-8585788060246685146</TimeTagModified-SourceItem53--0>
+      <SourceItem53-IsLockedByUser>False</SourceItem53-IsLockedByUser>
+      <SourceItem53-BuildingTarget-0>True</SourceItem53-BuildingTarget-0>
+      <SourceItem53-IndividualCompileOption-0>False</SourceItem53-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem54--0>-8585788060044140744</TimeTagModified-SourceItem54--0>
+      <SourceItem54-IsLockedByUser>False</SourceItem54-IsLockedByUser>
+      <SourceItem54-BuildingTarget-0>True</SourceItem54-BuildingTarget-0>
+      <SourceItem54-IndividualCompileOption-0>False</SourceItem54-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem55--0>-8585788060044140744</TimeTagModified-SourceItem55--0>
+      <SourceItem55-IsLockedByUser>False</SourceItem55-IsLockedByUser>
+      <SourceItem55-BuildingTarget-0>True</SourceItem55-BuildingTarget-0>
+      <SourceItem55-IndividualCompileOption-0>False</SourceItem55-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem56--0>-8585788060044140744</TimeTagModified-SourceItem56--0>
+      <SourceItem56-IsLockedByUser>False</SourceItem56-IsLockedByUser>
+      <SourceItem56-BuildingTarget-0>True</SourceItem56-BuildingTarget-0>
+      <SourceItem56-IndividualCompileOption-0>False</SourceItem56-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem57--0>-8585784782890531189</TimeTagModified-SourceItem57--0>
+      <SourceItem57-IsLockedByUser>False</SourceItem57-IsLockedByUser>
+      <SourceItem57-BuildingTarget-0>True</SourceItem57-BuildingTarget-0>
+      <SourceItem57-IndividualCompileOption-0>False</SourceItem57-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem58--0>-8585784782890531189</TimeTagModified-SourceItem58--0>
+      <SourceItem58-IsLockedByUser>False</SourceItem58-IsLockedByUser>
+      <SourceItem58-BuildingTarget-0>True</SourceItem58-BuildingTarget-0>
+      <SourceItem58-IndividualCompileOption-0>False</SourceItem58-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem59--0>-8585784782890531189</TimeTagModified-SourceItem59--0>
+      <SourceItem59-IsLockedByUser>False</SourceItem59-IsLockedByUser>
+      <SourceItem59-BuildingTarget-0>True</SourceItem59-BuildingTarget-0>
+      <SourceItem59-IndividualCompileOption-0>False</SourceItem59-IndividualCompileOption-0>
     </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem5--0>-8585861550920951480</TimeTagModified-SourceItem5--0>

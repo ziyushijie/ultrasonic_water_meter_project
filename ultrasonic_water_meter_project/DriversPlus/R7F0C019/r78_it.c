@@ -152,7 +152,6 @@ static void __near uart_interrupt_send_three(void)
 
 #endif
 
-
 #pragma region 滴答定时器
 
 #pragma interrupt sys_tick_interrupt(vect=INTTM02)
@@ -187,7 +186,15 @@ static void __near sys_tick_interrupt(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near ms1022_interrupt_flag(void)
 {
-	ms1022_spi_task_it_irq_handle_int_flag(MS1022_TASK_ONE);
+	//---判断中断执行功能；在进入休眠模式后该功能被映射到串口接收引脚上
+	if (sleep_task_get()!=0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_MBUS_UART);
+	}
+	else
+	{
+		ms1022_spi_task_it_irq_handle_int_flag(MS1022_TASK_ONE);
+	}
 	SEI();
 }
 
@@ -219,6 +226,10 @@ static void __near ms1022_interrupt_spi(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near key_interrupt_one(void)
 {
+	if (sleep_task_get() != 0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_KEY);
+	}
 	key_task_it_irq_handle_one(KEY_TASK_ONE,0);
 	SEI();
 }
@@ -239,6 +250,11 @@ static void __near key_interrupt_one(void)
 static void __near wdt_interrupt(void)
 {
 	wdt_task_it_irq_handle();
+	//---判断是否为休眠模式
+	if (sleep_task_get() != 0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_WDT);
+	}
 	SEI();
 }
 
@@ -257,7 +273,62 @@ static void __near wdt_interrupt(void)
 //////////////////////////////////////////////////////////////////////////////
 static void __near pulse_interrupt_one(void)
 {
+	if (sleep_task_get() != 0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_KEY);
+	}
 	pulse_task_it_irq_handle_one(PULSE_TASK_ONE);
+	SEI();
+}
+
+#pragma endregion
+
+#pragma region 红外串口，中断唤醒功能
+
+#pragma interrupt irda_wake_up_interrupt_one(vect=INTP1)
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 红外中断处理
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near irda_wake_up_interrupt_one(void)
+{
+	if (sleep_task_get() != 0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_IRDA_UART);
+	}
+	SEI();
+}
+
+#pragma endregion
+
+
+#pragma region RTC中断处理函数
+
+#pragma interrupt rtc_interrupt_one(vect=INTRTC)
+
+vltuint8_t rtc_cnt = 10;
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 12位间隔定时器唤醒中断
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+static void __near rtc_interrupt_one(void)
+{
+	if (sleep_task_get() != 0)
+	{
+		sleep_task_wakeup_exit(SLEEP_WAKEUP_RTC);
+	}
+	//---中断处理函数
+	rtc_task_it_irq_handle_one(RTC_TASK_ONE);
+	//---清零显示
+	lcd_segment_task_show_integer(LCD_TASK_ONE, rtc_cnt++, 1);
 	SEI();
 }
 

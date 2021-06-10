@@ -17,6 +17,7 @@ extern "C" {
 	#include "r_cg_pclbuz.h"
 	#include "r_cg_intp.h"
 	#include "r_cg_lcd.h"
+	#include "r_cg_rtc.h"
 //	#include "stacksct.h"
 
 	#define SIZE_HEAP		0x200
@@ -423,6 +424,7 @@ extern "C" {
 	void rl78_sau2_clock(uint8_t enable);
 	void rl78_perpheral_clock_enable(uint8_t perpheral);
 	void rl78_perpheral_clock_disable(uint8_t perpheral);
+
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

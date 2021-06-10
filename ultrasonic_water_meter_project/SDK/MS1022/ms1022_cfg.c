@@ -315,6 +315,8 @@ uint8_t ms1022_spi_init_one(MS1022_HandleType* MS1022x)
 	PPR07 = 1U;
 
 	//---设置下降沿触发
+	//---屏蔽下降沿中断允许寄存器
+	EGN0 &= ~_80_INTP7_EDGE_FALLING_SEL;
 	EGN0 |= _80_INTP7_EDGE_FALLING_SEL;
 
 	//---设置INT为输入模式且上拉使能
@@ -1147,8 +1149,6 @@ uint8_t ms1022_spi_read_start_temperature(MS1022_HandleType* MS1022x)
 	_return = MS1022x->msg_water_temperature.msg_state.bits;
 	//---关闭晶振
 	ms1022_spi_fosc_disable(MS1022x);
-	//---上电复位设备
-	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
 	//---判断阻值是否获取完成
@@ -1417,8 +1417,6 @@ uint8_t ms1022_spi_read_start_temperature_restart(MS1022_HandleType* MS1022x)
 	_return = MS1022x->msg_water_temperature.msg_state.bits;
 	//---关闭晶振
 	ms1022_spi_fosc_disable(MS1022x);
-	//---上电复位设备
-	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
 	//---判断阻值是否获取完成
@@ -1601,13 +1599,9 @@ uint32_t  ms1022_spi_calculate_offset(MS1022_HandleType* MS1022x, uint32_t offse
 	return _return;
 }
 
-//float sample_temp[4] = { 0.0f };
-
-//uint32_t g_ms1022_state = 0;
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: TDC测试前的猪呢比
+//////功		能: TDC测试前的预测试
 //////输入参	数:
 //////输出参	数:
 //////说		明:
@@ -1731,7 +1725,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			MS1022x->msg_water_tof.msg_up_rssi);
-		LOG_VA_ARGS("STATE_TEST:%X\r\n", sample_state);
+		LOG_VA_ARGS("STATE_TEST:%04lX\r\n", sample_state);
 #endif
 	}
 	//---<<<读取上游时差
@@ -1853,8 +1847,6 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	//---<<<读取下游时差
 	return _return;
 }
-
-//uint32_t temp_res[4] = { 0 };
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -2243,8 +2235,6 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	}
 	//---关闭晶振---降低功耗
 	ms1022_spi_fosc_disable(MS1022x);
-	//---上电复位设备
-	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
 	//---判断飞行时间的测量结果
@@ -2526,8 +2516,6 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	}
 	//---关闭晶振---降低功耗
 	ms1022_spi_fosc_disable(MS1022x);
-	//---上电复位设备
-	ms1022_spi_send_cmd(MS1022x, MS1022_CMD_POWER_ON_RESET);
 	//---关闭参考时钟
 	MS1022_32KHZ_CLOCK_DISABLE();
 	//---判断飞行时间的测量结果

@@ -146,7 +146,9 @@ void rl78_clock_init(void)
 	////---非法存储器存取检测控制寄存器
 	//IAWCTL = 0x00;
 
-	OSMC = _00_CGC_SUBINHALT_ON | _00_CGC_RTC_IT_LCD_CLK_FSUB;
+	//OSMC = _00_CGC_SUBINHALT_ON | _00_CGC_RTC_IT_LCD_CLK_FSUB;
+	//---不使能其他外设设备提供副系统时钟
+	OSMC = _80_CGC_SUBINHALT_OFF | _00_CGC_RTC_IT_LCD_CLK_FSUB;
 	/* Set fCLK */
 	CSS = 0U;
 	/* Set fIH */

@@ -43,5 +43,7 @@ void wdt_restart(void)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t wdt_it_irq_handle(void)
 {
+    //---∏¥Œªø¥√≈π∑
+    wdt_restart();
     return OK_0;
 }

@@ -12,12 +12,20 @@ LCD_HandleType				g_lcd_one = {0};
 pLCD_HandleType				p_lcd_one=&g_lcd_one;
 
 //===LCD断码表
+#ifdef LCD_LANGUAGE_CN
 //0,1,2,3,4,5,6,7,8,9,A,b,C,d,E,F,i,n,o,r,t,u,-
 const uint8_t g_lcd_segment_display_table_one[23] = {
 	0x5F,0x06,0x3D,0x2F,0x66,0x6B,0x7B,0x0E,0x7F,0x6F,
 	0x7E,0x73,0x59,0x37,0x79,0x78,0x10,0x32,0x33,0x30,
 	0x71,0x13,0x20
 };
+#elif defined(LCD_LANGUAGE_EN)
+const uint8_t g_lcd_segment_display_table_one[23] = {
+	0xAF,0x06,0x6D,0x4F,0xC6,0xCB,0xEB,0x0E,0xEF,0xCF,
+	0xEE,0xE3,0xA9,0x67,0xE9,0xE8,0x20,0x62,0x63,0x60,
+	0xE1,0x23,0x40
+};
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -58,10 +66,11 @@ uint8_t lcd_segment_init_one(LCD_HandleType *LCDx, uint32_t(*func_time_tick)(voi
 
 	//---不使能LCD时钟
 	LCDON = 0;
+	LCDM0=0;
+	LCDM1=0;
 	//---外部分压电阻模式，A波形模式，4个时间片，1/3偏压法
-	LCDM0 = _00_LCD_DISPLAY_WAVEFORM_A | _0D_LCD_DISPLAY_MODE1;
-	LCDM0 |= _00_LCD_VOLTAGE_MODE_EXTERNAL;
-
+	LCDM0 = _00_LCD_VOLTAGE_MODE_EXTERNAL|_00_LCD_DISPLAY_WAVEFORM_A | _0D_LCD_DISPLAY_MODE1;
+	VLCD = 0x04;
 	//---配置断码器用到的端口
 
 	//---不使能上拉电阻
@@ -97,7 +106,7 @@ uint8_t lcd_segment_init_one(LCD_HandleType *LCDx, uint32_t(*func_time_tick)(voi
 	P7 &= 0x0E;
 
 	//---断码控制端口
-	PFSEG0 |= 0xF0;
+	PFSEG0 |= 0xB0;
 	PFSEG1 |= 0xFF;
 	PFSEG2 |= 0xFF;
 	PFSEG3 |= 0xBB;
@@ -109,7 +118,13 @@ uint8_t lcd_segment_init_one(LCD_HandleType *LCDx, uint32_t(*func_time_tick)(voi
 	//---显示A图形区域
 	LCDM1 |= _00_LCD_DISPLAY_PATTERN_A;
 	//---限定LCD的时钟频率，过快时钟频率会有虚影，
-	LCDC0 = _07_LCD_CLOCK_FSUB_FIL_8;//_05_LCD_CLOCK_FSUB_FIL_6;
+#ifdef LCD_LANGUAGE_CN
+	LCDC0 = _07_LCD_CLOCK_FSUB_FIL_8;// _07_LCD_CLOCK_FSUB_FIL_8;
+#elif defined(LCD_LANGUAGE_EN)
+	LCDC0 = _07_LCD_CLOCK_FSUB_FIL_8;// _07_LCD_CLOCK_FSUB_FIL_8;//_05_LCD_CLOCK_FSUB_FIL_6;
+#else
+	#error "不支持的LCD断码液晶的时钟配置!"
+#endif
 
 	//---注册滴答函数
 	(func_time_tick != NULL) ?
@@ -119,8 +134,8 @@ uint8_t lcd_segment_init_one(LCD_HandleType *LCDx, uint32_t(*func_time_tick)(voi
 	LCDx->msg_text = TEXT_NONE;
 	LCDx->msg_unit = UNIT_NONE;
 
-	lcd_segment_show_all_one(LCDx);
-	return lcd_segment_enable_one(LCDx);
+	lcd_segment_enable_one(LCDx);
+	return lcd_segment_show_all_one(LCDx);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -503,6 +518,7 @@ uint8_t lcd_segment_text_title_on_one(LCD_HandleType *LCDx, uint16_t text )
 		lcd_segment_text_title_off_one(LCDx,LCDx->msg_text);
 		LCDx->msg_text = text;
 	}
+#ifdef LCD_LANGUAGE_CN
 	switch (text)
 	{
 		case TEXT_ACC:		//---累积
@@ -605,6 +621,100 @@ uint8_t lcd_segment_text_title_on_one(LCD_HandleType *LCDx, uint16_t text )
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (text)
+	{
+		case TEXT_ACC:		//---累积
+		{
+			SEG0 |= 0x01;
+			break;
+		}
+		case TEXT_HEAT:		//---热量
+		{
+			SEG33 |= 0x08;
+			break;
+		}
+		case TEXT_ACC_HEAT:	//---累积热量
+		{
+			SEG0 |= 0x01;
+			SEG33 |= 0x08;
+			break;
+		}
+		case TEXT_COOL:		//---冷量
+		{
+			SEG33 |= 0x04;
+			break;
+		}
+		case TEXT_ACC_COOL:		//---冷量
+		{
+			SEG0 |= 0x01;
+			SEG33 |= 0x04;
+			break;
+		}
+		case TEXT_FLOW:		//---流量
+		{
+			SEG7 |= 0x01;
+			break;
+		}
+		case TEXT_ACC_FLOW:		//---流量
+		{
+			SEG0 |= 0x01;
+			SEG7 |= 0x01;
+			break;
+		}
+		case TEXT_IWT:		//---进水温度
+		{
+			SEG33 |= 0x01;
+			break;
+		}
+		case TEXT_OWT:		//---回水温度
+		{
+			SEG33 |= 0x02;
+			break;
+		}
+		case TEXT_DWT:		//---温差
+		{
+			SEG34 |= 0x01;
+			break;
+		}
+		case TEXT_TEST:		//---检定模式
+		{
+			SEG37 |= 0x01;
+			break;
+		}
+		case TEXT_ADDR:		//---地址
+		{
+			SEG36 |= 0x01;
+			break;
+		}
+		case TEXT_DATE:		//---日期
+		{
+			SEG34 |= 0x08;
+			break;
+		}
+		case TEXT_RTC:		//---时间
+		{
+			SEG33 |= 0x01;
+			break;
+		}
+		case TEXT_ACC_RTC:		//---时间
+		{
+			SEG0 |= 0x08;
+			SEG33 |= 0x01;
+			break;
+		}
+		case TEXT_BATTERY:	//---电池
+		{
+			SEG34 |= 0x02;
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear_one(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -665,6 +775,7 @@ uint8_t lcd_segment_text_title_on(LCD_HandleType* LCDx, uint16_t text)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t lcd_segment_text_title_off_one(LCD_HandleType *LCDx, uint16_t text)
 {
+#ifdef LCD_LANGUAGE_CN
 	switch (text)
 	{
 		case TEXT_NONE:
@@ -754,7 +865,7 @@ uint8_t lcd_segment_text_title_off_one(LCD_HandleType *LCDx, uint16_t text)
 			SEG33 &= 0xF7;
 			break;
 		}
-		case TEXT_ACC_RTC:		//---累积时间
+		case TEXT_ACC_RTC:	//---累积时间
 		{
 			SEG0 &= 0xF7;
 			SEG33 &= 0xF7;
@@ -771,6 +882,114 @@ uint8_t lcd_segment_text_title_off_one(LCD_HandleType *LCDx, uint16_t text)
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (text)
+	{
+		case TEXT_NONE:
+		{
+			break;
+		}
+		case TEXT_ACC:		//---累积
+		{
+			SEG0 &= 0xF7;
+			break;
+		}
+		case TEXT_HEAT:		//---热量
+		{
+			SEG2 &= 0xF7;
+			break;
+		}
+		case TEXT_ACC_HEAT:		//---累积热量
+		{
+			SEG0 &= 0xF7;
+			SEG2 &= 0xF7;
+			break;
+		}
+		case TEXT_COOL:		//---冷量
+		{
+			SEG7 &= 0xF7;
+			break;
+		}
+		case TEXT_ACC_COOL:		//---累积冷量
+		{
+			SEG0 &= 0xF7;
+			SEG7 &= 0xF7;
+			break;
+		}
+		case TEXT_FLOW:		//---流量
+		{
+			SEG11 &= 0xF7;
+			break;
+		}
+		case TEXT_ACC_FLOW:		//---累积流量
+		{
+			SEG0 &= 0xF7;
+			SEG11 &= 0xF7;
+			break;
+		}
+		case TEXT_IWT:		//---进水温度
+		{
+			SEG16 &= 0xF7;
+			break;
+		}
+		case TEXT_OWT:		//---回水温度
+		{
+			SEG20 &= 0xF7;
+			break;
+		}
+		case TEXT_DWT:		//---温差
+		{
+			SEG33 &= 0xF7;
+			break;
+		}
+		case TEXT_TEST:		//---检定模式
+		{
+			SEG38 &= 0xF7;
+			break;
+		}
+		case TEXT_ALARM:	//---报警
+		{
+			SEG37 &= 0xF7;
+			break;
+		}
+		case TEXT_POWER:	//---功率
+		{
+			SEG36 &= 0xF7;
+			break;
+		}
+		case TEXT_ADDR:		//---地址
+		{
+			SEG35 &= 0xF7;
+			break;
+		}
+		case TEXT_DATE:		//---日期
+		{
+			SEG34 &= 0xF7;
+			break;
+		}
+		case TEXT_RTC:		//---时间
+		{
+			SEG33 &= 0xF7;
+			break;
+		}
+		case TEXT_ACC_RTC:	//---累积时间
+		{
+			SEG0 &= 0xF7;
+			SEG33 &= 0xF7;
+			break;
+		}
+		case TEXT_BATTERY:	//---电池
+		{
+			SEG33 &= 0xFD;
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear_one(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -837,6 +1056,7 @@ uint8_t lcd_segment_unit_title_on_one(LCD_HandleType *LCDx, uint16_t unit)
 		LCDx->msg_unit = unit;
 	}
 	//---根据单位类型显示指定的单位
+#ifdef LCD_LANGUAGE_CN
 	switch (unit)
 	{
 		case UNIT_K :		//---显示单位K
@@ -911,6 +1131,82 @@ uint8_t lcd_segment_unit_title_on_one(LCD_HandleType *LCDx, uint16_t unit)
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (unit)
+	{
+		case UNIT_K:		//---显示单位K
+		{
+			SEG34 |= 0x02;
+			break;
+		}
+		case UNIT_C:		//---显示单位℃
+		{
+			SEG34 |= 0x04;
+			break;
+		}
+		case UNIT_KW:		//---显示千瓦kW
+		{
+			SEG35 |= 0x02;
+			break;
+		}
+		case UNIT_KW_D:		//---显示千瓦kW小数点后的点
+		{
+			SEG35 |= 0x04;
+			break;
+		}
+		case UNIT_KWH:		//---显示千瓦kW.h
+		{
+			SEG35 |= 0x06;
+			SEG36 |= 0x04;
+			break;
+		}
+		case UNIT_KW_H:		//---显示千瓦kW小数点后的h
+		{
+			SEG36 |= 0x04;
+			break;
+		}
+		case UNIT_MWH:		//---显示兆瓦MW.h
+		{
+			SEG36 |= 0x02;
+			break;
+		}
+		case UNIT_GJ:		//---显示GJ
+		{
+			SEG37 |= 0x02;
+			break;
+		}
+		case UNIT_MJ:		//---显示MJ
+		{
+			SEG37 |= 0x04;
+			break;
+		}
+		case UNIT_GJMJ:		//---显示GJMJ
+		{
+			SEG37 |= 0x06;
+			break;
+		}
+		case UNIT_M3:		//---显示m3
+		{
+			SEG38 |= 0x02;
+			break;
+		}
+		case UNIT_M3_H:		//---显示m3小数点后的/h
+		{
+			SEG38 |= 0x04;
+			break;
+		}
+		case UNIT_M3H:		//---显示m3/h
+		{
+			SEG38 |= 0x06;
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear_one(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -972,6 +1268,7 @@ uint8_t lcd_segment_unit_title_on(LCD_HandleType* LCDx, uint16_t unit)
 uint8_t lcd_segment_unit_title_off_one(LCD_HandleType *LCDx, uint16_t unit)
 {
 	//---根据单位类型显示指定的单位
+#ifdef LCD_LANGUAGE_CN
 	switch (unit)
 	{
 		case UNIT_NONE:
@@ -1050,6 +1347,86 @@ uint8_t lcd_segment_unit_title_off_one(LCD_HandleType *LCDx, uint16_t unit)
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (unit)
+	{
+		case UNIT_NONE:
+		{
+			break;
+		}
+		case UNIT_K:		//---显示单位K
+		{
+			SEG34 &= 0xFD;
+			break;
+		}
+		case UNIT_C:		//---显示单位℃
+		{
+			SEG34 &= 0xFB;
+			break;
+		}
+		case UNIT_KW:		//---显示千瓦kW
+		{
+			SEG35 &= 0xFD;
+			break;
+		}
+		case UNIT_KW_D:		//---显示千瓦kW小数点后的点
+		{
+			SEG35 &= 0xFB;
+			break;
+		}
+		case UNIT_KWH:		//---显示千瓦kW.h
+		{
+			SEG35 &= 0xF9;
+			SEG36 &= 0xFB;
+			break;
+		}
+		case UNIT_KW_H:		//---显示千瓦kW小数点后的h
+		{
+			SEG36 &= 0xFB;
+			break;
+		}
+		case UNIT_MWH:		//---显示兆瓦MW.h
+		{
+			SEG36 &= 0xFD;
+			break;
+		}
+		case UNIT_GJ:		//---显示GJ
+		{
+			SEG37 &= 0xFD;
+			break;
+		}
+		case UNIT_MJ:		//---显示MJ
+		{
+			SEG37 &= 0xFB;
+			break;
+		}
+		case UNIT_GJMJ:		//---显示GJMJ
+		{
+			SEG37 &= 0xF9;
+			break;
+		}
+		case UNIT_M3:		//---显示m3
+		{
+			SEG38 &= 0xFD;
+			break;
+		}
+		case UNIT_M3_H:		//---显示m3小数点后的/h
+		{
+			SEG38 &= 0xFB;
+			break;
+		}
+		case UNIT_M3H:		//---显示m3/h
+		{
+			SEG38 &= 0xF9;
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear_one(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -1110,6 +1487,8 @@ uint8_t lcd_segment_unit_title_off(LCD_HandleType* LCDx, uint16_t unit)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t lcd_segment_decimal_point_one(LCD_HandleType *LCDx, uint16_t index, uint8_t isshow)
 {
+	//---小数点显示
+#ifdef LCD_LANGUAGE_CN
 	switch (index)
 	{
 		case 3:
@@ -1147,6 +1526,45 @@ uint8_t lcd_segment_decimal_point_one(LCD_HandleType *LCDx, uint16_t index, uint
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (index)
+	{
+		case 3:
+		{
+			(isshow != 0) ? (SEG11 |= 0x01) : (SEG11 &= 0xFE);
+			break;
+		}
+		case 4:
+		{
+			(isshow != 0) ? (SEG16 |= 0x01) : (SEG16 &= 0xFE);
+			break;
+		}
+		case 5:
+		{
+			(isshow != 0) ? (SEG18 |= 0x01) : (SEG18 &= 0xFE);
+			break;
+		}
+		case 6:
+		{
+			(isshow != 0) ? (SEG20 |= 0x01) : (SEG20 &= 0xFE);
+			break;
+		}
+		case 7:
+		{
+			(isshow != 0) ? (SEG22 |= 0x01) : (SEG22 &= 0xFE);
+			break;
+		}
+		default:
+		{
+			SEG11 &= 0xFE;
+			SEG16 &= 0xFE;
+			SEG18 &= 0xFE;
+			SEG20 &= 0xFE;
+			SEG22 &= 0xFE;
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -1361,6 +1779,7 @@ uint8_t lcd_segment_data_on_one(LCD_HandleType *LCDx, uint16_t index, char dat )
 		}
 	}
 	//---判断显示内容，从左到右，依次是1,2,3,4,5,6,7,8
+#ifdef LCD_LANGUAGE_CN
 	switch (index)
 	{
 		case 1:
@@ -1433,6 +1852,80 @@ uint8_t lcd_segment_data_on_one(LCD_HandleType *LCDx, uint16_t index, char dat )
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (index)
+	{
+		case 1:
+		{
+			SEG1 &= 0xF0;
+			SEG0 &= 0xF1;
+			SEG1 |= (temp_data & 0x0F);
+			SEG0 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 2:
+		{
+			SEG3 &= 0xF0;
+			SEG2 &= 0xF1;
+			SEG3 |= (temp_data & 0x0F);
+			SEG2 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 3:
+		{
+			SEG8 &= 0xF0;
+			SEG7 &= 0xF1;
+			SEG8 |= (temp_data & 0x0F);
+			SEG7 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 4:
+		{
+			SEG12 &= 0xF0;
+			SEG11 &= 0xF1;
+			SEG12 |= (temp_data & 0x0F);
+			SEG11 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 5:
+		{
+			SEG17 &= 0xF0;
+			SEG16 &= 0xF1;
+			SEG17 |= (temp_data & 0x0F);
+			SEG16 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 6:
+		{
+			SEG19 &= 0xF0;
+			SEG18 &= 0xF1;
+			SEG19 |= (temp_data & 0x0F);
+			SEG18 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 7:
+		{
+			SEG21 &= 0xF0;
+			SEG20 &= 0xF1;
+			SEG21 |= (temp_data & 0x0F);
+			SEG20 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		case 8:
+		{
+			SEG23 &= 0xF0;
+			SEG22 &= 0xF1;
+			SEG23 |= (temp_data & 0x0F);
+			SEG22 |= ((temp_data >> 4) & 0x0E);
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -1494,6 +1987,7 @@ uint8_t lcd_segment_data_on(LCD_HandleType* LCDx, uint16_t index, char dat)
 uint8_t lcd_segment_data_off_one(LCD_HandleType *LCDx, uint16_t index)
 {
 	//---判断显示内容，从左到右，依次是1,2,3,4,5,6,7,8
+#ifdef LCD_LANGUAGE_CN
 	switch (index)
 	{
 		case 1:
@@ -1550,6 +2044,64 @@ uint8_t lcd_segment_data_off_one(LCD_HandleType *LCDx, uint16_t index)
 			break;
 		}
 	}
+#elif defined(LCD_LANGUAGE_EN)
+	switch (index)
+	{
+		case 1:
+		{
+			SEG1 &= 0xF0;
+			SEG0 &= 0xF1;
+			break;
+		}
+		case 2:
+		{
+			SEG3 &= 0xF0;
+			SEG2 &= 0xF1;
+			break;
+		}
+		case 3:
+		{
+			SEG8 &= 0xF0;
+			SEG7 &= 0xF1;
+			break;
+		}
+		case 4:
+		{
+			SEG12 &= 0xF0;
+			SEG11 &= 0xF1;
+			break;
+		}
+		case 5:
+		{
+			SEG17 &= 0xF0;
+			SEG16 &= 0xF1;
+			break;
+		}
+		case 6:
+		{
+			SEG19 &= 0xF0;
+			SEG18 &= 0xF1;
+			break;
+		}
+		case 7:
+		{
+			SEG21 &= 0xF0;
+			SEG20 &= 0xF1;
+			break;
+		}
+		case 8:
+		{
+			SEG23 &= 0xF0;
+			SEG22 &= 0xF1;
+			break;
+		}
+		default:
+		{
+			lcd_segment_clear(LCDx);
+			break;
+		}
+	}
+#endif
 	return OK_0;
 }
 
@@ -1610,9 +2162,15 @@ uint8_t lcd_segment_data_off(LCD_HandleType* LCDx, uint16_t index)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t lcd_segment_test_enter_one(LCD_HandleType *LCDx)
 {
+#ifdef LCD_LANGUAGE_CN
 	BLON = 1;
 	SEG38 |= 0x08;
 	SEG38 &= 0x7F;
+#elif defined(LCD_LANGUAGE_EN)
+	BLON = 1;
+	SEG37 |= 0x01;
+	SEG37 &= 0xEF;
+#endif
 	return OK_0;
 }
 
@@ -1673,9 +2231,15 @@ uint8_t lcd_segment_test_enter(LCD_HandleType* LCDx)
 //////////////////////////////////////////////////////////////////////////////
 uint8_t lcd_segment_test_exit_one(LCD_HandleType *LCDx)
 {
+#ifdef LCD_LANGUAGE_CN
 	BLON = 0;
 	LCDSEL = 0;
 	SEG38 &= 0x77;
+#elif defined(LCD_LANGUAGE_EN)
+	BLON = 0;
+	LCDSEL = 0;
+	SEG38 &= 0xEE;
+#endif
 	return OK_0;
 }
 
@@ -1737,10 +2301,12 @@ uint8_t lcd_segment_test_exit(LCD_HandleType* LCDx)
 uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t isfill)
 {
 	uint8_t temp_dat = dat / 10000000;
-	//temp_dat = dat / 10000000;
-	uint8_t dat_flag = 0;
 	//---判断液晶是否关闭显示了
-
+	if (LCDx->msg_backlight==0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
+	//---数据信息
 	if (temp_dat==0)
 	{
 		if (isfill!=0)
@@ -1755,12 +2321,11 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 1, temp_dat);
 	}
 	dat %= 10000000;
 	temp_dat = dat / 1000000;
-	if ((temp_dat == 0)&&(dat_flag==0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1773,12 +2338,11 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 2, temp_dat);
 	}
 	dat %= 1000000;
 	temp_dat = dat / 100000;
-	if ((temp_dat == 0) && (dat_flag == 0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1791,13 +2355,12 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 3, temp_dat);
 	}
 	lcd_segment_decimal_point_one(LCDx, 3, 0);
 	dat %= 100000;
 	temp_dat = dat / 10000;
-	if ((temp_dat == 0) && (dat_flag == 0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1810,13 +2373,12 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 4, temp_dat);
 	}
 	lcd_segment_decimal_point_one(LCDx, 4, 0);
 	dat %= 10000;
 	temp_dat = dat / 1000;
-	if ((temp_dat == 0) && (dat_flag == 0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1829,13 +2391,12 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 5, temp_dat);
 	}
 	lcd_segment_decimal_point_one(LCDx, 5, 0);
 	dat %= 1000;
 	temp_dat = dat / 100;
-	if ((temp_dat == 0) && (dat_flag == 0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1848,13 +2409,12 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 6, temp_dat);
 	}
 	lcd_segment_decimal_point_one(LCDx, 6, 0);
 	dat %= 100;
 	temp_dat = dat / 10;
-	if ((temp_dat == 0) && (dat_flag == 0))
+	if (temp_dat == 0)
 	{
 		if (isfill != 0)
 		{
@@ -1867,27 +2427,10 @@ uint8_t lcd_segment_show_integer_one(LCD_HandleType *LCDx, uint32_t dat, uint8_t
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 7, temp_dat);
 	}
 	lcd_segment_decimal_point_one(LCDx, 7, 0);
 	temp_dat = dat % 10;
-	//if ((temp_dat == 0) && (dat_flag == 0))
-	//{
-	//	if (isfill != 0)
-	//	{
-	//		lcd_segment_data_on_one(LCDx, 8, 0);
-	//	}
-	//	else
-	//	{
-	//		lcd_segment_data_off_one(LCDx, 8);
-	//	}
-	//}
-	//else
-	//{
-	//	dat_flag = 1;
-	//	lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	//}
 	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
@@ -1952,37 +2495,31 @@ uint8_t lcd_segment_show_float_p5f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint16_t temp_integer = (uint16_t)dat;
 	uint8_t temp_dat = temp_integer / 100;
-	uint8_t dat_flag = 0;
+	//---判断液晶是否关闭显示了
+	if (LCDx->msg_backlight == 0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 1, temp_dat);
 	}
 	temp_integer %= 100;
 	temp_dat = temp_integer / 10;
-	if ((temp_dat == 0)&&(dat_flag==0))
+	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 2);
 	}
 	else
 	{
-		dat_flag = 1;
 		lcd_segment_data_on_one(LCDx, 2, temp_dat);
 	}
 	temp_dat = temp_integer % 10;
-	if ((temp_dat == 0) && (dat_flag == 0))
-	{
-		lcd_segment_data_off_one(LCDx, 3);
-	}
-	else
-	{
-		dat_flag = 1;
-		lcd_segment_data_on_one(LCDx, 3, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 3, temp_dat);
 	lcd_segment_decimal_point_one(LCDx, 3, 1);
 	dat -= temp_integer;
 	dat *= 10.0f;
@@ -2040,14 +2577,7 @@ uint8_t lcd_segment_show_float_p5f_one(LCD_HandleType *LCDx, float dat)
 	dat *= 10.0f;
 	temp_integer = (uint16_t)(dat);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 8, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
 
@@ -2111,6 +2641,11 @@ uint8_t lcd_segment_show_float_p4f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint16_t temp_integer = (uint16_t)dat;
 	uint8_t temp_dat = temp_integer / 1000;
+	//---判断液晶是否关闭显示了
+	if (LCDx->msg_backlight == 0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2141,14 +2676,7 @@ uint8_t lcd_segment_show_float_p4f_one(LCD_HandleType *LCDx, float dat)
 	}
 	lcd_segment_decimal_point_one(LCDx, 3, 0);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 4, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 4, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 4, temp_dat);
 	lcd_segment_decimal_point_one(LCDx, 4, 1);
 	dat -= temp_integer;
 	dat *= 10.0f;
@@ -2193,14 +2721,7 @@ uint8_t lcd_segment_show_float_p4f_one(LCD_HandleType *LCDx, float dat)
 	dat *= 10.0f;
 	temp_integer = (uint16_t)(dat);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 8, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
 
@@ -2264,7 +2785,11 @@ uint8_t lcd_segment_show_float_p3f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 10000;
-	//uint8_t dat_flag = 0;
+	//---判断液晶是否关闭显示了
+	if (LCDx->msg_backlight == 0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off(LCDx, 1);
@@ -2306,14 +2831,7 @@ uint8_t lcd_segment_show_float_p3f_one(LCD_HandleType *LCDx, float dat)
 	}
 	lcd_segment_decimal_point(LCDx, 4, 0);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on(LCDx, 5, 0);
-	}
-	else
-	{
-		lcd_segment_data_on(LCDx, 5, temp_dat);
-	}
+	lcd_segment_data_on(LCDx, 5, temp_dat);
 	lcd_segment_decimal_point(LCDx, 5, 1);
 	dat -= temp_integer;
 	dat *= 10.0f;
@@ -2345,14 +2863,7 @@ uint8_t lcd_segment_show_float_p3f_one(LCD_HandleType *LCDx, float dat)
 	dat *= 10.0f;
 	temp_integer = (uint16_t)(dat);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on(LCDx, 8, 0);
-	}
-	else
-	{
-		lcd_segment_data_on(LCDx, 8, temp_dat);
-	}
+	lcd_segment_data_on(LCDx, 8, temp_dat);
 	return OK_0;
 }
 
@@ -2416,6 +2927,11 @@ uint8_t lcd_segment_show_float_p2f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 100000;
+	//---判断液晶是否关闭显示了
+	if (LCDx->msg_backlight == 0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2468,14 +2984,7 @@ uint8_t lcd_segment_show_float_p2f_one(LCD_HandleType *LCDx, float dat)
 	}
 	lcd_segment_decimal_point_one(LCDx, 5, 0);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 6, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 6, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 6, temp_dat);
 	lcd_segment_decimal_point_one(LCDx, 6, 1);
 	dat -= temp_integer;
 	dat *= 10.0f;
@@ -2494,14 +3003,7 @@ uint8_t lcd_segment_show_float_p2f_one(LCD_HandleType *LCDx, float dat)
 	dat *= 10.0f;
 	temp_integer = (uint16_t)(dat);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 8, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
 
@@ -2565,6 +3067,11 @@ uint8_t lcd_segment_show_float_p1f_one(LCD_HandleType *LCDx, float dat)
 	//---强制转换为整数
 	uint32_t temp_integer = (uint32_t)dat;
 	uint8_t temp_dat = temp_integer / 1000000;
+	//---判断液晶是否关闭显示了
+	if (LCDx->msg_backlight == 0)
+	{
+		lcd_segment_enable_one(LCDx);
+	}
 	if (temp_dat == 0)
 	{
 		lcd_segment_data_off_one(LCDx, 1);
@@ -2628,27 +3135,13 @@ uint8_t lcd_segment_show_float_p1f_one(LCD_HandleType *LCDx, float dat)
 	}
 	lcd_segment_decimal_point_one(LCDx, 6, 0);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 7, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 7, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 7, temp_dat);
 	lcd_segment_decimal_point_one(LCDx, 7,1);
 	dat -= temp_integer;
 	dat *= 10.0f;
 	temp_integer = (uint16_t)(dat);
 	temp_dat = temp_integer % 10;
-	if (temp_dat == 0)
-	{
-		lcd_segment_data_on_one(LCDx, 8, 0);
-	}
-	else
-	{
-		lcd_segment_data_on_one(LCDx, 8, temp_dat);
-	}
+	lcd_segment_data_on_one(LCDx, 8, temp_dat);
 	return OK_0;
 }
 

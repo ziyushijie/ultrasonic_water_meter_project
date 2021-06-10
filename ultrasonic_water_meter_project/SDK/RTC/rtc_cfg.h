@@ -9,6 +9,7 @@ extern "C" {
 	#include "complier_lib.h"
 	#include "sys_tick_task.h"
 	#include "hw_config.h"
+	#include "delay_task.h"
 
 	//===结构体定义
 	typedef struct _RTC_HandleType				RTC_HandleType;
@@ -17,8 +18,9 @@ extern "C" {
 	//===定义软件RTC时钟
 	struct _RTC_HandleType
 	{
-		RTC_TimeType	msg_rtcx;																						//---使用的RTC
-		uint32_t(*msg_f_time_tick)(void);																				//---用于超时计数
+		uint8_t         msg_rtc_change;					//---RTC发生变化
+		RTC_TimeType	msg_rtcx;						//---使用的RTC
+		uint32_t(*msg_f_time_tick)(void);				//---用于超时计数
 	};
 
 	#define RTC_TASK_ONE						p_rtc_one
@@ -30,9 +32,13 @@ extern "C" {
 	extern pRTC_HandleType						p_rtc_one;
 
 	//===函数定义
+
+	uint8_t rtc_it_irq_handle_one(RTC_HandleType* RTCx);
+
 	uint8_t rtc_time_tick_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void));
 	uint8_t rtc_init(RTC_HandleType* RTCx, uint32_t(*func_time_tick)(void), uint8_t ishw);
-
+	uint8_t rtc_set_rtctime(RTC_HandleType* RTCx, RTC_TimeType Timex, uint8_t ishw);
+	uint8_t rtc_get_rtctime(RTC_HandleType* RTCx, uint8_t ishw);
 
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

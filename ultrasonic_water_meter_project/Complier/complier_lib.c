@@ -1024,7 +1024,7 @@ uint8_t calc_rtc_week(RTC_TimeType* RTCx)
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
-//////功		能: 根据年月日计算当前时间是一年的中第几天
+//////功		能: 根据年月日计算当前时间是一年的中第几天,智能计算一年中的秒时间
 //////输入参	数:
 //////输出参	数:
 //////说		明:
@@ -1105,4 +1105,85 @@ uint16_t calc_rtc_year_day(RTC_TimeType* RTCx)
 		_return++;
 	}
 	return _return;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 根据RTC时间计算当前的秒时间
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint32_t calc_rtc_second(RTC_TimeType* RTCx)
+{
+	//---计算这是一年中的第几天
+	uint32_t temp_day_second = calc_rtc_year_day(RTCx);
+	uint32_t _return_second = 0;
+	if ((RTCx->msg_format_24h&0x01)!=0)
+	{
+		//---时
+		_return_second = RTCx->msg_hour;
+		//---分
+		_return_second = (_return_second * 60) + RTCx->msg_minute;
+		//---秒
+		_return_second = (_return_second * 60) + RTCx->msg_second;
+	}
+	else
+	{
+		//---酒宴是否是上午
+		if((RTCx->msg_format_24h & 0x80) != 0)
+		{
+			//---时
+			_return_second = RTCx->msg_hour+12;
+		}
+		else
+		{
+			//---时
+			_return_second = RTCx->msg_hour;
+		}
+		//---分
+		_return_second = (_return_second * 60) + RTCx->msg_minute;
+		//---秒
+		_return_second = (_return_second * 60) + RTCx->msg_second;
+	}
+	//---计算天的秒时间
+	temp_day_second = temp_day_second * 24 * 60 * 60;
+	//---计算总的秒时间
+	_return_second += temp_day_second;
+	return _return_second;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 计算过去了多少秒
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint32_t calc_rtc_second_span(RTC_TimeType* RTCx, uint32_t rtcsencond)
+{
+	uint32_t temp_second = calc_rtc_second(RTCx);
+	uint32_t _return_second = 0;
+	//---判断是否发生跨年操作
+	if (temp_second<rtcsencond)
+	{
+		//---判断上一年是否是闰年
+		if ((RTCx->msg_year != 0)&&(((RTCx->msg_year - 1) % 4) == 0) &&
+			(((RTCx->msg_year - 1) % 100) != 0) ||
+			(((RTCx->msg_year - 1) % 400) == 0))
+		{
+			_return_second = (LEAP_YEAR_SECONDS - rtcsencond);
+		}
+		else
+		{
+			_return_second = (NOLEAP_YEAR_SECONDS - rtcsencond);
+		}
+		_return_second += temp_second;
+	}
+	else
+	{
+		_return_second = temp_second - rtcsencond;
+	}
+	//---返回发生的秒跨度
+	return _return_second;
 }

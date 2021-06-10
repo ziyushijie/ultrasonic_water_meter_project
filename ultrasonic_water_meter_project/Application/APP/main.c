@@ -80,6 +80,18 @@ uint32_t app_get_tick(void)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//////函		数: 
+//////功		能: 应用使用的秒节拍
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint32_t app_get_second(void)
+{
+	return calc_rtc_second(&(RTC_TASK_ONE->msg_rtcx));
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 应用初始化函数
 //////输入参	数:
@@ -93,9 +105,9 @@ void app_init(void)
 	//---根据配置字选择时钟
 	rl78_init((uint8_t)USER_OPT_BYTE);
 	//---初始化时钟输出/蜂鸣器输出
-	rl78_pclbuz_init();
+	//rl78_pclbuz_init();
 	//---启动时钟输出
-	rl78_pclbuz_start(0);
+	//rl78_pclbuz_start(0);
 	//---滴答节拍初始化
 	sys_tick_task_init(SYS_TICK_TASK_ONE);
 	//---GPIO初始化
@@ -112,15 +124,13 @@ void app_init(void)
 	uart_task_init(UART_TASK_THREE, app_get_tick);
 #endif
 	//---eeprom存储器初始化
-	//at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
+	at24cxx_task_i2c_init(AT24CXX_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, AT24CXX_I2C_ENABLE_HW_ONE);
 	//---TDC芯片初始化
-	//ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
+	ms1022_spi_task_init(MS1022_TASK_ONE, delay_task_us, delay_task_ms, app_get_tick, MS1022_SPI_ENABLE_HW_ONE);
 	//---断码液晶显示
 	lcd_segment_task_init(LCD_TASK_ONE,app_get_tick);
 	//---按键初始化
 	key_task_init(KEY_TASK_ONE, app_get_tick);
-	//---脉冲计数初始化
-	pulse_task_init(PULSE_TASK_ONE, app_get_tick);
 	//---RTC时钟初始化
 	//rtc_task_init(RTC_TASK_ONE, app_get_tick, 1);
 	////---调试端口定义
@@ -129,13 +139,13 @@ void app_init(void)
 	//PM4 &= ~(1<<5);
 	//---清除显示
 	lcd_segment_task_clear(LCD_TASK_ONE);
-	//lcd_segment_task_show_float(LCD_TASK_ONE,000.54321,4);
 	//---清零显示
 	lcd_segment_task_show_integer(LCD_TASK_ONE,0,1);
+	//---休眠模式初始化
+	sleep_task_init(app_get_tick);
+	//---喂狗
+	WDT_RESET();
 }
-
-
-uint8_t key_step = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
@@ -147,11 +157,13 @@ uint8_t key_step = 0;
 void main(void)
 {
 	app_init();
+	//---??è??????￡ê?
+	sleep_task_enter();
 	uint32_t cnt_flow = app_get_tick();
 	uint32_t cnt_temp = app_get_tick();
 	app_log("超声波热量表调试\r\n");
-	//ms1022_spi_task_calibration_resonator(MS1022_TASK_ONE);
-	//ms1022_spi_task_read_start_temperature_restart(MS1022_TASK_ONE);
+	
+	//---主循环任务
 	while (1)
 	{
 #ifdef TYPE_UART2
@@ -183,26 +195,24 @@ void main(void)
 		if (KEY_TASK_ONE->msg_button.msg_pin_scan_active == ACTIVE_STATE_ENABLE)
 		{
 			KEY_TASK_ONE->msg_button.msg_pin_scan_active = ACTIVE_STATE_DISABLE;
-			//---清零显示
-			lcd_segment_task_show_integer(LCD_TASK_ONE,0,1);
-			//---清零脉冲计数
-			PULSE_TASK_ONE->msg_level_count = 0;
+			//---液晶菜单功能选择
 		}
 #endif
-		//---脉冲有效扫描校验
-		if (pulse_task_scan(PULSE_TASK_ONE)==OK_0)
-		{
-			//---显示脉冲计数值
-			lcd_segment_task_show_integer(LCD_TASK_ONE, PULSE_TASK_ONE->msg_level_count, 1);
-		}
-
+		////---判断唤醒方式
+		//if (sleep_task_wakeup_get()!= SLEEP_WAKEUP_NONE)
+		//{
+		//	//---更新时间
+		//}
+		////---进入休眠模式
+		//sleep_task_enter();
 		if (TIME_SPAN(app_get_tick(), cnt_flow) > 1000)
 		{
-			PULSE_TASK_ONE->msg_level_state = ACTIVE_STATE_ENABLE;
+			//---获取流量信息
+			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
 			//---更新节拍信息
 			cnt_flow = app_get_tick();
 		}
-
+		//---喂狗
 		WDT_RESET();
 	}
 }

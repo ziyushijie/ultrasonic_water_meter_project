@@ -172,6 +172,30 @@
           <Path>SDK\Pulse\pulse_task.c</Path>
           <Path>SDK\Pulse\pulse_task.h</Path>
         </Category>
+        <Category Name="IRDA">
+          <Path>SDK\IRDA\irda_cfg.c</Path>
+          <Path>SDK\IRDA\irda_cfg.h</Path>
+          <Path>SDK\IRDA\irda_lib.c</Path>
+          <Path>SDK\IRDA\irda_lib.h</Path>
+          <Path>SDK\IRDA\irda_task.c</Path>
+          <Path>SDK\IRDA\irda_task.h</Path>
+        </Category>
+        <Category Name="MBUS">
+          <Path>SDK\MBUS\mbus_cfg.c</Path>
+          <Path>SDK\MBUS\mbus_cfg.h</Path>
+          <Path>SDK\MBUS\mbus_lib.c</Path>
+          <Path>SDK\MBUS\mbus_lib.h</Path>
+          <Path>SDK\MBUS\mbus_task.c</Path>
+          <Path>SDK\MBUS\mbus_task.h</Path>
+        </Category>
+        <Category Name="Sleep">
+          <Path>SDK\Sleep\sleep_cfg.c</Path>
+          <Path>SDK\Sleep\sleep_cfg.h</Path>
+          <Path>SDK\Sleep\sleep_lib.c</Path>
+          <Path>SDK\Sleep\sleep_lib.h</Path>
+          <Path>SDK\Sleep\sleep_task.c</Path>
+          <Path>SDK\Sleep\sleep_task.h</Path>
+        </Category>
       </Category>
     </Files>
     <DebugOptions>
@@ -235,8 +259,20 @@
           <Path>Debug\obj\DefaultBuild\pulse_cfg.obj</Path>
           <Path>Debug\obj\DefaultBuild\pulse_lib.obj</Path>
           <Path>Debug\obj\DefaultBuild\pulse_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\irda_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\irda_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\irda_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\mbus_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\mbus_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\mbus_task.obj</Path>
+          <Path>Debug\obj\DefaultBuild\sleep_cfg.obj</Path>
+          <Path>Debug\obj\DefaultBuild\sleep_lib.obj</Path>
+          <Path>Debug\obj\DefaultBuild\sleep_task.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>SDK\Sleep</IncludePathForC>
+          <IncludePathForC>SDK\MBUS</IncludePathForC>
+          <IncludePathForC>SDK\IRDA</IncludePathForC>
           <IncludePathForC>SDK\Pulse</IncludePathForC>
           <IncludePathForC>SDK\LCD</IncludePathForC>
           <IncludePathForC>DefaultBuild</IncludePathForC>
@@ -262,6 +298,9 @@
           <IncludePathForC>SDK\WDT</IncludePathForC>
           <IncludePathForC>SDK\LCD</IncludePathForC>
           <IncludePathForC>SDK\Pulse</IncludePathForC>
+          <IncludePathForC>SDK\MBUS</IncludePathForC>
+          <IncludePathForC>SDK\IRDA</IncludePathForC>
+          <IncludePathForC>SDK\Sleep</IncludePathForC>
           <MacroForC>MCU_USE_RL78_R7F0</MacroForC>
           <MacroForC>USER_OPT_BYTE=0xEF5DAA</MacroForC>
           <MacroForAsm>MCU_USE_RL78_R7F0</MacroForAsm>
@@ -278,6 +317,9 @@
           <Option>-g</Option>
           <Option>-g_line</Option>
           <Option>-Osize</Option>
+          <Option>-I SDK\Sleep</Option>
+          <Option>-I SDK\MBUS</Option>
+          <Option>-I SDK\IRDA</Option>
           <Option>-I SDK\Pulse</Option>
           <Option>-I SDK\LCD</Option>
           <Option>-I DefaultBuild</Option>
@@ -303,6 +345,9 @@
           <Option>-I SDK\WDT</Option>
           <Option>-I SDK\LCD</Option>
           <Option>-I SDK\Pulse</Option>
+          <Option>-I SDK\MBUS</Option>
+          <Option>-I SDK\IRDA</Option>
+          <Option>-I SDK\Sleep</Option>
           <Option>-D MCU_USE_RL78_R7F0,USER_OPT_BYTE=0xEF5DAA</Option>
           <Option>-lang=c99</Option>
           <Option>-c</Option>

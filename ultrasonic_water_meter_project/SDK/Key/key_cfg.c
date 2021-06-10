@@ -1189,6 +1189,12 @@ uint8_t key_scan_one(KEY_HandleType* KEYx)
 			break;
 		}
 	}
+	//---检验按键有效，判断是否使能中断
+	if (KEYx->msg_button.msg_pin_scan_active == ACTIVE_STATE_ENABLE)
+	{
+		//---重新启动按键
+		key_start_one(KEYx, 0);
+	}
 #endif
 	return OK_0;
 }

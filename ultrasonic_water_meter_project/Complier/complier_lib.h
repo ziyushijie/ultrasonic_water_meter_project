@@ -45,6 +45,8 @@ extern "C" {
 	char* my_str_n_str(const char* src, const char* des, uint32_t length);
 	uint8_t calc_rtc_week(RTC_TimeType* RTCx);
 	uint16_t calc_rtc_year_day(RTC_TimeType* RTCx);
+	uint32_t calc_rtc_second(RTC_TimeType* RTCx);
+	uint32_t calc_rtc_second_span(RTC_TimeType* RTCx, uint32_t rtcsencond);
 	//////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }

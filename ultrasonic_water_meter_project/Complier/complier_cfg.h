@@ -712,11 +712,13 @@ extern "C" {
 		uint8_t msg_minute;																								//---分
 		uint8_t msg_hour;																								//---时
 		uint8_t msg_day;																								//---天
+		
 		uint8_t msg_week;																								//---星期
 		uint8_t msg_month;																								//---月
 		uint8_t msg_year;																								//---年
 		uint8_t msg_century;																							//---世纪
-		uint8_t msg_format_24h;																							//---格式,0---12H;1---24H
+		
+		uint8_t msg_format_24h;																							//---格式,0---12H,0x00代表上午,0x80代表下午;1---24H
 		uint8_t	msg_day_zero;																							//---零点变化,0---未变化;1---变化
 		uint16_t msg_years;																								//---具体哪一年 比如21世纪20年，就是2020年
 		uint32_t msg_second_tick;																						//---秒变化的记录
@@ -770,6 +772,8 @@ extern "C" {
 #ifndef _forceinline
 	#define _forceinline							inline
 #endif
+	#define LEAP_YEAR_SECONDS						(((uint32_t)366)*24*60*60)											//---闰年的秒数
+	#define NOLEAP_YEAR_SECONDS						(((uint32_t)365)*24*60*60)											//---非闰年的秒数
 	//////////////////////////////////////////////////////////////////////////
 	//===依据MCU的型号不同，选择不同的头文件，暂时支持STM32和AVR
 #if defined(MCU_USE_STM32F0)|| \

@@ -72,6 +72,12 @@
     </Filter>
     <Filter Include="SDK\Pulse">
     </Filter>
+    <Filter Include="SDK\MBUS">
+    </Filter>
+    <Filter Include="SDK\IRDA">
+    </Filter>
+    <Filter Include="SDK\Sleep">
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\APP\config.h">
@@ -271,6 +277,33 @@
     </ClInclude>
     <ClInclude Include="SDK\Pulse\pulse_task.h">
       <Filter>SDK\Pulse</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Sleep\sleep_cfg.h">
+      <Filter>SDK\Sleep</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Sleep\sleep_lib.h">
+      <Filter>SDK\Sleep</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Sleep\sleep_task.h">
+      <Filter>SDK\Sleep</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IRDA\irda_cfg.h">
+      <Filter>SDK\IRDA</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IRDA\irda_lib.h">
+      <Filter>SDK\IRDA</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IRDA\irda_task.h">
+      <Filter>SDK\IRDA</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MBUS\mbus_cfg.h">
+      <Filter>SDK\MBUS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MBUS\mbus_lib.h">
+      <Filter>SDK\MBUS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MBUS\mbus_task.h">
+      <Filter>SDK\MBUS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -495,6 +528,33 @@
     </ClCompile>
     <ClCompile Include="SDK\Pulse\pulse_task.c">
       <Filter>SDK\Pulse</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Sleep\sleep_cfg.c">
+      <Filter>SDK\Sleep</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Sleep\sleep_lib.c">
+      <Filter>SDK\Sleep</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Sleep\sleep_task.c">
+      <Filter>SDK\Sleep</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\IRDA\irda_cfg.c">
+      <Filter>SDK\IRDA</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\IRDA\irda_lib.c">
+      <Filter>SDK\IRDA</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\IRDA\irda_task.c">
+      <Filter>SDK\IRDA</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MBUS\mbus_cfg.c">
+      <Filter>SDK\MBUS</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MBUS\mbus_lib.c">
+      <Filter>SDK\MBUS</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MBUS\mbus_task.c">
+      <Filter>SDK\MBUS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

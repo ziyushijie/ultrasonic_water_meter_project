@@ -16,6 +16,9 @@ extern "C" {
 	#include "key_task.h"
 	#include "pulse_task.h"
 	#include "wdt_task.h"
+	#include "sleep_task.h"
+	#include "rtc_task.h"
+	#include "lcd_task.h"
 
 
 	//////////////////////////////////////////////////////////////////////////////////////
