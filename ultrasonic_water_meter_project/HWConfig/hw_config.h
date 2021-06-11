@@ -13,7 +13,7 @@ extern "C" {
 	///////////////软件版本的基本配置---结束/////////////////////////////////////////////////
 	
 	///////////////LOG信息的基本配置---开始/////////////////////////////////////////////////
-	#define MODULE_LOG_ENABLE				1
+	#define MODULE_LOG_ENABLE				0
 	#define MODULE_LOG_UART_INDEX			2
 	//===LOG模块
 #if (MODULE_LOG_ENABLE>0)
@@ -22,7 +22,7 @@ extern "C" {
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
 	#define MODULE_LOG_MS1022				1
-	#define MODULE_LOG_KEY_BUTTON			1
+	#define MODULE_LOG_KEY_BUTTON			0
 #endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////
 	

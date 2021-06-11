@@ -1531,7 +1531,7 @@
       <COptionCheckLanguageExtension-DefaultValue>False</COptionCheckLanguageExtension-DefaultValue>
       <COptionMisraIntermodule-DefaultValue>False</COptionMisraIntermodule-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585783666007107817</TimeTagModified--0>
+      <TimeTagModified--0>-8585781952979708558</TimeTagModified--0>
       <COptionAsmPath-0>False</COptionAsmPath-0>
       <COptionChangeMessageError-0>No</COptionChangeMessageError-0>
       <COptionCharacterSet-0>Auto</COptionCharacterSet-0>
@@ -1786,7 +1786,7 @@ USER_OPT_BYTE=0xEF5DAA
       <LinkOptionShowCFI-DefaultValue>False</LinkOptionShowCFI-DefaultValue>
       <LinkOptionRrmValue-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585789926225917620</TimeTagModified--0>
+      <TimeTagModified--0>-8585781953943355041</TimeTagModified--0>
       <LinkOptionAutoSectionLayout-0>True</LinkOptionAutoSectionLayout-0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionDebug-0>Debug</LinkOptionDebug-0>
@@ -1840,7 +1840,7 @@ USER_OPT_BYTE=0xEF5DAA
       <LinkOptionChangeMessageInformationNumber-0 />
       <LinkOptionLibraryLibMalloc-0>False</LinkOptionLibraryLibMalloc-0>
       <LinkOptionNoCheckSectionLayout-0>False</LinkOptionNoCheckSectionLayout-0>
-      <LinkOptionOptimizeBranch-0>False</LinkOptionOptimizeBranch-0>
+      <LinkOptionOptimizeBranch-0>True</LinkOptionOptimizeBranch-0>
       <LinkOptionPreLinkCommands-0 />
       <LinkOptionShowXreference-0>False</LinkOptionShowXreference-0>
       <LinkOptionUserOptByte-0>True</LinkOptionUserOptByte-0>

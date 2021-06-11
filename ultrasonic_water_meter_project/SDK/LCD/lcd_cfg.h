@@ -203,21 +203,31 @@ extern "C" {
 	uint8_t lcd_segment_show_time_three(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
 	uint8_t lcd_segment_show_time(LCD_HandleType* LCDx, float time, uint8_t isup, uint8_t istestmode);
 
-	uint8_t lcd_segment_show_flow_one(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
-	uint8_t lcd_segment_show_flow_two(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
-	uint8_t lcd_segment_show_flow_three(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
-	uint8_t lcd_segment_show_flow_volume(LCD_HandleType* LCDx, float flow, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_volume_one(LCD_HandleType* LCDx, float flowvolume, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_volume_two(LCD_HandleType* LCDx, float flowvolume, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_volume_three(LCD_HandleType* LCDx, float flowvolume, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_volume(LCD_HandleType* LCDx, float flowvolume, uint8_t istestmode);
+
+	uint8_t lcd_segment_show_flow_speed_one(LCD_HandleType* LCDx, float flowspeed, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_speed_two(LCD_HandleType* LCDx, float flowspeed, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_speed_three(LCD_HandleType* LCDx, float flowspeed, uint8_t istestmode);
+	uint8_t lcd_segment_show_flow_speed(LCD_HandleType* LCDx, float flowspeed, uint8_t istestmode);
 
 	uint8_t lcd_segment_show_addr_one(LCD_HandleType* LCDx, uint32_t addr);
 	uint8_t lcd_segment_show_addr_two(LCD_HandleType* LCDx, uint32_t addr);
 	uint8_t lcd_segment_show_addr_three(LCD_HandleType* LCDx, uint32_t addr);
 	uint8_t lcd_segment_show_addr(LCD_HandleType* LCDx, uint32_t addr);
 
+	uint8_t lcd_segment_show_date_one(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_date_two(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_date_three(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+	uint8_t lcd_segment_show_date(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
+
 	uint8_t lcd_segment_show_rtc_one(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
 	uint8_t lcd_segment_show_rtc_two(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
 	uint8_t lcd_segment_show_rtc_three(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
 	uint8_t lcd_segment_show_rtc(LCD_HandleType* LCDx, RTC_TimeType* rtcx);
-
+	
 	uint8_t lcd_segment_show_acc_rtc_one(LCD_HandleType* LCDx, uint32_t accrtc);
 	uint8_t lcd_segment_show_acc_rtc_two(LCD_HandleType* LCDx, uint32_t accrtc);
 	uint8_t lcd_segment_show_acc_rtc_three(LCD_HandleType* LCDx, uint32_t accrtc);

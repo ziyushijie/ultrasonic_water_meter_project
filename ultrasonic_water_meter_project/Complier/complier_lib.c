@@ -927,7 +927,6 @@ char* my_str_n_str(const char* src, const char* des, uint32_t length)
 	return NULL;
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 根据年月日计算是星期几（使用基姆拉尔森计算公式）
@@ -938,11 +937,11 @@ char* my_str_n_str(const char* src, const char* des, uint32_t length)
 uint8_t calc_rtc_week(RTC_TimeType* RTCx)
 {
 	//---年
-	int temp_y = RTCx->msg_years;
+	uint16_t temp_y = RTCx->msg_years;
 	//---月
-	int temp_m = RTCx->msg_month;
+	uint16_t temp_m = RTCx->msg_month;
 	//---日
-	int temp_d = RTCx->msg_day;
+	uint16_t temp_d = RTCx->msg_day;
 	//---星期
 	int temp_w = -1;
 	uint8_t _return = 0;
@@ -958,8 +957,8 @@ uint8_t calc_rtc_week(RTC_TimeType* RTCx)
 		temp_m += 12;
 		temp_y--;
 	}
-	//---获取信息想你想
-	temp_w = (temp_d + 1 + 2 * temp_m + 3 * (temp_m + 1) / 5 + temp_y + temp_y / 4 - temp_y / 100 + temp_y / 400) % 7;
+	//---获取星期信息
+	temp_w = (temp_d+1 + 2 * temp_m + 3 * (temp_m + 1) / 5 + temp_y + temp_y / 4 - temp_y / 100 + temp_y / 400) % 7;
 	//---解析星期几
 	switch (temp_w)
 	{

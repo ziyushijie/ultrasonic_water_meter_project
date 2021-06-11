@@ -196,8 +196,165 @@ uint8_t rtc_hw_init_one(RTC_HandleType *RTCx, uint32_t(*func_time_tick)(void))
 		(RTCx->msg_f_time_tick = func_time_tick) :
 		(RTCx->msg_f_time_tick = sys_tick_task_get_tick);
 
-	rtc_hw_get_rtctime_one(RTCx);
+	//---取编译日期---年月日---__DATE__===Jul 03 2018
+	//---一月
+	if (__DATE__[2] == 'n')
+	{
+		if (__DATE__[0] == 'a')
+		{
+			//---一月
+			RTCx->msg_rtcx.msg_month = 1;
+		}
+		else
+		{
+			//---六月
+			RTCx->msg_rtcx.msg_month = 6;
+		}
+	}
+	//--二月
+	else if (__DATE__[2] == 'b')
+	{
+		RTCx->msg_rtcx.msg_month = 2;
+	}
+	else if (__DATE__[2] == 'r')
+	{
+		if (__DATE__[0] == 'M')
+		{
+			//---三月
+			RTCx->msg_rtcx.msg_month = 3;
+		}
+		else
+		{
+			//---四月
+			RTCx->msg_rtcx.msg_month = 4;
+		}
+	}
+	else if (__DATE__[2] == 'y')
+	{
+		//---五月
+		RTCx->msg_rtcx.msg_month = 5;
+	}
+	else if (__DATE__[2] == 'l')
+	{
+		//---七月
+		RTCx->msg_rtcx.msg_month = 7;
+	}
+	else if (__DATE__[2] == 'g')
+	{
+		//---八月
+		RTCx->msg_rtcx.msg_month = 8;
+	}
+	else if (__DATE__[2] == 'p')
+	{
+		//---九月
+		RTCx->msg_rtcx.msg_month = 9;
+	}
+	else if (__DATE__[2] == 't')
+	{
+		//---十月
+		RTCx->msg_rtcx.msg_month = 10;
+	}
+	else if (__DATE__[2] == 'v')
+	{
+		//---十一月
+		RTCx->msg_rtcx.msg_month = 11;
+	}
+	else if (__DATE__[2] == 'c')
+	{
+		//---十二月
+		RTCx->msg_rtcx.msg_month = 12;
+	}
+	else
+	{
+		//---默认是一月
+		RTCx->msg_rtcx.msg_month = 1;
+	}
+	//---年
+	if (__DATE__[9] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_year = (uint8_t)((__DATE__[10] - '0'));
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_year = (uint8_t)((__DATE__[9] - '0') * 10 + (__DATE__[10] - '0'));
+	}
+	//---日
+	if (__DATE__[4] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_day = (uint8_t)(__DATE__[5] - '0');
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_day = (uint8_t)((__DATE__[4] - '0') * 10 + (__DATE__[5] - '0'));
+	}
+	//---世纪
+	if (__DATE__[7] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_century = (uint8_t)((__DATE__[8] - '0') + 1);
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_century = (uint8_t)((__DATE__[7] - '0') * 10 + (__DATE__[8] - '0') + 1);
+	}
 
+	//---计算年信息
+	RTCx->msg_rtcx.msg_years = (RTCx->msg_rtcx.msg_century - 1);
+	RTCx->msg_rtcx.msg_years *= 100;
+	RTCx->msg_rtcx.msg_years += RTCx->msg_rtcx.msg_year;
+	//---计算星期
+	RTCx->msg_rtcx.msg_week = calc_rtc_week(&(RTCx->msg_rtcx));
+
+	//---取编译日期---时分秒---__TIME__=06:17:05
+	//---时
+	if (__TIME__[0] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_hour = (uint8_t)(__TIME__[1] - '0');
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_hour = (uint8_t)((__TIME__[0] - '0') * 10 + (__TIME__[1] - '0'));
+	}
+
+	////---将小时转换为0时区时间
+	//if (RTCx->msg_rtcx.msg_hour >= 8)
+	//{
+	//	RTCx->msg_rtcx.msg_hour -= 8;
+	//}
+	//else
+	//{
+	//	RTCx->msg_rtcx.msg_hour += 15;
+	//}
+
+	//---分
+	if (__TIME__[3] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_minute = (uint8_t)(__TIME__[4] - '0');
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_minute = (uint8_t)((__TIME__[3] - '0') * 10 + (__TIME__[4] - '0'));
+	}
+	//---秒
+	if (__TIME__[6] == 0x20)
+	{
+		RTCx->msg_rtcx.msg_second = (uint8_t)(__TIME__[7] - '0');
+	}
+	else
+	{
+		RTCx->msg_rtcx.msg_second = (uint8_t)((__TIME__[6] - '0') * 10 + (__TIME__[7] - '0'));
+	}
+	////---时间超前
+	//RTCx->msg_rtcx.msg_minute += 2;
+	//if (RTCx->msg_rtcx.msg_minute > 60)
+	//{
+	//	RTCx->msg_rtcx.msg_minute -= 60;
+	//	RTCx->msg_rtcx.msg_hour += 1;
+	//}
+	RTCx->msg_rtcx.msg_format_24h = 1;
+	//---设置时间
+	rtc_hw_set_rtctime_one(RTCx,RTCx->msg_rtcx);
+	//---获取时间
+	rtc_hw_get_rtctime_one(RTCx);
 	return OK_0;
 }
 

@@ -31,7 +31,7 @@ $IF (__RENESAS_VERSION__ < 0x01010000)	; for CC-RL V1.00
 ; Set up stack size suitable for a project.
 .SECTION .stack_bss, BSS
 _stackend:
-	.DS     0x400
+	.DS     0x800
 _stacktop:
 $ENDIF
 

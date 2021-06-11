@@ -310,8 +310,6 @@ static void __near irda_wake_up_interrupt_one(void)
 
 #pragma interrupt rtc_interrupt_one(vect=INTRTC)
 
-vltuint8_t rtc_cnt = 10;
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 12位间隔定时器唤醒中断
@@ -327,8 +325,6 @@ static void __near rtc_interrupt_one(void)
 	}
 	//---中断处理函数
 	rtc_task_it_irq_handle_one(RTC_TASK_ONE);
-	//---清零显示
-	lcd_segment_task_show_integer(LCD_TASK_ONE, rtc_cnt++, 1);
 	SEI();
 }
 

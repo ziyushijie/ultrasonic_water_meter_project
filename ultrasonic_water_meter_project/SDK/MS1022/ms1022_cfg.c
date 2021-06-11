@@ -444,11 +444,11 @@ uint8_t ms1022_spi_init(MS1022_HandleType* MS1022x, void(*func_delay_us)(uint32_
 		//---飞行时间系数
 		MS1022x->msg_water_tof.msg_time_factor = 1.0f;
 		//---管段的类型
-		MS1022x->msg_water_transducer.msg_type = 0x15;
+		MS1022x->msg_water_transducer.msg_type = 0x20;
 		//---两个换能器的中心间距
 		MS1022x->msg_water_transducer.msg_space_length = 0.062;
 		//---管段的直径
-		MS1022x->msg_water_transducer.msg_diameter = 0.015;
+		MS1022x->msg_water_transducer.msg_diameter = 0.020;
 		//---初始化复位ms1022
 		ms1022_spi_rst(MS1022x);
 		//---初始化配置
@@ -1614,6 +1614,10 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	uint32_t temp_reg = 0;
 	float samp_res[2] = { 0.0f };
 	float sample_temp[4] = { 0.0f };
+	MS1022x->msg_water_tof.msg_state.bits = 0x00;
+	//---清楚信号强度
+	MS1022x->msg_water_tof.msg_up_rssi = 0.0F;
+	MS1022x->msg_water_tof.msg_down_rssi = 0.0F;
 	//---计算偏置电压的设置
 	temp_reg = ms1022_spi_calculate_offset(MS1022x, offsetmv);
 	temp_reg |= 0x20004004;
@@ -1636,18 +1640,20 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 	{
 		//---解析读取状态寄存器的值
 		sample_state = ms1022_spi_read_state(MS1022x);
-		//---判断温度状态信息
+		//---判断TDC状态信息
 		if ((sample_state&MS1022_STATE_TDC_MASK) != 0)
 		{
 			if ((sample_state&MS1022_STATE_PRECOUNTER_TIME_OUT) != 0)
 			{
 				//---14位粗值计数器溢出
 				_return = ERROR_2;
+				MS1022x->msg_water_tof.msg_state.bit.b1 = 1;
 			}
 			else
 			{
 				//---TDC测量单元溢出
 				_return = ERROR_3;
+				MS1022x->msg_water_tof.msg_state.bit.b2 = 1;
 			}
 		}
 		//---如果状态寄存器为0
@@ -1655,6 +1661,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 		{
 			//---3个结果寄存器数据获取失败
 			_return = ERROR_4;
+			MS1022x->msg_water_tof.msg_state.bit.b6 = 1;
 		}
 		//---保存上游的状态寄存器值
 		(*pstate) = sample_state;
@@ -1716,6 +1723,13 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			((sample_temp[3] / sample_temp[2]) < 2.8f))
 		{
 			_return = ERROR_7;
+			MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
+		}
+		//---判断信号强度
+		if ((MS1022x->msg_water_tof.msg_up_rssi<=0.3F)||(MS1022x->msg_water_tof.msg_up_rssi>1.9F))
+		{
+			_return = ERROR_8;
+			MS1022x->msg_water_tof.msg_state.bit.b0 = 1;
 		}
 		//---调试记录时间信息
 #if (MODULE_LOG_MS1022>0)
@@ -1725,8 +1739,12 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			MS1022x->msg_water_tof.msg_up_rssi);
-		LOG_VA_ARGS("STATE_TEST:%04lX\r\n", sample_state);
+		LOG_VA_ARGS("STATE_TEST:%04X\r\n", sample_state);
 #endif
+	}
+	else
+	{
+		MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
 	}
 	//---<<<读取上游时差
 	//--->>>读取下游时差
@@ -1755,11 +1773,13 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			{
 				//---14位粗值计数器溢出
 				_return = ERROR_2+0x80;
+				MS1022x->msg_water_tof.msg_state.bit.b4 = 1;
 			}
 			else
 			{
 				//---TDC测量单元溢出
 				_return = ERROR_3 + 0x80;
+				MS1022x->msg_water_tof.msg_state.bit.b5 = 1;
 			}
 		}
 		//---如果状态寄存器为0
@@ -1767,6 +1787,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 		{
 			//---3个结果寄存器数据获取失败
 			_return = ERROR_4 + 0x80;
+			MS1022x->msg_water_tof.msg_state.bit.b6 = 1;
 		}
 		//---保存下游的状态寄存器值
 		(*pstate) =((*pstate)<<16)+sample_state;
@@ -1828,6 +1849,13 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			((sample_temp[3] / sample_temp[2]) < 2.8f) )
 		{
 			_return = ERROR_7+0x80;
+			MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
+		}
+		//---判断信号强度
+		if ((MS1022x->msg_water_tof.msg_down_rssi <= 0.3F) || (MS1022x->msg_water_tof.msg_down_rssi > 1.9F))
+		{
+			_return = ERROR_8+0x80;
+			MS1022x->msg_water_tof.msg_state.bit.b3 = 1;
 		}
 		//---调试记录时间信息
 #if (MODULE_LOG_MS1022>0)
@@ -1837,12 +1865,13 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			sample_temp[2] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			sample_temp[3] * MS1022_HSE_CLOCK_MIN_WIDTH,
 			MS1022x->msg_water_tof.msg_down_rssi);
-		LOG_VA_ARGS("STATE_TEST:%X\r\n", sample_state);
+		LOG_VA_ARGS("STATE_TEST:%04X\r\n", sample_state);
 #endif
 	}
 	else
 	{
 		_return += 0x80;
+		MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
 	}
 	//---<<<读取下游时差
 	return _return;
@@ -1862,9 +1891,10 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	//---状态寄存器的值
 	uint32_t temp_state = 0;
 	//---保存返回值
-	uint32_t temp_res[4] = { 0 };
+	uint32_t temp_res[5] = { 0 };
 	//---保存信号强度信息
-	float temp_rssi[4] = { 0.0f };
+	float temp_rssi[5] = { 0.0f };
+	float temp_rssi_abs[5] = { 0.0f };
 	float swap_rssi = 0.0f;
 	//--->>>通过第一波模式信号强度，验证型号强度---开始
 	//---1. 设置波的触发电平+20mV
@@ -1872,86 +1902,121 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	//---3. 设置设置屏蔽窗口，比如设置到收到第5,6,7回波脉冲作为stop信号
 	//---4. 计算第一个和第五个的脉冲宽度，计算比率，判断超声波信号的强度
 #if (MODULE_LOG_MS1022>0)
+	LOG_VA_ARGS("OFFSET:-5mV\r\n");
+#endif
+	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_N5);
+	temp_res[0] = temp_state;
+	//---计算平均信号强度
+	//---信号强度的平均值
+	temp_rssi[0] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	//---信号强度的绝对值
+	temp_rssi_abs[0] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---校验信号强弱
+	if ((MS1022x->msg_water_tof.msg_up_rssi <= 0.3f) ||
+		(MS1022x->msg_water_tof.msg_down_rssi <= 0.3f))
+	{
+		//---信号较弱
+		_return |= 0x01;
+	}
+	index = MS1022x->msg_water_tof.msg_state.bits;
+	//---判断预测量值
+#if (MODULE_LOG_MS1022>0)
 	LOG_VA_ARGS("OFFSET:0mV\r\n");
 #endif
 
 	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P0);
-	temp_res[0] = temp_state;
+	temp_res[1] = temp_state;
+	//---信号强度的平均值
+	temp_rssi[1] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	//---信号强度的绝对值
+	temp_rssi_abs[1] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
 	//---计算平均信号强度
-	if ((MS1022x->msg_water_tof.msg_up_rssi>0.3f)&&
-		(MS1022x->msg_water_tof.msg_down_rssi>0.3f))
+	//---校验信号强弱
+	if ((MS1022x->msg_water_tof.msg_up_rssi<=0.3f)||
+		(MS1022x->msg_water_tof.msg_down_rssi<=0.3f))
 	{
-		temp_rssi[0] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+		//---信号较弱
+		_return |= 0x02;
 	}
-	else
-	{
-		_return |= 0x01;
-	}
-
+	index |= MS1022x->msg_water_tof.msg_state.bits;
 #if (MODULE_LOG_MS1022>0)
 	LOG_VA_ARGS("OFFSET:5mV\r\n");
 #endif
 
 	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P5);
-	temp_res[1] = temp_state;
+	temp_res[2] = temp_state;
 	//---计算平均信号强度
-	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
-		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
+	//---信号强度的平均值
+	temp_rssi[2] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	//---信号强度的绝对值
+	temp_rssi_abs[2] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---校验信号强弱
+	//---计算平均信号强度
+	if ((MS1022x->msg_water_tof.msg_up_rssi <= 0.3f) ||
+		(MS1022x->msg_water_tof.msg_down_rssi <= 0.3f))
 	{
-		temp_rssi[1] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+		//---信号较弱
+		_return |= 0x03;
 	}
-	else
+	index |= MS1022x->msg_water_tof.msg_state.bits;
+	//---判断信号强度,如果前三个的信号强度都过大，代表管道中无流量
+	if ((temp_rssi[0] > 1.9F) &&
+		(temp_rssi[1] > 1.9F) &&
+		(temp_rssi[2] > 1.9F))
 	{
-		_return |= 0x02;
+		MS1022x->msg_water_tof.msg_state.bits=index;
+		_return |= 0x04;
+#if (MODULE_LOG_MS1022>0)
+		LOG_VA_ARGS("ERROR:NO WATER\r\n");
+#endif
+		return _return;
 	}
-#if (MODULE_LOG_MS1022 > 0)
+
+#if (MODULE_LOG_MS1022 > 0) 
 	LOG_VA_ARGS("OFFSET:10mV\r\n");
 #endif
 
-	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P10);
-	temp_res[2] = temp_state;
+	ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P10);
+	temp_res[3] = temp_state;
 	//---计算平均信号强度
-	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
-		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
-	{
-		temp_rssi[2] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
-	}
-	else
-	{
-		_return |= 0x03;
-	}
+	//---信号强度的平均值
+	temp_rssi[3] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	//---信号强度的绝对值
+	temp_rssi_abs[3] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---TOF测试状态
+	index |= MS1022x->msg_water_tof.msg_state.bits;
+	//---LOG
 #if (MODULE_LOG_MS1022>0)
 	LOG_VA_ARGS("OFFSET:15mV\r\n");
 #endif
 
-	_return = ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P15);
-	temp_res[3] = temp_state;
+	ms1022_spi_read_start_tof_pre(MS1022x, &temp_state, MS1022_OFFSET_MV_P15);
+	temp_res[4] = temp_state;
 	//---计算平均信号强度
-	if ((MS1022x->msg_water_tof.msg_up_rssi > 0.3f) &&
-		(MS1022x->msg_water_tof.msg_down_rssi > 0.3f))
-	{
-		temp_rssi[3] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
-	}
-	else
-	{
-		_return |= 0x04;
-	}
-
+	//---信号强度的平均值
+	temp_rssi[4] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
+	//---信号强度的绝对值
+	temp_rssi_abs[4] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---TOF测试状态
+	index |= MS1022x->msg_water_tof.msg_state.bits;
+	//---LOG
 #if (MODULE_LOG_MS1022>0)
-	LOG_VA_ARGS("0mV_RSSI:%0.3f,0mV_STA:%08lX\r\n", temp_rssi[0], temp_res[0]);
-	LOG_VA_ARGS("5mV_RSSI:%0.3f,5mV_STA:%08lX\r\n", temp_rssi[1], temp_res[1]);
-	LOG_VA_ARGS("10mV_RSSI:%0.3f,10mV_STA:%08lX\r\n", temp_rssi[2], temp_res[2]);
-	LOG_VA_ARGS("15mV_RSSI:%0.3f,15mV_STA:%08lX\r\n", temp_rssi[3], temp_res[3]);
-	LOG_VA_ARGS("RES_STA:%d\r\n", _return);
+	LOG_VA_ARGS("-5mV_RSSI:%0.3f,-5mV_DRSSI:%0.3f,-5mV_STA:%08lX\r\n", temp_rssi[0], temp_rssi_abs[0], temp_res[0]);
+	LOG_VA_ARGS("0mV_RSSI:%0.3f,0mV_DRSSI:%0.3f,0mV_STA:%08lX\r\n", temp_rssi[1], temp_rssi_abs[1], temp_res[1]);
+	LOG_VA_ARGS("5mV_RSSI:%0.3f,5mV_DRSSI:%0.3f,5mV_STA:%08lX\r\n", temp_rssi[2], temp_rssi_abs[2], temp_res[2]);
+	LOG_VA_ARGS("10mV_RSSI:%0.3f,10mV_DRSSI:%0.3f,10mV_STA:%08lX\r\n", temp_rssi[3], temp_rssi_abs[3], temp_res[3]);
+	LOG_VA_ARGS("15mV_RSSI:%0.3f,15mV_DRSSI:%0.3f,15mV_STA:%08lX\r\n", temp_rssi[4], temp_rssi_abs[4], temp_res[4]);
+	LOG_VA_ARGS("RES_STA:%X\r\n", _return);
 #endif
+
 	//---<<<通过第一波模式信号强度，验证型号强度---开始
 	//---查找最大值
-	if ((compare_double_word(temp_res,0x00230023,4)==OK_0)&&(_return==OK_0))
+	if (compare_double_word(temp_res,0x00230023,5)==OK_0)
 	{
 		//---查找最大信号幅度值
-		for (index = 0; index < 4; index++)
+		for (index = 0; index < 5; index++)
 		{
-			if (temp_rssi[index]>swap_rssi)
+			if ((temp_rssi[index]>swap_rssi)&&(temp_rssi_abs[index]<=0.05F))
 			{
 				swap_rssi = temp_rssi[index];
 				temp_state = index;
@@ -1961,18 +2026,60 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 		LOG_VA_ARGS("FRSSI:%0.3f,FINDEX:%d\r\n",
 			swap_rssi, temp_state);
 #endif
-		//---最终的灵敏度
-		MS1022x->msg_water_tof.msg_up_rssi = temp_rssi[temp_state];
-		MS1022x->msg_water_tof.msg_down_rssi = temp_rssi[temp_state];
-		//---最佳偏置电压
-		temp_state *= 5;
-		temp_state <<= 8;
-		//---重新设置偏置电压
-		//---计算偏置电压的设置
-		temp_state = ms1022_spi_calculate_offset(MS1022x, temp_state);
-		temp_state |= 0x20004004;
-		ms1022_spi_send_reg(MS1022x, 4, temp_state);
-		ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+		//---判断最终测试结果
+		if (swap_rssi>0.3F)
+		{
+			//---最终的灵敏度
+			MS1022x->msg_water_tof.msg_up_rssi = temp_rssi[temp_state];
+			MS1022x->msg_water_tof.msg_down_rssi = temp_rssi[temp_state];
+			//---最佳偏置电压
+			switch (index)
+			{
+				case  0:
+				{
+					temp_state = MS1022_OFFSET_MV_N5;
+					break;
+				}
+				case  1:
+				{
+					temp_state = MS1022_OFFSET_MV_P0;
+					break;
+				}
+				case 2:
+				{
+					temp_state = MS1022_OFFSET_MV_P5;
+					break;
+				}
+				case 3:
+				{
+					temp_state = MS1022_OFFSET_MV_P10;
+					break;
+				}
+				case 4:
+				{
+					temp_state = MS1022_OFFSET_MV_P15;
+					break;
+				}
+				default:
+				{	
+					temp_state = MS1022_OFFSET_MV_P0;
+					break;
+				}
+			}
+			//---重新设置偏置电压
+			//---计算偏置电压的设置
+			temp_state = ms1022_spi_calculate_offset(MS1022x, temp_state);
+			temp_state |= 0x20004004;
+			ms1022_spi_send_reg(MS1022x, 4, temp_state);
+			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+			//---返回结果
+			_return = OK_0;
+		}
+		else
+		{
+			MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
+			_return |= 0x05;
+		}
 	}
 	return _return;
 }
@@ -2570,12 +2677,13 @@ uint8_t ms1022_spi_get_temperature(MS1022_HandleType* MS1022x)
 uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 {
 	//---获取超声波时差信息
-	uint8_t _return= ms1022_spi_read_start_tof(MS1022x);
+	uint8_t _return = OK_0;// ms1022_spi_read_start_tof(MS1022x);
 	//---判断时差获取结果
 	if (_return==OK_0)
 	{
-		//MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
-		//MS1022x->msg_water_temperature.msg_sound_speed = 1500;
+		//---模拟测试数据，用于验证计算性能是否达标,单位是us
+		MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
+		MS1022x->msg_water_temperature.msg_sound_speed = 1500;
 		//---计算流速m/s
 		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_diff_time*MS1022x->msg_water_temperature.msg_sound_speed;
 		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;
@@ -2583,6 +2691,7 @@ uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;
 		//---除以换能器的距离
 		MS1022x->msg_water_transducer.msg_flow_speed /= MS1022x->msg_water_transducer.msg_space_length;
+		//---流速是m/s
 		MS1022x->msg_water_transducer.msg_flow_speed /= 2.0F;
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("FLOW_SPEED:%.8f\r\n",

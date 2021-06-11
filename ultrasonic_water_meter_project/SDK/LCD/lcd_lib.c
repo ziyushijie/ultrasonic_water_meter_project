@@ -236,9 +236,33 @@ uint8_t lcd_segment_lib_show_time(LCD_HandleType* LCDx, float time, uint8_t isup
 //////输出参	数:
 //////说		明:
 //////////////////////////////////////////////////////////////////////////////
-uint8_t lcd_segment_lib_show_flow_volume(LCD_HandleType* LCDx, float flow, uint8_t istestmode)
+uint8_t lcd_segment_lib_show_flow_volume(LCD_HandleType* LCDx, float flowvolume, uint8_t istestmode)
 {
-	return lcd_segment_show_flow_volume(LCDx, flow, istestmode);
+	return lcd_segment_show_flow_volume(LCDx, flowvolume, istestmode);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_lib_show_flow_speed(LCD_HandleType* LCDx, float flowspeed, uint8_t istestmode)
+{
+	return lcd_segment_show_flow_speed(LCDx, flowspeed, istestmode);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//////函		数:
+//////功		能: 
+//////输入参	数:
+//////输出参	数:
+//////说		明:
+//////////////////////////////////////////////////////////////////////////////
+uint8_t lcd_segment_lib_show_date(LCD_HandleType* LCDx, RTC_TimeType* rtcx) 
+{
+	return lcd_segment_show_date(LCDx, rtcx);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

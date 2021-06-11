@@ -105,9 +105,9 @@ void app_init(void)
 	//---根据配置字选择时钟
 	rl78_init((uint8_t)USER_OPT_BYTE);
 	//---初始化时钟输出/蜂鸣器输出
-	//rl78_pclbuz_init();
+	rl78_pclbuz_init();
 	//---启动时钟输出
-	//rl78_pclbuz_start(0);
+	rl78_pclbuz_start(0);
 	//---滴答节拍初始化
 	sys_tick_task_init(SYS_TICK_TASK_ONE);
 	//---GPIO初始化
@@ -132,7 +132,7 @@ void app_init(void)
 	//---按键初始化
 	key_task_init(KEY_TASK_ONE, app_get_tick);
 	//---RTC时钟初始化
-	//rtc_task_init(RTC_TASK_ONE, app_get_tick, 1);
+	rtc_task_init(RTC_TASK_ONE, app_get_tick, 1);
 	////---调试端口定义
 	//PFSEG3 &= ~(1 << 2);
 	//P4 |= _20_Pn5_OUTPUT_1;
@@ -147,6 +147,8 @@ void app_init(void)
 	WDT_RESET();
 }
 
+uint8_t key_step = 0;
+
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 
@@ -157,12 +159,13 @@ void app_init(void)
 void main(void)
 {
 	app_init();
-	//---??è??????￡ê?
-	sleep_task_enter();
 	uint32_t cnt_flow = app_get_tick();
 	uint32_t cnt_temp = app_get_tick();
 	app_log("超声波热量表调试\r\n");
-	
+	//---显示测试模式
+	//lcd_segment_task_test_enter(LCD_TASK_ONE);
+	//---计算在水中的传播速度
+	//MS1022_TASK_ONE->msg_water_temperature.msg_sound_speed = calcate_sound_speed(50);
 	//---主循环任务
 	while (1)
 	{
@@ -196,8 +199,77 @@ void main(void)
 		{
 			KEY_TASK_ONE->msg_button.msg_pin_scan_active = ACTIVE_STATE_DISABLE;
 			//---液晶菜单功能选择
+			switch (key_step)
+			{
+				//---上游时间
+				case 0:
+				{
+					lcd_segment_task_show_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_down_time, 1, 1);
+					key_step++;
+					break;
+				}
+				//---下游时间
+				case 1:
+				{
+					lcd_segment_task_show_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_down_time, 0, 1);
+					key_step++;
+					break;
+				}
+				//---飞行时差
+				case 2:
+				{
+					lcd_segment_task_show_diff_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_diff_time, 1);
+					key_step++;
+					break;
+				}
+				//---流速
+				case 3:
+				{
+					lcd_segment_task_show_flow_speed(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_transducer.msg_flow_speed, 1);
+					key_step++;
+					break;
+				}
+				//---流量
+				case 4:
+				{
+					lcd_segment_task_show_flow_volume(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_transducer.msg_flow_volume, 1);
+					key_step++;
+					break;
+				}
+				//---时间
+				case 5:
+				{
+					lcd_segment_task_show_rtc(LCD_TASK_ONE, &(RTC_TASK_ONE->msg_rtcx));
+					key_step++;
+					break;
+				}
+				//---日期
+				case 6:
+				{
+					lcd_segment_task_show_date(LCD_TASK_ONE, &(RTC_TASK_ONE->msg_rtcx));
+					key_step=0;
+					break;
+				}
+				default:
+				{	
+					key_step = 0;
+					break;
+				}
+			}
 		}
 #endif
+		//---RTC中断
+		if (RTC_TASK_ONE->msg_rtc_change!=0)
+		{
+			//---获取时间
+			rtc_task_get_rtctime(RTC_TASK_ONE,1);
+			//---判断是否需要刷新时间
+			if (key_step==6)
+			{
+				lcd_segment_task_show_rtc(LCD_TASK_ONE, &(RTC_TASK_ONE->msg_rtcx));
+			}
+			RTC_TASK_ONE->msg_rtc_change = 0;
+		}
 		////---判断唤醒方式
 		//if (sleep_task_wakeup_get()!= SLEEP_WAKEUP_NONE)
 		//{
@@ -205,12 +277,21 @@ void main(void)
 		//}
 		////---进入休眠模式
 		//sleep_task_enter();
-		if (TIME_SPAN(app_get_tick(), cnt_flow) > 1000)
+		if (TIME_SPAN(app_get_tick(), cnt_flow) > 3000)
 		{
 			//---获取流量信息
 			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
 			//---更新节拍信息
 			cnt_flow = app_get_tick();
+			//lcd_segment_task_show_diff_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_diff_time, 1);
+		}
+		//sleep_task_enter();
+		if (TIME_SPAN(app_get_tick(), cnt_temp) > 30000)
+		{
+			//---获取流量信息
+			ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+			//---更新节拍信息
+			cnt_temp = app_get_tick();
 		}
 		//---喂狗
 		WDT_RESET();
