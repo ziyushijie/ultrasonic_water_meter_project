@@ -277,22 +277,22 @@ void main(void)
 		//}
 		////---进入休眠模式
 		//sleep_task_enter();
-		if (TIME_SPAN(app_get_tick(), cnt_flow) > 3000)
+		if (TIME_SPAN(app_get_tick(), cnt_flow) > 1000)
 		{
 			//---获取流量信息
 			ms1022_spi_task_get_flow(MS1022_TASK_ONE);
 			//---更新节拍信息
 			cnt_flow = app_get_tick();
-			//lcd_segment_task_show_diff_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_diff_time, 1);
+			lcd_segment_task_show_diff_time(LCD_TASK_ONE, MS1022_TASK_ONE->msg_water_tof.msg_diff_time, 1);
 		}
 		//sleep_task_enter();
-		if (TIME_SPAN(app_get_tick(), cnt_temp) > 30000)
-		{
-			//---获取流量信息
-			ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
-			//---更新节拍信息
-			cnt_temp = app_get_tick();
-		}
+		//if (TIME_SPAN(app_get_tick(), cnt_temp) > 30000)
+		//{
+		//	//---获取流量信息
+		//	ms1022_spi_task_get_temperature(MS1022_TASK_ONE);
+		//	//---更新节拍信息
+		//	cnt_temp = app_get_tick();
+		//}
 		//---喂狗
 		WDT_RESET();
 	}

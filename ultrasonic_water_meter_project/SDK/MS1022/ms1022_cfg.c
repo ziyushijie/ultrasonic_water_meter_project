@@ -1714,7 +1714,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 		sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 		sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 		//---计算实际值
-		sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+		sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 		//---脉冲宽度检查信号
 		ms1022_spi_read_pw1st(MS1022x,1);
 		//---判断结果是否有效
@@ -1840,7 +1840,7 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 		sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 		sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 		//---计算实际值
-		sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+		sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 		//---脉冲宽度检查信号
 		ms1022_spi_read_pw1st(MS1022x,0);
 		//---判断结果是否有效
@@ -2070,8 +2070,10 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 			//---计算偏置电压的设置
 			temp_state = ms1022_spi_calculate_offset(MS1022x, temp_state);
 			temp_state |= 0x20004004;
-			ms1022_spi_send_reg(MS1022x, 4, temp_state);
-			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+			//---保留偏置电压的值
+			MS1022x->msg_water_tof.msg_offset_reg = temp_state;
+			//ms1022_spi_send_reg(MS1022x, 4, temp_state);
+			//ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 			//---返回结果
 			_return = OK_0;
 		}
@@ -2099,11 +2101,13 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	uint16_t sample_integer = 0;
 	uint32_t temp_reg = 0;
 	float sample_temp[4] = { 0.0f };
-	float samp_res[2] = { 0.0f };
+	float samp_res[3] = { 0.0f };
 	//---上游时差
 	float samp_up_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---下游时差
 	float samp_down_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
+	//---上下游时间差值
+	float samp_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---打开参考时钟
 	MS1022_32KHZ_CLOCK_ENABLE();
 	//---延时等待时钟稳定
@@ -2118,9 +2122,15 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	//---等待时钟稳定和数据稳定
 	delay_task_us(800);
 	//---初始化设置
-	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	//---R0的最高4BIT和R6的8到10BIT决定发送脉冲的个数；
+	//---当前设置为发送脉冲15个
+	//ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	//---修改设置为发送脉冲20个
+	ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
-	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	//ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	//---20210618修改
+	ms1022_spi_send_reg(MS1022x, 6, 0xC0C06106);
 
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
 	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
@@ -2133,7 +2143,9 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	//---设置第一波模式,1024us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
 	//ms1022_spi_send_reg(MS1022x, 3, 0xF0510303);
 	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
-	ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第4,5,6个回波
+	ms1022_spi_send_reg(MS1022x, 3, 0xF8614403);
 	//---开启脉冲宽度测量,增加额外的20mV偏置,设置比较器的值5mV,偏置电压25mV
 	//ms1022_spi_send_reg(MS1022x, 4, 0x20004F04);
 	temp_reg = ms1022_spi_calculate_offset(MS1022x, MS1022_OFFSET_MV_P0);
@@ -2155,6 +2167,8 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		//---循环读取飞行时间
 		for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
 		{
+			//---设置偏置电压
+			ms1022_spi_send_reg(MS1022x, 5, MS1022x->msg_water_tof.msg_offset_reg);
 			//--->>>测试上游飞行时间---开始
 			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 			//---初始化设备
@@ -2237,13 +2251,19 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 					sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 					sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 					//---计算实际值
-					sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+					sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 					//---计算上游时差
 					samp_up_diff_time[sample_index] = sample_temp[3];
 				}
 			}
 
 			//---<<<测试上游飞行时间---结束
+
+			//---进行时钟校准
+			if (_return==OK_0)
+			{
+				_return=ms1022_spi_calibration_resonator(MS1022x);
+			}
 
 			//--->>>测试下游飞行时间---开始
 
@@ -2331,13 +2351,32 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 						sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 						sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 						//---计算实际值
-						sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+						sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 						//---计算下游时差
 						samp_down_diff_time[sample_index] = sample_temp[3];
 					}
 				}
 			}
 			//---<<<测试下游飞行时间---结束
+			
+			//---根据时钟校准系数，计算时差偏移修正
+			if (_return==OK_0)
+			{
+				//---修正上游测量时间
+				samp_up_diff_time[sample_index] *=MS1022x->msg_water_tof.msg_time_factor;
+				//---修正下游测量时间
+				samp_down_diff_time[sample_index] *= MS1022x->msg_water_tof.msg_time_factor;
+				//---上下游时间差值
+				samp_diff_time[sample_index] = ABS_SUB(samp_up_diff_time[sample_index], samp_down_diff_time[sample_index]);
+			}
+#if (MODULE_LOG_MS1022>0)
+			LOG_VA_ARGS("======>>>TOF DIFF TIME <<<======\r\n");
+			LOG_VA_ARGS("TINDEX:%d,TUP:%.8f,TDOWN:%.8f,TDIF:%.8f\r\n",
+				sample_index,
+				samp_up_diff_time[sample_index] * MS1022_HSE_CLOCK_MIN_WIDTH,
+				samp_down_diff_time[sample_index] * MS1022_HSE_CLOCK_MIN_WIDTH,
+				ABS_SUB(samp_up_diff_time[sample_index], samp_down_diff_time[sample_index])* MS1022_HSE_CLOCK_MIN_WIDTH);
+#endif
 		}
 	}
 	//---关闭晶振---降低功耗
@@ -2351,24 +2390,32 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		asc_sort_float(samp_up_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
 		//---升序排列下游飞行时间
 		asc_sort_float(samp_down_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---升序排列上下游飞行时间
+		asc_sort_float(samp_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
 		//---计算上游飞行时间的平均值，去掉最大和最小的各4个
 		samp_res[0] = calc_avg_float(samp_up_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
 		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
 		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		//---计算上下游飞行时间差值
+		samp_res[2] = calc_avg_float(samp_diff_time + 8, MS1022_TOF_SAMPLE_MAX_NUM - 16);
 		//---计算上行飞行时间us
 		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---计算上游飞行时间us
 		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---计算飞行时间差us
-		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
-
+		//MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
+		//---时间差us
+		samp_res[2] *= MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---使用这个计算的时差，准确度更高
+		MS1022x->msg_water_tof.msg_diff_time = samp_res[2];
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
-		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f\r\n",
+		LOG_VA_ARGS("RSSI:%0.8f,TUP:%.8f,TDOWN:%.8f,TDIFF1:%.8f,TDIFF2:%.8f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi, 
 			MS1022x->msg_water_tof.msg_up_time,
 			MS1022x->msg_water_tof.msg_down_time, 
-			MS1022x->msg_water_tof.msg_diff_time);
+			ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time),
+			samp_res[2]);
 #endif
 	}
 	return _return;
@@ -2408,9 +2455,15 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	//---等待时钟稳定和数据稳定
 	delay_task_us(800);
 	//---初始化设置
-	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	//---R0的最高4BIT和R6的8到10BIT决定发送脉冲的个数；
+	//---当前设置为发送脉冲15个
+	//ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	//---修改设置为发送脉冲20个
+	ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
-	ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	//ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
+	//---20210618修改
+	ms1022_spi_send_reg(MS1022x, 6, 0xC0C06106);
 
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
 	//---粗略计算超声波传递的时间，屏蔽3个发射脉冲。
@@ -2423,7 +2476,9 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	//---设置第一波模式,1024us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
 	//ms1022_spi_send_reg(MS1022x, 3, 0xF0510303);
 	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第3,4,5个回波
-	ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//ms1022_spi_send_reg(MS1022x, 3, 0xF8510303);
+	//---设置第一波模式,4096us溢出,溢出写入0xFFFFFFFF,第4,5,6个回波
+	ms1022_spi_send_reg(MS1022x, 3, 0xF8614403);
 	//---开启脉冲宽度测量,增加额外的20mV偏置,设置比较器的值5mV,偏置电压25mV
 	//ms1022_spi_send_reg(MS1022x, 4, 0x20004F04);
 	temp_reg = ms1022_spi_calculate_offset(MS1022x, MS1022_OFFSET_MV_P0);
@@ -2525,7 +2580,7 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 					sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 					sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 					//---计算实际值
-					sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+					sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 					//---计算上游时差
 					samp_up_diff_time[sample_index] = sample_temp[3];
 				}
@@ -2612,13 +2667,24 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 						sample_temp[3] = MS1022x->msg_read_data_buffer[3];
 						sample_temp[3] = ((uint16_t)sample_temp[3] << 8) + MS1022x->msg_read_data_buffer[4];
 						//---计算实际值
-						sample_temp[3] = sample_temp[0] / 65536.0f + sample_integer;
+						sample_temp[3] = sample_temp[3] / 65536.0f + sample_integer;
 						//---计算下游时差
 						samp_down_diff_time[sample_index] = sample_temp[3];
 					}
 				}
 			}
 			//---<<<测试下游飞行时间---结束
+
+			//---进行时钟校准，计算时差偏移修正
+			if (_return == OK_0)
+			{
+				//---获取时钟校准系数
+				_return = ms1022_spi_calibration_resonator(MS1022x);
+				//---修正上游测量时间
+				samp_up_diff_time[sample_index] *= MS1022x->msg_water_tof.msg_time_factor;
+				//---修正下游测量时间
+				samp_down_diff_time[sample_index] *= MS1022x->msg_water_tof.msg_time_factor;
+			}
 		}
 	}
 	//---关闭晶振---降低功耗
@@ -2645,7 +2711,7 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 
 #if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
-		LOG_VA_ARGS("RSSI:%0.3f,TUP:%.3f,TDOWN:%.3f,TDIFF:%.3f\r\n",
+		LOG_VA_ARGS("RSSI:%0.8f,TUP:%.8f,TDOWN:%.8f,TDIFF:%.8f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi,
 			MS1022x->msg_water_tof.msg_up_time,
 			MS1022x->msg_water_tof.msg_down_time,
@@ -2677,13 +2743,13 @@ uint8_t ms1022_spi_get_temperature(MS1022_HandleType* MS1022x)
 uint8_t ms1022_spi_get_flow(MS1022_HandleType* MS1022x)
 {
 	//---获取超声波时差信息
-	uint8_t _return = OK_0;// ms1022_spi_read_start_tof(MS1022x);
+	uint8_t _return = ms1022_spi_read_start_tof(MS1022x);
 	//---判断时差获取结果
 	if (_return==OK_0)
 	{
-		//---模拟测试数据，用于验证计算性能是否达标,单位是us
-		MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
-		MS1022x->msg_water_temperature.msg_sound_speed = 1500;
+		////---模拟测试数据，用于验证计算性能是否达标,单位是us
+		//MS1022x->msg_water_tof.msg_diff_time = 0.000086629; //0.245728f;
+		//MS1022x->msg_water_temperature.msg_sound_speed = 1500;
 		//---计算流速m/s
 		MS1022x->msg_water_transducer.msg_flow_speed = MS1022x->msg_water_tof.msg_diff_time*MS1022x->msg_water_temperature.msg_sound_speed;
 		MS1022x->msg_water_transducer.msg_flow_speed /= 1000.0f;

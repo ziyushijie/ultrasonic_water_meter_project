@@ -63,7 +63,7 @@ extern "C" {
 	//===定义温度采样点个数
 	#define MS1022_TEMPERATURE_SAMPLE_MAX_NUM			8
 	//===定义飞行时间采样点个数
-	#define MS1022_TOF_SAMPLE_MAX_NUM					24
+	#define MS1022_TOF_SAMPLE_MAX_NUM					24+16
 
 	#define MS1022_REG_START_CAL_RESONATOR_MASK			0x00800000
 	#define MS1022_REG_START_CAL_RESONATOR_VAL			0xFF0FFFFF
@@ -157,6 +157,8 @@ extern "C" {
 		float msg_time_factor;				//---时间系数
 		float msg_up_rssi;					//---第一波模式计算时差的上游信号强度
 		float msg_down_rssi;				//---第一波模式计算时差的上游信号强度
+
+		uint32_t msg_offset_reg;			//---设置offset寄存器的值
 	};
 
 	//===定义水温结构体
