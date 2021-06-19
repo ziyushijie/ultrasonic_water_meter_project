@@ -21,7 +21,7 @@ extern "C" {
 	#define MODULE_LOG_I2C					0
 	#define MODULE_LOG_SPI					0
 	#define MODULE_LOG_AT24CXX				0
-	#define MODULE_LOG_MS1022				1
+	#define MODULE_LOG_MS1022				0
 	#define MODULE_LOG_KEY_BUTTON			0
 #endif
 	///////////////LOG信息的基本配置---结束/////////////////////////////////////////////////

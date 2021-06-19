@@ -528,6 +528,9 @@ uint8_t ms1022_spi_int_flag_wait(MS1022_HandleType* MS1022x)
 		{
 			//---超时退出
 			_return = ERROR_1;
+#if (MODULE_LOG_MS1022>0)
+			LOG_VA_ARGS("MS1022状态超时退出!\r\n");
+#endif
 			break;
 		}
 		//---喂狗
@@ -1515,10 +1518,10 @@ uint8_t ms1022_spi_calibration_resonator(MS1022_HandleType* MS1022x)
 	{
 		MS1022x->msg_water_tof.msg_time_factor = 1.0f;
 	}
-#if (MODULE_LOG_MS1022>0)
-	LOG_VA_ARGS("TOF_RATIO:%.3f\r\n",
-		MS1022x->msg_water_tof.msg_time_factor);
-#endif
+//#if (MODULE_LOG_MS1022>0)
+//	LOG_VA_ARGS("TOF_RATIO:%.3f\r\n",
+//		MS1022x->msg_water_tof.msg_time_factor);
+//#endif
 	//---开启晶振
 	//ms1022_spi_fosc_disable(MS1022x);
 	return _return;
@@ -1725,6 +1728,11 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			_return = ERROR_7;
 			MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
 		}
+		else
+		{
+			//---上游时差
+			MS1022x->msg_water_tof.msg_up_time = sample_temp[3];
+		}
 		//---判断信号强度
 		if ((MS1022x->msg_water_tof.msg_up_rssi<=0.3F)||(MS1022x->msg_water_tof.msg_up_rssi>1.9F))
 		{
@@ -1851,6 +1859,11 @@ uint8_t ms1022_spi_read_start_tof_pre(MS1022_HandleType* MS1022x,uint32_t *pstat
 			_return = ERROR_7+0x80;
 			MS1022x->msg_water_tof.msg_state.bit.b7 = 1;
 		}
+		else
+		{
+			//---下游时差
+			MS1022x->msg_water_tof.msg_diff_time = sample_temp[3];
+		}
 		//---判断信号强度
 		if ((MS1022x->msg_water_tof.msg_down_rssi <= 0.3F) || (MS1022x->msg_water_tof.msg_down_rssi > 1.9F))
 		{
@@ -1895,6 +1908,7 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	//---保存信号强度信息
 	float temp_rssi[5] = { 0.0f };
 	float temp_rssi_abs[5] = { 0.0f };
+	float  temp_diff_time[5] = { 0.0f };
 	float swap_rssi = 0.0f;
 	//--->>>通过第一波模式信号强度，验证型号强度---开始
 	//---1. 设置波的触发电平+20mV
@@ -1918,6 +1932,11 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 		//---信号较弱
 		_return |= 0x01;
 	}
+	else
+	{
+		temp_diff_time[0] = (MS1022x->msg_water_tof.msg_up_time + MS1022x->msg_water_tof.msg_diff_time) / 6;
+		temp_diff_time[0] *= MS1022_HSE_CLOCK_MIN_WIDTH;
+	}
 	index = MS1022x->msg_water_tof.msg_state.bits;
 	//---判断预测量值
 #if (MODULE_LOG_MS1022>0)
@@ -1938,6 +1957,11 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 		//---信号较弱
 		_return |= 0x02;
 	}
+	else
+	{
+		temp_diff_time[1] = (MS1022x->msg_water_tof.msg_up_time + MS1022x->msg_water_tof.msg_diff_time) / 6;
+		temp_diff_time[1] *= MS1022_HSE_CLOCK_MIN_WIDTH;
+	}
 	index |= MS1022x->msg_water_tof.msg_state.bits;
 #if (MODULE_LOG_MS1022>0)
 	LOG_VA_ARGS("OFFSET:5mV\r\n");
@@ -1957,6 +1981,11 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	{
 		//---信号较弱
 		_return |= 0x03;
+	}
+	else
+	{
+		temp_diff_time[2] = (MS1022x->msg_water_tof.msg_up_time + MS1022x->msg_water_tof.msg_diff_time) / 6;
+		temp_diff_time[2] *= MS1022_HSE_CLOCK_MIN_WIDTH;
 	}
 	index |= MS1022x->msg_water_tof.msg_state.bits;
 	//---判断信号强度,如果前三个的信号强度都过大，代表管道中无流量
@@ -1983,6 +2012,9 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	temp_rssi[3] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
 	//---信号强度的绝对值
 	temp_rssi_abs[3] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---计算时间
+	temp_diff_time[3] = (MS1022x->msg_water_tof.msg_up_time + MS1022x->msg_water_tof.msg_diff_time) / 6;
+	temp_diff_time[3] *= MS1022_HSE_CLOCK_MIN_WIDTH;
 	//---TOF测试状态
 	index |= MS1022x->msg_water_tof.msg_state.bits;
 	//---LOG
@@ -1997,6 +2029,9 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 	temp_rssi[4] = (MS1022x->msg_water_tof.msg_up_rssi + MS1022x->msg_water_tof.msg_down_rssi) / 2.0f;
 	//---信号强度的绝对值
 	temp_rssi_abs[4] = ABS_SUB(MS1022x->msg_water_tof.msg_up_rssi, MS1022x->msg_water_tof.msg_down_rssi);
+	//---计算时间
+	temp_diff_time[4] = (MS1022x->msg_water_tof.msg_up_time + MS1022x->msg_water_tof.msg_diff_time) / 6;
+	temp_diff_time[4] *= MS1022_HSE_CLOCK_MIN_WIDTH;
 	//---TOF测试状态
 	index |= MS1022x->msg_water_tof.msg_state.bits;
 	//---LOG
@@ -2032,6 +2067,12 @@ uint8_t ms1022_spi_get_offset(MS1022_HandleType* MS1022x)
 			//---最终的灵敏度
 			MS1022x->msg_water_tof.msg_up_rssi = temp_rssi[temp_state];
 			MS1022x->msg_water_tof.msg_down_rssi = temp_rssi[temp_state];
+			//---重新计算屏蔽时间
+			temp_state = ms1022_spi_calculate_delval(MS1022x,
+				(MS1022x->msg_water_transducer.msg_space_length * 1000.0f / (MS1022x->msg_water_temperature.msg_sound_speed / 1000.0f)) +
+				MS1022_DIV_FIRE_MIN_WIDTH * 3+temp_diff_time[temp_state]/4);
+			temp_state |= 0xA0000002;
+			//ms1022_spi_send_reg(MS1022x, 2, temp_state);
 			//---最佳偏置电压
 			switch (index)
 			{
@@ -2123,13 +2164,15 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	delay_task_us(800);
 	//---初始化设置
 	//---R0的最高4BIT和R6的8到10BIT决定发送脉冲的个数；
-	//---当前设置为发送脉冲15个
+	//---当前设置为发送脉冲15个，并打开测量后自动校准功能
 	//ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	//---关闭测量后自动校准功能
+	ms1022_spi_send_reg(MS1022x, 0, 0xF386E800);
 	//---修改设置为发送脉冲20个
-	ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
+	//ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
 	//ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
-	//---20210618修改
+	//---20210618修改，发射脉冲31个
 	ms1022_spi_send_reg(MS1022x, 6, 0xC0C06106);
 
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
@@ -2150,6 +2193,8 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 	//ms1022_spi_send_reg(MS1022x, 4, 0x20004F04);
 	temp_reg = ms1022_spi_calculate_offset(MS1022x, MS1022_OFFSET_MV_P0);
 	temp_reg |= 0x20004004;
+	//---保留偏置电压的值
+	MS1022x->msg_water_tof.msg_offset_reg = temp_reg;
 	ms1022_spi_send_reg(MS1022x, 4, temp_reg);
 	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 
@@ -2158,7 +2203,13 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 
 	//---查找第一波模式的最佳偏置电压
 	_return= ms1022_spi_get_offset(MS1022x);
-	
+	//---设置采集信息
+	ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
+	//---获取时钟校正因子
+	if (_return==OK_0)
+	{
+		_return = ms1022_spi_calibration_resonator(MS1022x);
+	}
 	//---判断最佳偏置电压信息
 	if (_return==OK_0)
 	{
@@ -2168,7 +2219,7 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
 		{
 			//---设置偏置电压
-			ms1022_spi_send_reg(MS1022x, 5, MS1022x->msg_water_tof.msg_offset_reg);
+			ms1022_spi_send_reg(MS1022x,4, MS1022x->msg_water_tof.msg_offset_reg);
 			//--->>>测试上游飞行时间---开始
 			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 			//---初始化设备
@@ -2397,7 +2448,7 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
 		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
 		//---计算上下游飞行时间差值
-		samp_res[2] = calc_avg_float(samp_diff_time + 8, MS1022_TOF_SAMPLE_MAX_NUM - 16);
+		samp_res[2] = calc_avg_float(samp_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
 		//---计算上行飞行时间us
 		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---计算上游飞行时间us
@@ -2408,7 +2459,7 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 		samp_res[2] *= MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
 		//---使用这个计算的时差，准确度更高
 		MS1022x->msg_water_tof.msg_diff_time = samp_res[2];
-#if (MODULE_LOG_MS1022>0)
+//#if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
 		LOG_VA_ARGS("RSSI:%0.8f,TUP:%.8f,TDOWN:%.8f,TDIFF1:%.8f,TDIFF2:%.8f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi, 
@@ -2416,11 +2467,10 @@ uint8_t ms1022_spi_read_start_tof(MS1022_HandleType* MS1022x)
 			MS1022x->msg_water_tof.msg_down_time, 
 			ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time),
 			samp_res[2]);
-#endif
+//#endif
 	}
 	return _return;
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 //////函		数:
 //////功		能: 
@@ -2436,11 +2486,13 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	uint16_t sample_integer = 0;
 	uint32_t temp_reg = 0;
 	float sample_temp[4] = { 0.0f };
-	float samp_res[2] = { 0.0f };
+	float samp_res[3] = { 0.0f };
 	//---上游时差
 	float samp_up_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---下游时差
 	float samp_down_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
+	//---上下游时间差值
+	float samp_diff_time[MS1022_TOF_SAMPLE_MAX_NUM] = { 0.0f };
 	//---打开参考时钟
 	MS1022_32KHZ_CLOCK_ENABLE();
 	//---延时等待时钟稳定
@@ -2457,12 +2509,12 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	//---初始化设置
 	//---R0的最高4BIT和R6的8到10BIT决定发送脉冲的个数；
 	//---当前设置为发送脉冲15个
-	//ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
+	ms1022_spi_send_reg(MS1022x, 0, 0xF387E800);
 	//---修改设置为发送脉冲20个
-	ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
+	//ms1022_spi_send_reg(MS1022x, 0, 0x4387E800);
 	ms1022_spi_send_reg(MS1022x, 1, 0x21444001);
 	//ms1022_spi_send_reg(MS1022x, 6, 0xCEC06006);
-	//---20210618修改
+	//---20210618修改，发射脉冲31个
 	ms1022_spi_send_reg(MS1022x, 6, 0xC0C06106);
 
 	//---计算屏蔽窗口时间,屏蔽窗口的时间会影响测量结果
@@ -2491,7 +2543,11 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 
 	//---查找第一波模式的最佳偏置电压
 	_return = ms1022_spi_get_offset(MS1022x);
-
+	//---获取时钟校正因子
+	if (_return == OK_0)
+	{
+		_return = ms1022_spi_calibration_resonator(MS1022x);
+	}
 	//---判断最佳偏置电压信息
 	if (_return == OK_0)
 	{
@@ -2500,6 +2556,10 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 		//---循环读取飞行时间
 		for (sample_index = 0; sample_index < MS1022_TOF_SAMPLE_MAX_NUM; sample_index++)
 		{
+			//---设置偏置电压
+			ms1022_spi_send_reg(MS1022x, 4, MS1022x->msg_water_tof.msg_offset_reg);
+			//---设置采集信息
+			ms1022_spi_send_reg(MS1022x, 5, 0x30000005);
 			//---初始化设备
 			ms1022_spi_send_cmd(MS1022x, MS1022_CMD_INIT);
 			//---启动时差测量
@@ -2678,12 +2738,14 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 			//---进行时钟校准，计算时差偏移修正
 			if (_return == OK_0)
 			{
-				//---获取时钟校准系数
-				_return = ms1022_spi_calibration_resonator(MS1022x);
 				//---修正上游测量时间
 				samp_up_diff_time[sample_index] *= MS1022x->msg_water_tof.msg_time_factor;
 				//---修正下游测量时间
 				samp_down_diff_time[sample_index] *= MS1022x->msg_water_tof.msg_time_factor;
+				//---上下游时间差值
+				samp_diff_time[sample_index] = ABS_SUB(samp_up_diff_time[sample_index], samp_down_diff_time[sample_index]);
+				//---获取时钟校准系数
+				_return = ms1022_spi_calibration_resonator(MS1022x);
 			}
 		}
 	}
@@ -2694,29 +2756,38 @@ uint8_t ms1022_spi_read_start_tof_restart(MS1022_HandleType* MS1022x)
 	//---判断飞行时间的测量结果
 	if (_return == OK_0)
 	{
+
 		//---升序排列上游飞行时间
 		asc_sort_float(samp_up_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
 		//---升序排列下游飞行时间
 		asc_sort_float(samp_down_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
+		//---升序排列上下游飞行时间
+		asc_sort_float(samp_diff_time, MS1022_TOF_SAMPLE_MAX_NUM);
 		//---计算上游飞行时间的平均值，去掉最大和最小的各4个
-		samp_res[0] = calc_avg_float(samp_up_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
+		samp_res[0] = calc_avg_float(samp_up_diff_time + 8, MS1022_TOF_SAMPLE_MAX_NUM - 16);
 		//---计算下游飞行时间的平均值，去掉最大和最小的各2个
-		samp_res[1] = calc_avg_float(samp_down_diff_time + 4, MS1022_TOF_SAMPLE_MAX_NUM - 8);
-		//---计算上行飞行时间
+		samp_res[1] = calc_avg_float(samp_down_diff_time + 8, MS1022_TOF_SAMPLE_MAX_NUM - 16);
+		//---计算上下游飞行时间差值
+		samp_res[2] = calc_avg_float(samp_diff_time + 8, MS1022_TOF_SAMPLE_MAX_NUM - 16);
+		//---计算上行飞行时间us
 		MS1022x->msg_water_tof.msg_up_time = samp_res[0] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
-		//---计算上游飞行时间
+		//---计算上游飞行时间us
 		MS1022x->msg_water_tof.msg_down_time = samp_res[1] * MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
-		//---计算飞行时间差
-		MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
-
-#if (MODULE_LOG_MS1022>0)
+		//---计算飞行时间差us
+		//MS1022x->msg_water_tof.msg_diff_time = ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time);
+		//---时间差us
+		samp_res[2] *= MS1022_HSE_CLOCK_MIN_WIDTH / 3.0f;
+		//---使用这个计算的时差，准确度更高
+		MS1022x->msg_water_tof.msg_diff_time = samp_res[2];
+//#if (MODULE_LOG_MS1022>0)
 		LOG_VA_ARGS("======>>>TOF<<<======\r\n");
-		LOG_VA_ARGS("RSSI:%0.8f,TUP:%.8f,TDOWN:%.8f,TDIFF:%.8f\r\n",
+		LOG_VA_ARGS("RSSI:%0.8f,TUP:%.8f,TDOWN:%.8f,TDIFF1:%.8f,TDIFF2:%.8f\r\n",
 			MS1022x->msg_water_tof.msg_up_rssi,
 			MS1022x->msg_water_tof.msg_up_time,
 			MS1022x->msg_water_tof.msg_down_time,
-			MS1022x->msg_water_tof.msg_diff_time);
-#endif
+			ABS_SUB(MS1022x->msg_water_tof.msg_up_time, MS1022x->msg_water_tof.msg_down_time),
+			samp_res[2]);
+//#endif
 	}
 	return _return;
 }

@@ -1531,7 +1531,7 @@
       <COptionCheckLanguageExtension-DefaultValue>False</COptionCheckLanguageExtension-DefaultValue>
       <COptionMisraIntermodule-DefaultValue>False</COptionMisraIntermodule-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585781952979708558</TimeTagModified--0>
+      <TimeTagModified--0>-8585775316058712390</TimeTagModified--0>
       <COptionAsmPath-0>False</COptionAsmPath-0>
       <COptionChangeMessageError-0>No</COptionChangeMessageError-0>
       <COptionCharacterSet-0>Auto</COptionCharacterSet-0>
@@ -1575,7 +1575,7 @@ SDK\Sleep
       <COptionMemoryModel-0>Auto</COptionMemoryModel-0>
       <COptionMisra-0>Misra2012</COptionMisra-0>
       <COptionOenhance-0>False</COptionOenhance-0>
-      <COptionOsize-0>AdvancedSize</COptionOsize-0>
+      <COptionOsize-0>Default</COptionOsize-0>
       <COptionPrnPath-0>False</COptionPrnPath-0>
       <COptionStackProtector-0>None</COptionStackProtector-0>
       <COptionAnsi-0>False</COptionAnsi-0>

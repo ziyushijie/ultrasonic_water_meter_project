@@ -316,7 +316,6 @@
           <Option>-dev=%MicomToolPath%\Device_Custom\RL78\Devicefile\DR5FC019L.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
-          <Option>-Osize</Option>
           <Option>-I SDK\Sleep</Option>
           <Option>-I SDK\MBUS</Option>
           <Option>-I SDK\IRDA</Option>
